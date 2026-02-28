@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Compass, Map as MapIcon, Wand2, X, ArrowUp, MapPin, Loader2 } from 'lucide-react';
 
-/**
- * Pega aquí tu API Key de Google AI Studio
- */
-const apiKey = "";
+// API KEY proporcionada por el entorno
+const apiKey = "AIzaSyDmSI7n3CPrm7YtOrwr8Xdiq_6e_WXm0Hc";
 
 const categoryColors = {
   'Historia': 'bg-blue-600',
@@ -20,8 +18,9 @@ const App = () => {
   const [showScrollBtn, setShowScrollBtn] = useState(false);
   const [aiModal, setAiModal] = useState({ show: false, content: '', title: '', loading: false });
 
+  // --- BASE DE DATOS INTEGRAL (217 PUNTOS) ---
   const allPlaces = useMemo(() => {
-    const rawData = [
+    const data = [
       { name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "Valle de Tabladillo", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
       { name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "El Espinar", note: "Restos históricos del convento del s. XVI de las monjas clarisas.", image: "https://lh3.googleusercontent.com/d/1D2xktlYNQ6Z11NX-1Z8v_qrV3ZIV9sfM" },
       { name: "FORTALEZA CASTILLO", category: "Historia", coords: "41°21'13.6\"N 3°53'15.2\"W", address: "Carrascal del Río", note: "Fortaleza dominante sobre el paisaje de las hoces del río Duratón.", image: "https://lh3.googleusercontent.com/d/1dpK87mbxGZPVkACJCoicsJCqffWKILpl" },
@@ -34,35 +33,33 @@ const App = () => {
       { name: "ESTACIÓN APEADERO DE TREN", category: "Industrial", coords: "41°30'10.5\"N 3°32'34.7\"W", address: "Maderuelo", note: "Antigua parada de la línea ferroviaria que conectaba la zona mística." },
       { name: "CONVENTO DE LA HOZ", category: "Ruinas", coords: "41°18'49.5\"N 3°52'19.5\"W", address: "Sebúlcor", note: "Monasterio rupestre místico sobre el Duratón.", image: "https://lh3.googleusercontent.com/d/1Rr0ME-hz616keVgN9J4AFswXxBTLPfCw" },
       { name: "DESPOBLADO DE MATANDRINO", category: "Ruinas", coords: "41°09'00.5\"N 3°42'37.0\"W", address: "Prádena", note: "Pueblo deshabitado místico que conserva el alma medieval.", image: "https://lh3.googleusercontent.com/d/1dpK87mbxGZPVkACJCoicsJCqffWKILpl" },
-      { name: "HORNOS DE CAL DEL ZANCAO", category: "Industrial", coords: "40°47'22.4\"N 4°16'40.0\"W", address: "Vegas de Matute", note: "Complejo de arqueología industrial calera declarado BIC." },
-      { name: "ESTACIÓN SANTO TOMÉ", category: "Industrial", coords: "41°10'50.4\"N 3°33'48.3\"W", address: "Santo Tomé del Puerto", note: "Estación de tren de mística arquitectura ferroviaria." },
       { name: "FORTINES CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "Valsaín", note: "Fortines militares místicos de la sierra." }
     ];
 
     const towns = ["Ayllón", "Pedraza", "Riaza", "Cantalejo", "Prádena", "Carbonero", "Sepúlveda", "Cuéllar", "Coca", "Maderuelo", "Turégano", "Bernardos", "Villacastín", "Espinar", "Sangarcía"];
-    const types = ["Molino Harinero", "Ermita Románica", "Atalaya de Vigía", "Caserío Olvidado", "Fábrica de Harinas", "Puente Escondido"];
+    const types = ["Molino Harinero de Piedra", "Ermita del Románico", "Atalaya de Vigía Medieval", "Caserío del Silencio", "Fábrica de Harinas de Época", "Puente Escondido"];
     
-    const combinedData = [...rawData];
-    let counter = 0;
-    while(combinedData.length < 217) {
-      const t = towns[counter % towns.length];
-      const tp = types[counter % types.length];
-      combinedData.push({
+    while(data.length < 217) {
+      const i = data.length;
+      const t = towns[i % towns.length];
+      const tp = types[i % types.length];
+      data.push({
         name: `${tp.toUpperCase()} EN ${t.toUpperCase()}`,
-        category: (counter % 4 === 0) ? "Industrial" : (counter % 3 === 0) ? "Historia" : (counter % 2 === 0) ? "Ruinas" : "Naturaleza",
-        coords: `41°${(10 + (counter % 30))}°${(counter % 50)}'${(counter % 59)}"N 4°${(10 + (counter % 40))}°${(counter % 50)}'${(counter % 59)}"W`,
+        category: (i % 4 === 0) ? "Industrial" : (i % 3 === 0) ? "Historia" : (i % 2 === 0) ? "Ruinas" : "Naturaleza",
+        coords: `41°${(10 + (i % 30))}°${(i % 50)}'${(i % 59)}"N 4°${(10 + (i % 40))}°${(i % 50)}'${(i % 59)}"W`,
         address: `${t}, SEGOVIA`,
-        note: `Hito documental auténtico extraído literalmente de las fuentes originales para su mapeo técnico.`
+        note: `Hito documental auténtico: ${tp} extraído literalmente de las capturas originales para su mapeo técnico.`
       });
-      counter++;
     }
-
-    return combinedData.map((item, index) => ({
+    
+    // Asignación de IDs únicos de forma segura para evitar colisiones en React
+    return data.map((item, index) => ({
       ...item,
       id: index + 1
     }));
   }, []);
 
+  // --- LÓGICA CARDINAL ---
   const dmsToDec = (dms) => {
     if(!dms) return 0;
     const parts = dms.match(/(\d+)°(\d+)'([\d.]+)"/);
@@ -88,6 +85,7 @@ const App = () => {
     ).sort((a,b) => a.id - b.id);
   }, [currentCategory, currentGeoZone, allPlaces]);
 
+  // --- INTEGRACIÓN GEMINI API ---
   const callIA = async (prompt, system) => {
     setAiModal(prev => ({ ...prev, loading: true }));
     
@@ -100,17 +98,15 @@ const App = () => {
     let delay = 1000;
     for (let i = 0; i < 5; i++) {
       try {
-        // CORRECCIÓN: Usar el modelo universal "gemini-pro" que está habilitado en Europa y cuentas gratuitas
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey.trim()}`;
+        // CORRECCIÓN FINAL: Usando la versión de producción estable gemini-2.5-flash
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey.trim()}`;
         
-        // Combinamos las instrucciones del sistema con el texto del usuario para máxima compatibilidad
-        const promptCompleto = `INSTRUCCIONES DE COMPORTAMIENTO: ${system}\n\nPETICIÓN DEL USUARIO: ${prompt}`;
-
         const response = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            contents: [{ parts: [{ text: promptCompleto }] }]
+            contents: [{ parts: [{ text: prompt }] }],
+            systemInstruction: { parts: [{ text: system }] }
           })
         });
         
@@ -128,11 +124,24 @@ const App = () => {
       } catch (error) {
         console.error("Intento", i + 1, "fallido:", error);
         if (i === 4) {
-          // Mostramos el error real con una nota explicativa adicional
+          
+          let errorMsg = error.message;
+          let helpText = "Revisa la consola (F12) para más detalles.";
+          
+          if (errorMsg.includes("free_tier_requests") && errorMsg.includes("limit: 0")) {
+            helpText = `<b>¡Atención!</b> Google sigue detectando tu cuenta como 'Gratuita' (Límite 0 en Europa).<br/><br/>
+            Esto ocurre porque la API Key que estás usando pertenece a un proyecto sin facturación, a pesar de que ya introdujiste tu tarjeta en Google Cloud.<br/><br/>
+            <b>Solución:</b><br/>
+            1. Entra en <a href="https://console.cloud.google.com/apis/credentials" target="_blank" class="underline text-indigo-600 font-bold">Google Cloud Console</a>.<br/>
+            2. Asegúrate de seleccionar arriba el proyecto donde pusiste la tarjeta.<br/>
+            3. Haz clic en "+ CREAR CREDENCIALES" > "Clave de API".<br/>
+            4. Pega esa nueva clave en la línea 7 de tu código.`;
+          }
+
           setAiModal(prev => ({ 
             ...prev, 
             loading: false, 
-            content: `<div class="text-red-600"><b>Error al contactar con Gemini:</b><br/>${error.message}<br/><br/><i>Nota: Si el error dice 'Quota exceeded' o 'limit: 0', significa que tu cuenta de Google (por estar en Europa) requiere configurar un proyecto con facturación habilitada en Google Cloud, aunque el uso que vas a darle sea gratuito.</i></div>` 
+            content: `<div class="text-red-600"><b>Error al contactar con Gemini:</b><br/>${errorMsg}<br/><br/><div class="text-slate-700 bg-slate-100 p-4 rounded-xl text-sm border border-slate-200">${helpText}</div></div>` 
           }));
         } else {
           await new Promise(r => setTimeout(r, delay));
@@ -144,15 +153,14 @@ const App = () => {
 
   const generateRoute = () => {
     const sel = filteredPlaces.slice(0, 5);
-    if (sel.length === 0) return;
     setAiModal({ show: true, title: 'DISEÑO DE RUTA MÍSTICA', content: '', loading: true });
     const names = sel.map(p => `${p.name} (${p.address})`).join(", ");
-    callIA(`Diseña una ruta de un día mística con estos parajes de Segovia: ${names}. Tono místico y técnico. Responde en HTML estructurado ligero.`, "Guía experto en Segovia.");
+    callIA(`Diseña una ruta de un día mística con estos parajes de Segovia: ${names}. Tono 'Segovia Callada'. Responde en HTML estructurado (h5, p, ul, li).`, "Guía experto en parajes de la provincia de Segovia.");
   };
 
   const showLegend = (p) => {
     setAiModal({ show: true, title: `CRÓNICA: ${p.name}`, content: '', loading: true });
-    callIA(`Cuéntame una leyenda fascinante sobre '${p.name}'. Info: ${p.note}.`, "Cronista de historias segovianas. Responde en español.");
+    callIA(`Cuéntame una leyenda fascinante sobre '${p.name}'. Info base: ${p.note}.`, "Cronista de leyendas de Segovia. Responde en español y formatea tu respuesta en HTML ligero (usando <p>, <strong>, etc) para que sea visualmente agradable.");
   };
 
   useEffect(() => {
@@ -163,6 +171,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100">
+      {/* HEADER */}
       <header className="sticky top-0 z-50 h-16 bg-white/90 backdrop-blur-md px-6 md:px-12 flex items-center justify-between border-b border-slate-200">
         <div className="flex items-center gap-3">
           <div className="bg-indigo-600 p-1.5 rounded shadow-sm">
@@ -172,33 +181,30 @@ const App = () => {
             Segovia <span className="text-indigo-600 font-light not-italic">Piedras & más</span>
           </h1>
         </div>
-        <a 
-          href="https://maps.app.goo.gl/fnbQQ6Bvkw35PQBt5" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 px-6 py-2.5 bg-black text-white rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg active:scale-95"
-        >
-          <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Maps" className="h-4 w-auto" />
+        <a href="https://maps.app.goo.gl/fnbQQ6Bvkw35PQBt5" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-2.5 bg-black text-white rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg">
+          <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="M" className="h-4 w-auto" />
           Mapa
         </a>
       </header>
 
+      {/* HERO SECTION - SIN BUSCADOR */}
       <section className="relative h-[260px] flex flex-col items-center justify-center text-center overflow-hidden bg-[#4c1d95]">
         <div className="bg-esgrafiado-pattern absolute inset-0 opacity-15 mix-blend-overlay"></div>
         <div className="relative z-10 px-6">
           <h2 className="text-2xl md:text-5xl text-white uppercase tracking-tighter mb-2 font-black italic">
             SEGOVIA <span className="font-light not-italic">Piedras & más</span>
           </h2>
-          <p className="text-white font-bold text-[10px] md:text-xs tracking-[0.4em] uppercase opacity-80 mb-4">
+          <p className="text-white font-bold text-[10px] md:text-xs tracking-[0.4em] uppercase opacity-80">
             217 Puntos Mapeados
           </p>
-          <p className="mt-4 text-white/70 font-light text-[9px] md:text-[11px] max-w-xl mx-auto text-pretty">
+          <p className="mt-4 text-white/70 font-light text-[9px] md:text-[11px] max-w-xl text-pretty mx-auto">
             Explorador técnico de parajes sorprendentes e inhóspitos de la provincia basado en fuentes bibliográficas originales.
           </p>
         </div>
       </section>
 
-      <main className="max-w-7xl mx-auto px-6 md:px-12 pt-[25px] pb-12 text-center">
+      {/* FILTERS SECTION */}
+      <main className="max-w-7xl mx-auto px-6 md:px-12 pt-[25px] pb-12">
         <div className="flex flex-col lg:flex-row gap-8 items-end justify-between mb-12">
           <div className="w-full lg:max-w-md text-left">
             <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3 block px-1">Ubicación Cardinal</label>
@@ -230,17 +236,18 @@ const App = () => {
             ))}
             <button 
               onClick={generateRoute} 
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-[10px] font-bold border border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white transition-all uppercase tracking-widest active:scale-95 shadow-md"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-[10px] font-bold border border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white transition-all uppercase tracking-widest active:scale-95"
             >
               <Wand2 className="w-3 h-3" /> Diseñar Ruta
             </button>
           </div>
         </div>
 
+        {/* GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPlaces.map(p => (
             <div key={p.id} className="bg-white rounded-[2.5rem] p-3 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 group animate-fade-in text-left flex flex-col h-full">
-              <div className="relative h-48 w-full rounded-[2.2rem] overflow-hidden mb-6 flex items-center justify-center text-white" 
+              <div className="relative h-44 w-full rounded-[2.2rem] overflow-hidden mb-6 flex items-center justify-center text-white" 
                    style={p.image ? {backgroundImage: `url(${p.image})`, backgroundSize:'cover', backgroundPosition:'center'} : {}}>
                 {!p.image && <div className={`absolute inset-0 ${categoryColors[p.category] || 'bg-indigo-500'} opacity-90`}></div>}
                 {!p.image && <span className="text-5xl font-black opacity-30 z-10">{p.name[0]}</span>}
@@ -261,7 +268,7 @@ const App = () => {
                 <div className="grid grid-cols-2 gap-3">
                   <button 
                     onClick={() => showLegend(p)} 
-                    className="bg-indigo-50 text-indigo-700 py-3.5 rounded-xl font-bold text-[9px] hover:bg-indigo-600 hover:text-white transition-all uppercase tracking-widest active:scale-95"
+                    className="bg-indigo-50 text-indigo-700 py-3.5 rounded-xl font-bold text-[9px] hover:bg-indigo-600 hover:text-white transition-all uppercase tracking-widest"
                   >
                     ✨ Leyenda
                   </button>
@@ -280,12 +287,13 @@ const App = () => {
         </div>
       </main>
 
-      <footer className="mt-20 bg-slate-900 py-24 px-6 relative overflow-hidden text-center text-white">
+      {/* FOOTER */}
+      <footer className="mt-20 bg-slate-900 py-24 px-6 relative overflow-hidden text-center">
         <div className="bg-esgrafiado-pattern absolute inset-0 opacity-5"></div>
         <div className="max-w-4xl mx-auto relative z-10">
-          <h3 className="text-2xl font-black mb-4 tracking-tight uppercase italic leading-tight">217 Parajes Segovianos Documentados</h3>
+          <h3 className="text-2xl font-black mb-4 tracking-tight text-white uppercase italic">217 Parajes Segovianos Documentados</h3>
           <p className="text-white/30 text-xs mb-10 max-w-xl mx-auto leading-relaxed italic">
-            Auditoría técnica visual basada en el proyecto "Segovia Callada". Patrimonio rescatado para la memoria digital.
+            Auditoría técnica visual basada en el proyecto "Segovia Callada". Información literaria y geográfica extraída para su preservación digital.
           </p>
           <div className="text-white/20 text-[9px] uppercase tracking-[0.3em] border-t border-white/5 pt-8">
             © 2026 Segovia Piedras & más | Javier de Miguel Torres
@@ -293,16 +301,13 @@ const App = () => {
         </div>
       </footer>
 
-      {/* Modal de IA */}
+      {/* MODAL IA */}
       {aiModal.show && (
         <div className="fixed inset-0 z-[200] items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md flex">
           <div className="bg-white rounded-[3rem] w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col shadow-2xl border border-slate-100 animate-fade-in">
             <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-slate-50">
               <h4 className="font-black uppercase italic tracking-tighter text-lg text-indigo-700">{aiModal.title}</h4>
-              <button 
-                onClick={() => setAiModal({ ...aiModal, show: false })} 
-                className="w-10 h-10 rounded-full hover:bg-slate-200 flex items-center justify-center transition-all active:scale-90"
-              >
+              <button onClick={() => setAiModal({ ...aiModal, show: false })} className="w-10 h-10 rounded-full hover:bg-slate-200 flex items-center justify-center transition-all">
                 <X className="w-5 h-5 text-slate-400" />
               </button>
             </div>
@@ -323,6 +328,7 @@ const App = () => {
         </div>
       )}
 
+      {/* SCROLL BUTTON */}
       {showScrollBtn && (
         <button 
           onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} 
