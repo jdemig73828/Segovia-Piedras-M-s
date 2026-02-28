@@ -40,7 +40,7 @@ const App = () => {
   const allPlaces = useMemo(() => {
     const data = [
       { name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "Valle de Tabladillo", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
-      { name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "El Espinar", note: "Restos históricos del convento del s. XVI de las monjas clarisas.", image: "https://lh3.googleusercontent.com/d/1D2xktlYNQ6Z11NX-1Z8v_qrV3ZIV9sfM" },
+      { name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "El Espinar", note: "Restos históricos del convector del s. XVI de las monjas clarisas.", image: "https://lh3.googleusercontent.com/d/1D2xktlYNQ6Z11NX-1Z8v_qrV3ZIV9sfM" },
       { name: "FORTALEZA CASTILLO", category: "Historia", coords: "41°21'13.6\"N 3°53'15.2\"W", address: "Carrascal del Río", note: "Fortaleza dominante sobre el paisaje de las hoces del río Duratón.", image: "https://lh3.googleusercontent.com/d/1dpK87mbxGZPVkACJCoicsJCqffWKILpl" },
       { name: "MOLINO DE LOS MESA", category: "Industrial", coords: "41°12'19.5\"N 3°58'56.7\"W", address: "Cabezuela", note: "Ingenio harinero tradicional situado en la ribera del río Cega." },
       { name: "PUERTA DE LA FUERZA", category: "Historia", coords: "41°18'09.1\"N 3°45'31.9\"W", address: "Sepúlveda", note: "Acceso amurallado histórico de la villa medieval." },
@@ -108,7 +108,7 @@ const App = () => {
       setAiModal(prev => ({ 
         ...prev, 
         loading: false, 
-        content: "<div class='p-4 bg-amber-50 rounded-xl border border-amber-200 text-amber-800 text-sm'><b>⚠️ Clave no configurada:</b><br/>No se ha detectado la API Key. Si estás en Vercel, añade la variable <code>VITE_GEMINI_API_KEY</code> en los ajustes del proyecto y vuelve a desplegar.</div>" 
+        content: "<div class='p-4 bg-amber-50 rounded-xl border border-amber-200 text-amber-800 text-sm'><b>⚠️ Clave no detectada:</b><br/>Asegúrate de configurar la variable <code>VITE_GEMINI_API_KEY</code> en Vercel.</div>" 
       }));
       return;
     }
@@ -116,8 +116,8 @@ const App = () => {
     let delay = 1000;
     for (let i = 0; i < 5; i++) {
       try {
-        // MODELO ESTABLE: Usamos gemini-1.5-flash con el endpoint v1beta
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey.trim()}`;
+        // CAMBIO CLAVE: Usamos el endpoint v1 (producción) en lugar de v1beta
+        const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey.trim()}`;
         
         const response = await fetch(url, {
           method: 'POST',
@@ -142,10 +142,13 @@ const App = () => {
           let help = "Revisa la consola (F12) para más detalles.";
           
           if (errorMsg.includes("leaked")) {
-            help = "<b>¡Clave Bloqueada!</b> Google ha desactivado esta clave por seguridad. Debes generar una NUEVA clave en Google Cloud y NO subirla al código de GitHub.";
+            help = "<b>¡Clave Bloqueada!</b> Google la ha desactivado por seguridad. Genera una NUEVA clave en Google Cloud.";
           }
           if (errorMsg.includes("blocked")) {
-            help = "<b>Dominio no autorizado:</b> Debes añadir <code>https://segovia-piedras-m-s.vercel.app/*</code> a las restricciones de tu API Key en Google Cloud Console.";
+            help = "<b>Dominio bloqueado:</b> Añade <code>https://segovia-piedras-m-s.vercel.app/*</code> a las restricciones de tu clave en Google Cloud.";
+          }
+          if (errorMsg.includes("404") || errorMsg.includes("not found")) {
+            help = "<b>Error de Modelo:</b> Asegúrate de que la 'Generative Language API' esté habilitada en tu proyecto de Google Cloud.";
           }
 
           setAiModal(prev => ({ 
