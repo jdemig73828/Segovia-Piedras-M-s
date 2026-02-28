@@ -1,8 +1,23 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Compass, Map as MapIcon, Wand2, X, ArrowUp, MapPin, Loader2 } from 'lucide-react';
 
-// API KEY proporcionada por el entorno
-const apiKey = "AIzaSyDmSI7n3CPrm7YtOrwr8Xdiq_6e_WXm0Hc";
+/**
+ * SEGURIDAD Y COMPATIBILIDAD: 
+ * Se ha ajustado el acceso a la API Key para evitar advertencias en entornos ES2015.
+ * En local: Puedes definir la clave directamente aquí o usar variables de entorno si tu bundler lo permite.
+ * En Vercel: Asegúrate de añadir VITE_GEMINI_API_KEY en Environment Variables.
+ */
+const getApiKey = () => {
+  try {
+    // Intentamos acceder de forma segura a través de import.meta.env (estándar de Vite)
+    return import.meta.env.VITE_GEMINI_API_KEY || "";
+  } catch (e) {
+    // Fallback para entornos que no soportan import.meta o donde no está definido
+    return "";
+  }
+};
+
+const apiKey = getApiKey();
 
 const categoryColors = {
   'Historia': 'bg-blue-600',
@@ -52,14 +67,12 @@ const App = () => {
       });
     }
     
-    // Asignación de IDs únicos de forma segura para evitar colisiones en React
     return data.map((item, index) => ({
       ...item,
       id: index + 1
     }));
   }, []);
 
-  // --- LÓGICA CARDINAL ---
   const dmsToDec = (dms) => {
     if(!dms) return 0;
     const parts = dms.match(/(\d+)°(\d+)'([\d.]+)"/);
@@ -85,63 +98,56 @@ const App = () => {
     ).sort((a,b) => a.id - b.id);
   }, [currentCategory, currentGeoZone, allPlaces]);
 
-  // --- INTEGRACIÓN GEMINI API ---
   const callIA = async (prompt, system) => {
     setAiModal(prev => ({ ...prev, loading: true }));
     
-    // Verificación de seguridad de la API Key
     if (!apiKey || apiKey.trim() === "") {
-      setAiModal(prev => ({ ...prev, loading: false, content: "<b>Error:</b> No has configurado tu API Key de Google en la línea 7 de App.jsx." }));
+      setAiModal(prev => ({ 
+        ...prev, 
+        loading: false, 
+        content: "<b>Error:</b> No se ha encontrado la API Key. Asegúrate de configurar la variable <code>VITE_GEMINI_API_KEY</code> en tu entorno de despliegue." 
+      }));
       return;
     }
 
     let delay = 1000;
     for (let i = 0; i < 5; i++) {
       try {
-        // CORRECCIÓN FINAL: Usando la versión de producción estable gemini-2.5-flash
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey.trim()}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey.trim()}`;
         
         const response = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            systemInstruction: { parts: [{ text: system }] }
+            contents: [{ parts: [{ text: `INSTRUCCIONES: ${system}\n\nPETICIÓN: ${prompt}` }] }]
           })
         });
         
-        // Si hay error, extraemos el mensaje exacto de Google
         if (!response.ok) {
           const errorData = await response.json();
-          console.error("Detalle del error de Google:", errorData);
           throw new Error(errorData.error?.message || `Error HTTP ${response.status}`);
         }
         
         const result = await response.json();
-        const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "No se pudo generar el relato.";
+        const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "No se pudo generar el contenido.";
         setAiModal(prev => ({ ...prev, loading: false, content: text }));
         return;
       } catch (error) {
-        console.error("Intento", i + 1, "fallido:", error);
         if (i === 4) {
-          
           let errorMsg = error.message;
-          let helpText = "Revisa la consola (F12) para más detalles.";
+          let help = "Revisa la consola (F12) para más detalles.";
           
-          if (errorMsg.includes("free_tier_requests") && errorMsg.includes("limit: 0")) {
-            helpText = `<b>¡Atención!</b> Google sigue detectando tu cuenta como 'Gratuita' (Límite 0 en Europa).<br/><br/>
-            Esto ocurre porque la API Key que estás usando pertenece a un proyecto sin facturación, a pesar de que ya introdujiste tu tarjeta en Google Cloud.<br/><br/>
-            <b>Solución:</b><br/>
-            1. Entra en <a href="https://console.cloud.google.com/apis/credentials" target="_blank" class="underline text-indigo-600 font-bold">Google Cloud Console</a>.<br/>
-            2. Asegúrate de seleccionar arriba el proyecto donde pusiste la tarjeta.<br/>
-            3. Haz clic en "+ CREAR CREDENCIALES" > "Clave de API".<br/>
-            4. Pega esa nueva clave en la línea 7 de tu código.`;
+          if (errorMsg.includes("leaked")) {
+            help = "Google ha bloqueado esta clave por seguridad. <b>Debes generar una nueva y evitar publicarla en repositorios públicos.</b>";
+          }
+          if (errorMsg.includes("blocked")) {
+            help = "Autoriza el dominio actual en las restricciones de tu API Key en Google Cloud Console.";
           }
 
           setAiModal(prev => ({ 
             ...prev, 
             loading: false, 
-            content: `<div class="text-red-600"><b>Error al contactar con Gemini:</b><br/>${errorMsg}<br/><br/><div class="text-slate-700 bg-slate-100 p-4 rounded-xl text-sm border border-slate-200">${helpText}</div></div>` 
+            content: `<div class="text-red-600 font-bold">Error de Gemini:</div><div class="mt-2 text-sm text-slate-700 bg-slate-100 p-4 rounded-xl border border-slate-200">${errorMsg}<br/><br/>${help}</div>` 
           }));
         } else {
           await new Promise(r => setTimeout(r, delay));
@@ -155,12 +161,12 @@ const App = () => {
     const sel = filteredPlaces.slice(0, 5);
     setAiModal({ show: true, title: 'DISEÑO DE RUTA MÍSTICA', content: '', loading: true });
     const names = sel.map(p => `${p.name} (${p.address})`).join(", ");
-    callIA(`Diseña una ruta de un día mística con estos parajes de Segovia: ${names}. Tono 'Segovia Callada'. Responde en HTML estructurado (h5, p, ul, li).`, "Guía experto en parajes de la provincia de Segovia.");
+    callIA(`Diseña una ruta de un día mística con estos parajes de Segovia: ${names}. Tono 'Segovia Callada'. Responde en HTML estructurado ligero.`, "Guía experto en parajes de Segovia.");
   };
 
   const showLegend = (p) => {
     setAiModal({ show: true, title: `CRÓNICA: ${p.name}`, content: '', loading: true });
-    callIA(`Cuéntame una leyenda fascinante sobre '${p.name}'. Info base: ${p.note}.`, "Cronista de leyendas de Segovia. Responde en español y formatea tu respuesta en HTML ligero (usando <p>, <strong>, etc) para que sea visualmente agradable.");
+    callIA(`Cuéntame una leyenda fascinante sobre '${p.name}'. Info base: ${p.note}.`, "Cronista de leyendas de la provincia de Segovia. Responde en español con formato HTML.");
   };
 
   useEffect(() => {
@@ -171,7 +177,6 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100">
-      {/* HEADER */}
       <header className="sticky top-0 z-50 h-16 bg-white/90 backdrop-blur-md px-6 md:px-12 flex items-center justify-between border-b border-slate-200">
         <div className="flex items-center gap-3">
           <div className="bg-indigo-600 p-1.5 rounded shadow-sm">
@@ -187,23 +192,21 @@ const App = () => {
         </a>
       </header>
 
-      {/* HERO SECTION - SIN BUSCADOR */}
       <section className="relative h-[260px] flex flex-col items-center justify-center text-center overflow-hidden bg-[#4c1d95]">
         <div className="bg-esgrafiado-pattern absolute inset-0 opacity-15 mix-blend-overlay"></div>
         <div className="relative z-10 px-6">
           <h2 className="text-2xl md:text-5xl text-white uppercase tracking-tighter mb-2 font-black italic">
             SEGOVIA <span className="font-light not-italic">Piedras & más</span>
           </h2>
-          <p className="text-white font-bold text-[10px] md:text-xs tracking-[0.4em] uppercase opacity-80">
+          <p className="text-white font-bold text-[10px] md:text-xs tracking-[0.4em] uppercase opacity-80 mb-2">
             217 Puntos Mapeados
           </p>
-          <p className="mt-4 text-white/70 font-light text-[9px] md:text-[11px] max-w-xl text-pretty mx-auto">
-            Explorador técnico de parajes sorprendentes e inhóspitos de la provincia basado en fuentes bibliográficas originales.
+          <p className="text-white/70 font-light text-[9px] md:text-[11px] max-w-xl text-pretty mx-auto">
+            Explorador técnico de parajes sorprendentes e inhóspitos basado en fuentes bibliográficas originales.
           </p>
         </div>
       </section>
 
-      {/* FILTERS SECTION */}
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-[25px] pb-12">
         <div className="flex flex-col lg:flex-row gap-8 items-end justify-between mb-12">
           <div className="w-full lg:max-w-md text-left">
@@ -243,7 +246,6 @@ const App = () => {
           </div>
         </div>
 
-        {/* GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPlaces.map(p => (
             <div key={p.id} className="bg-white rounded-[2.5rem] p-3 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 group animate-fade-in text-left flex flex-col h-full">
@@ -266,20 +268,8 @@ const App = () => {
                   <p className="text-[11px] text-slate-500 italic mb-8 line-clamp-3 leading-relaxed">"{p.note}"</p>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
-                  <button 
-                    onClick={() => showLegend(p)} 
-                    className="bg-indigo-50 text-indigo-700 py-3.5 rounded-xl font-bold text-[9px] hover:bg-indigo-600 hover:text-white transition-all uppercase tracking-widest"
-                  >
-                    ✨ Leyenda
-                  </button>
-                  <a 
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-black text-white py-3.5 rounded-xl font-black text-[9px] text-center uppercase shadow-lg hover:bg-indigo-950 transition-all tracking-widest"
-                  >
-                    Ver Sitio
-                  </a>
+                  <button onClick={() => showLegend(p)} className="bg-indigo-50 text-indigo-700 py-3.5 rounded-xl font-bold text-[9px] hover:bg-indigo-600 hover:text-white transition-all uppercase tracking-widest">✨ Leyenda</button>
+                  <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-xl font-black text-[9px] text-center uppercase shadow-lg hover:bg-indigo-950 transition-all tracking-widest">Ver Sitio</a>
                 </div>
               </div>
             </div>
@@ -287,21 +277,14 @@ const App = () => {
         </div>
       </main>
 
-      {/* FOOTER */}
       <footer className="mt-20 bg-slate-900 py-24 px-6 relative overflow-hidden text-center">
         <div className="bg-esgrafiado-pattern absolute inset-0 opacity-5"></div>
         <div className="max-w-4xl mx-auto relative z-10">
           <h3 className="text-2xl font-black mb-4 tracking-tight text-white uppercase italic">217 Parajes Segovianos Documentados</h3>
-          <p className="text-white/30 text-xs mb-10 max-w-xl mx-auto leading-relaxed italic">
-            Auditoría técnica visual basada en el proyecto "Segovia Callada". Información literaria y geográfica extraída para su preservación digital.
-          </p>
-          <div className="text-white/20 text-[9px] uppercase tracking-[0.3em] border-t border-white/5 pt-8">
-            © 2026 Segovia Piedras & más | Javier de Miguel Torres
-          </div>
+          <div className="text-white/20 text-[9px] uppercase tracking-[0.3em] border-t border-white/5 pt-8">© 2026 Segovia Piedras & más | Javier de Miguel Torres</div>
         </div>
       </footer>
 
-      {/* MODAL IA */}
       {aiModal.show && (
         <div className="fixed inset-0 z-[200] items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md flex">
           <div className="bg-white rounded-[3rem] w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col shadow-2xl border border-slate-100 animate-fade-in">
@@ -321,19 +304,12 @@ const App = () => {
                 <div dangerouslySetInnerHTML={{ __html: aiModal.content }}></div>
               )}
             </div>
-            <div className="p-6 bg-slate-50 border-t border-slate-100 text-center">
-                <p className="text-[9px] uppercase tracking-widest font-bold text-slate-400">Gemini AI Engine | Segovia NO GARLEADA</p>
-            </div>
           </div>
         </div>
       )}
 
-      {/* SCROLL BUTTON */}
       {showScrollBtn && (
-        <button 
-          onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} 
-          className="fixed bottom-8 right-8 z-[100] w-12 h-12 bg-black text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all"
-        >
+        <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="fixed bottom-8 right-8 z-[100] w-12 h-12 bg-black text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all">
           <ArrowUp className="w-5 h-5" />
         </button>
       )}
