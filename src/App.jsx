@@ -2,22 +2,17 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Compass, Map as MapIcon, Wand2, X, ArrowUp, MapPin, Loader2 } from 'lucide-react';
 
 /**
- * CONFIGURACIÓN DE SEGURIDAD:
- * Para evitar que Google bloquee tu clave por "filtración" (leak), 
- * NO escribas la clave aquí. En su lugar:
- * 1. En Vercel: Ve a Settings > Environment Variables.
- * 2. Añade una variable llamada: VITE_GEMINI_API_KEY
- * 3. Pega tu clave de Google Cloud allí.
+ * CONFIGURACIÓN DE PRODUCCIÓN:
+ * La aplicación lee la clave de las variables de entorno de VITE_GEMINI_API_KEY.
+ * Si el error 404 persiste con la API habilitada, intentamos forzar el uso
+ * del endpoint v1beta que tiene mayor compatibilidad regional para Gemini 1.5 Flash.
  */
 const getApiKey = () => {
   try {
-    // Intentamos leer la variable de entorno de Vite (estándar en Vercel/GitHub Actions)
-    const envKey = import.meta.env.VITE_GEMINI_API_KEY;
-    if (envKey) return envKey;
+    return import.meta.env.VITE_GEMINI_API_KEY || "";
   } catch (e) {
-    // Fallback silencioso para entornos sin soporte de import.meta
+    return "";
   }
-  return ""; 
 };
 
 const apiKey = getApiKey();
@@ -108,7 +103,7 @@ const App = () => {
       setAiModal(prev => ({ 
         ...prev, 
         loading: false, 
-        content: "<div class='p-4 bg-amber-50 rounded-xl border border-amber-200 text-amber-800 text-sm'><b>⚠️ Clave no detectada:</b><br/>Asegúrate de configurar la variable <code>VITE_GEMINI_API_KEY</code> en Vercel.</div>" 
+        content: "<div class='p-4 bg-amber-50 rounded-xl border border-amber-200 text-amber-800 text-sm'><b>⚠️ Clave no detectada:</b><br/>Configura <code>VITE_GEMINI_API_KEY</code> en Vercel y redespliega.</div>" 
       }));
       return;
     }
@@ -116,8 +111,8 @@ const App = () => {
     let delay = 1000;
     for (let i = 0; i < 5; i++) {
       try {
-        // CAMBIO CLAVE: Usamos el endpoint v1 (producción) en lugar de v1beta
-        const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey.trim()}`;
+        // FORZAMOS v1beta: Es el endpoint más fiable para gemini-1.5-flash cuando v1 da error 404
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey.trim()}`;
         
         const response = await fetch(url, {
           method: 'POST',
@@ -141,14 +136,11 @@ const App = () => {
           let errorMsg = error.message;
           let help = "Revisa la consola (F12) para más detalles.";
           
-          if (errorMsg.includes("leaked")) {
-            help = "<b>¡Clave Bloqueada!</b> Google la ha desactivado por seguridad. Genera una NUEVA clave en Google Cloud.";
+          if (errorMsg.includes("not found") || errorMsg.includes("404")) {
+            help = "<b>Error de Modelo (404):</b> Google indica que no encuentra el modelo. Esto a veces ocurre si la API se habilitó hace muy pocos minutos o si el proyecto de Google Cloud no está correctamente vinculado a la clave.";
           }
           if (errorMsg.includes("blocked")) {
             help = "<b>Dominio bloqueado:</b> Añade <code>https://segovia-piedras-m-s.vercel.app/*</code> a las restricciones de tu clave en Google Cloud.";
-          }
-          if (errorMsg.includes("404") || errorMsg.includes("not found")) {
-            help = "<b>Error de Modelo:</b> Asegúrate de que la 'Generative Language API' esté habilitada en tu proyecto de Google Cloud.";
           }
 
           setAiModal(prev => ({ 
