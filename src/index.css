@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Importación de la fuente Plus Jakarta Sans desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --hero-purple: #4c1d95;
+}
+
+body {
+  background-color: #fcfcfd;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #1e293b;
+}
+
+/* Patrón de fondo esgrafiado basado en la textura real proporcionada */
+.bg-esgrafiado-pattern {
+  background-image: url('https://lh3.googleusercontent.com/d/110QwTB-VtwVGCbjWj029hyJMBjJUCDU2');
+  background-repeat: repeat;
+  background-size: 250px;
+}
+
+/* Animación de entrada suave para las tarjetas de los parajes */
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Estilos específicos para el contenido de texto generado por la IA (Gemini) */
+.prose h5 {
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-top: 1.5rem;
+  color: #1e293b;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+.prose p {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+}
+
+/* Sombra personalizada para las tarjetas de parajes */
+.card-shadow {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
