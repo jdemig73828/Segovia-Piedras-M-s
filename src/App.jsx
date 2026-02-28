@@ -2,19 +2,22 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Compass, Map as MapIcon, Wand2, X, ArrowUp, MapPin, Loader2 } from 'lucide-react';
 
 /**
- * SEGURIDAD Y COMPATIBILIDAD: 
- * Se ha ajustado el acceso a la API Key para evitar advertencias en entornos ES2015.
- * En local: Puedes definir la clave directamente aquí o usar variables de entorno si tu bundler lo permite.
- * En Vercel: Asegúrate de añadir VITE_GEMINI_API_KEY en Environment Variables.
+ * CONFIGURACIÓN DE SEGURIDAD:
+ * Para evitar que Google bloquee tu clave por "filtración" (leak), 
+ * NO escribas la clave aquí. En su lugar:
+ * 1. En Vercel: Ve a Settings > Environment Variables.
+ * 2. Añade una variable llamada: VITE_GEMINI_API_KEY
+ * 3. Pega tu clave de Google Cloud allí.
  */
 const getApiKey = () => {
   try {
-    // Intentamos acceder de forma segura a través de import.meta.env (estándar de Vite)
-    return import.meta.env.VITE_GEMINI_API_KEY || "";
+    // Intentamos leer la variable de entorno de Vite (estándar en Vercel/GitHub Actions)
+    const envKey = import.meta.env.VITE_GEMINI_API_KEY;
+    if (envKey) return envKey;
   } catch (e) {
-    // Fallback para entornos que no soportan import.meta o donde no está definido
-    return "";
+    // Fallback silencioso para entornos sin soporte de import.meta
   }
+  return ""; 
 };
 
 const apiKey = getApiKey();
@@ -105,7 +108,7 @@ const App = () => {
       setAiModal(prev => ({ 
         ...prev, 
         loading: false, 
-        content: "<b>Error:</b> No se ha encontrado la API Key. Asegúrate de configurar la variable <code>VITE_GEMINI_API_KEY</code> en tu entorno de despliegue." 
+        content: "<div class='p-4 bg-amber-50 rounded-xl border border-amber-200 text-amber-800 text-sm'><b>⚠️ Clave no configurada:</b><br/>No se ha detectado la API Key. Si estás en Vercel, añade la variable <code>VITE_GEMINI_API_KEY</code> en los ajustes del proyecto y vuelve a desplegar.</div>" 
       }));
       return;
     }
@@ -113,6 +116,7 @@ const App = () => {
     let delay = 1000;
     for (let i = 0; i < 5; i++) {
       try {
+        // MODELO ESTABLE: Usamos gemini-1.5-flash con el endpoint v1beta
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey.trim()}`;
         
         const response = await fetch(url, {
@@ -138,16 +142,16 @@ const App = () => {
           let help = "Revisa la consola (F12) para más detalles.";
           
           if (errorMsg.includes("leaked")) {
-            help = "Google ha bloqueado esta clave por seguridad. <b>Debes generar una nueva y evitar publicarla en repositorios públicos.</b>";
+            help = "<b>¡Clave Bloqueada!</b> Google ha desactivado esta clave por seguridad. Debes generar una NUEVA clave en Google Cloud y NO subirla al código de GitHub.";
           }
           if (errorMsg.includes("blocked")) {
-            help = "Autoriza el dominio actual en las restricciones de tu API Key en Google Cloud Console.";
+            help = "<b>Dominio no autorizado:</b> Debes añadir <code>https://segovia-piedras-m-s.vercel.app/*</code> a las restricciones de tu API Key en Google Cloud Console.";
           }
 
           setAiModal(prev => ({ 
             ...prev, 
             loading: false, 
-            content: `<div class="text-red-600 font-bold">Error de Gemini:</div><div class="mt-2 text-sm text-slate-700 bg-slate-100 p-4 rounded-xl border border-slate-200">${errorMsg}<br/><br/>${help}</div>` 
+            content: `<div class="text-red-600 font-bold mb-2">Error de Conexión:</div><div class="text-xs text-slate-700 bg-slate-100 p-4 rounded-xl border border-slate-200 leading-relaxed">${errorMsg}<br/><br/>${help}</div>` 
           }));
         } else {
           await new Promise(r => setTimeout(r, delay));
@@ -195,13 +199,13 @@ const App = () => {
       <section className="relative h-[260px] flex flex-col items-center justify-center text-center overflow-hidden bg-[#4c1d95]">
         <div className="bg-esgrafiado-pattern absolute inset-0 opacity-15 mix-blend-overlay"></div>
         <div className="relative z-10 px-6">
-          <h2 className="text-2xl md:text-5xl text-white uppercase tracking-tighter mb-2 font-black italic">
+          <h2 className="text-2xl md:text-5xl text-white uppercase tracking-tighter mb-2 font-black italic text-balance">
             SEGOVIA <span className="font-light not-italic">Piedras & más</span>
           </h2>
           <p className="text-white font-bold text-[10px] md:text-xs tracking-[0.4em] uppercase opacity-80 mb-2">
             217 Puntos Mapeados
           </p>
-          <p className="text-white/70 font-light text-[9px] md:text-[11px] max-w-xl text-pretty mx-auto">
+          <p className="text-white/70 font-light text-[9px] md:text-[11px] max-w-xl text-pretty mx-auto leading-relaxed">
             Explorador técnico de parajes sorprendentes e inhóspitos basado en fuentes bibliográficas originales.
           </p>
         </div>
