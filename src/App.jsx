@@ -4,7 +4,7 @@ import { Compass, Map as MapIcon, Wand2, X, ArrowUp, MapPin, Loader2 } from 'luc
 /**
  * Pega aquí tu API Key de Google AI Studio
  */
-const apiKey = "AIzaSyAronwqoMEx5xFZq1W-5l2V4j7y1pGPjDk";
+const apiKey = "";
 
 const categoryColors = {
   'Historia': 'bg-blue-600',
