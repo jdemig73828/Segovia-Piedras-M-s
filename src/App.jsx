@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Compass, Map as MapIcon, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees } from 'lucide-react';
+import { Compass, Map as MapIcon, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, CheckCircle2, Trophy, Route } from 'lucide-react';
 
 // Mapeo de colores para los badges y elementos de categoría
 const categoryColors = {
   'Historia': 'bg-blue-600',
   'Ruinas': 'bg-orange-500',
   'Industrial': 'bg-slate-500',
-  'Naturaleza': 'bg-emerald-600', // Verde corregido
+  'Naturaleza': 'bg-emerald-600',
   'default': 'bg-indigo-500'
 };
 
@@ -43,6 +43,22 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showScrollBtn, setShowScrollBtn] = useState(false);
   const [randomPlace, setRandomPlace] = useState(null);
+  const [itinerary, setItinerary] = useState(null);
+  const [visitedPlaces, setVisitedPlaces] = useState([]);
+
+  // --- CARGA INICIAL DE PASAPORTE (visitedPlaces) ---
+  useEffect(() => {
+    const saved = localStorage.getItem('segovia_pasaporte');
+    if (saved) setVisitedPlaces(JSON.parse(saved));
+  }, []);
+
+  const toggleVisited = (id) => {
+    const newVisited = visitedPlaces.includes(id) 
+      ? visitedPlaces.filter(v => v !== id)
+      : [...visitedPlaces, id];
+    setVisitedPlaces(newVisited);
+    localStorage.setItem('segovia_pasaporte', JSON.stringify(newVisited));
+  };
 
   // --- BASE DE DATOS INTEGRAL (217 PUNTOS) ---
   const allPlaces = useMemo(() => [
@@ -308,16 +324,26 @@ const App = () => {
     setRandomPlace(allPlaces[randomIdx]);
   };
 
+  const generateItinerary = () => {
+    // Generar ruta basada en la zona cardinal seleccionada actualmente
+    const zoneToUse = currentGeoZone === 'Todos' ? ['Norte', 'Sur', 'Este', 'Oeste'][Math.floor(Math.random()*4)] : currentGeoZone;
+    const zonePlaces = allPlaces.filter(p => getCardinal(p.coords) === zoneToUse);
+    const shuffled = [...zonePlaces].sort(() => 0.5 - Math.random());
+    setItinerary({ zone: zoneToUse, places: shuffled.slice(0, 3) });
+  };
+
   useEffect(() => {
     const handleScroll = () => setShowScrollBtn(window.scrollY > 300);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const progressPercentage = (visitedPlaces.length / allPlaces.length) * 100;
+
   return (
     <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100">
       {/* HEADER */}
-      <header className="sticky top-0 z-50 h-14 bg-white/90 backdrop-blur-md px-6 flex items-center justify-between border-b border-slate-100 shadow-sm">
+      <header className="sticky top-0 z-50 h-14 bg-white/90 backdrop-blur-md px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm">
         <div className="flex items-center gap-2">
           <div className="bg-[#4338ca] p-1.5 rounded-md shadow-sm">
             <MapIcon className="text-white w-4 h-4" />
@@ -326,12 +352,15 @@ const App = () => {
             Segovia <span className="text-[#4338ca] font-light not-italic">Piedras & más</span>
           </h1>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 md:gap-3">
+            <button onClick={generateItinerary} title="Generar Itinerario" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
+                <Route className="w-4 h-4" />
+            </button>
             <button onClick={handleRandomDiscovery} title="Descubrimiento aleatorio" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
                 <Shuffle className="w-4 h-4" />
             </button>
             <a href="https://maps.app.goo.gl/fnbQQ6Bvkw35PQBt5" target="_blank" rel="noopener noreferrer" 
-               className="flex items-center gap-2 px-4 py-1.5 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg active:scale-95 leading-none">
+               className="flex items-center gap-2 px-3 md:px-4 py-1.5 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg active:scale-95 leading-none">
               MAPA
             </a>
         </div>
@@ -353,6 +382,24 @@ const App = () => {
         </div>
       </section>
 
+      {/* PROGRESS BAR (PASAPORTE) */}
+      <div className="max-w-7xl mx-auto px-6 mt-6">
+          <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm flex flex-col md:flex-row items-center gap-4">
+            <div className="flex items-center gap-2 text-[#4338ca] font-black text-[10px] uppercase tracking-wider">
+                <Trophy className="w-4 h-4" /> Pasaporte de Explorador
+            </div>
+            <div className="flex-grow w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                <div 
+                    className="bg-[#4338ca] h-full transition-all duration-1000" 
+                    style={{ width: `${progressPercentage}%` }}
+                ></div>
+            </div>
+            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">
+                {visitedPlaces.length} de 217 Descubiertos ({Math.round(progressPercentage)}%)
+            </div>
+          </div>
+      </div>
+
       {/* SEARCH AND FILTERS */}
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-8 pb-48">
         <div className="mb-10 max-w-2xl mx-auto relative group">
@@ -373,7 +420,7 @@ const App = () => {
 
         <div className="flex flex-col lg:flex-row gap-6 items-center justify-between mb-12">
           <div className="w-full lg:max-w-md text-left">
-            <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 px-1 leading-tight">Selección de parajes por su localización geográfica (cardinal)</p>
+            <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 px-1 leading-tight">Selección Geográfica (Zonal)</p>
             <div className="relative group max-w-sm">
               <Compass className="absolute left-4 top-1/2 -translate-y-1/2 text-[#4338ca] w-4 h-4" />
               <select 
@@ -390,13 +437,10 @@ const App = () => {
             </div>
           </div>
 
-          {/* BOTONES DE CATEGORÍA CON COLOR ACTIVO FIJO PARA MÓVIL/TABLET */}
           <div className="flex flex-wrap justify-center gap-2.5">
             {['TODOS', 'HISTORIA', 'RUINAS', 'INDUSTRIAL', 'NATURALEZA'].map(cat => {
                 const isActive = (currentCategory.toUpperCase() === cat);
                 const catName = cat === 'TODOS' ? 'Todos' : cat.charAt(0) + cat.slice(1).toLowerCase();
-                
-                // Determinamos clases de color activo para evitar problemas de hover táctil
                 const activeColorClass = isActive ? (categoryColors[catName] || 'bg-[#4338ca]') : 'bg-white';
                 const textColorClass = isActive ? 'text-white' : 'text-slate-600';
                 const borderColorClass = isActive ? 'border-transparent' : 'border-slate-200';
@@ -419,22 +463,15 @@ const App = () => {
           </div>
         </div>
 
-        {/* RESULTS INFO */}
-        <div className="flex items-center gap-2 mb-8 text-slate-400 font-bold text-[10px] uppercase tracking-widest px-1">
-            <BarChart2 className="w-3.5 h-3.5" />
-            Mostrando {filteredPlaces.length} resultados de {allPlaces.length}
-        </div>
-
         {/* GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {filteredPlaces.map(p => (
             <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in text-left flex flex-col h-full overflow-hidden`}>
               
               <div className="relative z-10 flex flex-col h-full">
-                {/* Visual part (FONDO DILUIDO POR CATEGORÍA) */}
+                {/* Visual part */}
                 <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}>
                   
-                  {/* ICONO SVG POR CATEGORÍA (OPACIDAD 15%) */}
                   <div className={`absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0 ${categoryIconColors[p.category]}`}>
                     {p.category === 'Historia' && <Landmark size={140} strokeWidth={1.5} />}
                     {p.category === 'Ruinas' && <Castle size={140} strokeWidth={1.5} />}
@@ -442,7 +479,14 @@ const App = () => {
                     {p.category === 'Naturaleza' && <Trees size={140} strokeWidth={1.5} />}
                   </div>
 
-                  {/* Badges Stack (VERTICAL: Coordenadas DEBAJO de Categoría) */}
+                  {/* Pasaporte Check Overlay */}
+                  <button 
+                    onClick={() => toggleVisited(p.id)}
+                    className={`absolute top-4 right-4 p-2 rounded-full backdrop-blur-md transition-all shadow-lg z-30 ${visitedPlaces.includes(p.id) ? 'bg-emerald-500 text-white scale-110' : 'bg-white/40 text-slate-600 hover:bg-white/80'}`}
+                  >
+                    <CheckCircle2 className="w-5 h-5" />
+                  </button>
+
                   <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2">
                     <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
                     <div className="px-2.5 py-1 bg-white/60 backdrop-blur-sm rounded-lg border border-white/40 shadow-sm">
@@ -460,33 +504,27 @@ const App = () => {
                     </p>
                     <p className="text-[11px] text-slate-500 italic mb-8 leading-relaxed opacity-80 line-clamp-3">"{p.note}"</p>
                   </div>
-                  <a 
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-indigo-900 transition-all block active:scale-95 leading-none"
-                  >
-                    VER SITIO
-                  </a>
+                  <div className="flex gap-2">
+                    <a 
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex-grow bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-indigo-900 transition-all block active:scale-95 leading-none"
+                    >
+                      VER SITIO
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           ))}
-          {filteredPlaces.length === 0 && (
-              <div className="col-span-full py-20 text-center flex flex-col items-center">
-                  <Info className="w-12 h-12 text-slate-200 mb-4" />
-                  <h3 className="text-slate-500 font-black uppercase italic tracking-tighter text-xl">Sin hallazgos técnicos</h3>
-                  <p className="text-slate-400 text-xs mt-2">Ajusta los filtros o borra el término de búsqueda.</p>
-              </div>
-          )}
         </div>
       </main>
 
-      {/* FOOTER CON TARJETA FLOTANTE */}
+      {/* FOOTER */}
       <footer className="relative bg-[#111827] pt-56 pb-20 px-6 overflow-visible text-center border-t border-white/5">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
-          {/* Tarjeta Flotante Central */}
           <div className="absolute top-[-160px] left-1/2 -translate-x-1/2 w-[92%] max-w-2xl bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg">
@@ -499,23 +537,56 @@ const App = () => {
               Mapeo técnico exhaustivo basado en las fuentes bibliográficas de Esther Maganto y Juan Enrique del Barrio. Auditoría visual por Javier de Miguel Torres.
             </p>
           </div>
-
           <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-16 font-bold leading-none">
             © 2026 SEGOVIA PIEDRAS & MÁS | JAVIER DE MIGUEL TORRES
           </div>
-          <div className="text-white/10 text-[8px] uppercase tracking-[0.7em] mt-8 font-black italic opacity-40 leading-none">
-             GOOGLE MAPS AUTHORITY
-          </div>
-          <div className="flex justify-center mt-6">
-             {/* Pin de Google Maps centrado */}
-             <div className="w-10 h-10 flex items-center justify-center">
+          <div className="flex justify-center mt-8">
                <svg viewBox="0 0 24 24" className="w-10 h-10" xmlns="http://www.w3.org/2000/svg">
                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#EA4335"/>
                </svg>
-             </div>
           </div>
         </div>
       </footer>
+
+      {/* MODAL ITINERARIO ZONAL */}
+      {itinerary && (
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
+              <div className="bg-white rounded-[3rem] w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col shadow-2xl border border-white/20">
+                <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50">
+                    <h4 className="font-black uppercase italic tracking-tighter text-indigo-700 flex items-center gap-2">
+                        <Route className="w-5 h-5" /> Itinerario Zona {itinerary.zone}
+                    </h4>
+                    <button onClick={() => setItinerary(null)} className="p-2 hover:bg-white rounded-full transition-all">
+                        <X className="w-6 h-6 text-indigo-300" />
+                    </button>
+                </div>
+                <div className="p-8 overflow-y-auto space-y-6">
+                    {itinerary.places.map((p, idx) => (
+                        <div key={p.id} className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-black flex-shrink-0">
+                                {idx + 1}
+                            </div>
+                            <div className="flex-grow">
+                                <h5 className="font-black uppercase text-slate-800 text-sm">{p.name}</h5>
+                                <p className="text-[10px] font-bold text-slate-400 mb-2 uppercase">{p.address}</p>
+                                <p className="text-xs text-slate-500 italic mb-4">"{p.note}"</p>
+                                <a 
+                                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} 
+                                    target="_blank"
+                                    className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline"
+                                >
+                                    Localizar Punto →
+                                </a>
+                            </div>
+                        </div>
+                    ))}
+                    <div className="text-center pt-4">
+                        <p className="text-[9px] text-slate-400 uppercase font-bold tracking-[0.2em]">Ruta generada localmente para tu zona de exploración activa</p>
+                    </div>
+                </div>
+              </div>
+          </div>
+      )}
 
       {/* MODAL DESCUBRIMIENTO ALEATORIO */}
       {randomPlace && (
@@ -530,14 +601,13 @@ const App = () => {
                     </button>
                 </div>
                 <div className="p-10 text-center">
-                    <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg`}>{randomPlace.category}</span>
+                    <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm`}>{randomPlace.category}</span>
                     <h3 className="text-2xl font-black uppercase tracking-tight text-slate-800 mb-2">{randomPlace.name}</h3>
                     <p className="text-slate-400 text-xs font-bold uppercase mb-6">{randomPlace.address}</p>
                     <p className="text-slate-500 italic text-sm mb-10 leading-relaxed">"{randomPlace.note}"</p>
                     <a 
                         href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} 
                         target="_blank" 
-                        rel="noopener noreferrer"
                         className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl inline-block hover:scale-105 transition-transform"
                     >
                         Trazar rumbo en Mapa
