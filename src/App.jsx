@@ -3,9 +3,7 @@ import { Compass, Map as MapIcon, Wand2, X, ArrowUp, MapPin, Loader2 } from 'luc
 
 /**
  * CONFIGURACIÓN DE PRODUCCIÓN:
- * La aplicación lee la clave de las variables de entorno de VITE_GEMINI_API_KEY.
- * Si el error 404 persiste con la API habilitada, intentamos forzar el uso
- * del endpoint v1beta que tiene mayor compatibilidad regional para Gemini 1.5 Flash.
+ * Acceso seguro a la API Key mediante variables de entorno de Vite.
  */
 const getApiKey = () => {
   try {
@@ -103,54 +101,49 @@ const App = () => {
       setAiModal(prev => ({ 
         ...prev, 
         loading: false, 
-        content: "<div class='p-4 bg-amber-50 rounded-xl border border-amber-200 text-amber-800 text-sm'><b>⚠️ Clave no detectada:</b><br/>Configura <code>VITE_GEMINI_API_KEY</code> en Vercel y redespliega.</div>" 
+        content: "<div class='p-4 bg-amber-50 rounded-xl border border-amber-200 text-amber-800 text-sm'><b>⚠️ Clave no detectada:</b><br/>Configura <code>VITE_GEMINI_API_KEY</code> en Vercel.</div>" 
       }));
       return;
     }
 
-    let delay = 1000;
-    for (let i = 0; i < 5; i++) {
-      try {
-        // FORZAMOS v1beta: Es el endpoint más fiable para gemini-1.5-flash cuando v1 da error 404
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey.trim()}`;
-        
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: `INSTRUCCIONES: ${system}\n\nPETICIÓN: ${prompt}` }] }]
-          })
-        });
-        
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error?.message || `Error HTTP ${response.status}`);
-        }
-        
-        const result = await response.json();
-        const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "No se pudo generar el contenido.";
-        setAiModal(prev => ({ ...prev, loading: false, content: text }));
-        return;
-      } catch (error) {
-        if (i === 4) {
-          let errorMsg = error.message;
-          let help = "Revisa la consola (F12) para más detalles.";
+    const models = ["gemini-1.5-flash", "gemini-1.5-flash-latest"];
+    
+    for (const modelName of models) {
+      let delay = 1000;
+      for (let i = 0; i < 3; i++) {
+        try {
+          const url = `https://generativelanguage.googleapis.com/v1/models/${modelName}:generateContent?key=${apiKey.trim()}`;
           
-          if (errorMsg.includes("not found") || errorMsg.includes("404")) {
-            help = "<b>Error de Modelo (404):</b> Google indica que no encuentra el modelo. Esto a veces ocurre si la API se habilitó hace muy pocos minutos o si el proyecto de Google Cloud no está correctamente vinculado a la clave.";
-          }
-          if (errorMsg.includes("blocked")) {
-            help = "<b>Dominio bloqueado:</b> Añade <code>https://segovia-piedras-m-s.vercel.app/*</code> a las restricciones de tu clave en Google Cloud.";
-          }
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: `INSTRUCCIONES: ${system}\n\nPETICIÓN: ${prompt}` }] }]
+            })
+          });
+          
+          if (response.status === 404) break;
 
-          setAiModal(prev => ({ 
-            ...prev, 
-            loading: false, 
-            content: `<div class="text-red-600 font-bold mb-2">Error de Conexión:</div><div class="text-xs text-slate-700 bg-slate-100 p-4 rounded-xl border border-slate-200 leading-relaxed">${errorMsg}<br/><br/>${help}</div>` 
-          }));
-        } else {
-          await new Promise(r => setTimeout(r, delay));
-          delay *= 2;
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error?.message || `Error HTTP ${response.status}`);
+          }
+          
+          const result = await response.json();
+          const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "No se pudo generar el contenido.";
+          setAiModal(prev => ({ ...prev, loading: false, content: text }));
+          return;
+        } catch (error) {
+          if (i === 2 && modelName === models[models.length - 1]) {
+            setAiModal(prev => ({ 
+              ...prev, 
+              loading: false, 
+              content: `<div class="text-red-600 font-bold mb-2">Error de Conexión:</div><div class="text-xs text-slate-700 bg-slate-100 p-4 rounded-xl border border-slate-200 leading-relaxed">${error.message}</div>` 
+            }));
+          } else {
+            await new Promise(r => setTimeout(r, delay));
+            delay *= 2;
+          }
         }
       }
     }
