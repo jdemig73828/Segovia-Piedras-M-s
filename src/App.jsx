@@ -9,6 +9,15 @@ const categoryColors = {
   'default': 'bg-indigo-500'
 };
 
+// Colores de fondo diluidos para las tarjetas
+const categoryBgColors = {
+  'Historia': 'bg-blue-50/50',
+  'Ruinas': 'bg-orange-50/50',
+  'Industrial': 'bg-slate-50/50',
+  'Naturaleza': 'bg-emerald-50/50',
+  'default': 'bg-indigo-50/50'
+};
+
 const App = () => {
   const [currentCategory, setCurrentCategory] = useState('Todos');
   const [currentGeoZone, setCurrentGeoZone] = useState('Todos');
@@ -393,14 +402,14 @@ const App = () => {
         {/* GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {filteredPlaces.map(p => (
-            <div key={p.id} className="relative bg-white rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in text-left flex flex-col h-full overflow-hidden">
+            <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in text-left flex flex-col h-full overflow-hidden`}>
               
               <div className="relative z-10 flex flex-col h-full">
                 {/* Visual part (AREA GRIS/OSCURA) */}
                 <div className="relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center text-white bg-slate-100 shadow-inner">
                   <div className="absolute inset-0 bg-[#334155] opacity-90"></div>
                   
-                  {/* ICONO SVG POR CATEGORÍA (OPACIDAD 15% SEGÚN PEDIDO) */}
+                  {/* ICONO SVG POR CATEGORÍA (OPACIDAD 15%) */}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0">
                     {p.category === 'Historia' && <Landmark size={140} strokeWidth={1} />}
                     {p.category === 'Ruinas' && <Castle size={140} strokeWidth={1} />}
@@ -408,8 +417,7 @@ const App = () => {
                     {p.category === 'Naturaleza' && <Trees size={140} strokeWidth={1} />}
                   </div>
 
-                  <span className="text-8xl font-black opacity-10 z-10 pointer-events-none">{p.name[0]}</span>
-
+                  {/* Badge y Coordenadas */}
                   <div className="absolute bottom-5 left-6 text-white z-20">
                     <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
                     <p className="text-[9px] font-mono mt-1.5 opacity-90 tracking-wider leading-none">{p.coords}</p>
@@ -451,6 +459,7 @@ const App = () => {
       <footer className="relative bg-[#111827] pt-56 pb-20 px-6 overflow-visible text-center border-t border-white/5">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
+          {/* Tarjeta Flotante Central */}
           <div className="absolute top-[-160px] left-1/2 -translate-x-1/2 w-[92%] max-w-2xl bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg">
@@ -471,6 +480,7 @@ const App = () => {
              GOOGLE MAPS AUTHORITY
           </div>
           <div className="flex justify-center mt-6">
+             {/* Pin de Google Maps centrado */}
              <div className="w-10 h-10 flex items-center justify-center">
                <svg viewBox="0 0 24 24" className="w-10 h-10" xmlns="http://www.w3.org/2000/svg">
                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#EA4335"/>
