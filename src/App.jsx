@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Compass, Map as MapIcon, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info } from 'lucide-react';
+import { Compass, Map as MapIcon, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees } from 'lucide-react';
 
 const categoryColors = {
   'Historia': 'bg-blue-600',
@@ -17,10 +17,9 @@ const App = () => {
   const [randomPlace, setRandomPlace] = useState(null);
 
   // --- BASE DE DATOS INTEGRAL CORREGIDA (217 PUNTOS) ---
-  // He volcado la información exacta de las capturas del 1 al 217
   const allPlaces = useMemo(() => [
     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
-    { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convento del s. XVI de las monjas clarisas." },
+    { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas." },
     { id: 3, name: "FORTALEZA CASTILLO", category: "Historia", coords: "41°21'13.6\"N 3°53'15.2\"W", address: "CARRASCAL DEL RÍO", note: "Fortaleza dominante sobre el paisaje de las hoces del río Duratón." },
     { id: 4, name: "MOLINO DE LOS MESA", category: "Industrial", coords: "41°12'19.5\"N 3°58'56.7\"W", address: "CABEZUELA", note: "Ingenio harinero tradicional situado en la ribera del río Cega." },
     { id: 5, name: "PUERTA DE LA FUERZA", category: "Historia", coords: "41°18'09.1\"N 3°45'31.9\"W", address: "SEPÚLVEDA", note: "Acceso amurallado histórico de la villa medieval." },
@@ -41,7 +40,7 @@ const App = () => {
     { id: 20, name: "MOLINO DE MINGELA", category: "Industrial", coords: "41°22'40.9\"N 4°25'54.4\"W", address: "VALLELADO", note: "Antiguo molino situado en la margen del río Cega." },
     { id: 21, name: "MOLINO DE POTRICOS", category: "Industrial", coords: "41°24'02.7\"N 4°07'27.2\"W", address: "PEROSILLO", note: "Ingenio hidráulico histórico preservado en el paisaje rural." },
     { id: 22, name: "MOLINO DEL PINO", category: "Industrial", coords: "41°23'11.3\"N 4°28'40.2\"W", address: "MATA DE CUÉLLAR", note: "Molino harinero tradicional de construcción en piedra." },
-    { id: 23, name: "TORREÓN DE SANTA MARÍA", category: "Historia", coords: "41°24'00.1\"N 4°13'24.6\"W", address: "LOVINGOS, CUÉLLAR", note: "Restos de la torre de la antigua iglesia parroquial." },
+    { id: 23, name: "TORREÓN DE SANTA MARÍA", category: "Historia", coords: "41°24'00.1\"N 4°13'24.6\"W", address: "LOVINGOS", note: "Restos de la torre de la antigua iglesia parroquial." },
     { id: 24, name: "MOLINO BATÁN DE GARRIDO", category: "Industrial", coords: "41°17'01.9\"N 4°08'49.1\"W", address: "LASTRAS DE CUÉLLAR", note: "Antiguo batán utilizado para el tratamiento de tejidos." },
     { id: 25, name: "MOLINO DEL LADRÓN", category: "Industrial", coords: "41°17'24.8\"N 4°09'04.2\"W", address: "LASTRAS DE CUÉLLAR", note: "Construcción hidráulica singular en la ribera del Cega." },
     { id: 26, name: "FÁBRICA DE HARINA", category: "Industrial", coords: "41°20'52.1\"N 4°07'09.3\"W", address: "HONTALBILLA", note: "Instalación industrial cerealista de principios del siglo XX." },
@@ -62,17 +61,17 @@ const App = () => {
     { id: 41, name: "IGLESIA CONVENTO DE SAN MARTÍN DEL CASUAR", category: "Ruinas", coords: "41°32'44.7\"N 3°35'59.6\"W", address: "MONTEJO DE LA VEGA", note: "Restos del monasterio románico en las Hoces del Riaza." },
     { id: 42, name: "CASTILLO Y MURALLAS", category: "Historia", coords: "41°33'03.9\"N 3°39'16.6\"W", address: "MONTEJO DE LA VEGA", note: "Antigua fortificación defensiva del nordeste segoviano." },
     { id: 43, name: "CASERÍO DE MALUQUE", category: "Ruinas", coords: "41°33'08.3\"N 3°33'17.3\"W", address: "MADERUELO", note: "Asentamiento abandonado que conserva la estructura tradicional." },
-    { id: 44, name: "IGLESIA DE NUESTRA SEÑORA DE LA NATIVIDAD", category: "Historia", coords: "41°17'54.8\"N 3°20'22.0\"W", address: "SERRACÍN, RIAZA", note: "Templo emblemático de los pueblos rojos y negros de Segovia." },
+    { id: 44, name: "IGLESIA DE NUESTRA SEÑORA DE LA NATIVIDAD", category: "Historia", coords: "41°17'54.8\"N 3°20'22.0\"W", address: "SERRACÍN", note: "Templo emblemático de los pueblos rojos y negros de Segovia." },
     { id: 45, name: "LOS PAREDONES", category: "Ruinas", coords: "41°25'16.0\"N 3°22'23.9\"W", address: "AYLLÓN", note: "Vestigios de antiguas construcciones defensivas de tierra batida." },
     { id: 46, name: "IGLESIA DE SAN MIGUEL ARCÁNGEL", category: "Historia", coords: "41°20'53.2\"N 3°24'31.7\"W", address: "ALDEA LÁZARO RIBOTA", note: "Parroquia medieval destacada en su entorno rural." },
-    { id: 47, name: "IGLESIA DE SAN CRISTÓBAL", category: "Historia", coords: "41°19'56.4\"N 3°27'12.5\"W", address: "CINCO VILLAS, FRESNO DE CANTESPINO", note: "Templo románico de gran sobriedad en la campiña." },
-    { id: 48, name: "IGLESIA DE SAN JUAN", category: "Historia", coords: "41°23'06.5\"N 3°31'53.6\"W", address: "CASTILTIERRA, FRESNO DE CANTESPINO", note: "Iglesia ligada a la famosa necrópolis visigoda de Castiltierra." },
-    { id: 49, name: "IGLESIA DE SAN ANTONIO", category: "Historia", coords: "41°20'12.7\"N 3°32'39.4\"W", address: "ALDEANUEVA DEL MONTE, RIAZA", note: "Muestra arquitectónica religiosa del área de influencia de Riaza." },
-    { id: 50, name: "LA MOLINILLA Y ERMITA DE LA VIRGEN DE LA CALLEJA", category: "Historia", coords: "41°17'52.6\"N 3°51'59.6\"W", address: "VILLASECA, SEPÚLVEDA", note: "Paraje místico cercano a las hoces del río Duratón." },
-    { id: 51, name: "MONASTERIO DE SANTO TOMÉ DEL PUERTO", category: "Ruinas", coords: "41°11'56.8\"N 3°35'24.7\"W", address: "VILLAREJO, SANTO TOMÉ DEL PUERTO", note: "Restos monásticos situados estratégicamente en el puerto." },
-    { id: 52, name: "IGLESIA DE NUESTRA SEÑORA DE LA SERNA", category: "Historia", coords: "41°16'02.5\"N 3°43'05.9\"W", address: "VELOSILLO, SEPÚLVEDA", note: "Edificación románica de gran encanto en el altiplano segoviano." },
-    { id: 53, name: "MOLINO DE SAN JUAN", category: "Industrial", coords: "41°15'52.9\"N 3°50'53.2\"W", address: "VALDESIMONTE, CANTALEJO", note: "Molino harinero restaurado que aprovecha el cauce del San Juan." },
-    { id: 54, name: "LAVADERO DE LANAS DE LA ALDEA LA PEÑA", category: "Industrial", coords: "41°12'17.8\"N 3°37'20.7\"W", address: "SIGUERO, SANTO TOMÉ DEL PUERTO", note: "Muestra de la antigua importancia de la trashumancia y el esquileo." },
+    { id: 47, name: "IGLESIA DE SAN CRISTÓBAL", category: "Historia", coords: "41°19'56.4\"N 3°27'12.5\"W", address: "CINCO VILLAS", note: "Templo románico de gran sobriedad en la campiña." },
+    { id: 48, name: "IGLESIA DE SAN JUAN", category: "Historia", coords: "41°23'06.5\"N 3°31'53.6\"W", address: "CASTILTIERRA", note: "Iglesia ligada a la famosa necrópolis visigoda de Castiltierra." },
+    { id: 49, name: "IGLESIA DE SAN ANTONIO", category: "Historia", coords: "41°20'12.7\"N 3°32'39.4\"W", address: "ALDEANUEVA DEL MONTE", note: "Muestra arquitectónica religiosa del área de influencia de Riaza." },
+    { id: 50, name: "LA MOLINILLA Y ERMITA DE LA VIRGEN DE LA CALLEJA", category: "Historia", coords: "41°17'52.6\"N 3°51'59.6\"W", address: "VILLASECA", note: "Paraje místico cercano a las hoces del río Duratón." },
+    { id: 51, name: "MONASTERIO DE SANTO TOMÉ DEL PUERTO", category: "Ruinas", coords: "41°11'56.8\"N 3°35'24.7\"W", address: "VILLAREJO", note: "Restos monásticos situados estratégicamente en el puerto." },
+    { id: 52, name: "IGLESIA DE NUESTRA SEÑORA DE LA SERNA", category: "Historia", coords: "41°16'02.5\"N 3°43'05.9\"W", address: "VELOSILLO", note: "Edificación románica de gran encanto en el altiplano segoviano." },
+    { id: 53, name: "MOLINO DE SAN JUAN", category: "Industrial", coords: "41°15'52.9\"N 3°50'53.2\"W", address: "VALDESIMONTE", note: "Molino harinero restaurado que aprovecha el cauce del San Juan." },
+    { id: 54, name: "LAVADERO DE LANAS DE LA ALDEA LA PEÑA", category: "Industrial", coords: "41°12'17.8\"N 3°37'20.7\"W", address: "SIGUERO", note: "Muestra de la antigua importancia de la trashumancia y el esquileo." },
     { id: 55, name: "MOLINO DE LA OCECILLA", category: "Industrial", coords: "41°18'37.0\"N 3°43'45.2\"W", address: "SEPÚLVEDA", note: "Maquinaria hidráulica tradicional en el entorno de la villa sepulvedana." },
     { id: 56, name: "IGLESIA DE SAN MILLÁN", category: "Historia", coords: "41°18'03.3\"N 3°44'57.0\"W", address: "SEPÚLVEDA", note: "Antiguo templo que forma parte del conjunto monumental de Sepúlveda." },
     { id: 57, name: "PALACIO Y DESPOBLADO DE SAN MIGUEL DE NEGUERA", category: "Ruinas", coords: "41°16'49.5\"N 3°50'32.9\"W", address: "SEBÚLCOR", note: "Villa señorial abandonada a orillas del Duratón." },
@@ -80,22 +79,22 @@ const App = () => {
     { id: 59, name: "ERMITA DE SANTIAGO DE REBOLLO", category: "Historia", coords: "41°12'30.7\"N 3°48'46.6\"W", address: "SAN PEDRO DE GAÍLLOS", note: "Santuario rural de devoción popular local." },
     { id: 60, name: "PALACIO DEL MARQUÉS REVILLA", category: "Historia", coords: "41°24'49.5\"N 3°45'03.6\"W", address: "NAVARES DE LAS CUEVAS", note: "Grandeza señorial en una de las comarcas más auténticas de Segovia." },
     { id: 61, name: "DESPOBLADO DE MATANDRINO", category: "Ruinas", coords: "41°09'00.5\"N 3°42'37.0\"W", address: "PRÁDENA", note: "Aldea deshabitada que conserva el alma de la Segovia de antaño." },
-    { id: 62, name: "IGLESIA DE SAN MIGUEL", category: "Historia", coords: "41°20'37.6\"N 3°51'58.6\"W", address: "FRESNEDA DE SEPÚLVEDA, SOTILLO", note: "Parroquia rural de origen medieval en la tierra de Sepúlveda." },
-    { id: 63, name: "DESPOBLADO DE VILLAREJO", category: "Ruinas", coords: "41°17'54.7\"N 3°40'32.6\"W", address: "EL OLMO, BARBOLLA", note: "Vestigios de un antiguo núcleo de población hoy desaparecido." },
-    { id: 64, name: "DESPOBLADO DE CORRALEJO", category: "Ruinas", coords: "41°17'46.5\"N 3°38'34.4\"W", address: "EL OLMO, BARBOLLA", note: "Huellas de la historia rural en el campo segoviano." },
-    { id: 65, name: "ERMITA DE SAN LORENZO", category: "Historia", coords: "41°19'25.0\"N 3°42'12.3\"W", address: "EL OLMILLO, ALDEONTE", note: "Pequeño templo románico de gran sencillez y belleza." },
-    { id: 66, name: "CASA PALACIO DE LOS MARQUESES DE CASTROSERNA", category: "Historia", coords: "41°11'23.5\"N 3°42'54.2\"W", address: "CASTROSERNA DE ARRIBA, PRÁDENA", note: "Edificio señorial representativo de la nobleza segoviana." },
+    { id: 62, name: "IGLESIA DE SAN MIGUEL", category: "Historia", coords: "41°20'37.6\"N 3°51'58.6\"W", address: "FRESNEDA DE SEPÚLVEDA", note: "Parroquia rural de origen medieval en la tierra de Sepúlveda." },
+    { id: 63, name: "DESPOBLADO DE VILLAREJO", category: "Ruinas", coords: "41°17'54.7\"N 3°40'32.6\"W", address: "EL OLMO", note: "Vestigios de un antiguo núcleo de población hoy desaparecido." },
+    { id: 64, name: "DESPOBLADO DE CORRALEJO", category: "Ruinas", coords: "41°17'46.5\"N 3°38'34.4\"W", address: "EL OLMO", note: "Huellas de la historia rural en el campo segoviano." },
+    { id: 65, name: "ERMITA DE SAN LORENZO", category: "Historia", coords: "41°19'25.0\"N 3°42'12.3\"W", address: "EL OLMILLO", note: "Pequeño templo románico de gran sencillez y belleza." },
+    { id: 66, name: "CASA PALACIO DE LOS MARQUESES DE CASTROSERNA", category: "Historia", coords: "41°11'23.5\"N 3°42'54.2\"W", address: "CASTROSERNA DE ARRIBA", note: "Edificio señorial representativo de la nobleza segoviana." },
     { id: 67, name: "ERMITA DE SAN JULIÁN", category: "Historia", coords: "41°17'51.6\"N 3°47'00.3\"W", address: "CASTRILLO DE SEPÚLVEDA", note: "Lugar de culto tradicional en un entorno paisajístico privilegiado." },
     { id: 68, name: "MOLINO HARINERO", category: "Industrial", coords: "41°21'52.2\"N 3°53'57.7\"W", address: "CARRASCAL DEL RÍO", note: "Ejemplo de la industria molinera fluvial del Duratón." },
     { id: 69, name: "FÁBRICA DE RESINA", category: "Industrial", coords: "41°14'12.5\"N 3°55'35.4\"W", address: "CABEZUELA", note: "Patrimonio industrial ligado a la explotación de los pinos." },
-    { id: 70, name: "MOLINO DE LA CERQUILLA", category: "Industrial", coords: "41°21'48.4\"N 3°49'38.3\"W", address: "BARRIO DE ARRIBA, VALLE DE TABLADILLO", note: "Ingenio harinero situado en un paraje de gran valor geológico." },
+    { id: 70, name: "MOLINO DE LA CERQUILLA", category: "Industrial", coords: "41°21'48.4\"N 3°49'38.3\"W", address: "BARRIO DE ARRIBA", note: "Ingenio harinero situado en un paraje de gran valor geológico." },
     { id: 71, name: "DESPOBLADO DE ALDEARRASO", category: "Ruinas", coords: "41°14'06.7\"N 3°48'12.7\"W", address: "SAN PEDRO DE GAÍLLOS", note: "Restos de población en una zona de pastos tradicionales." },
     { id: 72, name: "ERMITA DE SAN PEDRO", category: "Historia", coords: "41°07'54.4\"N 3°54'39.0\"W", address: "VALDEVACAS Y GUIJAR", note: "Antiguo oratorio rural en un entorno de naturaleza virgen." },
     { id: 73, name: "IGLESIA DE SAN JUSTO Y PASTOR", category: "Historia", coords: "41°05'10.9\"N 3°52'45.0\"W", address: "SANTIUSTE DE PEDRAZA", note: "Parroquia románica destacada por su torre-atalaya." },
     { id: 74, name: "ERMITA DE NUESTRA SEÑORA DE LAS NIEVES", category: "Historia", coords: "41°11'32.9\"N 3°50'58.0\"W", address: "REBOLLO", note: "Santuario rodeado de robles y leyendas locales." },
     { id: 75, name: "IGLESIA DE SANTA MARÍA", category: "Historia", coords: "41°07'55.0\"N 3°48'45.6\"W", address: "PEDRAZA", note: "Iglesia que preside la famosa plaza mayor de la villa de Pedraza." },
-    { id: 76, name: "IGLESIA DEL ESPÍRITU SANTO", category: "Historia", coords: "41°09'14.6\"N 3°46'56.9\"W", address: "OREJANILLA, OREJANA", note: "Templo característico del románico de porticada segoviano." },
-    { id: 77, name: "DESPOBLADO DE LA ALAMEDA", category: "Ruinas", coords: "41°09'37.4\"N 3°48'08.5\"W", address: "LA ALAMEDA, OREJANA", note: "Lugar abandonado que evoca el pasado místico de la zona." },
+    { id: 76, name: "IGLESIA DEL ESPÍRITU SANTO", category: "Historia", coords: "41°09'14.6\"N 3°46'56.9\"W", address: "OREJANILLA", note: "Templo característico del románico de porticada segoviano." },
+    { id: 77, name: "DESPOBLADO DE LA ALAMEDA", category: "Ruinas", coords: "41°09'37.4\"N 3°48'08.5\"W", address: "LA ALAMEDA", note: "Lugar abandonado que evoca el pasado místico de la zona." },
     { id: 78, name: "TORREGIL", category: "Historia", coords: "41°04'57.5\"N 3°47'23.0\"W", address: "GALLEGOS", note: "Atalaya defensiva estratégica con amplias vistas de la sierra." },
     { id: 79, name: "MONASTERIO DE SANTA MARÍA DE LA SIERRA", category: "Ruinas", coords: "41°01'37.1\"N 3°54'46.2\"W", address: "COLLADO HERMOSO", note: "Restos cistercienses integrados en el paisaje montañoso." },
     { id: 80, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°04'28.1\"N 4°16'15.8\"W", address: "YANGUAS DE ERESMA", note: "Arquitectura ferroviaria de principios del siglo XX." },
@@ -118,7 +117,7 @@ const App = () => {
     { id: 97, name: "MOLINO DE LA IRVIENZA Y PUENTE DEL NARANJO", category: "Industrial", coords: "40°59'52.4\"N 4°32'17.2\"W", address: "MARTÍN MUÑOZ DE LAS POSADAS", note: "Conjunto hidráulico sobre el río Voltoya." },
     { id: 98, name: "VENTA DE LUMBRERAS", category: "Historia", coords: "40°53'30.1\"N 4°19'22.1\"W", address: "LASTRAS DEL POZO", note: "Antiguo parador de viajeros en la vía real." },
     { id: 99, name: "ERMITA DE SANTA INÉS", category: "Historia", coords: "41°06'46.5\"N 4°19'26.3\"W", address: "BERNARDOS", note: "Capilla románica rodeada de las famosas canteras de pizarra." },
-    { id: 100, name: "IGLESIA DE NUESTRA SEÑORA DE LA ASUNCIÓN Y DESPOBLADO", category: "Ruinas", coords: "41°07'34.7\"N 4°17'35.6\"W", address: "FUENTES, CARBONERO EL MAYOR", note: "Restos del núcleo primitivo de población de Fuentes." },
+    { id: 100, name: "IGLESIA DE NUESTRA SEÑORA DE LA ASUNCIÓN Y DESPOBLADO", category: "Ruinas", coords: "41°07'34.7\"N 4°17'35.6\"W", address: "FUENTES", note: "Restos del núcleo primitivo de población de Fuentes." },
     { id: 101, name: "ERMITA DE NUESTRA SEÑORA DE LA LOSA", category: "Historia", coords: "40°46'20.0\"N 4°15'02.1\"W", address: "EL ESPINAR", note: "Lugar de peregrinación tradicional en la sierra." },
     { id: 102, name: "CASA PALACIO DEL MARQUÉS DE PERALES", category: "Historia", coords: "40°43'12.1\"N 4°14'50.1\"W", address: "EL ESPINAR", note: "Ejemplo destacado de arquitectura civil nobiliaria." },
     { id: 103, name: "FÁBRICA DE MADERA", category: "Industrial", coords: "40°44'26.8\"N 4°11'24.1\"W", address: "LA ESTACIÓN DEL ESPINAR", note: "Arquitectura industrial maderera del entorno de la sierra." },
@@ -168,7 +167,7 @@ const App = () => {
     { id: 147, name: "FÁBRICA DE LUZ", category: "Industrial", coords: "41°02'18.1\"N 3°49'29.7\"W", address: "NAVAFRÍA", note: "Antigua central hidroeléctrica que modernizó la zona." },
     { id: 148, name: "PRESA Y MOLINO CASTELLANOS", category: "Industrial", coords: "41°04'36.6\"N 3°50'11.0\"W", address: "NAVAFRÍA", note: "Complejo hidráulico de gran importancia local." },
     { id: 149, name: "ERMITA DE SAN NICOLÁS", category: "Historia", coords: "41°09'03.2\"N 3°47'10.5\"W", address: "OREJANA", note: "Templo románico rodeado de misterios de la zona mística." },
-    { id: 150, name: "LA TEJERA DE RAMÓN MARTÍN", category: "Industrial", coords: "41°05'24.5\"N 3°51'18.1\"W", address: "VALLE DE SAN PEDRO", note: "Instalaciones artesanales de elaboración de tejas." },
+    { id: 150, name: "LA TEJERA DE RAMÓN MARTÍN", category: "Industrial", coords: "41°05'24.5\"N 3°51'18.1\"W", address: "VALLE de SAN PEDRO", note: "Instalaciones artesanales de elaboración de tejas." },
     { id: 151, name: "DESPOBLADO DE ALDEALAFUENTE", category: "Ruinas", coords: "41°14'19.8\"N 3°48'45.5\"W", address: "ALDEALAFUENTE", note: "Huellas de la vida rural medieval desaparecida." },
     { id: 152, name: "ERMITA DE SAN VALENTÍN", category: "Historia", coords: "41°19'31.7\"N 3°52'49.4\"W", address: "BURGOMILLODO", note: "Capilla aislada en el espectacular paisaje del Duratón." },
     { id: 153, name: "ERMITA DE SANTA ENGRACIA", category: "Historia", coords: "41°19'15.9\"N 3°52'17.7\"W", address: "BURGOMILLODO", note: "Santuario románico exento sobre el cañón del río." },
@@ -235,10 +234,10 @@ const App = () => {
     { id: 214, name: "MOLINO", category: "Industrial", coords: "41°07'36.7\"N 3°58'33.0\"W", address: "CABALLAR", note: "Ingenio harinero rural situado en un entorno pintoresco." },
     { id: 215, name: "FORTINES DE CABEZA GRANDE", category: "Historia", coords: "40°52'11.2\"N 4°04'47.8\"W", address: "LA GRANJA", note: "Defensas militares místicas del siglo XX." },
     { id: 216, name: "FÁBRICA DE LUZ SANTA ISABEL", category: "Industrial", coords: "40°53'13.9\"N 4°00'49.1\"W", address: "VALSAÍN", note: "Importante patrimonio industrial hidroeléctrico." },
-    { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicos preservados entre los pinos." }
+    { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos." }
   ], []);
 
-  // --- LÓGICA DE FILTRADO Y DESCUBRIMIENTO ---
+  // --- LÓGICA DE FILTRADO Y CARDINALIDAD ---
   const dmsToDec = (dms) => {
     if(!dms) return 0;
     const parts = dms.match(/(\d+)°(\d+)'([\d.]+)"/);
@@ -300,7 +299,7 @@ const App = () => {
           </h1>
         </div>
         <div className="flex items-center gap-3">
-            <button onClick={handleRandomDiscovery} className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
+            <button onClick={handleRandomDiscovery} title="Descubrimiento aleatorio" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
                 <Shuffle className="w-4 h-4" />
             </button>
             <a href="https://maps.app.goo.gl/fnbQQ6Bvkw35PQBt5" target="_blank" rel="noopener noreferrer" 
@@ -310,7 +309,7 @@ const App = () => {
         </div>
       </header>
 
-      {/* HERO SECTION - MORADO ESTRECHO SEGÚN CAPTURA */}
+      {/* HERO SECTION */}
       <section className="relative h-[120px] flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6]">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-40 mix-blend-overlay"></div>
         <div className="relative z-10 px-6">
@@ -328,8 +327,6 @@ const App = () => {
 
       {/* SEARCH AND FILTERS */}
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-8 pb-48">
-        
-        {/* BUSCADOR */}
         <div className="mb-10 max-w-2xl mx-auto relative group">
           <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-600 transition-colors w-5 h-5" />
           <input 
@@ -396,31 +393,47 @@ const App = () => {
         {/* GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {filteredPlaces.map(p => (
-            <div key={p.id} className="bg-white rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in text-left flex flex-col h-full">
-              <div className="relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center text-white bg-slate-100">
-                <div className="absolute inset-0 bg-[#334155] opacity-90"></div>
-                <span className="text-8xl font-black opacity-20 z-10">{p.name[0]}</span>
-                <div className="absolute bottom-5 left-6 text-white z-20">
-                  <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
-                  <p className="text-[9px] font-mono mt-1.5 opacity-90 tracking-wider leading-none">{p.coords}</p>
+            <div key={p.id} className="relative bg-white rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in text-left flex flex-col h-full overflow-hidden">
+              
+              <div className="relative z-10 flex flex-col h-full">
+                {/* Visual part (AREA GRIS/OSCURA) */}
+                <div className="relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center text-white bg-slate-100 shadow-inner">
+                  <div className="absolute inset-0 bg-[#334155] opacity-90"></div>
+                  
+                  {/* ICONO SVG POR CATEGORÍA (OPACIDAD 15% SEGÚN PEDIDO) */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0">
+                    {p.category === 'Historia' && <Landmark size={140} strokeWidth={1} />}
+                    {p.category === 'Ruinas' && <Castle size={140} strokeWidth={1} />}
+                    {p.category === 'Industrial' && <Factory size={140} strokeWidth={1} />}
+                    {p.category === 'Naturaleza' && <Trees size={140} strokeWidth={1} />}
+                  </div>
+
+                  <span className="text-8xl font-black opacity-10 z-10 pointer-events-none">{p.name[0]}</span>
+
+                  <div className="absolute bottom-5 left-6 text-white z-20">
+                    <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
+                    <p className="text-[9px] font-mono mt-1.5 opacity-90 tracking-wider leading-none">{p.coords}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="px-3 flex-grow flex flex-col justify-between">
-                <div>
-                  <h4 className="text-[15px] font-black uppercase mb-1.5 text-slate-800 tracking-tight leading-tight group-hover:text-indigo-600 transition-colors line-clamp-2">{p.name}</h4>
-                  <p className="text-[9px] text-slate-400 font-bold uppercase mb-4 flex items-center gap-1.5 leading-none">
-                    <MapPin className="w-3 h-3 text-[#4338ca]" /> {p.address}
-                  </p>
-                  <p className="text-[11px] text-slate-500 italic mb-8 leading-relaxed opacity-80 line-clamp-3">"{p.note}"</p>
+
+                {/* Content part */}
+                <div className="px-3 flex-grow flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-[15px] font-black uppercase mb-1.5 text-slate-800 tracking-tight leading-tight group-hover:text-indigo-600 transition-colors line-clamp-2">{p.name}</h4>
+                    <p className="text-[9px] text-slate-400 font-bold uppercase mb-4 flex items-center gap-1.5 leading-none">
+                      <MapPin className="w-3 h-3 text-[#4338ca]" /> {p.address}
+                    </p>
+                    <p className="text-[11px] text-slate-500 italic mb-8 leading-relaxed opacity-80 line-clamp-3">"{p.note}"</p>
+                  </div>
+                  <a 
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-indigo-900 transition-all block active:scale-95 leading-none"
+                  >
+                    VER SITIO
+                  </a>
                 </div>
-                <a 
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-indigo-900 transition-all block active:scale-95 leading-none"
-                >
-                  VER SITIO
-                </a>
               </div>
             </div>
           ))}
@@ -434,11 +447,10 @@ const App = () => {
         </div>
       </main>
 
-      {/* FOOTER CON TARJETA FLOTANTE - COPIA EXACTA DE LAS IMÁGENES */}
+      {/* FOOTER CON TARJETA FLOTANTE */}
       <footer className="relative bg-[#111827] pt-56 pb-20 px-6 overflow-visible text-center border-t border-white/5">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
-          {/* Tarjeta Flotante Central */}
           <div className="absolute top-[-160px] left-1/2 -translate-x-1/2 w-[92%] max-w-2xl bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg">
@@ -446,7 +458,7 @@ const App = () => {
               </div>
               <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Segovia <span className="font-light text-indigo-300 not-italic">Piedras & más</span></span>
             </div>
-            <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight">217 PARAJES DOCUMENTADOS</h3>
+            <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight uppercase">217 PARAJES DOCUMENTADOS</h3>
             <p className="text-white/40 text-[10px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-bold">
               Mapeo técnico exhaustivo basado en las fuentes bibliográficas de Esther Maganto y Juan Enrique del Barrio. Auditoría visual por Javier de Miguel Torres.
             </p>
@@ -459,7 +471,6 @@ const App = () => {
              GOOGLE MAPS AUTHORITY
           </div>
           <div className="flex justify-center mt-6">
-             {/* Pin de Google Maps centrado */}
              <div className="w-10 h-10 flex items-center justify-center">
                <svg viewBox="0 0 24 24" className="w-10 h-10" xmlns="http://www.w3.org/2000/svg">
                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#EA4335"/>
@@ -489,6 +500,7 @@ const App = () => {
                     <a 
                         href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} 
                         target="_blank" 
+                        rel="noopener noreferrer"
                         className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl inline-block hover:scale-105 transition-transform"
                     >
                         Trazar rumbo en Mapa
@@ -498,7 +510,7 @@ const App = () => {
           </div>
       )}
 
-      {/* SCROLL BUTTON - ESQUINA INFERIOR DERECHA */}
+      {/* SCROLL BUTTON */}
       {showScrollBtn && (
         <button 
           onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} 
