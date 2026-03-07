@@ -46,7 +46,7 @@ const App = () => {
   const [itinerary, setItinerary] = useState(null);
   const [visitedPlaces, setVisitedPlaces] = useState([]);
 
-  // --- CARGA INICIAL DE PASAPORTE (visitedPlaces) ---
+  // --- GESTIÓN DE PASAPORTE LOCAL ---
   useEffect(() => {
     const saved = localStorage.getItem('segovia_pasaporte');
     if (saved) setVisitedPlaces(JSON.parse(saved));
@@ -147,7 +147,7 @@ const App = () => {
     { id: 83, name: "CASERÍO DE COVATILLAS", category: "Historia", coords: "41°05'28.2\"N 4°04'17.5\"W", address: "TORREIGLESIAS", note: "Conjunto arquitectónico tradicional de la campiña segoviana." },
     { id: 84, name: "MOLINO DE CAVILA", category: "Industrial", coords: "40°57'16.0\"N 4°06'48.1\"W", address: "SEGOVIA", note: "Ingenio harinero a las afueras de la capital." },
     { id: 85, name: "FÁBRICA DE TEJAS Y LADRILLOS", category: "Industrial", coords: "40°55'17.6\"N 4°07'31.9\"W", address: "SEGOVIA", note: "Muestra de la industria cerámica tradicional segoviana." },
-    { id: 86, name: "CONVENTO DE SAN AGUSTÍN", category: "Ruinas", coords: "40°57'03.2\"N 4°07'08.2\"W", address: "SEGOVIA", note: "Restos del antiguo convento extramuros de la ciudad." },
+    { id: 86, name: "CONVENTO DE SAN AGUSTÍN", category: "Ruinas", coords: "40°57'03.2\"N 4°07'08.2\"W", address: "SEGOVIA", note: "Restos del antiguo convector extramuros de la ciudad." },
     { id: 87, name: "PALACIO DE LOS MARQUESES DE CASABLANCA", category: "Historia", coords: "41°11'43.3\"N 4°04'01.4\"W", address: "SAUQUILLO DE CABEZAS", note: "Gran residencia nobiliaria en medio de las tierras de cereal." },
     { id: 88, name: "RANCHO DE ALFARO", category: "Industrial", coords: "41°00'16.5\"N 3°57'25.1\"W", address: "SANTO DOMINGO DE PIRÓN", note: "Esquileo tradicional y finca ganadera histórica." },
     { id: 89, name: "ESQUILEO DE SANTILLANA", category: "Industrial", coords: "40°53'17.2\"N 4°04'04.3\"W", address: "REVENGA", note: "Centro neurálgico de la industria de la lana en el siglo XVIII." },
@@ -235,7 +235,7 @@ const App = () => {
     { id: 171, name: "DESPOBLADO DE BÁLSAMOS", category: "Ruinas", coords: "41°21'28.1\"N 3°43'44.0\"W", address: "URUEÑAS", note: "Asentamiento rural del pasado místico segoviano." },
     { id: 172, name: "LA CASITA ALTA", category: "Naturaleza", coords: "41°21'20.3\"N 3°49'23.2\"W", address: "VALLE DEL TABLADILLO", note: "Lugar de retiro y vistas privilegiadas al valle segoviano." },
     { id: 173, name: "TEJERAS", category: "Industrial", coords: "41°21'28.3\"N 3°29'22.0\"W", address: "FRESNO DE CANTESPINO", note: "Legado de la producción cerámica artesanal." },
-    { id: 174, name: "CONVENTO DE SAN FRANCISCO", category: "Ruinas", coords: "41°25'37.8\"N 3°22'52.3\"W", address: "AYLLÓN", note: "Ruinas majestuosas del convento que visitó San Francisco." },
+    { id: 174, name: "CONVENTO DE SAN FRANCISCO", category: "Ruinas", coords: "41°25'37.8\"N 3°22'52.3\"W", address: "AYLLÓN", note: "Ruinas majestuosas del convector que visitó San Francisco." },
     { id: 175, name: "MOLINO SERNA Y DEL VADO", category: "Industrial", coords: "41°27'19.4\"N 3°27'59.0\"W", address: "ALDEALENGUA DE SANTA MARÍA", note: "Complejo de molienda en el noreste de la provincia." },
     { id: 176, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°25'49.6\"N 3°32'34.9\"W", address: "CAMPO DE SAN PEDRO", note: "Punto de conexión fundamental de la línea de Castilla." },
     { id: 177, name: "MOLINO DE ARRIBA Y ABAJO", category: "Industrial", coords: "41°26'01.3\"N 3°40'28.5\"W", address: "CARABIAS", note: "Dos molinos históricos situados en el mismo arroyo." },
@@ -325,7 +325,6 @@ const App = () => {
   };
 
   const generateItinerary = () => {
-    // Generar ruta basada en la zona cardinal seleccionada actualmente
     const zoneToUse = currentGeoZone === 'Todos' ? ['Norte', 'Sur', 'Este', 'Oeste'][Math.floor(Math.random()*4)] : currentGeoZone;
     const zonePlaces = allPlaces.filter(p => getCardinal(p.coords) === zoneToUse);
     const shuffled = [...zonePlaces].sort(() => 0.5 - Math.random());
@@ -382,7 +381,7 @@ const App = () => {
         </div>
       </section>
 
-      {/* PROGRESS BAR (PASAPORTE) */}
+      {/* PROGRESS BAR */}
       <div className="max-w-7xl mx-auto px-6 mt-6">
           <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm flex flex-col md:flex-row items-center gap-4">
             <div className="flex items-center gap-2 text-[#4338ca] font-black text-[10px] uppercase tracking-wider">
@@ -449,7 +448,7 @@ const App = () => {
                   <button 
                     key={cat} 
                     onClick={() => setCurrentCategory(catName)} 
-                    className={`relative px-6 py-2.5 rounded-xl text-[10px] font-black border transition-all uppercase tracking-widest shadow-sm ${activeColorClass} ${textColorClass} ${borderColorClass} focus:outline-none`}
+                    className={`relative px-6 py-2.5 rounded-xl text-[10px] font-black border transition-all uppercase tracking-widest shadow-sm ${activeColorClass} ${textColorClass} ${borderColorClass} focus:outline-none touch-manipulation`}
                   >
                     {cat}
                     {cat !== 'TODOS' && (
@@ -469,9 +468,10 @@ const App = () => {
             <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in text-left flex flex-col h-full overflow-hidden`}>
               
               <div className="relative z-10 flex flex-col h-full">
-                {/* Visual part */}
+                {/* Visual Area */}
                 <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}>
                   
+                  {/* Category Motif SVG (15% Opacity) */}
                   <div className={`absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0 ${categoryIconColors[p.category]}`}>
                     {p.category === 'Historia' && <Landmark size={140} strokeWidth={1.5} />}
                     {p.category === 'Ruinas' && <Castle size={140} strokeWidth={1.5} />}
@@ -479,7 +479,7 @@ const App = () => {
                     {p.category === 'Naturaleza' && <Trees size={140} strokeWidth={1.5} />}
                   </div>
 
-                  {/* Pasaporte Check Overlay */}
+                  {/* Visited Check */}
                   <button 
                     onClick={() => toggleVisited(p.id)}
                     className={`absolute top-4 right-4 p-2 rounded-full backdrop-blur-md transition-all shadow-lg z-30 ${visitedPlaces.includes(p.id) ? 'bg-emerald-500 text-white scale-110' : 'bg-white/40 text-slate-600 hover:bg-white/80'}`}
@@ -487,6 +487,7 @@ const App = () => {
                     <CheckCircle2 className="w-5 h-5" />
                   </button>
 
+                  {/* Vertical Badges Stack */}
                   <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2">
                     <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
                     <div className="px-2.5 py-1 bg-white/60 backdrop-blur-sm rounded-lg border border-white/40 shadow-sm">
@@ -495,7 +496,7 @@ const App = () => {
                   </div>
                 </div>
 
-                {/* Content part */}
+                {/* Content */}
                 <div className="px-3 flex-grow flex flex-col justify-between">
                   <div>
                     <h4 className="text-[15px] font-black uppercase mb-1.5 text-slate-800 tracking-tight leading-tight group-hover:text-indigo-600 transition-colors line-clamp-2">{p.name}</h4>
@@ -525,6 +526,7 @@ const App = () => {
       <footer className="relative bg-[#111827] pt-56 pb-20 px-6 overflow-visible text-center border-t border-white/5">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
+          {/* Floating Card */}
           <div className="absolute top-[-160px] left-1/2 -translate-x-1/2 w-[92%] max-w-2xl bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg">
@@ -548,7 +550,7 @@ const App = () => {
         </div>
       </footer>
 
-      {/* MODAL ITINERARIO ZONAL */}
+      {/* MODAL ITINERARIO */}
       {itinerary && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
               <div className="bg-white rounded-[3rem] w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col shadow-2xl border border-white/20">
@@ -580,9 +582,6 @@ const App = () => {
                             </div>
                         </div>
                     ))}
-                    <div className="text-center pt-4">
-                        <p className="text-[9px] text-slate-400 uppercase font-bold tracking-[0.2em]">Ruta generada localmente para tu zona de exploración activa</p>
-                    </div>
                 </div>
               </div>
           </div>
