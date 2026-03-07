@@ -1,21 +1,40 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Compass, Map as MapIcon, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees } from 'lucide-react';
 
+// Mapeo de colores para los badges y elementos de categoría
 const categoryColors = {
   'Historia': 'bg-blue-600',
   'Ruinas': 'bg-orange-500',
   'Industrial': 'bg-slate-500',
-  'Naturaleza': 'bg-emerald-600',
+  'Naturaleza': 'bg-emerald-600', // Corregido a verde
   'default': 'bg-indigo-500'
 };
 
-// Colores de fondo diluidos para las tarjetas
+// Colores de fondo para el cuerpo de la card (muy diluidos)
 const categoryBgColors = {
   'Historia': 'bg-blue-50/50',
   'Ruinas': 'bg-orange-50/50',
   'Industrial': 'bg-slate-50/50',
-  'Naturaleza': 'bg-emerald-50/50',
+  'Naturaleza': 'bg-emerald-50/50', // Corregido a verde
   'default': 'bg-indigo-50/50'
+};
+
+// Colores para el área visual superior
+const categoryVisualBgs = {
+  'Historia': 'bg-blue-100',
+  'Ruinas': 'bg-orange-100',
+  'Industrial': 'bg-slate-200',
+  'Naturaleza': 'bg-emerald-100', // Corregido a verde
+  'default': 'bg-indigo-100'
+};
+
+// Colores para los iconos SVG (contraste sutil)
+const categoryIconColors = {
+  'Historia': 'text-blue-900',
+  'Ruinas': 'text-orange-900',
+  'Industrial': 'text-slate-900',
+  'Naturaleza': 'text-emerald-900', // Corregido a verde
+  'default': 'text-indigo-900'
 };
 
 const App = () => {
@@ -25,7 +44,7 @@ const App = () => {
   const [showScrollBtn, setShowScrollBtn] = useState(false);
   const [randomPlace, setRandomPlace] = useState(null);
 
-  // --- BASE DE DATOS INTEGRAL CORREGIDA (217 PUNTOS) ---
+  // --- BASE DE DATOS INTEGRAL (217 PUNTOS) ---
   const allPlaces = useMemo(() => [
     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas." },
@@ -328,7 +347,7 @@ const App = () => {
           <p className="text-white font-black text-[10px] md:text-xs tracking-[0.4em] uppercase opacity-90 mb-1 leading-none">
             217 PUNTOS MAPEADOS
           </p>
-          <p className="text-white/70 font-medium text-[9px] md:text-[10px] max-w-lg mx-auto leading-relaxed">
+          <p className="text-white/70 font-bold text-[12px] md:text-[14px] max-w-lg mx-auto leading-relaxed">
             Parajes sorprendentes e inhóspitos de la provincia de Segovia
           </p>
         </div>
@@ -372,31 +391,29 @@ const App = () => {
           </div>
 
           <div className="flex flex-wrap justify-center gap-2.5">
-            {['TODOS', 'HISTORIA', 'RUINAS', 'INDUSTRIAL', 'NATURALEZA'].map(cat => (
-              <button 
-                key={cat} 
-                onClick={() => setCurrentCategory(cat === 'TODOS' ? 'Todos' : cat.charAt(0) + cat.slice(1).toLowerCase())} 
-                className={`relative px-6 py-2.5 rounded-xl text-[10px] font-black border transition-all uppercase tracking-widest ${
-                  (currentCategory.toUpperCase() === cat) 
-                  ? 'bg-[#4338ca] text-white border-transparent shadow-md' 
-                  : 'bg-white border-slate-200 text-slate-600 hover:border-indigo-300 hover:bg-slate-50'
-                }`}
-              >
-                {cat}
-                {cat !== 'TODOS' && (
-                    <span className="ml-2 opacity-50 text-[8px] font-light">
-                        ({stats[cat.charAt(0) + cat.slice(1).toLowerCase()]})
-                    </span>
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
+            {['TODOS', 'HISTORIA', 'RUINAS', 'INDUSTRIAL', 'NATURALEZA'].map(cat => {
+                const isActive = (currentCategory.toUpperCase() === cat);
+                const catName = cat === 'TODOS' ? 'Todos' : cat.charAt(0) + cat.slice(1).toLowerCase();
+                const activeColorClass = isActive ? (categoryColors[catName] || 'bg-[#4338ca]') : 'bg-white';
+                const textColorClass = isActive ? 'text-white' : 'text-slate-600';
+                const borderColorClass = isActive ? 'border-transparent' : 'border-slate-200';
 
-        {/* RESULTS INFO */}
-        <div className="flex items-center gap-2 mb-8 text-slate-400 font-bold text-[10px] uppercase tracking-widest px-1">
-            <BarChart2 className="w-3.5 h-3.5" />
-            Mostrando {filteredPlaces.length} resultados de {allPlaces.length}
+                return (
+                  <button 
+                    key={cat} 
+                    onClick={() => setCurrentCategory(catName)} 
+                    className={`relative px-6 py-2.5 rounded-xl text-[10px] font-black border transition-all uppercase tracking-widest shadow-sm ${activeColorClass} ${textColorClass} ${borderColorClass} hover:border-indigo-300 hover:bg-slate-50`}
+                  >
+                    {cat}
+                    {cat !== 'TODOS' && (
+                        <span className={`ml-2 text-[8px] font-light ${isActive ? 'opacity-70' : 'opacity-50'}`}>
+                            ({stats[catName]})
+                        </span>
+                    )}
+                  </button>
+                );
+            })}
+          </div>
         </div>
 
         {/* GRID */}
@@ -405,22 +422,22 @@ const App = () => {
             <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in text-left flex flex-col h-full overflow-hidden`}>
               
               <div className="relative z-10 flex flex-col h-full">
-                {/* Visual part (AREA GRIS/OSCURA) */}
-                <div className="relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center text-white bg-slate-100 shadow-inner">
-                  <div className="absolute inset-0 bg-[#334155] opacity-90"></div>
+                {/* Visual part */}
+                <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}>
                   
-                  {/* ICONO SVG POR CATEGORÍA (OPACIDAD 15%) */}
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0">
-                    {p.category === 'Historia' && <Landmark size={140} strokeWidth={1} />}
-                    {p.category === 'Ruinas' && <Castle size={140} strokeWidth={1} />}
-                    {p.category === 'Industrial' && <Factory size={140} strokeWidth={1} />}
-                    {p.category === 'Naturaleza' && <Trees size={140} strokeWidth={1} />}
+                  <div className={`absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0 ${categoryIconColors[p.category]}`}>
+                    {p.category === 'Historia' && <Landmark size={140} strokeWidth={1.5} />}
+                    {p.category === 'Ruinas' && <Castle size={140} strokeWidth={1.5} />}
+                    {p.category === 'Industrial' && <Factory size={140} strokeWidth={1.5} />}
+                    {p.category === 'Naturaleza' && <Trees size={140} strokeWidth={1.5} />}
                   </div>
 
-                  {/* Badge y Coordenadas */}
-                  <div className="absolute bottom-5 left-6 text-white z-20">
-                    <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
-                    <p className="text-[9px] font-mono mt-1.5 opacity-90 tracking-wider leading-none">{p.coords}</p>
+                  {/* Badges Stack (Vertical) */}
+                  <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2">
+                    <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
+                    <div className="px-2.5 py-1 bg-white/60 backdrop-blur-sm rounded-lg border border-white/40 shadow-sm">
+                        <p className="text-[10px] font-mono text-slate-600 font-bold tracking-wider leading-none">{p.coords}</p>
+                    </div>
                   </div>
                 </div>
 
@@ -455,11 +472,10 @@ const App = () => {
         </div>
       </main>
 
-      {/* FOOTER CON TARJETA FLOTANTE */}
+      {/* FOOTER */}
       <footer className="relative bg-[#111827] pt-56 pb-20 px-6 overflow-visible text-center border-t border-white/5">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
-          {/* Tarjeta Flotante Central */}
           <div className="absolute top-[-160px] left-1/2 -translate-x-1/2 w-[92%] max-w-2xl bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg">
@@ -480,7 +496,6 @@ const App = () => {
              GOOGLE MAPS AUTHORITY
           </div>
           <div className="flex justify-center mt-6">
-             {/* Pin de Google Maps centrado */}
              <div className="w-10 h-10 flex items-center justify-center">
                <svg viewBox="0 0 24 24" className="w-10 h-10" xmlns="http://www.w3.org/2000/svg">
                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#EA4335"/>
