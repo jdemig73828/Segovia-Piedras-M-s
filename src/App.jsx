@@ -6,7 +6,7 @@ const categoryColors = {
   'Historia': 'bg-blue-600',
   'Ruinas': 'bg-orange-500',
   'Industrial': 'bg-slate-500',
-  'Naturaleza': 'bg-emerald-600', // Corregido a verde
+  'Naturaleza': 'bg-emerald-600', // Verde corregido
   'default': 'bg-indigo-500'
 };
 
@@ -15,7 +15,7 @@ const categoryBgColors = {
   'Historia': 'bg-blue-50/50',
   'Ruinas': 'bg-orange-50/50',
   'Industrial': 'bg-slate-50/50',
-  'Naturaleza': 'bg-emerald-50/50', // Corregido a verde
+  'Naturaleza': 'bg-emerald-50/50',
   'default': 'bg-indigo-50/50'
 };
 
@@ -24,7 +24,7 @@ const categoryVisualBgs = {
   'Historia': 'bg-blue-100',
   'Ruinas': 'bg-orange-100',
   'Industrial': 'bg-slate-200',
-  'Naturaleza': 'bg-emerald-100', // Corregido a verde
+  'Naturaleza': 'bg-emerald-100',
   'default': 'bg-indigo-100'
 };
 
@@ -33,7 +33,7 @@ const categoryIconColors = {
   'Historia': 'text-blue-900',
   'Ruinas': 'text-orange-900',
   'Industrial': 'text-slate-900',
-  'Naturaleza': 'text-emerald-900', // Corregido a verde
+  'Naturaleza': 'text-emerald-900',
   'default': 'text-indigo-900'
 };
 
@@ -390,10 +390,13 @@ const App = () => {
             </div>
           </div>
 
+          {/* BOTONES DE CATEGORÍA CON COLOR ACTIVO FIJO PARA MÓVIL/TABLET */}
           <div className="flex flex-wrap justify-center gap-2.5">
             {['TODOS', 'HISTORIA', 'RUINAS', 'INDUSTRIAL', 'NATURALEZA'].map(cat => {
                 const isActive = (currentCategory.toUpperCase() === cat);
                 const catName = cat === 'TODOS' ? 'Todos' : cat.charAt(0) + cat.slice(1).toLowerCase();
+                
+                // Determinamos clases de color activo para evitar problemas de hover táctil
                 const activeColorClass = isActive ? (categoryColors[catName] || 'bg-[#4338ca]') : 'bg-white';
                 const textColorClass = isActive ? 'text-white' : 'text-slate-600';
                 const borderColorClass = isActive ? 'border-transparent' : 'border-slate-200';
@@ -402,7 +405,7 @@ const App = () => {
                   <button 
                     key={cat} 
                     onClick={() => setCurrentCategory(catName)} 
-                    className={`relative px-6 py-2.5 rounded-xl text-[10px] font-black border transition-all uppercase tracking-widest shadow-sm ${activeColorClass} ${textColorClass} ${borderColorClass} hover:border-indigo-300 hover:bg-slate-50`}
+                    className={`relative px-6 py-2.5 rounded-xl text-[10px] font-black border transition-all uppercase tracking-widest shadow-sm ${activeColorClass} ${textColorClass} ${borderColorClass} focus:outline-none`}
                   >
                     {cat}
                     {cat !== 'TODOS' && (
@@ -416,15 +419,22 @@ const App = () => {
           </div>
         </div>
 
+        {/* RESULTS INFO */}
+        <div className="flex items-center gap-2 mb-8 text-slate-400 font-bold text-[10px] uppercase tracking-widest px-1">
+            <BarChart2 className="w-3.5 h-3.5" />
+            Mostrando {filteredPlaces.length} resultados de {allPlaces.length}
+        </div>
+
         {/* GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {filteredPlaces.map(p => (
             <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in text-left flex flex-col h-full overflow-hidden`}>
               
               <div className="relative z-10 flex flex-col h-full">
-                {/* Visual part */}
+                {/* Visual part (FONDO DILUIDO POR CATEGORÍA) */}
                 <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}>
                   
+                  {/* ICONO SVG POR CATEGORÍA (OPACIDAD 15%) */}
                   <div className={`absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0 ${categoryIconColors[p.category]}`}>
                     {p.category === 'Historia' && <Landmark size={140} strokeWidth={1.5} />}
                     {p.category === 'Ruinas' && <Castle size={140} strokeWidth={1.5} />}
@@ -432,7 +442,7 @@ const App = () => {
                     {p.category === 'Naturaleza' && <Trees size={140} strokeWidth={1.5} />}
                   </div>
 
-                  {/* Badges Stack (Vertical) */}
+                  {/* Badges Stack (VERTICAL: Coordenadas DEBAJO de Categoría) */}
                   <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2">
                     <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
                     <div className="px-2.5 py-1 bg-white/60 backdrop-blur-sm rounded-lg border border-white/40 shadow-sm">
@@ -472,10 +482,11 @@ const App = () => {
         </div>
       </main>
 
-      {/* FOOTER */}
+      {/* FOOTER CON TARJETA FLOTANTE */}
       <footer className="relative bg-[#111827] pt-56 pb-20 px-6 overflow-visible text-center border-t border-white/5">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
+          {/* Tarjeta Flotante Central */}
           <div className="absolute top-[-160px] left-1/2 -translate-x-1/2 w-[92%] max-w-2xl bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg">
@@ -496,6 +507,7 @@ const App = () => {
              GOOGLE MAPS AUTHORITY
           </div>
           <div className="flex justify-center mt-6">
+             {/* Pin de Google Maps centrado */}
              <div className="w-10 h-10 flex items-center justify-center">
                <svg viewBox="0 0 24 24" className="w-10 h-10" xmlns="http://www.w3.org/2000/svg">
                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#EA4335"/>
