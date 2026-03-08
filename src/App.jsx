@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Compass, Map as MapIcon, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, CheckCircle2, Trophy, Route } from 'lucide-react';
+import { Compass, Map as MapIcon, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route } from 'lucide-react';
 
-// Mapeo de colores para los badges y elementos de categoría
+// Mapeo de colores principales de sección
 const categoryColors = {
   'Historia': 'bg-blue-600',
   'Ruinas': 'bg-orange-500',
@@ -10,7 +10,7 @@ const categoryColors = {
   'default': 'bg-indigo-500'
 };
 
-// Colores de fondo para el cuerpo de la card (muy diluidos)
+// Colores de fondo para el cuerpo de la tarjeta (muy diluidos)
 const categoryBgColors = {
   'Historia': 'bg-blue-50/50',
   'Ruinas': 'bg-orange-50/50',
@@ -19,7 +19,7 @@ const categoryBgColors = {
   'default': 'bg-indigo-50/50'
 };
 
-// Colores para el área visual superior
+// Colores para el área visual superior (donde va el motivo SVG)
 const categoryVisualBgs = {
   'Historia': 'bg-blue-100',
   'Ruinas': 'bg-orange-100',
@@ -28,7 +28,7 @@ const categoryVisualBgs = {
   'default': 'bg-indigo-100'
 };
 
-// Colores para los iconos SVG (contraste sutil)
+// Colores para los iconos de motivo SVG (contraste elegante)
 const categoryIconColors = {
   'Historia': 'text-blue-900',
   'Ruinas': 'text-orange-900',
@@ -44,21 +44,12 @@ const App = () => {
   const [showScrollBtn, setShowScrollBtn] = useState(false);
   const [randomPlace, setRandomPlace] = useState(null);
   const [itinerary, setItinerary] = useState(null);
-  const [visitedPlaces, setVisitedPlaces] = useState([]);
 
-  // --- GESTIÓN DE PASAPORTE LOCAL ---
   useEffect(() => {
-    const saved = localStorage.getItem('segovia_pasaporte');
-    if (saved) setVisitedPlaces(JSON.parse(saved));
+    const handleScroll = () => setShowScrollBtn(window.scrollY > 300);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const toggleVisited = (id) => {
-    const newVisited = visitedPlaces.includes(id) 
-      ? visitedPlaces.filter(v => v !== id)
-      : [...visitedPlaces, id];
-    setVisitedPlaces(newVisited);
-    localStorage.setItem('segovia_pasaporte', JSON.stringify(newVisited));
-  };
 
   // --- BASE DE DATOS INTEGRAL (217 PUNTOS) ---
   const allPlaces = useMemo(() => [
@@ -188,7 +179,7 @@ const App = () => {
     { id: 124, name: "CASERÍO EL SALVADOR", category: "Ruinas", coords: "40°57'16.9\"N 4°31'45.1\"W", address: "JEMENUÑO", note: "Antigua finca ganadera de gran extensión." },
     { id: 125, name: "ERMITA DE LA VIRGEN DE CEPONES", category: "Historia", coords: "40°50'25.1\"N 4°08'47.9\"W", address: "LA LOSA", note: "Lugar de culto situado en las faldas de la sierra." },
     { id: 126, name: "CASERÍO DE REDONDA EL NUEVO", category: "Historia", coords: "40°55'41.6\"N 4°21'54.1\"W", address: "MARAZOLEJA", note: "Finca de labranza tradicional con arquitectura típica de ladrillo." },
-    { id: 127, name: "ERMITA DE NUESTRA SEÑORA DEL ESPINO", category: "Historia", coords: "40°58'07.9\"N 4°33'23.5\"W", address: "MARTÍN MUÑOZ DE LAS POSADAS", note: "Santuario de gran tradición mística y literaria." },
+    { id: 127, name: "ERMITA DE NUESTRA SEÑORA EL ESPINO", category: "Historia", coords: "40°58'07.9\"N 4°33'23.5\"W", address: "MARTÍN MUÑOZ DE LAS POSADAS", note: "Santuario de gran tradición mística y literaria." },
     { id: 128, name: "TEJARES", category: "Industrial", coords: "41°03'08.5\"N 4°27'59.0\"W", address: "MELQUE DE CERCOS", note: "Instalaciones artesanales para la fabricación de tejas." },
     { id: 129, name: "TELÉGRAFO ÓPTICO", category: "Industrial", coords: "40°44'34.0\"N 4°18'01.0\"W", address: "NAVAS DE SAN ANTONIO", note: "Torre vigía de la antigua red de comunicaciones." },
     { id: 130, name: "DESPOBLADO DE HERREROS", category: "Ruinas", coords: "40°48'25.4\"N 4°13'51.4\"W", address: "OTERO DE HERREROS", note: "Restos de población de tradición metalúrgica." },
@@ -281,16 +272,15 @@ const App = () => {
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos." }
   ], []);
 
-  // --- LÓGICA DE FILTRADO Y CARDINALIDAD ---
-  const dmsToDec = (dms) => {
-    if(!dms) return 0;
-    const parts = dms.match(/(\d+)°(\d+)'([\d.]+)"/);
-    if (!parts) return 0;
-    let dec = parseFloat(parts[1]) + (parseFloat(parts[2])/60) + (parseFloat(parts[3])/3600);
-    return dms.includes('W') || dms.includes('S') ? -dec : dec;
-  };
-
+  // --- LÓGICA DE FILTRADO ---
   const getCardinal = (coords) => {
+    const dmsToDec = (dms) => {
+      if(!dms) return 0;
+      const parts = dms.match(/(\d+)°(\d+)'([\d.]+)"/);
+      if (!parts) return 0;
+      let dec = parseFloat(parts[1]) + (parseFloat(parts[2])/60) + (parseFloat(parts[3])/3600);
+      return dms.includes('W') || dms.includes('S') ? -dec : dec;
+    };
     const [latStr, lonStr] = coords.split(' ');
     const lat = dmsToDec(latStr);
     const lon = dmsToDec(lonStr);
@@ -319,25 +309,12 @@ const App = () => {
     };
   }, [allPlaces]);
 
-  const handleRandomDiscovery = () => {
-    const randomIdx = Math.floor(Math.random() * allPlaces.length);
-    setRandomPlace(allPlaces[randomIdx]);
-  };
-
   const generateItinerary = () => {
     const zoneToUse = currentGeoZone === 'Todos' ? ['Norte', 'Sur', 'Este', 'Oeste'][Math.floor(Math.random()*4)] : currentGeoZone;
     const zonePlaces = allPlaces.filter(p => getCardinal(p.coords) === zoneToUse);
     const shuffled = [...zonePlaces].sort(() => 0.5 - Math.random());
     setItinerary({ zone: zoneToUse, places: shuffled.slice(0, 3) });
   };
-
-  useEffect(() => {
-    const handleScroll = () => setShowScrollBtn(window.scrollY > 300);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const progressPercentage = (visitedPlaces.length / allPlaces.length) * 100;
 
   return (
     <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100">
@@ -347,19 +324,20 @@ const App = () => {
           <div className="bg-[#4338ca] p-1.5 rounded-md shadow-sm">
             <MapIcon className="text-white w-4 h-4" />
           </div>
-          <h1 className="text-sm font-black tracking-tight text-slate-900 uppercase italic">
+          <h1 className="text-sm font-black tracking-tight text-slate-900 uppercase italic leading-none">
             Segovia <span className="text-[#4338ca] font-light not-italic">Piedras & más</span>
           </h1>
         </div>
         <div className="flex items-center gap-2 md:gap-3">
-            <button onClick={generateItinerary} title="Generar Itinerario" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
+            <button onClick={generateItinerary} title="Generar Ruta" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
                 <Route className="w-4 h-4" />
             </button>
-            <button onClick={handleRandomDiscovery} title="Descubrimiento aleatorio" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
+            <button onClick={() => setRandomPlace(allPlaces[Math.floor(Math.random()*allPlaces.length)])} title="Azar" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
                 <Shuffle className="w-4 h-4" />
             </button>
             <a href="https://maps.app.goo.gl/fnbQQ6Bvkw35PQBt5" target="_blank" rel="noopener noreferrer" 
                className="flex items-center gap-2 px-3 md:px-4 py-1.5 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg active:scale-95 leading-none">
+              <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="GM" className="h-3.5 w-auto" />
               MAPA
             </a>
         </div>
@@ -381,25 +359,7 @@ const App = () => {
         </div>
       </section>
 
-      {/* PROGRESS BAR */}
-      <div className="max-w-7xl mx-auto px-6 mt-6">
-          <div className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm flex flex-col md:flex-row items-center gap-4">
-            <div className="flex items-center gap-2 text-[#4338ca] font-black text-[10px] uppercase tracking-wider">
-                <Trophy className="w-4 h-4" /> Pasaporte de Explorador
-            </div>
-            <div className="flex-grow w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                <div 
-                    className="bg-[#4338ca] h-full transition-all duration-1000" 
-                    style={{ width: `${progressPercentage}%` }}
-                ></div>
-            </div>
-            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">
-                {visitedPlaces.length} de 217 Descubiertos ({Math.round(progressPercentage)}%)
-            </div>
-          </div>
-      </div>
-
-      {/* SEARCH AND FILTERS */}
+      {/* FILTERS & SEARCH */}
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-8 pb-48">
         <div className="mb-10 max-w-2xl mx-auto relative group">
           <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-600 transition-colors w-5 h-5" />
@@ -410,22 +370,17 @@ const App = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-14 pr-6 py-4 bg-white border border-slate-200 rounded-3xl shadow-xl outline-none text-sm font-bold text-slate-700 focus:ring-4 focus:ring-indigo-50 focus:border-indigo-300 transition-all"
           />
-          {searchTerm && (
-            <button onClick={() => setSearchTerm('')} className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-600">
-              <X className="w-4 h-4" />
-            </button>
-          )}
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-6 items-center justify-between mb-12">
-          <div className="w-full lg:max-w-md text-left">
-            <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 px-1 leading-tight">Selección Geográfica (Zonal)</p>
-            <div className="relative group max-w-sm">
+        <div className="flex flex-col lg:flex-row gap-6 items-center justify-between mb-8">
+          <div className="w-full lg:max-w-md text-left text-[9px] font-black uppercase tracking-widest text-slate-400">
+            Zona Cardinal
+            <div className="relative mt-2 max-w-sm">
               <Compass className="absolute left-4 top-1/2 -translate-y-1/2 text-[#4338ca] w-4 h-4" />
               <select 
                 value={currentGeoZone} 
                 onChange={e => setCurrentGeoZone(e.target.value)} 
-                className="w-full pl-10 pr-10 py-3 bg-white border border-slate-200 rounded-xl shadow-sm outline-none text-[11px] font-bold text-slate-700 appearance-none focus:ring-2 focus:ring-indigo-100 transition-all cursor-pointer hover:border-slate-300"
+                className="w-full pl-10 pr-10 py-3 bg-white border border-slate-200 rounded-xl shadow-sm outline-none text-[11px] font-bold text-slate-700 appearance-none focus:ring-2 focus:ring-indigo-100 transition-all cursor-pointer"
               >
                 <option value="Todos">Toda la Provincia</option>
                 <option value="Norte">Zona Norte</option>
@@ -441,34 +396,30 @@ const App = () => {
                 const isActive = (currentCategory.toUpperCase() === cat);
                 const catName = cat === 'TODOS' ? 'Todos' : cat.charAt(0) + cat.slice(1).toLowerCase();
                 const activeColorClass = isActive ? (categoryColors[catName] || 'bg-[#4338ca]') : 'bg-white';
-                const textColorClass = isActive ? 'text-white' : 'text-slate-600';
-                const borderColorClass = isActive ? 'border-transparent' : 'border-slate-200';
-
                 return (
                   <button 
                     key={cat} 
                     onClick={() => setCurrentCategory(catName)} 
-                    className={`relative px-6 py-2.5 rounded-xl text-[10px] font-black border transition-all uppercase tracking-widest shadow-sm ${activeColorClass} ${textColorClass} ${borderColorClass} focus:outline-none touch-manipulation`}
+                    className={`relative px-6 py-2.5 rounded-xl text-[10px] font-black border transition-all uppercase tracking-widest shadow-sm ${activeColorClass} ${isActive ? 'text-white border-transparent' : 'bg-white border-slate-200 text-slate-600'} focus:outline-none touch-manipulation`}
                   >
-                    {cat}
-                    {cat !== 'TODOS' && (
-                        <span className={`ml-2 text-[8px] font-light ${isActive ? 'opacity-70' : 'opacity-50'}`}>
-                            ({stats[catName]})
-                        </span>
-                    )}
+                    {cat} {cat !== 'TODOS' && `(${stats[catName]})`}
                   </button>
                 );
             })}
           </div>
         </div>
 
+        {/* RESULTS INFO (RE-INCORPORADO) */}
+        <div className="flex items-center gap-2 mb-8 text-slate-400 font-bold text-[10px] uppercase tracking-widest px-1 animate-fade-in">
+            <BarChart2 className="w-3.5 h-3.5" />
+            Mostrando {filteredPlaces.length} resultados de {allPlaces.length}
+        </div>
+
         {/* GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {filteredPlaces.map(p => (
             <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in text-left flex flex-col h-full overflow-hidden`}>
-              
               <div className="relative z-10 flex flex-col h-full">
-                {/* Visual Area */}
                 <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}>
                   
                   {/* Category Motif SVG (15% Opacity) */}
@@ -479,14 +430,6 @@ const App = () => {
                     {p.category === 'Naturaleza' && <Trees size={140} strokeWidth={1.5} />}
                   </div>
 
-                  {/* Visited Check */}
-                  <button 
-                    onClick={() => toggleVisited(p.id)}
-                    className={`absolute top-4 right-4 p-2 rounded-full backdrop-blur-md transition-all shadow-lg z-30 ${visitedPlaces.includes(p.id) ? 'bg-emerald-500 text-white scale-110' : 'bg-white/40 text-slate-600 hover:bg-white/80'}`}
-                  >
-                    <CheckCircle2 className="w-5 h-5" />
-                  </button>
-
                   {/* Vertical Badges Stack */}
                   <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2">
                     <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
@@ -496,7 +439,6 @@ const App = () => {
                   </div>
                 </div>
 
-                {/* Content */}
                 <div className="px-3 flex-grow flex flex-col justify-between">
                   <div>
                     <h4 className="text-[15px] font-black uppercase mb-1.5 text-slate-800 tracking-tight leading-tight group-hover:text-indigo-600 transition-colors line-clamp-2">{p.name}</h4>
@@ -505,20 +447,20 @@ const App = () => {
                     </p>
                     <p className="text-[11px] text-slate-500 italic mb-8 leading-relaxed opacity-80 line-clamp-3">"{p.note}"</p>
                   </div>
-                  <div className="flex gap-2">
-                    <a 
-                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex-grow bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-indigo-900 transition-all block active:scale-95 leading-none"
-                    >
-                      VER SITIO
-                    </a>
-                  </div>
+                  <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-indigo-900 transition-all block active:scale-95 leading-none">
+                    VER SITIO
+                  </a>
                 </div>
               </div>
             </div>
           ))}
+          {filteredPlaces.length === 0 && (
+              <div className="col-span-full py-20 text-center flex flex-col items-center">
+                  <Info className="w-12 h-12 text-slate-200 mb-4" />
+                  <h3 className="text-slate-500 font-black uppercase italic tracking-tighter text-xl">Sin hallazgos técnicos</h3>
+                  <p className="text-slate-400 text-xs mt-2">Ajusta los filtros o borra el término de búsqueda.</p>
+              </div>
+          )}
         </div>
       </main>
 
@@ -526,7 +468,7 @@ const App = () => {
       <footer className="relative bg-[#111827] pt-56 pb-20 px-6 overflow-visible text-center border-t border-white/5">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
-          {/* Floating Card */}
+          {/* Floating Footer Card */}
           <div className="absolute top-[-160px] left-1/2 -translate-x-1/2 w-[92%] max-w-2xl bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg">
@@ -539,46 +481,34 @@ const App = () => {
               Mapeo técnico exhaustivo basado en las fuentes bibliográficas de Esther Maganto y Juan Enrique del Barrio. Auditoría visual por Javier de Miguel Torres.
             </p>
           </div>
-          <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-16 font-bold leading-none">
+          <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-16 font-bold leading-none italic uppercase">
             © 2026 SEGOVIA PIEDRAS & MÁS | JAVIER DE MIGUEL TORRES
           </div>
-          <div className="flex justify-center mt-8">
-               <svg viewBox="0 0 24 24" className="w-10 h-10" xmlns="http://www.w3.org/2000/svg">
-                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#EA4335"/>
-               </svg>
-          </div>
+          {/* ICONO ROJO ELIMINADO SEGÚN PETICIÓN */}
+          <div className="mt-12 opacity-0">.</div>
         </div>
       </footer>
 
-      {/* MODAL ITINERARIO */}
+      {/* MODAL RUTA */}
       {itinerary && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
-              <div className="bg-white rounded-[3rem] w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col shadow-2xl border border-white/20">
+              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20">
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50">
-                    <h4 className="font-black uppercase italic tracking-tighter text-indigo-700 flex items-center gap-2">
-                        <Route className="w-5 h-5" /> Itinerario Zona {itinerary.zone}
+                    <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none">
+                        <Route className="w-5 h-5" /> Ruta Zona {itinerary.zone}
                     </h4>
-                    <button onClick={() => setItinerary(null)} className="p-2 hover:bg-white rounded-full transition-all">
-                        <X className="w-6 h-6 text-indigo-300" />
+                    <button onClick={() => setItinerary(null)} className="p-2 hover:bg-white rounded-full transition-all text-indigo-300">
+                        <X className="w-6 h-6" />
                     </button>
                 </div>
-                <div className="p-8 overflow-y-auto space-y-6">
+                <div className="p-8 space-y-6">
                     {itinerary.places.map((p, idx) => (
-                        <div key={p.id} className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                            <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-black flex-shrink-0">
-                                {idx + 1}
-                            </div>
+                        <div key={p.id} className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
+                            <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-black flex-shrink-0 text-xs">{idx + 1}</div>
                             <div className="flex-grow">
-                                <h5 className="font-black uppercase text-slate-800 text-sm">{p.name}</h5>
-                                <p className="text-[10px] font-bold text-slate-400 mb-2 uppercase">{p.address}</p>
-                                <p className="text-xs text-slate-500 italic mb-4">"{p.note}"</p>
-                                <a 
-                                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} 
-                                    target="_blank"
-                                    className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline"
-                                >
-                                    Localizar Punto →
-                                </a>
+                                <h5 className="font-black uppercase text-slate-800 text-sm leading-tight mb-1">{p.name}</h5>
+                                <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tight">{p.address}</p>
+                                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline leading-none">Localizar Punto →</a>
                             </div>
                         </div>
                     ))}
@@ -587,30 +517,17 @@ const App = () => {
           </div>
       )}
 
-      {/* MODAL DESCUBRIMIENTO ALEATORIO */}
+      {/* MODAL DESCUBRIMIENTO */}
       {randomPlace && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
-              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden flex flex-col shadow-2xl border border-white/20">
-                <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50">
-                    <h4 className="font-black uppercase italic tracking-tighter text-indigo-700 flex items-center gap-2">
-                        <Shuffle className="w-5 h-5" /> Hallazgo Aleatorio
-                    </h4>
-                    <button onClick={() => setRandomPlace(null)} className="p-2 hover:bg-white rounded-full transition-all">
-                        <X className="w-6 h-6 text-indigo-300" />
-                    </button>
-                </div>
-                <div className="p-10 text-center">
-                    <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm`}>{randomPlace.category}</span>
-                    <h3 className="text-2xl font-black uppercase tracking-tight text-slate-800 mb-2">{randomPlace.name}</h3>
-                    <p className="text-slate-400 text-xs font-bold uppercase mb-6">{randomPlace.address}</p>
-                    <p className="text-slate-500 italic text-sm mb-10 leading-relaxed">"{randomPlace.note}"</p>
-                    <a 
-                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} 
-                        target="_blank" 
-                        className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl inline-block hover:scale-105 transition-transform"
-                    >
-                        Trazar rumbo en Mapa
-                    </a>
+              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center">
+                <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm`}>{randomPlace.category}</span>
+                <h3 className="text-2xl font-black uppercase text-slate-800 mb-2 leading-tight">{randomPlace.name}</h3>
+                <p className="text-slate-400 text-xs font-bold uppercase mb-6">{randomPlace.address}</p>
+                <p className="text-slate-500 italic text-sm mb-10 leading-relaxed">"{randomPlace.note}"</p>
+                <div className="flex flex-col gap-3">
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} target="_blank" className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:scale-105 transition-transform">Abrir en Mapa</a>
+                    <button onClick={() => setRandomPlace(null)} className="text-slate-400 text-[10px] font-bold uppercase tracking-widest hover:text-slate-600 mt-2">Cerrar</button>
                 </div>
               </div>
           </div>
@@ -618,10 +535,7 @@ const App = () => {
 
       {/* SCROLL BUTTON */}
       {showScrollBtn && (
-        <button 
-          onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} 
-          className="fixed bottom-8 right-8 z-[100] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:scale-110 active:scale-95 transition-all border border-white/10"
-        >
+        <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="fixed bottom-8 right-8 z-[100] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all border border-white/10">
           <ArrowUp className="w-6 h-6" />
         </button>
       )}
