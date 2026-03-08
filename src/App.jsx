@@ -6,7 +6,7 @@ const categoryColors = {
   'Historia': 'bg-blue-600',
   'Ruinas': 'bg-orange-500',
   'Industrial': 'bg-slate-500',
-  'Naturaleza': 'bg-emerald-600',
+  'Naturaleza': 'bg-emerald-600', // Verde corregido
   'default': 'bg-indigo-500'
 };
 
