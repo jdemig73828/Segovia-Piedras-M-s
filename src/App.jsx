@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Compass, Map as MapIcon, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route } from 'lucide-react';
+import { Compass, Map as MapIcon, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Navigation } from 'lucide-react';
 
 // Mapeo de colores principales de sección
 const categoryColors = {
@@ -333,7 +333,7 @@ const App = () => {
         </div>
         <div className="flex items-center gap-2 md:gap-3">
             <button onClick={generateItinerary} title="Generar Ruta" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
-                <Route className="w-4 h-4" />
+                <Navigation className="w-4 h-4" />
             </button>
             <button onClick={() => setRandomPlace(allPlaces[Math.floor(Math.random()*allPlaces.length)])} title="Azar" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
                 <Shuffle className="w-4 h-4" />
@@ -346,7 +346,7 @@ const App = () => {
         </div>
       </header>
 
-      {/* HERO SECTION - MODIFICADO SEGÚN PETICIÓN */}
+      {/* HERO SECTION */}
       <section className="relative h-[120px] flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6]">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-40 mix-blend-overlay"></div>
         <div className="relative z-10 px-6">
@@ -469,32 +469,32 @@ const App = () => {
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           {/* Floating Footer Card */}
-          <div className="absolute top-[-160px] left-1/2 -translate-x-1/2 w-[92%] max-w-2xl bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]">
+          <div className="absolute top-[-160px] left-1/2 -translate-x-1/2 w-[92%] max-w-2xl bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] pt-12 pb-32 px-8 md:px-12 border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg">
                 <MapIcon className="text-white w-6 h-6" />
               </div>
               <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Crea <span className="font-light text-indigo-300 not-italic">tus rutas y excursiones locales</span></span>
             </div>
-            <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight uppercase">217 PARAJES DOCUMENTADOS</h3>
-            <div className="space-y-4">
+            <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight">217 parajes documentados</h3>
+            <div className="space-y-6">
               <p className="text-white/40 text-[10px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-bold">
                 Mapeo técnico exhaustivo basado en las fuentes bibliográficas de esther maganto y juan enrique del barrio.
               </p>
-              <p className="text-white/60 text-[11px] leading-relaxed max-w-lg mx-auto uppercase tracking-[0.15em] font-black border-t border-white/5 pt-4">
+              <p className="text-white/60 text-[11px] leading-relaxed max-w-lg mx-auto uppercase tracking-[0.15em] font-black border-t border-white/5 pt-6">
                 Auditoría visual por Javier de Miguel Torres.
               </p>
+
+              {/* BRANDING DE GOOGLE MAPS DENTRO DE LA CAJA CON PADDING SUFICIENTE */}
+              <div className="flex flex-col items-center gap-3 mt-12 transition-opacity opacity-60 hover:opacity-100">
+                <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-8 h-8" />
+                <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Powered By Google Maps</p>
+              </div>
             </div>
           </div>
           
-          <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-16 font-bold leading-none italic uppercase">
+          <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic">
             © 2026 CREA | JAVIER DE MIGUEL TORRES
-          </div>
-
-          {/* GOOGLE MAPS BRANDING CON PADDING Y SEPARACIÓN */}
-          <div className="flex flex-col items-center gap-2 mt-24 transition-opacity opacity-60 hover:opacity-100 pb-10">
-             <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-8 h-8" />
-             <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Powered By Google Maps</p>
           </div>
         </div>
       </footer>
@@ -505,7 +505,7 @@ const App = () => {
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20">
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50">
                     <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none">
-                        <Route className="w-5 h-5" /> Ruta Zona {itinerary.zone}
+                        <Navigation className="w-5 h-5" /> Ruta Zona {itinerary.zone}
                     </h4>
                     <button onClick={() => setItinerary(null)} className="p-2 hover:bg-white rounded-full transition-all text-indigo-300">
                         <X className="w-6 h-6" />
@@ -518,7 +518,7 @@ const App = () => {
                             <div className="flex-grow">
                                 <h5 className="font-black uppercase text-slate-800 text-sm leading-tight mb-1">{p.name}</h5>
                                 <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tight">{p.address}</p>
-                                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline leading-none">Localizar Punto →</a>
+                                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline leading-none">Localizar Punto →</a>
                             </div>
                         </div>
                     ))}
@@ -536,7 +536,7 @@ const App = () => {
                 <p className="text-slate-400 text-xs font-bold uppercase mb-6">{randomPlace.address}</p>
                 <p className="text-slate-500 italic text-sm mb-10 leading-relaxed">"{randomPlace.note}"</p>
                 <div className="flex flex-col gap-3">
-                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} target="_blank" className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:scale-105 transition-transform">Abrir en Mapa</a>
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:scale-105 transition-transform">Abrir en Mapa</a>
                     <button onClick={() => setRandomPlace(null)} className="text-slate-400 text-[10px] font-bold uppercase tracking-widest hover:text-slate-600 mt-2">Cerrar</button>
                 </div>
               </div>
