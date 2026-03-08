@@ -89,7 +89,7 @@ const App = () => {
     { id: 34, name: "MOLINO DE ABAJO Y MOLINO DE ENMEDIO", category: "Industrial", coords: "41°27'02.8\"N 4°04'53.0\"W", address: "MEMBRIBRE DE LA HOZ", note: "Conjunto hidráulico harinero en un entorno natural encajonado." },
     { id: 35, name: "MURALLA Y CASTILLO", category: "Historia", coords: "41°26'21.0\"N 3°58'40.6\"W", address: "FUENTIDUEÑA", note: "Importante conjunto defensivo medieval sobre el cerro." },
     { id: 36, name: "LINARES DEL ARROYO", category: "Ruinas", coords: "41°31'24.9\"N 3°33'23.9\"W", address: "MADERUELO", note: "Pueblo sumergido bajo las aguas del embalse de Linares." },
-    { id: 37, name: "IGLESIA DE SAN MARTÍN", category: "Historia", coords: "41°26'21.3\"N 3°58'39.7\"W", address: "FUENTIDUEÑA", note: "Templo románico exento situado en la zona alta de la villa." },
+    { id: 37, name: "IGLESIA DE SAN MARTÍN", category: "Historia", coords: "41°26'21.3\"N 3°58'39.7\"W", address: "FUENTIDUEÑA", note: "Templo románico con el que soñaban los reyes." },
     { id: 38, name: "HOSPITAL DE SANTA MARÍA MAGDALENA", category: "Historia", coords: "41°26'30.5\"N 3°58'52.2\"W", address: "FUENTIDUEÑA", note: "Fundación benéfica medieval de gran interés histórico." },
     { id: 39, name: "ERMITA DE SAN MIGUEL", category: "Historia", coords: "41°29'48.6\"N 3°57'55.2\"W", address: "SACRAMENIA", note: "Joya del románico rural segoviano en un paraje solitario." },
     { id: 40, name: "PALACIO DE LOS CONTRERAS", category: "Historia", coords: "41°29'38.0\"N 4°01'42.0\"W", address: "LAGUNA DE CONTRERAS", note: "Palacio fortificado que conserva su aire de dominio medieval." },
@@ -353,7 +353,7 @@ const App = () => {
           <p className="text-white font-black text-[10px] md:text-xs tracking-[0.4em] uppercase opacity-90 mb-1 leading-none">
             217 PUNTOS MAPEADOS
           </p>
-          <p className="text-white/70 font-bold text-[12px] md:text-[14px] max-w-lg mx-auto leading-relaxed">
+          <p className="text-white/70 font-bold text-[12px] md:text-[14px] max-w-lg mx-auto leading-relaxed text-balance">
             Parajes sorprendentes e inhóspitos de la provincia de Segovia
           </p>
         </div>
@@ -409,7 +409,7 @@ const App = () => {
           </div>
         </div>
 
-        {/* RESULTS INFO (RE-INCORPORADO) */}
+        {/* RESULTS INFO */}
         <div className="flex items-center gap-2 mb-8 text-slate-400 font-bold text-[10px] uppercase tracking-widest px-1 animate-fade-in">
             <BarChart2 className="w-3.5 h-3.5" />
             Mostrando {filteredPlaces.length} resultados de {allPlaces.length}
@@ -484,8 +484,13 @@ const App = () => {
           <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-16 font-bold leading-none italic uppercase">
             © 2026 SEGOVIA PIEDRAS & MÁS | JAVIER DE MIGUEL TORRES
           </div>
-          {/* ICONO ROJO ELIMINADO SEGÚN PETICIÓN */}
-          <div className="mt-12 opacity-0">.</div>
+          <div className="flex justify-center mt-12">
+            <div className="w-10 h-10 flex items-center justify-center opacity-40 hover:opacity-100 transition-opacity">
+               <svg viewBox="0 0 24 24" className="w-8 h-8" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#EA4335"/>
+               </svg>
+             </div>
+          </div>
         </div>
       </footer>
 
