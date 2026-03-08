@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Compass, Map as MapIcon, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Navigation } from 'lucide-react';
+import { Compass, Map as MapIcon, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route } from 'lucide-react';
 
 // Mapeo de colores principales de sección
 const categoryColors = {
@@ -205,7 +205,7 @@ const App = () => {
     { id: 150, name: "LA TEJERA DE RAMÓN MARTÍN", category: "Industrial", coords: "41°05'24.5\"N 3°51'18.1\"W", address: "VALLE de SAN PEDRO", note: "Instalaciones artesanales de elaboración de tejas." },
     { id: 151, name: "DESPOBLADO DE ALDEALAFUENTE", category: "Ruinas", coords: "41°14'19.8\"N 3°48'45.5\"W", address: "ALDEALAFUENTE", note: "Huellas de la vida rural medieval desaparecida." },
     { id: 152, name: "ERMITA DE SAN VALENTÍN", category: "Historia", coords: "41°19'31.7\"N 3°52'49.4\"W", address: "BURGOMILLODO", note: "Capilla aislada en el espectacular paisaje del Duratón." },
-    { id: 153, name: "ERMITA DE SANTA ENGRACIA", category: "Historia", coords: "41°19'15.9\"N 3°52'17.7\"W", address: "BURGOMILLODO", note: "Santuario románico exento sobre el cañón del río." },
+    { id: 153, name: "ERMITA DE SANTA ENGRACIA", category: "Historia", coords: "41°19'15.9\"N 3°52'17.7\"W", address: "BURGOMILLODO", note: "Santuario románico con el que soñaban los reyes." },
     { id: 154, name: "MOLINO DE MESA", category: "Industrial", coords: "41°12'21.1\"N 3°58'55.3\"W", address: "CABEZUELA", note: "Ingenio harinero del Cega rodeado de frondosa vegetación." },
     { id: 155, name: "CASILLA DE PEÓN CAMINERO 3", category: "Historia", coords: "41°16'56.8\"N 3°36'09.5\"W", address: "CASTILLEJO DE MESLEÓN", note: "Legado arquitectónico de la red de carreteras del siglo XIX." },
     { id: 156, name: "TENADAS DE SAN GREGORIO", category: "Historia", coords: "41°24'09.3\"N 3°46'59.0\"W", address: "CASTRO SERRACÍN", note: "Arquitectura pastoril característica del nordeste de la provincia." },
@@ -333,7 +333,7 @@ const App = () => {
         </div>
         <div className="flex items-center gap-2 md:gap-3">
             <button onClick={generateItinerary} title="Generar Ruta" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
-                <Navigation className="w-4 h-4" />
+                <Route className="w-4 h-4" />
             </button>
             <button onClick={() => setRandomPlace(allPlaces[Math.floor(Math.random()*allPlaces.length)])} title="Azar" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
                 <Shuffle className="w-4 h-4" />
@@ -465,11 +465,11 @@ const App = () => {
       </main>
 
       {/* FOOTER */}
-      <footer className="relative bg-[#111827] pt-56 pb-20 px-6 overflow-visible text-center border-t border-white/5">
+      <footer className="relative bg-[#111827] pt-40 pb-20 px-6 overflow-visible text-center border-t border-white/5">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           {/* Floating Footer Card */}
-          <div className="absolute top-[-160px] left-1/2 -translate-x-1/2 w-[92%] max-w-2xl bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] pt-12 pb-32 px-8 md:px-12 border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]">
+          <div className="absolute top-[-140px] left-1/2 -translate-x-1/2 w-[92%] max-w-2xl bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg">
                 <MapIcon className="text-white w-6 h-6" />
@@ -477,16 +477,19 @@ const App = () => {
               <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Crea <span className="font-light text-indigo-300 not-italic">tus rutas y excursiones locales</span></span>
             </div>
             <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight">217 parajes documentados</h3>
+            
             <div className="space-y-6">
               <p className="text-white/40 text-[10px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-bold">
                 Mapeo técnico exhaustivo basado en las fuentes bibliográficas de esther maganto y juan enrique del barrio.
               </p>
-              <p className="text-white/60 text-[11px] leading-relaxed max-w-lg mx-auto uppercase tracking-[0.15em] font-black border-t border-white/5 pt-6">
-                Auditoría visual por Javier de Miguel Torres.
-              </p>
+              <div className="border-t border-white/5 pt-6">
+                <p className="text-white/60 text-[11px] leading-relaxed max-w-lg mx-auto uppercase tracking-[0.15em] font-black">
+                  Auditoría visual por Javier de Miguel Torres.
+                </p>
+              </div>
 
-              {/* BRANDING DE GOOGLE MAPS DENTRO DE LA CAJA CON PADDING SUFICIENTE */}
-              <div className="flex flex-col items-center gap-3 mt-12 transition-opacity opacity-60 hover:opacity-100">
+              {/* BRANDING DE GOOGLE MAPS DENTRO DE LA CAJA CON PADDING */}
+              <div className="flex flex-col items-center gap-2 pt-6 transition-opacity opacity-60 hover:opacity-100">
                 <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-8 h-8" />
                 <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Powered By Google Maps</p>
               </div>
@@ -505,7 +508,7 @@ const App = () => {
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20">
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50">
                     <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none">
-                        <Navigation className="w-5 h-5" /> Ruta Zona {itinerary.zone}
+                        <Route className="w-5 h-5" /> Ruta Zona {itinerary.zone}
                     </h4>
                     <button onClick={() => setItinerary(null)} className="p-2 hover:bg-white rounded-full transition-all text-indigo-300">
                         <X className="w-6 h-6" />
