@@ -6,7 +6,7 @@ const categoryColors = {
   'Historia': 'bg-blue-600',
   'Ruinas': 'bg-orange-500',
   'Industrial': 'bg-slate-500',
-  'Naturaleza': 'bg-emerald-600',
+  'Naturaleza': 'bg-emerald-600', 
   'default': 'bg-indigo-500'
 };
 
@@ -77,7 +77,7 @@ const App = () => {
     { id: 22, name: "MOLINO DEL PINO", category: "Industrial", coords: "41°23'11.3\"N 4°28'40.2\"W", address: "MATA DE CUÉLLAR", note: "Molino harinero tradicional de construcción en piedra." },
     { id: 23, name: "TORREÓN DE SANTA MARÍA", category: "Historia", coords: "41°24'00.1\"N 4°13'24.6\"W", address: "LOVINGOS", note: "Restos de la torre de la antigua iglesia parroquial." },
     { id: 24, name: "MOLINO BATÁN DE GARRIDO", category: "Industrial", coords: "41°17'01.9\"N 4°08'49.1\"W", address: "LASTRAS DE CUÉLLAR", note: "Antiguo batán utilizado para el tratamiento de tejidos." },
-    { id: 25, name: "MOLINO DEL LADRÓN", category: "Industrial", coords: "41°17'24.8\"N 4°09'04.2\"W", address: "LASTRAS DE CUÉLLAR", note: "Construcción hidráulica singular en la ribera del Cega." },
+    { id: 25, name: "MOLINO DEL LADRÓN", category: "Industrial", coords: "41°17'24.8\"N 4°09'04.2\"W", address: "LASTRAS DE CUÉLLAR", note: "Construcción hidráulica singular en la ribera del cega." },
     { id: 26, name: "FÁBRICA DE HARINA", category: "Industrial", coords: "41°20'52.1\"N 4°07'09.3\"W", address: "HONTALBILLA", note: "Instalación industrial cerealista de principios del siglo XX." },
     { id: 27, name: "IGLESIA DE SAN JUAN BAUTISTA", category: "Historia", coords: "41°24'52.2\"N 4°12'55.3\"W", address: "FUENTES DE CUÉLLAR", note: "Templo que destaca por su volumetría y elementos arquitectónicos." },
     { id: 28, name: "MOLINO DE ALVARADO", category: "Industrial", coords: "41°18'36.8\"N 4°27'30.9\"W", address: "FRESNEDA DE CUÉLLAR", note: "Maquinaria e ingenio harinero típico de la comarca cuellarana." },
@@ -324,9 +324,12 @@ const App = () => {
           <div className="bg-[#4338ca] p-1.5 rounded-md shadow-sm">
             <MapIcon className="text-white w-4 h-4" />
           </div>
-          <h1 className="text-sm font-black tracking-tight text-slate-900 uppercase italic leading-none">
-            Segovia <span className="text-[#4338ca] font-light not-italic">Piedras & más</span>
-          </h1>
+          <div className="flex flex-col">
+            <h1 className="text-sm font-black tracking-tight text-slate-900 uppercase italic leading-none">
+              Crea <span className="text-[#4338ca] font-light not-italic text-[10px]">tus rutas y excursiones locales</span>
+            </h1>
+            <p className="text-[8px] font-bold text-slate-400 uppercase tracking-tighter mt-0.5">Parajes sorprendentes e inhóspitos de la provincia de Segovia</p>
+          </div>
         </div>
         <div className="flex items-center gap-2 md:gap-3">
             <button onClick={generateItinerary} title="Generar Ruta" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
@@ -343,18 +346,15 @@ const App = () => {
         </div>
       </header>
 
-      {/* HERO SECTION */}
+      {/* HERO SECTION - MODIFICADO SEGÚN PETICIÓN */}
       <section className="relative h-[120px] flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6]">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-40 mix-blend-overlay"></div>
         <div className="relative z-10 px-6">
-          <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 font-black italic leading-none">
-            SEGOVIA <span className="font-light not-italic">PIEDRAS & MÁS</span>
+          <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 font-black italic leading-none text-balance">
+            Segovia <span className="font-light not-italic">Piedras & Más</span>
           </h2>
           <p className="text-white font-black text-[10px] md:text-xs tracking-[0.4em] uppercase opacity-90 mb-1 leading-none">
             217 PUNTOS MAPEADOS
-          </p>
-          <p className="text-white/70 font-bold text-[12px] md:text-[14px] max-w-lg mx-auto leading-relaxed text-balance">
-            Parajes sorprendentes e inhóspitos de la provincia de Segovia
           </p>
         </div>
       </section>
@@ -374,7 +374,7 @@ const App = () => {
 
         <div className="flex flex-col lg:flex-row gap-6 items-center justify-between mb-8">
           <div className="w-full lg:max-w-md text-left text-[9px] font-black uppercase tracking-widest text-slate-400">
-            Zona Cardinal
+            Selecciona ubicaciones por zona cardinal
             <div className="relative mt-2 max-w-sm">
               <Compass className="absolute left-4 top-1/2 -translate-y-1/2 text-[#4338ca] w-4 h-4" />
               <select 
@@ -474,22 +474,27 @@ const App = () => {
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg">
                 <MapIcon className="text-white w-6 h-6" />
               </div>
-              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Segovia <span className="font-light text-indigo-300 not-italic">Piedras & más</span></span>
+              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Crea <span className="font-light text-indigo-300 not-italic">tus rutas y excursiones locales</span></span>
             </div>
             <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight uppercase">217 PARAJES DOCUMENTADOS</h3>
-            <p className="text-white/40 text-[10px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-bold text-pretty">
-              Mapeo técnico exhaustivo basado en las fuentes bibliográficas de Esther Maganto y Juan Enrique del Barrio. Auditoría visual por Javier de Miguel Torres.
-            </p>
+            <div className="space-y-4">
+              <p className="text-white/40 text-[10px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-bold">
+                Mapeo técnico exhaustivo basado en las fuentes bibliográficas de esther maganto y juan enrique del barrio.
+              </p>
+              <p className="text-white/60 text-[11px] leading-relaxed max-w-lg mx-auto uppercase tracking-[0.15em] font-black border-t border-white/5 pt-4">
+                Auditoría visual por Javier de Miguel Torres.
+              </p>
+            </div>
           </div>
+          
           <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-16 font-bold leading-none italic uppercase">
-            © 2026 SEGOVIA PIEDRAS & MÁS | JAVIER DE MIGUEL TORRES
+            © 2026 CREA | JAVIER DE MIGUEL TORRES
           </div>
-          <div className="flex justify-center mt-12">
-            <div className="w-10 h-10 flex items-center justify-center opacity-40 hover:opacity-100 transition-opacity">
-               <svg viewBox="0 0 24 24" className="w-8 h-8" xmlns="http://www.w3.org/2000/svg">
-                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#EA4335"/>
-               </svg>
-             </div>
+
+          {/* GOOGLE MAPS BRANDING CON PADDING Y SEPARACIÓN */}
+          <div className="flex flex-col items-center gap-2 mt-24 transition-opacity opacity-60 hover:opacity-100 pb-10">
+             <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-8 h-8" />
+             <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Powered By Google Maps</p>
           </div>
         </div>
       </footer>
