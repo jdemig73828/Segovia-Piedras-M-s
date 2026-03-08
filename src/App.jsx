@@ -6,7 +6,7 @@ const categoryColors = {
   'Historia': 'bg-blue-600',
   'Ruinas': 'bg-orange-500',
   'Industrial': 'bg-slate-500',
-  'Naturaleza': 'bg-emerald-600', // Verde corregido
+  'Naturaleza': 'bg-emerald-600',
   'default': 'bg-indigo-500'
 };
 
@@ -185,7 +185,7 @@ const App = () => {
     { id: 130, name: "DESPOBLADO DE HERREROS", category: "Ruinas", coords: "40°48'25.4\"N 4°13'51.4\"W", address: "OTERO DE HERREROS", note: "Restos de población de tradición metalúrgica." },
     { id: 131, name: "MOLINO DE GAMONES", category: "Industrial", coords: "40°55'39.2\"N 4°01'40.4\"W", address: "PALAZUELOS DE ERESMA", note: "Molino que aprovechaba la fuerza del río Eresma." },
     { id: 132, name: "VENTA DE GUEDÁN", category: "Historia", coords: "40°55'58.2\"N 4°09'03.2\"W", address: "PEROGORDO", note: "Posada histórica fundamental en la antigua red de transportes." },
-    { id: 133, name: "CASA DEL TÍO GITANO", category: "Naturaleza", coords: "41°11'24.0\"N 4°12'28.6\"W", address: "PINAR NEGRILLO", note: "Lugar singular envuelto en mitos y leyendas locales." },
+    { id: 133, name: "CASA DEL TÍO GITANO", category: "Naturaleza", coords: "41°11'24.0\"N 4°12'28.6\"W", address: "PINAR NEGRILLO", note: "Lugar ssingular envuelto en mitos y leyendas locales." },
     { id: 134, name: "ESQUILEO DE BURGOS Y PUENTE", category: "Industrial", coords: "40°52'12.8\"N 4°06'20.1\"W", address: "REVENGA", note: "Importante infraestructura de la Mesta." },
     { id: 135, name: "CASA DE LOS BUITRAGO", category: "Historia", coords: "40°56'39.0\"N 4°06'55.6\"W", address: "SEGOVIA", note: "Palacio urbano de gran relevancia histórica." },
     { id: 136, name: "CASERÍO DEL TERMINILLO", category: "Historia", coords: "40°57'39.5\"N 4°06'29.6\"W", address: "SEGOVIA", note: "Complejo rural típico de las cercanías de la ciudad." },
@@ -477,7 +477,7 @@ const App = () => {
               <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Segovia <span className="font-light text-indigo-300 not-italic">Piedras & más</span></span>
             </div>
             <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight uppercase">217 PARAJES DOCUMENTADOS</h3>
-            <p className="text-white/40 text-[10px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-bold">
+            <p className="text-white/40 text-[10px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-bold text-pretty">
               Mapeo técnico exhaustivo basado en las fuentes bibliográficas de Esther Maganto y Juan Enrique del Barrio. Auditoría visual por Javier de Miguel Torres.
             </p>
           </div>
