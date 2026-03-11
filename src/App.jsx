@@ -462,7 +462,7 @@ const App = () => {
 
       {/* FOOTER - ABRAZANDO TODA LA CAJA */}
       <footer className="relative bg-[#111827] pt-40 pb-20 px-6 overflow-visible text-center border-t border-white/5">
-        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none">
+        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           {/* Floating Footer Card */}
           <div className="absolute top-[-140px] left-1/2 -translate-x-1/2 w-[92%] max-w-2xl bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]">
@@ -486,17 +486,16 @@ const App = () => {
 
               {/* BRANDING DE GOOGLE MAPS CON PADDING EXTRA DE SEPARACIÓN */}
               <div className="flex flex-col items-center gap-3 pt-8 transition-opacity opacity-60 hover:opacity-100">
-                 <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase">
-            © 2026 DOALIA | JAVIER DE MIGUEL TORRES
-          </div><br/>
                 <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-8 h-8" />
                 <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Powered By Google Maps</p>
               </div>
             </div>
           </div>
           
-         
-        </div></div>
+          <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase">
+            © 2026 DOALIA | JAVIER DE MIGUEL TORRES
+          </div>
+        </div>
       </footer>
 
       {/* MODAL RUTA */}
