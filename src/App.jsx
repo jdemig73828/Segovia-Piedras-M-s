@@ -46,6 +46,9 @@ const App = () => {
   const [itinerary, setItinerary] = useState(null);
 
   useEffect(() => {
+    // Título de la página solicitado
+    document.title = "Doalia - Crea tus rutas y excursiones locales";
+
     const handleScroll = () => setShowScrollBtn(window.scrollY > 300);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -341,8 +344,8 @@ const App = () => {
         </div>
       </header>
 
-      {/* HERO SECTION - JERARQUÍA ACTUALIZADA SEGÚN PETICIÓN */}
-      <section className="relative h-[180px] flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6] px-6">
+      {/* HERO SECTION - INCORPORA EL BUSCADOR SOLICITADO */}
+      <section className="relative min-h-[220px] py-10 flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6] px-6">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-40 mix-blend-overlay"></div>
         <div className="relative z-10 w-full max-w-2xl">
           <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 italic leading-none text-balance">
@@ -351,7 +354,7 @@ const App = () => {
           <p className="text-white text-[10px] md:text-xs mb-4 opacity-90 tracking-wide">
             <span className="font-black">Crea</span> tus rutas y excursiones locales
           </p>
-          <div className="space-y-1">
+          <div className="space-y-1 mb-8">
             <p className="text-white font-black text-[10px] md:text-xs tracking-[0.4em] uppercase opacity-90 leading-none">
               217 PUNTOS MAPEADOS
             </p>
@@ -359,22 +362,32 @@ const App = () => {
               Parajes sorprendentes e inhóspitos de la provincia de Segovia
             </p>
           </div>
+
+          {/* BUSCADOR INTEGRADO EN EL HERO CON BOTÓN ELIMINAR (X) */}
+          <div className="w-full max-w-lg mx-auto relative group">
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-white/50 group-focus-within:text-white transition-colors w-5 h-5" />
+            <input 
+              type="text" 
+              placeholder="Buscar parajes o municipios..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-14 pr-12 py-4 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-xl outline-none text-sm font-semibold text-white placeholder:text-white/40 focus:bg-white/20 focus:border-white/40 transition-all"
+            />
+            {searchTerm && (
+              <button 
+                onClick={() => setSearchTerm('')} 
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-white/20 text-white hover:bg-white/40 transition-all"
+                title="Limpiar búsqueda"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            )}
+          </div>
         </div>
       </section>
 
-      {/* FILTERS & SEARCH */}
+      {/* MAIN CONTENT AREA */}
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-8 pb-48">
-        <div className="mb-10 max-w-2xl mx-auto relative group">
-          <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-600 transition-colors w-5 h-5" />
-          <input 
-            type="text" 
-            placeholder="Buscar por nombre o municipio..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-14 pr-6 py-4 bg-white border border-slate-200 rounded-3xl shadow-xl outline-none text-sm font-bold text-slate-700 focus:ring-4 focus:ring-indigo-50 focus:border-indigo-300 transition-all"
-          />
-        </div>
-
         <div className="flex flex-col lg:flex-row gap-6 items-center justify-between mb-8">
           <div className="w-full lg:max-w-md text-left text-[9px] font-black uppercase tracking-widest text-slate-400">
             Selecciona ubicaciones por zona cardinal
@@ -457,34 +470,41 @@ const App = () => {
               </div>
             </div>
           ))}
+          {filteredPlaces.length === 0 && (
+              <div className="col-span-full py-20 text-center flex flex-col items-center">
+                  <Info className="w-12 h-12 text-slate-200 mb-4" />
+                  <h3 className="text-slate-500 font-black uppercase italic tracking-tighter text-xl">Sin hallazgos técnicos</h3>
+                  <p className="text-slate-400 text-xs mt-2">Ajusta los filtros o borra el término de búsqueda.</p>
+              </div>
+          )}
         </div>
       </main>
 
-      {/* FOOTER - ABRAZANDO TODA LA CAJA */}
-      <footer className="relative bg-[#111827] pt-40 pb-20 px-6 overflow-visible text-center border-t border-white/5">
+      {/* FOOTER - REDISEÑADO PARA ABRAZAR LA CAJA INTERIOR CON ESPACIOS SIMÉTRICOS */}
+      <footer className="relative bg-[#111827] py-24 md:py-32 px-6 overflow-hidden text-center border-t border-white/5">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
-          {/* Floating Footer Card */}
-          <div className="absolute top-[-140px] left-1/2 -translate-x-1/2 w-[92%] max-w-2xl bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]">
+          {/* Floating Footer Card - Ahora no tiene top negativo, está centrada dentro del esgrafiado */}
+          <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg">
                 <MapIcon className="text-white w-6 h-6" />
               </div>
               <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Doalia</span>
             </div>
-            <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight">217 parajes documentados</h3>
+            <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight uppercase">217 parajes documentados</h3>
             
             <div className="space-y-6">
               <p className="text-white/40 text-[10px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-bold">
                 Mapeo técnico exhaustivo basado en las fuentes bibliográficas de esther maganto y juan enrique del barrio.
               </p>
-              <div className="border-t border-white/5 pt-6 pb-6">
+              <div className="border-t border-white/5 pt-6 pb-4">
                 <p className="text-white/60 text-[11px] leading-relaxed max-w-lg mx-auto uppercase tracking-[0.15em] font-black">
                   Auditoría visual por Javier de Miguel Torres.
                 </p>
               </div>
 
-              {/* BRANDING DE GOOGLE MAPS CON PADDING EXTRA DE SEPARACIÓN */}
+              {/* BRANDING DE GOOGLE MAPS */}
               <div className="flex flex-col items-center gap-3 pt-8 transition-opacity opacity-60 hover:opacity-100">
                 <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-8 h-8" />
                 <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Powered By Google Maps</p>
@@ -492,7 +512,7 @@ const App = () => {
             </div>
           </div>
           
-          <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase">
+          <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] font-bold leading-none italic uppercase">
             © 2026 DOALIA | JAVIER DE MIGUEL TORRES
           </div>
         </div>
