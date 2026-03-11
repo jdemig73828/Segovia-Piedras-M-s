@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Compass, Map as MapIcon, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route } from 'lucide-react';
+import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route } from 'lucide-react';
+
+// Icono personalizado: Silueta andando en 2D (Blanco)
+const HikerIcon = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M13.5 5.5C14.6046 5.5 15.5 4.60457 15.5 3.5C15.5 2.39543 14.6046 1.5 13.5 1.5C12.3954 1.5 11.5 2.39543 11.5 3.5C11.5 4.60457 12.3954 5.5 13.5 5.5Z" fill="white"/>
+    <path d="M19 12.5L15 10.5V7.5C15 6.95 14.55 6.5 14 6.5H10C9.45 6.5 9 6.95 9 7.5V12.5L6.5 16.5C6.2 17 6.35 17.65 6.85 17.95C7.35 18.25 8 18.1 8.3 17.6L10.5 14.5H12.5V20.5C12.5 21.05 12.95 21.5 13.5 21.5C14.05 21.5 14.5 21.05 14.5 20.5V13.5L17.5 15C17.7 15.1 17.85 15.15 18 15.15C18.35 15.15 18.7 14.95 18.85 14.65C19.15 14.15 19 13.5 18.5 13.2L16.5 11.8V10.8L19.5 12.3C20 12.55 20.65 12.4 20.95 11.9C21.25 11.4 21.1 10.75 20.6 10.45L15.5 7.9C15.2 7.75 14.85 7.7 14.5 7.75V7.5H10.5V11.5L8.5 14.5" fill="white"/>
+  </svg>
+);
 
 // Mapeo de colores principales de sección
 const categoryColors = {
@@ -10,7 +18,6 @@ const categoryColors = {
   'default': 'bg-indigo-500'
 };
 
-// Colores de fondo para el cuerpo de la tarjeta (muy diluidos)
 const categoryBgColors = {
   'Historia': 'bg-blue-50/50',
   'Ruinas': 'bg-orange-50/50',
@@ -19,7 +26,6 @@ const categoryBgColors = {
   'default': 'bg-indigo-50/50'
 };
 
-// Colores para el área visual superior (donde va el motivo SVG)
 const categoryVisualBgs = {
   'Historia': 'bg-blue-100',
   'Ruinas': 'bg-orange-100',
@@ -28,7 +34,6 @@ const categoryVisualBgs = {
   'default': 'bg-indigo-100'
 };
 
-// Colores para los iconos de motivo SVG (contraste elegante)
 const categoryIconColors = {
   'Historia': 'text-blue-900',
   'Ruinas': 'text-orange-900',
@@ -46,9 +51,7 @@ const App = () => {
   const [itinerary, setItinerary] = useState(null);
 
   useEffect(() => {
-    // Título de la página solicitado
-    document.title = "Doalia - Crea tus rutas y excursiones locales";
-
+    document.title = "Rutavia - Crea tus rutas y excursiones locales";
     const handleScroll = () => setShowScrollBtn(window.scrollY > 300);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -80,7 +83,7 @@ const App = () => {
     { id: 22, name: "MOLINO DEL PINO", category: "Industrial", coords: "41°23'11.3\"N 4°28'40.2\"W", address: "MATA DE CUÉLLAR", note: "Molino harinero tradicional de construcción en piedra." },
     { id: 23, name: "TORREÓN DE SANTA MARÍA", category: "Historia", coords: "41°24'00.1\"N 4°13'24.6\"W", address: "LOVINGOS", note: "Restos de la torre de la antigua iglesia parroquial." },
     { id: 24, name: "MOLINO BATÁN DE GARRIDO", category: "Industrial", coords: "41°17'01.9\"N 4°08'49.1\"W", address: "LASTRAS DE CUÉLLAR", note: "Antiguo batán utilizado para el tratamiento de tejidos." },
-    { id: 25, name: "MOLINO DEL LADRÓN", category: "Industrial", coords: "41°17'24.8\"N 4°09'04.2\"W", address: "LASTRAS DE CUÉLLAR", note: "Construcción hidráulica singular en la ribera del cega." },
+    { id: 25, name: "MOLINO DEL LADRÓN", category: "Industrial", coords: "41°17'24.8\"N 4°09'04.2\"W", address: "LASTRAS DE CUÉLLAR", note: "Construcción hidráulica ssingular en la ribera del cega." },
     { id: 26, name: "FÁBRICA DE HARINA", category: "Industrial", coords: "41°20'52.1\"N 4°07'09.3\"W", address: "HONTALBILLA", note: "Instalación industrial cerealista de principios del siglo XX." },
     { id: 27, name: "IGLESIA DE SAN JUAN BAUTISTA", category: "Historia", coords: "41°24'52.2\"N 4°12'55.3\"W", address: "FUENTES DE CUÉLLAR", note: "Templo que destaca por su volumetría y elementos arquitectónicos." },
     { id: 28, name: "MOLINO DE ALVARADO", category: "Industrial", coords: "41°18'36.8\"N 4°27'30.9\"W", address: "FRESNEDA DE CUÉLLAR", note: "Maquinaria e ingenio harinero típico de la comarca cuellarana." },
@@ -108,7 +111,7 @@ const App = () => {
     { id: 50, name: "LA MOLINILLA Y ERMITA DE LA VIRGEN DE LA CALLEJA", category: "Historia", coords: "41°17'52.6\"N 3°51'59.6\"W", address: "VILLASECA", note: "Paraje místico cercano a las hoces del río Duratón." },
     { id: 51, name: "MONASTERIO DE SANTO TOMÉ DEL PUERTO", category: "Ruinas", coords: "41°11'56.8\"N 3°35'24.7\"W", address: "VILLAREJO", note: "Restos monásticos situados estratégicamente en el puerto." },
     { id: 52, name: "IGLESIA DE NUESTRA SEÑORA DE LA SERNA", category: "Historia", coords: "41°16'02.5\"N 3°43'05.9\"W", address: "VELOSILLO", note: "Edificación románica de gran encanto en el altiplano segoviano." },
-    { id: 53, name: "MOLINO DE SAN JUAN", category: "Industrial", coords: "41°15'52.9\"N 3°50'53.2\"W", address: "VALDESIMONTE", note: "Molino harinero restaurado que aprovecha el cauce del San Juan." },
+    { id: 53, name: "MOLINO DE SAN JUAN", category: "Historia", coords: "41°15'52.9\"N 3°50'53.2\"W", address: "VALDESIMONTE", note: "Molino harinero restaurado que aprovecha el cauce del San Juan." },
     { id: 54, name: "LAVADERO DE LANAS DE LA ALDEA LA PEÑA", category: "Industrial", coords: "41°12'17.8\"N 3°37'20.7\"W", address: "SIGUERO", note: "Muestra de la antigua importancia de la trashumancia y el esquileo." },
     { id: 55, name: "MOLINO DE LA OCECILLA", category: "Industrial", coords: "41°18'37.0\"N 3°43'45.2\"W", address: "SEPÚLVEDA", note: "Maquinaria hidráulica tradicional en el entorno de la villa sepulvedana." },
     { id: 56, name: "IGLESIA DE SAN MILLÁN", category: "Historia", coords: "41°18'03.3\"N 3°44'57.0\"W", address: "SEPÚLVEDA", note: "Antiguo templo que forma parte del conjunto monumental de Sepúlveda." },
@@ -129,7 +132,7 @@ const App = () => {
     { id: 71, name: "DESPOBLADO DE ALDEARRASO", category: "Ruinas", coords: "41°14'06.7\"N 3°48'12.7\"W", address: "SAN PEDRO DE GAÍLLOS", note: "Restos de población en una zona de pastos tradicionales." },
     { id: 72, name: "ERMITA DE SAN PEDRO", category: "Historia", coords: "41°07'54.4\"N 3°54'39.0\"W", address: "VALDEVACAS Y GUIJAR", note: "Antiguo oratorio rural en un entorno de naturaleza virgen." },
     { id: 73, name: "IGLESIA DE SAN JUSTO Y PASTOR", category: "Historia", coords: "41°05'10.9\"N 3°52'45.0\"W", address: "SANTIUSTE DE PEDRAZA", note: "Parroquia románica destacada por su torre-atalaya." },
-    { id: 74, name: "ERMITA DE NUESTRA SEÑORA DE LAS NIEVES", category: "Historia", coords: "41°11'32.9\"N 3°50'58.0\"W", address: "REBOLLO", note: "Santuario rodeado de robles y leyendas locales." },
+    { id: 74, name: "ERMITA DE NUESTRA SEÑORA EL ESPINO", category: "Historia", coords: "41°11'32.9\"N 3°50'58.0\"W", address: "REBOLLO", note: "Santuario rodeado de robles y leyendas locales." },
     { id: 75, name: "IGLESIA DE SANTA MARÍA", category: "Historia", coords: "41°07'55.0\"N 3°48'45.6\"W", address: "PEDRAZA", note: "Iglesia que preside la famosa plaza mayor de la villa de Pedraza." },
     { id: 76, name: "IGLESIA DEL ESPÍRITU SANTO", category: "Historia", coords: "41°09'14.6\"N 3°46'56.9\"W", address: "OREJANILLA", note: "Templo característico del románico de porticada segoviano." },
     { id: 77, name: "DESPOBLADO DE LA ALAMEDA", category: "Ruinas", coords: "41°09'37.4\"N 3°48'08.5\"W", address: "LA ALAMEDA", note: "Lugar abandonado que evoca el pasado místico de la zona." },
@@ -221,7 +224,7 @@ const App = () => {
     { id: 163, name: "COLMENARES", category: "Industrial", coords: "41°24'26.7\"N 3°44'47.4\"W", address: "NAVARES DE LAS CUEVAS", note: "Arquitectura tradicional para la explotación de la miel." },
     { id: 164, name: "DESPOBLADO DE CABRERIZOS", category: "Ruinas", coords: "41°12'55.6\"N 3°39'58.3\"W", address: "SANTA MARTA DEL CERRO", note: "Aldea mística que hoy permanece en el recuerdo." },
     { id: 165, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°10'50.4\"N 3°33'48.3\"W", address: "SANTO TOMÉ DEL PUERTO", note: "Estructura ferroviaria en la falda de Somosierra." },
-    { id: 166, name: "DESPOBLADO DE CASABLANCA", category: "Ruinas", coords: "41°17'36.1\"N 3°50'43.9\"W", address: "SEBÚLCOR", note: "Lugar inhóspito que guarda secretos de antiguos pobladores." },
+    { id: 166, name: "DESPOBLADO DE CASABLANCA", category: "Ruinas", coords: "41°17'36.1\"N 3°50'43.9\"W", address: "SEBÚLCOR", note: "Lugar inhóhóspito que guarda secretos de antiguos pobladores." },
     { id: 167, name: "FÁBRICA DE LUZ", category: "Industrial", coords: "41°17'42.8\"N 3°45'47.9\"W", address: "SEPÚLVEDA", note: "Importante obra de ingeniería industrial para la villa." },
     { id: 168, name: "MOLINO DE LAS CANALEJAS", category: "Industrial", coords: "41°18'14.0\"N 3°45'44.7\"W", address: "SEPÚLVEDA", note: "Molino que aprovechaba las aguas del río Caslilla." },
     { id: 169, name: "PUENTE DE TALCANO", category: "Historia", coords: "41°17'42.9\"N 3°45'53.8\"W", address: "SEPÚLVEDA", note: "Puente medieval icónico en la entrada de las Hoces del Duratón." },
@@ -275,15 +278,25 @@ const App = () => {
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos." }
   ], []);
 
-  // --- LÓGICA DE FILTRADO ---
-  const getCardinal = (coords) => {
-    const dmsToDec = (dms) => {
-      if(!dms) return 0;
-      const parts = dms.match(/(\d+)°(\d+)'([\d.]+)"/);
-      if (!parts) return 0;
-      let dec = parseFloat(parts[1]) + (parseFloat(parts[2])/60) + (parseFloat(parts[3])/3600);
-      return dms.includes('W') || dms.includes('S') ? -dec : dec;
+  // --- LÓGICA DE GEOMETRÍA Y FILTRADO ---
+  const calculateDistance = (coords1, coords2) => {
+    const parse = (c) => {
+      const [la, lo] = c.split(' ');
+      return [dmsToDec(la), dmsToDec(lo)];
     };
+    const [lat1, lon1] = parse(coords1);
+    const [lat2, lon2] = parse(coords2);
+    const R = 6371; // Radio Tierra
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return (R * c).toFixed(1);
+  };
+
+  const getCardinal = (coords) => {
     const [latStr, lonStr] = coords.split(' ');
     const lat = dmsToDec(latStr);
     const lon = dmsToDec(lonStr);
@@ -316,18 +329,25 @@ const App = () => {
     const zoneToUse = currentGeoZone === 'Todos' ? ['Norte', 'Sur', 'Este', 'Oeste'][Math.floor(Math.random()*4)] : currentGeoZone;
     const zonePlaces = allPlaces.filter(p => getCardinal(p.coords) === zoneToUse);
     const shuffled = [...zonePlaces].sort(() => 0.5 - Math.random());
-    setItinerary({ zone: zoneToUse, places: shuffled.slice(0, 3) });
+    const selected = shuffled.slice(0, 3);
+    
+    // Si no hay suficientes puntos para una ruta de 3, no calculamos para evitar errores
+    const withDist = selected.map((p, idx) => ({
+        ...p,
+        kmFromPrev: (idx === 0 || selected.length < 2) ? null : calculateDistance(p.coords, selected[idx-1].coords)
+    }));
+    setItinerary({ zone: zoneToUse, places: withDist });
   };
 
   return (
     <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100">
-      {/* HEADER - MARCA DOALIA */}
+      {/* HEADER */}
       <header className="sticky top-0 z-50 h-14 bg-white/90 backdrop-blur-md px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm">
         <div className="flex items-center gap-2">
           <div className="bg-[#4338ca] p-1.5 rounded-md shadow-sm">
-            <MapIcon className="text-white w-4 h-4" />
+            <HikerIcon />
           </div>
-          <h1 className="text-sm font-black tracking-tight text-slate-900 uppercase italic leading-none">Doalia</h1>
+          <h1 className="text-sm font-black tracking-tight text-slate-900 uppercase italic leading-none">Rutavia</h1>
         </div>
         <div className="flex items-center gap-2 md:gap-3">
             <button onClick={generateItinerary} title="Generar Ruta" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
@@ -344,8 +364,8 @@ const App = () => {
         </div>
       </header>
 
-      {/* HERO SECTION - INCORPORA EL BUSCADOR SOLICITADO */}
-      <section className="relative min-h-[220px] py-10 flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6] px-6">
+      {/* HERO SECTION - BUSCADOR INTEGRADO */}
+      <section className="relative min-h-[240px] py-12 flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6] px-6">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-40 mix-blend-overlay"></div>
         <div className="relative z-10 w-full max-w-2xl">
           <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 italic leading-none text-balance">
@@ -363,7 +383,7 @@ const App = () => {
             </p>
           </div>
 
-          {/* BUSCADOR INTEGRADO EN EL HERO CON BOTÓN ELIMINAR (X) */}
+          {/* BUSCADOR INTEGRADO CON BOTÓN X */}
           <div className="w-full max-w-lg mx-auto relative group">
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-white/50 group-focus-within:text-white transition-colors w-5 h-5" />
             <input 
@@ -374,30 +394,22 @@ const App = () => {
               className="w-full pl-14 pr-12 py-4 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-xl outline-none text-sm font-semibold text-white placeholder:text-white/40 focus:bg-white/20 focus:border-white/40 transition-all"
             />
             {searchTerm && (
-              <button 
-                onClick={() => setSearchTerm('')} 
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-white/20 text-white hover:bg-white/40 transition-all"
-                title="Limpiar búsqueda"
-              >
-                <X className="w-3 h-3" />
+              <button onClick={() => setSearchTerm('')} className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-white/20 text-white hover:bg-white/40 transition-all">
+                <X className="w-3.5 h-3.5" />
               </button>
             )}
           </div>
         </div>
       </section>
 
-      {/* MAIN CONTENT AREA */}
+      {/* FILTERS AREA */}
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-8 pb-48">
         <div className="flex flex-col lg:flex-row gap-6 items-center justify-between mb-8">
           <div className="w-full lg:max-w-md text-left text-[9px] font-black uppercase tracking-widest text-slate-400">
             Selecciona ubicaciones por zona cardinal
             <div className="relative mt-2 max-w-sm">
               <Compass className="absolute left-4 top-1/2 -translate-y-1/2 text-[#4338ca] w-4 h-4" />
-              <select 
-                value={currentGeoZone} 
-                onChange={e => setCurrentGeoZone(e.target.value)} 
-                className="w-full pl-10 pr-10 py-3 bg-white border border-slate-200 rounded-xl shadow-sm outline-none text-[11px] font-bold text-slate-700 appearance-none focus:ring-2 focus:ring-indigo-100 transition-all cursor-pointer"
-              >
+              <select value={currentGeoZone} onChange={e => setCurrentGeoZone(e.target.value)} className="w-full pl-10 pr-10 py-3 bg-white border border-slate-200 rounded-xl shadow-sm outline-none text-[11px] font-bold text-slate-700 appearance-none focus:ring-2 focus:ring-indigo-100 transition-all cursor-pointer">
                 <option value="Todos">Toda la Provincia</option>
                 <option value="Norte">Zona Norte</option>
                 <option value="Sur">Zona Sur</option>
@@ -406,18 +418,12 @@ const App = () => {
               </select>
             </div>
           </div>
-
           <div className="flex flex-wrap justify-center gap-2.5">
             {['TODOS', 'HISTORIA', 'RUINAS', 'INDUSTRIAL', 'NATURALEZA'].map(cat => {
                 const isActive = (currentCategory.toUpperCase() === cat);
                 const catName = cat === 'TODOS' ? 'Todos' : cat.charAt(0) + cat.slice(1).toLowerCase();
-                const activeColorClass = isActive ? (categoryColors[catName] || 'bg-[#4338ca]') : 'bg-white';
                 return (
-                  <button 
-                    key={cat} 
-                    onClick={() => setCurrentCategory(catName)} 
-                    className={`relative px-6 py-2.5 rounded-xl text-[10px] font-black border transition-all uppercase tracking-widest shadow-sm ${activeColorClass} ${isActive ? 'text-white border-transparent' : 'bg-white border-slate-200 text-slate-600'} focus:outline-none touch-manipulation`}
-                  >
+                  <button key={cat} onClick={() => setCurrentCategory(catName)} className={`relative px-6 py-2.5 rounded-xl text-[10px] font-black border transition-all uppercase tracking-widest shadow-sm ${isActive ? (categoryColors[catName] || 'bg-[#4338ca]') + ' text-white border-transparent' : 'bg-white border-slate-200 text-slate-600'} focus:outline-none touch-manipulation`}>
                     {cat} {cat !== 'TODOS' && `(${stats[catName]})`}
                   </button>
                 );
@@ -425,28 +431,22 @@ const App = () => {
           </div>
         </div>
 
-        {/* RESULTS INFO */}
         <div className="flex items-center gap-2 mb-8 text-slate-400 font-bold text-[10px] uppercase tracking-widest px-1 animate-fade-in">
             <BarChart2 className="w-3.5 h-3.5" />
             Mostrando {filteredPlaces.length} resultados de {allPlaces.length}
         </div>
 
-        {/* GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {filteredPlaces.map(p => (
             <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in text-left flex flex-col h-full overflow-hidden`}>
               <div className="relative z-10 flex flex-col h-full">
                 <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}>
-                  
-                  {/* Category Motif SVG (15% Opacity) */}
                   <div className={`absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0 ${categoryIconColors[p.category]}`}>
                     {p.category === 'Historia' && <Landmark size={140} strokeWidth={1.5} />}
                     {p.category === 'Ruinas' && <Castle size={140} strokeWidth={1.5} />}
                     {p.category === 'Industrial' && <Factory size={140} strokeWidth={1.5} />}
                     {p.category === 'Naturaleza' && <Trees size={140} strokeWidth={1.5} />}
                   </div>
-
-                  {/* Vertical Badges Stack */}
                   <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2">
                     <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
                     <div className="px-2.5 py-1 bg-white/60 backdrop-blur-sm rounded-lg border border-white/40 shadow-sm">
@@ -454,7 +454,6 @@ const App = () => {
                     </div>
                   </div>
                 </div>
-
                 <div className="px-3 flex-grow flex flex-col justify-between">
                   <div>
                     <h4 className="text-[15px] font-black uppercase mb-1.5 text-slate-800 tracking-tight leading-tight group-hover:text-indigo-600 transition-colors line-clamp-2">{p.name}</h4>
@@ -463,58 +462,40 @@ const App = () => {
                     </p>
                     <p className="text-[11px] text-slate-500 italic mb-8 leading-relaxed opacity-80 line-clamp-3">"{p.note}"</p>
                   </div>
-                  <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-indigo-900 transition-all block active:scale-95 leading-none">
+                  <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-indigo-900 transition-all block active:scale-95 leading-none">
                     VER SITIO
                   </a>
                 </div>
               </div>
             </div>
           ))}
-          {filteredPlaces.length === 0 && (
-              <div className="col-span-full py-20 text-center flex flex-col items-center">
-                  <Info className="w-12 h-12 text-slate-200 mb-4" />
-                  <h3 className="text-slate-500 font-black uppercase italic tracking-tighter text-xl">Sin hallazgos técnicos</h3>
-                  <p className="text-slate-400 text-xs mt-2">Ajusta los filtros o borra el término de búsqueda.</p>
-              </div>
-          )}
         </div>
       </main>
 
-      {/* FOOTER - REDISEÑADO PARA ABRAZAR LA CAJA INTERIOR CON ESPACIOS SIMÉTRICOS */}
+      {/* FOOTER - ABRAZANDO LA CAJA INTERIOR */}
       <footer className="relative bg-[#111827] py-24 md:py-32 px-6 overflow-hidden text-center border-t border-white/5">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
-          {/* Floating Footer Card - Ahora no tiene top negativo, está centrada dentro del esgrafiado */}
           <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg">
-                <MapIcon className="text-white w-6 h-6" />
+                <HikerIcon />
               </div>
-              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Doalia</span>
+              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Rutavia</span>
             </div>
             <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight uppercase">217 parajes documentados</h3>
-            
             <div className="space-y-6">
-              <p className="text-white/40 text-[10px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-bold">
-                Mapeo técnico exhaustivo basado en las fuentes bibliográficas de esther maganto y juan enrique del barrio.
-              </p>
-              <div className="border-t border-white/5 pt-6 pb-4">
-                <p className="text-white/60 text-[11px] leading-relaxed max-w-lg mx-auto uppercase tracking-[0.15em] font-black">
-                  Auditoría visual por Javier de Miguel Torres.
-                </p>
+              <p className="text-white/40 text-[10px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-bold text-pretty">Mapeo técnico exhaustivo basado en las fuentes bibliográficas de esther maganto y juan enrique del barrio.</p>
+              <div className="border-t border-white/5 pt-6 pb-6">
+                <p className="text-white/60 text-[11px] leading-relaxed max-w-lg mx-auto uppercase tracking-[0.15em] font-black italic">Auditoría visual por Javier de Miguel Torres.</p>
               </div>
-
-              {/* BRANDING DE GOOGLE MAPS */}
               <div className="flex flex-col items-center gap-3 pt-8 transition-opacity opacity-60 hover:opacity-100">
                 <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-8 h-8" />
                 <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Powered By Google Maps</p>
               </div>
             </div>
           </div>
-          
-          <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] font-bold leading-none italic uppercase">
-            © 2026 DOALIA | JAVIER DE MIGUEL TORRES
-          </div>
+          <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase">© 2026 RUTAVIA | JAVIER DE MIGUEL TORRES</div>
         </div>
       </footer>
 
@@ -530,17 +511,44 @@ const App = () => {
                         <X className="w-6 h-6" />
                     </button>
                 </div>
-                <div className="p-8 space-y-6 overflow-y-auto max-h-[60vh]">
+                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-32">
                     {itinerary.places.map((p, idx) => (
-                        <div key={p.id} className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
-                            <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-black flex-shrink-0 text-xs">{idx + 1}</div>
-                            <div className="flex-grow">
-                                <h5 className="font-black uppercase text-slate-800 text-sm leading-tight mb-1">{p.name}</h5>
-                                <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tight">{p.address}</p>
-                                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline leading-none">Localizar Punto →</a>
+                        <div key={p.id} className="relative">
+                            {p.kmFromPrev && (
+                                <div className="flex flex-col items-center -mt-6 mb-4">
+                                    <ArrowDown className="w-5 h-5 text-black mb-1" />
+                                    <span className="text-[9px] font-black text-black uppercase bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
+                                        A {p.kmFromPrev} km
+                                    </span>
+                                </div>
+                            )}
+                            <div className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
+                                <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-black flex-shrink-0 text-xs">{idx + 1}</div>
+                                <div className="flex-grow">
+                                    <h5 className="font-black uppercase text-slate-800 text-sm leading-tight mb-1">{p.name}</h5>
+                                    <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tight">{p.address}</p>
+                                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline leading-none">Ver punto →</a>
+                                </div>
                             </div>
                         </div>
                     ))}
+                    
+                    <div className="pt-6 border-t border-slate-100 mt-12 pb-12">
+                        {itinerary.places.length >= 2 ? (
+                          <a 
+                            href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95"
+                          >
+                              <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto" />
+                              Ver ruta en coche
+                          </a>
+                        ) : (
+                          <p className="text-center text-[8px] text-red-400 uppercase font-bold mt-4 tracking-widest">Puntos insuficientes para calcular ruta</p>
+                        )}
+                        <p className="text-center text-[8px] text-slate-400 uppercase font-bold mt-4 tracking-widest">Ruta completa optimizada del punto inicial al final</p>
+                    </div>
                 </div>
               </div>
           </div>
