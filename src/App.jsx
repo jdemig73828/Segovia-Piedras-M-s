@@ -1,5 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route } from 'lucide-react';
+
+// Intentamos cargar Analytics de forma dinámica para que no bloquee la previsualización si el módulo no está disponible localmente
+const VercelAnalytics = React.lazy(() => 
+  import("@vercel/analytics/react")
+    .then(mod => ({ default: mod.Analytics }))
+    .catch(() => ({ default: () => null }))
+);
 
 // Icono personalizado: Silueta andando en 2D (Blanco)
 const HikerIcon = ({ size = 20 }) => (
@@ -91,7 +98,7 @@ const App = () => {
     return lonDiff > 0 ? "Este" : "Oeste";
   };
 
-  // --- BASE DE DATOS INTEGRAL (217 PUNTOS REALES) ---
+  // --- BASE DE DATOS INTEGRAL (217 PUNTOS REALES RESTAURADOS) ---
   const allPlaces = useMemo(() => [
     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas." },
@@ -117,7 +124,7 @@ const App = () => {
     { id: 22, name: "MOLINO DEL PINO", category: "Industrial", coords: "41°23'11.3\"N 4°28'40.2\"W", address: "MATA DE CUÉLLAR", note: "Molino harinero tradicional de construcción en piedra." },
     { id: 23, name: "TORREÓN DE SANTA MARÍA", category: "Historia", coords: "41°24'00.1\"N 4°13'24.6\"W", address: "LOVINGOS", note: "Restos de la torre de la antigua iglesia parroquial." },
     { id: 24, name: "MOLINO BATÁN DE GARRIDO", category: "Industrial", coords: "41°17'01.9\"N 4°08'49.1\"W", address: "LASTRAS DE CUÉLLAR", note: "Antiguo batán utilizado para el tratamiento de tejidos." },
-    { id: 25, name: "MOLINO DEL LADRÓN", category: "Industrial", coords: "41°17'24.8\"N 4°09'04.2\"W", address: "LASTRAS DE CUÉLLAR", note: "Construcción hidráulica singular en la ribera del Cega." },
+    { id: 25, name: "MOLINO DEL LADRÓN", category: "Industrial", coords: "41°17'24.8\"N 4°09'04.2\"W", address: "LASTRAS DE CUÉLLAR", note: "Construcción hidráulica ssingular en la ribera del cega." },
     { id: 26, name: "FÁBRICA DE HARINA", category: "Industrial", coords: "41°20'52.1\"N 4°07'09.3\"W", address: "HONTALBILLA", note: "Instalación industrial cerealista de principios del siglo XX." },
     { id: 27, name: "IGLESIA DE SAN JUAN BAUTISTA", category: "Historia", coords: "41°24'52.2\"N 4°12'55.3\"W", address: "FUENTES DE CUÉLLAR", note: "Templo que destaca por su volumetría y elementos arquitectónicos." },
     { id: 28, name: "MOLINO DE ALVARADO", category: "Industrial", coords: "41°18'36.8\"N 4°27'30.9\"W", address: "FRESNEDA DE CUÉLLAR", note: "Maquinaria e ingenio harinero típico de la comarca cuellarana." },
@@ -228,7 +235,7 @@ const App = () => {
     { id: 133, name: "CASA DEL TÍO GITANO", category: "Naturaleza", coords: "41°11'24.0\"N 4°12'28.6\"W", address: "PINAR NEGRILLO", note: "Lugar ssingular envuelto en mitos y leyendas locales." },
     { id: 134, name: "ESQUILEO DE BURGOS Y PUENTE", category: "Industrial", coords: "40°52'12.8\"N 4°06'20.1\"W", address: "REVENGA", note: "Importante infraestructura de la Mesta." },
     { id: 135, name: "CASA DE LOS BUITRAGO", category: "Historia", coords: "40°56'39.0\"N 4°06'55.6\"W", address: "SEGOVIA", note: "Palacio urbano de gran relevancia histórica." },
-    { id: 136, name: "CASERÍO DEL TERMINILLO", category: "Historia", coords: "40°57'39.5\"N 4°06'29.6\"W", address: "SEGOVIA", note: "Complejo rural típico de las cercanías de la ciudad." },
+    { id: 136, name: "CASERÍO DEL TERMINILLO", category: "Historia", coords: "40°57'39.5\"N 4°06'29.6\"W", address: "SEGOVIA", note: "Compleplejo rural típico de las cercanías de la ciudad." },
     { id: 137, name: "PUENTE DEL TESORO", category: "Naturaleza", coords: "40°55'45.0\"N 4°10'54.9\"W", address: "TORREDONDO", note: "Puente envuelto en leyendas de ocultamientos históricos." },
     { id: 138, name: "ESQUILEO DEL PAULAR", category: "Industrial", coords: "40°57'54.3\"N 4°02'15.6\"W", address: "TRESCASAS", note: "Uno de los complejos de esquileo más grandes de la sierra." },
     { id: 139, name: "MOLINO DE LOBONES", category: "Industrial", coords: "40°58'12.5\"N 4°12'00.5\"W", address: "VALVERDE DEL MAJANO", note: "Molino situado cerca de la emblemática Quinta de Lobones." },
@@ -312,15 +319,6 @@ const App = () => {
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos." }
   ], []);
 
-  const stats = useMemo(() => {
-    return {
-      Historia: allPlaces.filter(p => p.category === 'Historia').length,
-      Ruinas: allPlaces.filter(p => p.category === 'Ruinas').length,
-      Industrial: allPlaces.filter(p => p.category === 'Industrial').length,
-      Naturaleza: allPlaces.filter(p => p.category === 'Naturaleza').length,
-    };
-  }, [allPlaces]);
-
   const filteredPlaces = useMemo(() => {
     return allPlaces.filter(p => {
       const matchSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -330,6 +328,15 @@ const App = () => {
       return matchSearch && matchCategory && matchZone;
     });
   }, [currentCategory, currentGeoZone, searchTerm, allPlaces]);
+
+  const stats = useMemo(() => {
+    return {
+      Historia: allPlaces.filter(p => p.category === 'Historia').length,
+      Ruinas: allPlaces.filter(p => p.category === 'Ruinas').length,
+      Industrial: allPlaces.filter(p => p.category === 'Industrial').length,
+      Naturaleza: allPlaces.filter(p => p.category === 'Naturaleza').length,
+    };
+  }, [allPlaces]);
 
   const generateItinerary = () => {
     const zoneToUse = currentGeoZone === 'Todos' ? ['Norte', 'Sur', 'Este', 'Oeste'][Math.floor(Math.random()*4)] : currentGeoZone;
@@ -342,6 +349,11 @@ const App = () => {
         kmFromPrev: idx === 0 ? null : calculateDistance(p.coords, selected[idx-1].coords)
     }));
     setItinerary({ zone: zoneToUse, places: withDist });
+  };
+
+  const handleRandomPlace = () => {
+    const item = allPlaces[Math.floor(Math.random() * allPlaces.length)];
+    setRandomPlace(item);
   };
 
   return (
@@ -357,7 +369,7 @@ const App = () => {
             <button onClick={generateItinerary} title="Generar Ruta" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
                 <Route className="w-4 h-4" />
             </button>
-            <button onClick={() => setRandomPlace(allPlaces[Math.floor(Math.random()*allPlaces.length)])} title="Azar" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
+            <button onClick={handleRandomPlace} title="Azar" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
                 <Shuffle className="w-4 h-4" />
             </button>
             <a href="https://maps.app.goo.gl/fnbQQ6Bvkw35PQBt5" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 md:px-4 py-1.5 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg active:scale-95 leading-none">
@@ -370,11 +382,11 @@ const App = () => {
       <section className="relative min-h-[240px] py-12 flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6] px-6">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-40 mix-blend-overlay"></div>
         <div className="relative z-10 w-full max-w-2xl">
-          <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 italic leading-none text-balance text-white font-light">
-            <span className="font-black">Segovia</span>, piedras & más
+          <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 italic leading-none text-balance">
+            <span className="font-black text-white">Segovia</span>, piedras & más
           </h2>
-          <p className="text-white text-[10px] md:text-xs mb-4 opacity-90 tracking-wide text-white font-light">
-            <span className="font-black">Crea</span> tus rutas y excursiones locales
+          <p className="text-white text-[10px] md:text-xs mb-4 opacity-90 tracking-wide">
+            <span className="font-black text-white">Crea</span> tus rutas y excursiones locales
           </p>
           <div className="space-y-1 mb-8">
             <p className="text-white font-black text-[10px] md:text-xs tracking-[0.4em] uppercase opacity-90 leading-none">217 PUNTOS MAPEADOS</p>
@@ -450,11 +462,11 @@ const App = () => {
           <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg"><HikerIcon /></div>
-              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Rutabia</span>
+              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none text-white">Rutabia</span>
             </div>
             <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight uppercase">217 parajes documentados</h3>
             <div className="space-y-6">
-              <p className="text-white/40 text-[10px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-bold text-pretty">Mapeo técnico exhaustivo basado en las fuentes bibliográficas de esther maganto y juan enrique del barrio.</p>
+              <p className="text-white/40 text-[10px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-bold">Mapeo técnico exhaustivo basado en las fuentes bibliográficas de esther maganto y juan enrique del barrio.</p>
               <div className="border-t border-white/5 pt-6 pb-6 text-white/60 text-[11px] leading-relaxed max-w-lg mx-auto uppercase tracking-[0.15em] font-black italic">Auditoría visual por Javier de Miguel Torres.</div>
               <div className="flex flex-col items-center gap-3 pt-8 transition-opacity opacity-60 hover:opacity-100">
                 <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-8 h-8" />
@@ -511,13 +523,17 @@ const App = () => {
                 <p className="text-slate-500 italic text-sm mb-10 leading-relaxed">"{randomPlace.note}"</p>
                 <div className="flex flex-col gap-3">
                     <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:scale-105 transition-transform">Abrir en Mapa</a>
-                    <button onClick={() => setRandomPlace(null)} className="text-slate-400 text-[10px] font-bold uppercase tracking-widest hover:text-slate-600 mt-2">Cerrar</button>
+                    <button onClick={() => setRandomPlace(null)} className="text-slate-400 text-[10px] font-bold uppercase tracking-widest hover:text-slate-600 mt-2 transition-colors">Cerrar</button>
                 </div>
               </div>
           </div>
       )}
 
       {showScrollBtn && <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="fixed bottom-8 right-8 z-[100] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all border border-white/10"><ArrowUp className="w-6 h-6" /></button>}
+      
+      <Suspense fallback={null}>
+        <VercelAnalytics />
+      </Suspense>
     </div>
   );
 };
