@@ -175,7 +175,7 @@ const App = () => {
     { id: 120, name: "MOLINO DE LOS FRAILES", category: "Industrial", coords: "41°06'21.4\"N 4°08'46.0\"W", address: "ESCOBAR DE POLENDOS", note: "Antiguo molino propiedad de estamentos religiosos." },
     { id: 121, name: "ERMITA DE SAN MIGUEL", category: "Historia", coords: "40°53'47.3\"N 4°12'45.2\"W", address: "FUENTEMILANOS", note: "Lugar místico de oración en el llano segoviano." },
     { id: 122, name: "MOLINO", category: "Industrial", coords: "41°00'36.7\"N 4°28'33.0\"W", address: "HOYUELOS", note: "Importante muestra de ingeniería hidráulica rural." },
-    { id: 123, name: "ERMITA DE SANTA ELENA", category: "Historia", coords: "40°48'43.6\"N 4°21'50.4\"W", address: "ITUERO Y LAMA", note: "Santuario románico con excelentes vistas a la sierra." },
+    { id: 123, name: "ERMITA DE SAN TA ELENA", category: "Historia", coords: "40°48'43.6\"N 4°21'50.4\"W", address: "ITUERO Y LAMA", note: "Santuario románico con excelentes vistas a la sierra." },
     { id: 124, name: "CASERÍO EL SALVADOR", category: "Ruinas", coords: "40°57'16.9\"N 4°31'45.1\"W", address: "JEMENUÑO", note: "Antigua finca ganadera de gran extensión." },
     { id: 125, name: "ERMITA DE LA VIRGEN DE CEPONES", category: "Historia", coords: "40°50'25.1\"N 4°08'47.9\"W", address: "LA LOSA", note: "Lugar de culto situado en las faldas de la sierra." },
     { id: 126, name: "CASERÍO DE REDONDA EL NUEVO", category: "Historia", coords: "40°55'41.6\"N 4°21'54.1\"W", address: "MARAZOLEJA", note: "Finca de labranza tradicional con arquitectura típica de ladrillo." },
@@ -318,18 +318,13 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100">
-      {/* HEADER */}
+      {/* HEADER - MARCA DOALIA */}
       <header className="sticky top-0 z-50 h-14 bg-white/90 backdrop-blur-md px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm">
         <div className="flex items-center gap-2">
           <div className="bg-[#4338ca] p-1.5 rounded-md shadow-sm">
             <MapIcon className="text-white w-4 h-4" />
           </div>
-          <div className="flex flex-col">
-            <h1 className="text-sm font-black tracking-tight text-slate-900 uppercase italic leading-none">
-              Crea <span className="text-[#4338ca] font-light not-italic text-[10px]">tus rutas y excursiones locales</span>
-            </h1>
-            <p className="text-[8px] font-bold text-slate-400 uppercase tracking-tighter mt-0.5">Parajes sorprendentes e inhóspitos de la provincia de Segovia</p>
-          </div>
+          <h1 className="text-sm font-black tracking-tight text-slate-900 uppercase italic leading-none">Doalia</h1>
         </div>
         <div className="flex items-center gap-2 md:gap-3">
             <button onClick={generateItinerary} title="Generar Ruta" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
@@ -346,16 +341,24 @@ const App = () => {
         </div>
       </header>
 
-      {/* HERO SECTION */}
-      <section className="relative h-[120px] flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6]">
+      {/* HERO SECTION - JERARQUÍA ACTUALIZADA SEGÚN PETICIÓN */}
+      <section className="relative h-[180px] flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6] px-6">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-40 mix-blend-overlay"></div>
-        <div className="relative z-10 px-6">
-          <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 font-black italic leading-none text-balance">
-            Segovia <span className="font-light not-italic">Piedras & Más</span>
+        <div className="relative z-10 w-full max-w-2xl">
+          <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 italic leading-none text-balance">
+            <span className="font-black">Segovia</span>, piedras & más
           </h2>
-          <p className="text-white font-black text-[10px] md:text-xs tracking-[0.4em] uppercase opacity-90 mb-1 leading-none">
-            217 PUNTOS MAPEADOS
+          <p className="text-white text-[10px] md:text-xs mb-4 opacity-90 tracking-wide">
+            <span className="font-black">Crea</span> tus rutas y excursiones locales
           </p>
+          <div className="space-y-1">
+            <p className="text-white font-black text-[10px] md:text-xs tracking-[0.4em] uppercase opacity-90 leading-none">
+              217 PUNTOS MAPEADOS
+            </p>
+            <p className="text-white/70 text-[8px] md:text-[9px] font-medium uppercase tracking-[0.2em]">
+              Parajes sorprendentes e inhóspitos de la provincia de Segovia
+            </p>
+          </div>
         </div>
       </section>
 
@@ -454,19 +457,12 @@ const App = () => {
               </div>
             </div>
           ))}
-          {filteredPlaces.length === 0 && (
-              <div className="col-span-full py-20 text-center flex flex-col items-center">
-                  <Info className="w-12 h-12 text-slate-200 mb-4" />
-                  <h3 className="text-slate-500 font-black uppercase italic tracking-tighter text-xl">Sin hallazgos técnicos</h3>
-                  <p className="text-slate-400 text-xs mt-2">Ajusta los filtros o borra el término de búsqueda.</p>
-              </div>
-          )}
         </div>
       </main>
 
-      {/* FOOTER */}
+      {/* FOOTER - ABRAZANDO TODA LA CAJA */}
       <footer className="relative bg-[#111827] pt-40 pb-20 px-6 overflow-visible text-center border-t border-white/5">
-        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none">
         <div className="relative z-10 max-w-4xl mx-auto">
           {/* Floating Footer Card */}
           <div className="absolute top-[-140px] left-1/2 -translate-x-1/2 w-[92%] max-w-2xl bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]">
@@ -474,7 +470,7 @@ const App = () => {
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg">
                 <MapIcon className="text-white w-6 h-6" />
               </div>
-              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Crea <span className="font-light text-indigo-300 not-italic">tus rutas y excursiones locales</span></span>
+              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Doalia</span>
             </div>
             <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight">217 parajes documentados</h3>
             
@@ -482,24 +478,25 @@ const App = () => {
               <p className="text-white/40 text-[10px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-bold">
                 Mapeo técnico exhaustivo basado en las fuentes bibliográficas de esther maganto y juan enrique del barrio.
               </p>
-              <div className="border-t border-white/5 pt-6">
+              <div className="border-t border-white/5 pt-6 pb-6">
                 <p className="text-white/60 text-[11px] leading-relaxed max-w-lg mx-auto uppercase tracking-[0.15em] font-black">
                   Auditoría visual por Javier de Miguel Torres.
                 </p>
               </div>
 
-              {/* BRANDING DE GOOGLE MAPS DENTRO DE LA CAJA CON PADDING */}
-              <div className="flex flex-col items-center gap-2 pt-6 transition-opacity opacity-60 hover:opacity-100">
+              {/* BRANDING DE GOOGLE MAPS CON PADDING EXTRA DE SEPARACIÓN */}
+              <div className="flex flex-col items-center gap-3 pt-8 transition-opacity opacity-60 hover:opacity-100">
+                 <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase">
+            © 2026 DOALIA | JAVIER DE MIGUEL TORRES
+          </div><br/>
                 <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-8 h-8" />
                 <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Powered By Google Maps</p>
               </div>
             </div>
           </div>
           
-          <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic">
-            © 2026 CREA | JAVIER DE MIGUEL TORRES
-          </div>
-        </div>
+         
+        </div></div>
       </footer>
 
       {/* MODAL RUTA */}
@@ -514,7 +511,7 @@ const App = () => {
                         <X className="w-6 h-6" />
                     </button>
                 </div>
-                <div className="p-8 space-y-6">
+                <div className="p-8 space-y-6 overflow-y-auto max-h-[60vh]">
                     {itinerary.places.map((p, idx) => (
                         <div key={p.id} className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
                             <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-black flex-shrink-0 text-xs">{idx + 1}</div>
