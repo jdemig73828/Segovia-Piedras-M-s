@@ -106,7 +106,7 @@ const App = () => {
     
     const R = 6371; // Radio Tierra km
     const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180; // Corregido: antes estaba lat2 - lon1
+    const dLon = (lon2 - lon1) * Math.PI / 180; 
     
     const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
               Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
@@ -447,7 +447,7 @@ const App = () => {
         </div>
         
         <div className="flex items-center gap-2 md:gap-3 flex-1 justify-end h-full">
-            {/* BOTÓN BUSCAR: MISMA APARIENCIA QUE GENERATOR/ALEATOR */}
+            {/* BOTÓN BUSCAR */}
             <button 
               onClick={() => setIsHeaderSearchOpen(!isHeaderSearchOpen)}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all shadow-sm active:scale-90 ${isHeaderSearchOpen ? 'bg-indigo-600 text-white' : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white'}`}
@@ -521,48 +521,48 @@ const App = () => {
         )}
       </header>
 
-      {/* MENÚ LATERAL (HAMBURGUESA) */}
+      {/* MENÚ LATERAL COMPACTO */}
       {isSideMenuOpen && (
           <div className="fixed inset-0 z-[2000] bg-black/60 backdrop-blur-md flex justify-end animate-fade-in" onClick={() => setIsSideMenuOpen(false)}>
-              <div className="w-[85%] max-w-[320px] bg-white h-full shadow-2xl flex flex-col p-8 slide-in-right" onClick={e => e.stopPropagation()}>
-                  <div className="flex items-center gap-3 mb-8 pb-6 border-b border-slate-100">
+              <div className="w-[85%] max-w-[320px] bg-white h-full shadow-2xl flex flex-col p-8 pt-6 slide-in-right" onClick={e => e.stopPropagation()}>
+                  <div className="flex items-center gap-3 mb-6 pb-6 border-b border-slate-100">
                       <div className="bg-[#4338ca] p-2 rounded-lg shadow-lg">
                           <HikerIcon size={24} />
                       </div>
                       <h2 className="text-xl font-black tracking-tight text-slate-900 uppercase italic leading-none">Rutabia</h2>
                   </div>
 
-                  <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-3 flex-1">
                       <button 
                         onClick={() => { setIsSideMenuOpen(false); generateItinerary(); }}
                         className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group"
                       >
                           <Route className="w-6 h-6" />
                           <div className="text-left">
-                              <span className="block text-sm font-black uppercase tracking-wider">Generator</span>
+                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-1">Generator</span>
                               <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight">Crea tu ruta</span>
                           </div>
                       </button>
 
+                      {/* RANDOMIZER ACTUALIZADO CON DISEÑO AZUL */}
                       <button 
                         onClick={() => { setIsSideMenuOpen(false); setRandomPlace(allPlaces[Math.floor(Math.random() * allPlaces.length)]); }}
                         className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group"
                       >
                           <Shuffle className="w-6 h-6" />
                           <div className="text-left">
-                              <span className="block text-sm font-black uppercase tracking-wider">Randomizar</span>
+                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-1">Randomizer</span>
                               <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight">Selección al azar</span>
                           </div>
                       </button>
 
-                      {/* VER FAVORITOS: ÚLTIMA OPCIÓN */}
                       <button 
                         onClick={() => { setIsSideMenuOpen(false); setShowFavsModal(true); }}
-                        className="flex items-center gap-4 p-5 bg-fuchsia-50 text-fuchsia-600 rounded-[1.5rem] hover:bg-fuchsia-600 hover:text-white transition-all group mt-2"
+                        className="flex items-center gap-4 p-5 bg-fuchsia-50 text-fuchsia-600 rounded-[1.5rem] hover:bg-fuchsia-600 hover:text-white transition-all group mt-1"
                       >
                           <Heart className="w-6 h-6 fill-current" />
                           <div className="text-left">
-                              <span className="block text-sm font-black uppercase tracking-wider">Ver favoritos</span>
+                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-1">Ver favoritos</span>
                               <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight">Mis sitios guardados</span>
                           </div>
                       </button>
@@ -570,7 +570,7 @@ const App = () => {
 
                   <button 
                     onClick={() => setIsSideMenuOpen(false)}
-                    className="mt-8 flex items-center justify-center gap-2 p-5 border border-slate-200 rounded-[1.5rem] text-slate-400 hover:bg-rose-50 hover:text-rose-500 hover:border-rose-100 transition-all font-black uppercase text-xs tracking-[0.2em]"
+                    className="mt-4 flex items-center justify-center gap-2 p-5 border border-slate-200 rounded-[1.5rem] text-slate-400 hover:bg-rose-50 hover:text-rose-500 transition-all font-black uppercase text-xs tracking-[0.2em]"
                   >
                       <X size={18} /> Cerrar
                   </button>
@@ -578,7 +578,7 @@ const App = () => {
           </div>
       )}
 
-      <section className="relative min-h-[340px] py-16 flex flex-col items-center justify-center text-center overflow-visible bg-[#5b21b6] px-6">
+      <section className="relative min-h-[340px] py-16 flex flex-col items-center justify-center text-center bg-[#5b21b6] px-6">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none"></div>
         
