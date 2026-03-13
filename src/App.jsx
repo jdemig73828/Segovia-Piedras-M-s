@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
-import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route, ChevronDown, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route, ChevronDown, Heart, ChevronLeft, ChevronRight, Eraser } from 'lucide-react';
 
-// Cargamos Analytics de forma dinámica para evitar errores de resolución en el entorno de edición/Vercel
+// Cargamos Analytics de forma dinámica
 const Analytics = React.lazy(() => 
   import("@vercel/analytics/react")
     .then(mod => ({ default: mod.Analytics }))
@@ -61,6 +61,7 @@ const App = () => {
   const [favorites, setFavorites] = useState([]);
   const [showFavsModal, setShowFavsModal] = useState(false);
   const [showPredictive, setShowPredictive] = useState(false);
+  const [isHeaderSearchOpen, setIsHeaderSearchOpen] = useState(false);
   
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
@@ -81,10 +82,8 @@ const App = () => {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
   };
 
-  // --- ARREGLO DE CÁLCULO DE DISTANCIAS ---
   const dmsToDec = (dms) => {
     if(!dms) return 0;
-    // Limpiamos caracteres extraños y extraemos números
     const cleanDms = dms.replace(/\\"/g, '"');
     const matches = cleanDms.match(/(\d+)°(\d+)'([\d.]+)"/);
     if (!matches) return 0;
@@ -95,38 +94,26 @@ const App = () => {
   };
 
   const calculateDistance = (coords1, coords2) => {
-    const parse = (c) => {
-      const parts = c.split(/ [NS] /); // Split más robusto para lat/lon
-      if (parts.length < 2) {
-          // Fallback para split por espacio si el formato es distinto
-          const splitSpace = c.split(' ');
-          return [dmsToDec(splitSpace[0] + splitSpace[1]), dmsToDec(splitSpace[2] + splitSpace[3])];
-      }
-      return [dmsToDec(c.split(' ')[0] + c.split(' ')[1]), dmsToDec(c.split(' ')[2] + c.split(' ')[3])];
-    };
-
-    // Helper interno para obtener Lat/Lon de forma segura
-    const getLatLon = (str) => {
-        const parts = str.trim().split(/\s+(?=\d)/);
+    const getCoords = (str) => {
+        const parts = str.trim().split(/\s+(?=[0-9])/);
+        if (parts.length < 2) return [0, 0];
         return [dmsToDec(parts[0]), dmsToDec(parts[1])];
     };
-
-    const [lat1, lon1] = getLatLon(coords1);
-    const [lat2, lon2] = getLatLon(coords2);
-    
-    const R = 6371; // Radio Tierra en km
+    const [lat1, lon1] = getCoords(coords1);
+    const [lat2, lon2] = getCoords(coords2);
+    const R = 6371; 
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
               Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
               Math.sin(dLon/2) * Math.sin(dLon/2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    const distance = R * c;
-    return distance.toFixed(1);
+    return (R * c).toFixed(1);
   };
 
   const getCardinal = (coords) => {
-    const parts = coords.trim().split(/\s+(?=\d)/);
+    const parts = coords.trim().split(/\s+(?=[0-9])/);
+    if (parts.length < 2) return "Desconocido";
     const lat = dmsToDec(parts[0]);
     const lon = dmsToDec(parts[1]);
     const centerLat = 41.15; const centerLon = -4.05;
@@ -135,7 +122,7 @@ const App = () => {
     return lonDiff > 0 ? "Este" : "Oeste";
   };
 
-  // --- BASE DE DATOS INTEGRAL (RESTAURADA 217 PUNTOS REALES) ---
+  // --- BASE DE DATOS INTEGRAL ---
   const allPlaces = useMemo(() => [
     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas." },
@@ -160,7 +147,7 @@ const App = () => {
     { id: 21, name: "MOLINO DE POTRICOS", category: "Industrial", coords: "41°24'02.7\"N 4°07'27.2\"W", address: "PEROSILLO", note: "Ingenio hidráulico histórico preservado en el paisaje rural." },
     { id: 22, name: "MOLINO DEL PINO", category: "Industrial", coords: "41°23'11.3\"N 4°28'40.2\"W", address: "MATA DE CUÉLLAR", note: "Molino harinero tradicional de construcción en piedra." },
     { id: 23, name: "TORREÓN DE SANTA MARÍA", category: "Historia", coords: "41°24'00.1\"N 4°13'24.6\"W", address: "LOVINGOS", note: "Restos de la torre de la antigua iglesia parroquial." },
-    { id: 24, name: "MOLINO BATÁN DE GARRIDO", category: "Industrial", coords: "41°17'01.9\"N 4°08'49.1\"W", address: "LASTRAS DE CUÉLLAR", note: "Antiguo batán utilizado para el tratamiento de tejidos." },
+    { id: 24, name: "MOLINO BATÁN DE GARRIDO", category: "Industrial", coords: "41°17'01.9\"N 4°08'49.1\"W", address: "LASTRAS DE CUÉLLAR", note: "Antiguo batán utilizado para el tratamiento de tujeidos." },
     { id: 25, name: "MOLINO DEL LADRÓN", category: "Industrial", coords: "41°17'24.8\"N 4°09'04.2\"W", address: "LASTRAS DE CUÉLLAR", note: "Construcción hidráulica ssingular en la ribera del cega." },
     { id: 26, name: "FÁBRICA DE HARINA", category: "Industrial", coords: "41°20'52.1\"N 4°07'09.3\"W", address: "HONTALBILLA", note: "Instalación industrial cerealista de principios del siglo XX." },
     { id: 27, name: "IGLESIA DE SAN JUAN BAUTISTA", category: "Historia", coords: "41°24'52.2\"N 4°12'55.3\"W", address: "FUENTES DE CUÉLLAR", note: "Templo que destaca por su volumetría y elementos arquitectónicos." },
@@ -189,7 +176,7 @@ const App = () => {
     { id: 50, name: "LA MOLINILLA Y ERMITA DE LA VIRGEN DE LA CALLEJA", category: "Historia", coords: "41°17'52.6\"N 3°51'59.6\"W", address: "VILLASECA", note: "Paraje místico cercano a las hoces del río Duratón." },
     { id: 51, name: "MONASTERIO DE SANTO TOMÉ DEL PUERTO", category: "Ruinas", coords: "41°11'56.8\"N 3°35'24.7\"W", address: "VILLAREJO", note: "Restos monásticos situados estratégicamente en el puerto." },
     { id: 52, name: "IGLESIA DE NUESTRA SEÑORA DE LA SERNA", category: "Historia", coords: "41°16'02.5\"N 3°43'05.9\"W", address: "VELOSILLO", note: "Edificación románica de gran encanto en el altiplano segoviano." },
-    { id: 53, name: "MOLINO DE SAN JUAN", category: "Industrial", coords: "41°15'52.9\"N 3°50'53.2\"W", address: "VALDESIMONTE", note: "Molino harinero restaurado que aprovecha el cauce del San Juan." },
+    { id: 53, name: "MOLINO DE SAN JUAN", category: "Historia", coords: "41°15'52.9\"N 3°50'53.2\"W", address: "VALDESIMONTE", note: "Molino harinero restaurado que aprovecha el cauce del San Juan." },
     { id: 54, name: "LAVADERO DE LANAS DE LA ALDEA LA PEÑA", category: "Industrial", coords: "41°12'17.8\"N 3°37'20.7\"W", address: "SIGUERO", note: "Muestra de la antigua importancia de la trashumancia y el esquileo." },
     { id: 55, name: "MOLINO DE LA OCECILLA", category: "Industrial", coords: "41°18'37.0\"N 3°43'45.2\"W", address: "SEPÚLVEDA", note: "Maquinaria hidráulica tradicional en el entorno de la villa sepulvedana." },
     { id: 56, name: "IGLESIA DE SAN MILLÁN", category: "Historia", coords: "41°18'03.3\"N 3°44'57.0\"W", address: "SEPÚLVEDA", note: "Antiguo templo que forma parte del conjunto monumental de Sepúlveda." },
@@ -244,7 +231,7 @@ const App = () => {
     { id: 105, name: "CASA ARMADA DEL MARQUÉS DEL ARCO", category: "Historia", coords: "41°04'41.0\"N 4°19'05.1\"W", address: "ARMUÑA", note: "Finca señorial con torre de vigilancia histórica." },
     { id: 106, name: "IGLESIA DE LA VIRGEN DE AGEJAS", category: "Ruinas", coords: "41°03'19.7\"N 4°05'47.8\"W", address: "CABAÑA DE POLENDOS", note: "Restos de la iglesia del antiguo despoblado de Agejas." },
     { id: 107, name: "MOLINO DEL PUENTE", category: "Industrial", coords: "41°08'56.7\"N 4°20'02.1\"W", address: "BERNARDOS", note: "Antiguo ingenio hidráulico para molienda de cereal." },
-    { id: 108, name: "ERMITA DE SAN TA ÁGUEDA", category: "Historia", coords: "41°10'10.4\"N 4°18'14.4\"W", address: "CARBONERO EL MAYOR", note: "Santuario de gran devoción popular en la comarca." },
+    { id: 108, name: "ERMITA DE SANTA ÁGUEDA", category: "Historia", coords: "41°10'10.4\"N 4°18'14.4\"W", address: "CARBONERO EL MAYOR", note: "Santuario de gran devoción popular en la comarca." },
     { id: 109, name: "ERMITA DE SAN ISIDRO", category: "Historia", coords: "41°06'26.3\"N 4°22'07.0\"W", address: "DOMINGO GARCÍA", note: "Templo situado cerca de la zona de los grabados rupestres." },
     { id: 110, name: "ERMITA DE SAN MIGUEL DE QUINTANAS", category: "Historia", coords: "41°09'11.8\"N 4°15'22.8\"W", address: "CARBONERO EL MAYOR", note: "Vestigio religioso de antiguos asentamientos." },
     { id: 111, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "40°59'21.1\"N 4°12'31.0\"W", address: "HONTANARES DE ERESMA", note: "Edificación típica de la red ferroviaria histórica." },
@@ -281,12 +268,12 @@ const App = () => {
     { id: 142, name: "DESPOBLADO DE NAVALAVIGA", category: "Ruinas", coords: "40°41'20.7\"N 4°24'29.5\"W", address: "VILLACASTÍN", note: "Punto de paso clave en las cañadas reales de la Mesta." },
     { id: 143, name: "LAS FALSAS", category: "Industrial", coords: "40°46'32.1\"N 4°24'32.3\"W", address: "VILLACASTÍN", note: "Infraestructura lanera fundamental para la comarca." },
     { id: 144, name: "CASA DEL ZORRO KLIM", category: "Historia", coords: "40°57'14.4\"N 4°10'45.2\"W", address: "ZAMARRAMALA", note: "Lugar ligado a personajes históricos del siglo XX." },
-    { id: 145, name: "CHOZO DE la PORTERA DE LA DEHESA", category: "Historia", coords: "41°02'35.4\"N 3°47'43.4\"W", address: "ALDEALENGUA DE PEDRAZA", note: "Arquitectura tradicional de pastores perfectamente conservada." },
+    { id: 145, name: "CHOZO DE LA PORTERA DE LA DEHESA", category: "Historia", coords: "41°02'35.4\"N 3°47'43.4\"W", address: "ALDEALENGUA DE PEDRAZA", note: "Arquitectura tradicional de pastores perfectamente conservada." },
     { id: 146, name: "MOLINO DE LOS GORICHES", category: "Industrial", coords: "41°10'43.1\"N 3°53'10.3\"W", address: "ARVALILLO DE CEGA", note: "Molino que dominaba el cauce del río Cega en su zona media." },
     { id: 147, name: "FÁBRICA DE LUZ", category: "Industrial", coords: "41°02'18.1\"N 3°49'29.7\"W", address: "NAVAFRÍA", note: "Antigua central hidroeléctrica que modernizó la zona." },
     { id: 148, name: "PRESA Y MOLINO CASTELLANOS", category: "Industrial", coords: "41°04'36.6\"N 3°50'11.0\"W", address: "NAVAFRÍA", note: "Complejo hidráulico de gran importancia local." },
     { id: 149, name: "ERMITA DE SAN NICOLÁS", category: "Historia", coords: "41°09'03.2\"N 3°47'10.5\"W", address: "OREJANA", note: "Templo románico rodeado de misterios de la zona mística." },
-    { id: 150, name: "LA TEJERA DE RAMÓN MARTÍN", category: "Industrial", coords: "41°05'24.5\"N 3°51'18.1\"W", address: "VALLE de SAN PEDRO", note: "Instalaciones artesanales de elaboración de tejas." },
+    { id: 150, name: "LA TEJERA DE RAMÓN MARTÍN", category: "Industrial", coords: "41°05'24.5\"N 3°51'18.1\"W", address: "VALLE DE SAN PEDRO", note: "Instalaciones artesanales de elaboración de tejas." },
     { id: 151, name: "DESPOBLADO DE ALDEALAFUENTE", category: "Ruinas", coords: "41°14'19.8\"N 3°48'45.5\"W", address: "ALDEALAFUENTE", note: "Huellas de la vida rural medieval desaparecida." },
     { id: 152, name: "ERMITA DE SAN VALENTÍN", category: "Historia", coords: "41°19'31.7\"N 3°52'49.4\"W", address: "BURGOMILLODO", note: "Capilla aislada en el espectacular paisaje del Duratón." },
     { id: 153, name: "ERMITA DE SANTA ENGRACIA", category: "Historia", coords: "41°19'15.9\"N 3°52'17.7\"W", address: "BURGOMILLODO", note: "Santuario románico con el que soñaban los reyes." },
@@ -298,7 +285,7 @@ const App = () => {
     { id: 159, name: "ERMITA DE SAN ROQUE", category: "Historia", coords: "41°22'24.6\"N 3°39'56.1\"W", address: "ENCINAS", note: "Oratorio místico rodeado de encinas centenarias." },
     { id: 160, name: "FÁBRICA DE HARINAS Y VIVIENDA", category: "Industrial", coords: "41°17'49.5\"N 3°55'56.5\"W", address: "FUENTE REBOLLO", note: "Complejo fabril harinero muy bien conservado." },
     { id: 161, name: "LA CASETA DEL VAQUERO", category: "Naturaleza", coords: "41°20'26.6\"N 3°58'05.7\"W", address: "NAVALILLA", note: "Pequeño refugio de pastores en el entorno natural de Navalilla." },
-    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenio harinero representativo de la comarca." },
+    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenios hidráulicos representativos de la comarca." },
     { id: 163, name: "COLMENARES", category: "Industrial", coords: "41°24'26.7\"N 3°44'47.4\"W", address: "NAVARES DE LAS CUEVAS", note: "Arquitectura tradicional para la explotación de la miel." },
     { id: 164, name: "DESPOBLADO DE CABRERIZOS", category: "Ruinas", coords: "41°12'55.6\"N 3°39'58.3\"W", address: "SANTA MARTA DEL CERRO", note: "Aldea mística que hoy permanece en el recuerdo." },
     { id: 165, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°10'50.4\"N 3°33'48.3\"W", address: "SANTO TOMÉ DEL PUERTO", note: "Estructura ferroviaria en la falda de Somosierra." },
@@ -356,7 +343,6 @@ const App = () => {
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos." }
   ], []);
 
-  // --- LÓGICA DE FILTRADO INTELIGENTE ---
   const suggestions = useMemo(() => {
     if (!searchTerm.trim()) return [];
     const matches = new Set();
@@ -370,15 +356,14 @@ const App = () => {
 
   const filteredPlaces = useMemo(() => {
     return allPlaces.filter(p => {
+      const normalizedTerm = normalize(searchTerm);
+      // Lógica de exclusión: Si hay búsqueda, ignora filtros. Si interactúa con filtros, limpia búsqueda.
+      if (normalizedTerm !== "") {
+          return normalize(p.name).includes(normalizedTerm) || normalize(p.address).includes(normalizedTerm);
+      }
       const matchCategory = currentCategory === 'Todos' || p.category === currentCategory;
       const matchZone = currentGeoZone === 'Todos' || getCardinal(p.coords) === currentGeoZone;
-      const normalizedTerm = normalize(searchTerm);
-      
-      const matchSearch = normalizedTerm === "" || 
-                          normalize(p.name).includes(normalizedTerm) || 
-                          normalize(p.address).includes(normalizedTerm);
-      
-      return matchCategory && matchZone && matchSearch;
+      return matchCategory && matchZone;
     });
   }, [currentCategory, currentGeoZone, searchTerm, allPlaces]);
 
@@ -390,6 +375,13 @@ const App = () => {
 
   const toggleFavorite = (id) => {
     setFavorites(prev => prev.includes(id) ? prev.filter(fid => fid !== id) : [...prev, id]);
+  };
+
+  const clearSelection = () => {
+    setSearchTerm('');
+    setCurrentCategory('Todos');
+    setCurrentGeoZone('Todos');
+    setIsHeaderSearchOpen(false);
   };
 
   const generateItinerary = () => {
@@ -410,9 +402,9 @@ const App = () => {
         <button 
             onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
             disabled={currentPage === 1}
-            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all"
+            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center"
         >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={24} />
         </button>
         <div className="flex items-center gap-1.5">
             {[...Array(totalPages)].map((_, i) => {
@@ -424,7 +416,7 @@ const App = () => {
                     <button
                         key={i}
                         onClick={() => setCurrentPage(i + 1)}
-                        className={`w-10 h-10 rounded-lg text-xs font-black transition-all ${currentPage === i + 1 ? 'bg-[#5b21b6] text-white shadow-md' : 'bg-white text-slate-400 border border-slate-100 hover:border-slate-300'}`}
+                        className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg text-sm sm:text-base font-black transition-all ${currentPage === i + 1 ? 'bg-[#5b21b6] text-white shadow-md' : 'bg-white text-slate-400 border border-slate-100 hover:border-slate-300'}`}
                     >
                         {i + 1}
                     </button>
@@ -434,171 +426,222 @@ const App = () => {
         <button 
             onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
             disabled={currentPage === totalPages}
-            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all"
+            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center"
         >
-            <ChevronRight size={20} />
+            <ChevronRight size={24} />
         </button>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100">
-      <header className="sticky top-0 z-[150] h-14 bg-white/90 backdrop-blur-md px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm">
+    <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100 text-[18px] sm:text-[20px]">
+      <header className="sticky top-0 z-[1000] h-14 bg-white px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm overflow-visible">
         <div className="flex items-center gap-2">
           <div className="bg-[#4338ca] p-1.5 rounded-md shadow-sm">
             <HikerIcon />
           </div>
           <h1 className="text-sm font-black tracking-tight text-slate-900 uppercase italic leading-none">Rutabia</h1>
         </div>
-        <div className="flex items-center gap-2 md:gap-3">
-            <button onClick={generateItinerary} className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
-                <Route className="w-4 h-4" />
-                <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Generator</span>
-            </button>
-            <button onClick={() => setRandomPlace(allPlaces[Math.floor(Math.random() * allPlaces.length)])} className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
-                <Shuffle className="w-4 h-4" />
-                <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Aleator</span>
-            </button>
+        
+        <div className="flex items-center gap-2 md:gap-3 flex-1 justify-end h-full">
+            <div className="hidden md:flex items-center gap-2">
+                <button onClick={generateItinerary} className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
+                    <Route className="w-4 h-4" />
+                    <span className="text-[10px] font-bold uppercase tracking-wider">Generator</span>
+                </button>
+                <button onClick={() => setRandomPlace(allPlaces[Math.floor(Math.random() * allPlaces.length)])} className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
+                    <Shuffle className="w-4 h-4" />
+                    <span className="text-[10px] font-bold uppercase tracking-wider">Aleator</span>
+                </button>
+            </div>
+
             <button onClick={() => setShowFavsModal(true)} className="flex items-center gap-2 px-3 py-1.5 bg-fuchsia-600 text-white rounded-full hover:bg-fuchsia-700 transition-all shadow-sm active:scale-95">
                 <Heart className="w-4 h-4 fill-current" />
                 <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Ver favoritos</span>
             </button>
+
+            {/* BOTÓN BUSCAR A LA DERECHA DE FAVORITOS */}
+            <button 
+              onClick={() => setIsHeaderSearchOpen(!isHeaderSearchOpen)}
+              className={`h-full px-5 flex items-center gap-2 border-l border-slate-100 transition-all hover:bg-slate-50 ${isHeaderSearchOpen ? 'bg-indigo-50 text-[#4338ca]' : 'text-slate-600'}`}
+            >
+                <Search size={20} className={isHeaderSearchOpen ? 'text-[#4338ca]' : 'text-slate-400'} />
+                <span className="text-[11px] font-black uppercase tracking-wider">Buscar</span>
+            </button>
         </div>
+
+        {/* PANEL BUSCADOR DESPLEGABLE INFERIOR */}
+        {isHeaderSearchOpen && (
+            <div className="absolute top-full left-0 right-0 bg-white border-b border-slate-200 shadow-2xl p-4 z-[1001] animate-fade-in">
+                <div className="max-w-3xl mx-auto relative">
+                    <div className="flex items-center gap-3 bg-slate-100 rounded-2xl px-5 py-3 border border-slate-200 focus-within:ring-2 focus-within:ring-[#4338ca] transition-all">
+                        <Search className="text-slate-400" size={20} />
+                        <input 
+                            type="text" 
+                            placeholder="Buscar parajes o municipios..."
+                            value={searchTerm}
+                            autoFocus
+                            onChange={(e) => {
+                                setSearchTerm(e.target.value); 
+                                setShowPredictive(true);
+                                // Resetear filtros si el usuario escribe
+                                setCurrentCategory('Todos');
+                                setCurrentGeoZone('Todos');
+                            }}
+                            className="bg-transparent border-none outline-none text-sm font-bold text-slate-800 flex-1 placeholder:text-slate-400"
+                        />
+                        {searchTerm && <button onClick={() => setSearchTerm('')}><X size={18} className="text-slate-400" /></button>}
+                    </div>
+                    
+                    {/* MENSAJE DE ERROR SI NO HAY RESULTADOS EN BÚSQUEDA */}
+                    {searchTerm && filteredPlaces.length === 0 && !showPredictive && (
+                         <p className="mt-4 text-rose-600 text-[12px] font-black uppercase tracking-widest text-center animate-pulse">
+                            No hay disponible paraje en esta localidad
+                         </p>
+                    )}
+
+                    {/* RESULTADOS PREDICTIVOS (SOBRE BODY) */}
+                    {showPredictive && suggestions.length > 0 && (
+                        <div className="absolute top-full left-0 right-0 mt-2 bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-800 overflow-hidden z-[1100] max-h-[300px] overflow-y-auto">
+                            {suggestions.map((s, i) => (
+                            <button 
+                                key={i}
+                                onClick={() => {
+                                    setSearchTerm(s); 
+                                    setShowPredictive(false); 
+                                    setIsHeaderSearchOpen(false);
+                                    setCurrentCategory('Todos');
+                                    setCurrentGeoZone('Todos');
+                                }}
+                                className="w-full px-5 py-4 hover:bg-white/10 flex items-center justify-between group transition-colors border-b border-white/5 last:border-0 text-left"
+                            >
+                                <div className="flex items-center gap-3">
+                                    <MapPin size={14} className="text-slate-500" />
+                                    <span className="text-white text-[11px] font-black uppercase tracking-tight">{s}</span>
+                                </div>
+                                <ChevronRight size={14} className="text-white/20 group-hover:text-white transition-all" />
+                            </button>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </div>
+        )}
       </header>
 
-      <section className="relative min-h-[240px] py-12 flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6] px-6">
+      <section className="relative min-h-[340px] py-16 flex flex-col items-center justify-center text-center overflow-visible bg-[#5b21b6] px-6">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay"></div>
-        {/* ALFA DEGRADADO SUPERIOR EN HERO */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none"></div>
         
-        <div className="relative z-10 w-full max-w-2xl">
-          <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 leading-none text-balance font-light text-white">
-            <span className="font-black text-white text-3xl md:text-4xl uppercase leading-none">Crea</span> tu ruta
-          </h2>
-          <p className="text-white text-[10px] md:text-xs mb-8 opacity-90 tracking-wide font-light">
+        <div className="relative z-10 w-full max-w-4xl">
+          <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter drop-shadow-2xl leading-none mb-2">Crea tu ruta</h2>
+          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto">
             <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
           </p>
 
-          <div className="w-full max-w-lg mx-auto relative group">
-            <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-white/50 group-focus-within:text-white transition-colors w-5 h-5" />
-            <input 
-              type="text" 
-              placeholder="Buscar parajes o municipios..."
-              value={searchTerm}
-              onFocus={() => setShowPredictive(true)}
-              onChange={(e) => {setSearchTerm(e.target.value); setShowPredictive(true);}}
-              className="w-full pl-14 pr-24 py-4 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-xl outline-none text-sm font-semibold text-white placeholder:text-white/40 focus:bg-white/20 focus:border-white/40 transition-all"
-            />
-            {showPredictive && suggestions.length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-slate-200/98 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-300 overflow-hidden z-[200] animate-fade-in text-left">
-                {suggestions.map((s, i) => (
-                  <button 
-                    key={i}
-                    onClick={() => {setSearchTerm(s); setShowPredictive(false);}}
-                    className="w-full px-5 py-3 hover:bg-white flex items-center justify-between group transition-colors border-b border-slate-300/50 last:border-0"
-                  >
-                    <div className="flex items-center gap-3">
-                        <MapPin size={14} className="text-slate-700 group-hover:text-[#4338ca]" />
-                        {/* LETRAS EN BLANCO SEGUN SOLICITUD */}
-                        <span className="text-white bg-slate-700 px-2 py-0.5 rounded text-[11px] font-black uppercase tracking-tight">{s}</span>
-                    </div>
-                    <ChevronRight size={14} className="text-slate-400 opacity-0 group-hover:opacity-100 transition-all" />
-                  </button>
-                ))}
-              </div>
-            )}
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
-                {searchTerm && (
-                    <button onClick={() => {setSearchTerm(''); setShowPredictive(false);}} className="p-1.5 rounded-full hover:bg-white/10 text-white/50 hover:text-white transition-all">
-                        <X className="w-4 h-4" />
+          <div className="bg-white/10 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/20 shadow-2xl">
+            <h3 className="text-[16px] lg:text-[18px] font-black tracking-normal text-white mb-6 uppercase text-center">Selecciona ubicaciones</h3>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <div className="relative w-full sm:w-auto text-left">
+                    <button 
+                    onClick={() => { setShowCatMenu(!showCatMenu); setShowZoneMenu(false); }}
+                    className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
+                    >
+                        <div className="flex items-center gap-3">
+                            <BarChart2 className="w-4 h-4 text-[#4338ca]" />
+                            <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{currentCategory === 'Todos' ? 'Categorías' : currentCategory}</span>
+                        </div>
+                        <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${showCatMenu ? 'rotate-180' : ''}`} />
                     </button>
-                )}
-                <button className="px-3 py-1.5 bg-white/20 text-white rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-white/40 transition-all">Buscar</button>
+
+                    {showCatMenu && (
+                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
+                        {['Todos', 'Historia', 'Ruinas', 'Industrial', 'Naturaleza'].map(cat => (
+                        <button 
+                            key={cat} 
+                            onClick={() => { 
+                                setCurrentCategory(cat); 
+                                setShowCatMenu(false); 
+                                setSearchTerm(''); // Interactuar con filtros borra búsqueda
+                            }}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentCategory === cat ? 'bg-indigo-600 text-white border-transparent' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100'}`}
+                        >
+                            {cat}
+                        </button>
+                        ))}
+                    </div>
+                    )}
+                </div>
+
+                <div className="relative w-full sm:w-auto text-left">
+                    <button 
+                    onClick={() => { setShowZoneMenu(!showZoneMenu); setShowCatMenu(false); }}
+                    className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
+                    >
+                        <div className="flex items-center gap-3">
+                            <Compass className="w-4 h-4 text-[#4338ca]" />
+                            <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{currentGeoZone === 'Todos' ? 'ZONA' : currentGeoZone}</span>
+                        </div>
+                        <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${showZoneMenu ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {showZoneMenu && (
+                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
+                        {['Todos', 'Norte', 'Sur', 'Este', 'Oeste'].map(zone => (
+                        <button 
+                            key={zone} 
+                            onClick={() => { 
+                                setCurrentGeoZone(zone); 
+                                setShowZoneMenu(false); 
+                                setSearchTerm(''); // Interactuar con filtros borra búsqueda
+                            }}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentGeoZone === zone ? 'bg-indigo-600 text-white border-transparent' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100'}`}
+                        >
+                            {zone === 'Todos' ? 'Toda la provincia' : `Zona ${zone}`}
+                        </button>
+                        ))}
+                    </div>
+                    )}
+                </div>
+            </div>
+
+            {/* CAJA DE RESULTADOS INTELIGENTE */}
+            <div className="mt-8 flex flex-col items-center gap-4">
+                <div className="flex flex-col items-center gap-2">
+                    {filteredPlaces.length === 0 ? (
+                        <p className="text-[14px] md:text-[16px] tracking-[0.2em] text-fuchsia-400 font-black uppercase bg-black/40 px-6 py-2 rounded-full border border-fuchsia-400/50 shadow-lg">
+                            NO HAY RESULTADOS
+                        </p>
+                    ) : (
+                        <p className="text-[14px] md:text-[16px] tracking-[0.2em] text-fuchsia-400 font-black uppercase bg-black/40 px-6 py-2 rounded-full border border-white/10 shadow-inner">
+                            Mostrando {filteredPlaces.length} sitios de {allPlaces.length}
+                        </p>
+                    )}
+                    
+                    {/* BOTÓN BORRAR SELECCIÓN */}
+                    {(currentCategory !== 'Todos' || currentGeoZone !== 'Todos' || searchTerm !== '') && (
+                        <button 
+                            onClick={clearSelection}
+                            className="flex items-center gap-2 text-white/60 hover:text-white transition-all text-[11px] font-bold uppercase tracking-widest mt-2 group"
+                        >
+                            <Eraser size={14} className="group-hover:rotate-12 transition-transform" />
+                            Borrar selección
+                        </button>
+                    )}
+                </div>
             </div>
           </div>
-          {searchTerm && filteredPlaces.length === 0 && !showPredictive && (
-             <p className="mt-4 text-rose-300 text-[10px] font-bold uppercase tracking-widest animate-pulse">No hay disponible paraje en esta localidad</p>
-          )}
         </div>
       </section>
 
-      <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 text-center">
-        <div className="inline-block w-full max-w-4xl">
-          <h3 className="text-[14px] font-black tracking-normal text-[#5b21b6] mb-6">Selecciona ubicaciones por categoría</h3>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <div className="relative w-full sm:w-auto text-left">
-                <button 
-                onClick={() => { setShowCatMenu(!showCatMenu); setShowZoneMenu(false); }}
-                className={`w-full sm:w-auto flex items-center justify-between gap-6 px-6 py-3.5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-all group ${showCatMenu ? 'ring-2 ring-indigo-100' : ''}`}
-                >
-                    <div className="flex items-center gap-3">
-                        <BarChart2 className="w-4 h-4 text-[#4338ca]" />
-                        <span className="text-xs font-black uppercase tracking-widest text-slate-700">{currentCategory === 'Todos' ? 'Categorías' : currentCategory}</span>
-                    </div>
-                    <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${showCatMenu ? 'rotate-180' : ''}`} />
-                </button>
-
-                {showCatMenu && (
-                <div className="absolute top-full left-0 mt-3 w-[calc(100vw-2rem)] sm:w-[240px] max-w-[90vw] p-4 bg-white rounded-[2rem] shadow-2xl border border-slate-100 z-[200] animate-fade-in flex flex-col gap-2">
-                    {[
-                    { name: 'Todos', icon: <Compass className="w-4 h-4" /> },
-                    { name: 'Historia', icon: <Landmark className="w-4 h-4" /> },
-                    { name: 'Ruinas', icon: <Castle className="w-4 h-4" /> },
-                    { name: 'Industrial', icon: <Factory className="w-4 h-4" /> },
-                    { name: 'Naturaleza', icon: <Trees className="w-4 h-4" /> }
-                    ].map(cat => (
-                    <button 
-                        key={cat.name} 
-                        onClick={() => { setCurrentCategory(cat.name); setShowCatMenu(false); }}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentCategory === cat.name ? (categoryColors[cat.name] || 'bg-[#4338ca]') + ' text-white border-transparent' : 'bg-white border-slate-100 text-slate-500 hover:bg-slate-50'}`}
-                    >
-                        {cat.icon} {cat.name}
-                    </button>
-                    ))}
-                </div>
-                )}
-            </div>
-
-            <div className="relative w-full sm:w-auto text-left">
-                <button 
-                onClick={() => { setShowZoneMenu(!showZoneMenu); setShowCatMenu(false); }}
-                className={`w-full sm:w-auto flex items-center justify-between gap-6 px-6 py-3.5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-all group ${showZoneMenu ? 'ring-2 ring-indigo-100' : ''}`}
-                >
-                    <div className="flex items-center gap-3">
-                        <Compass className="w-4 h-4 text-[#4338ca]" />
-                        <span className="text-xs font-black uppercase tracking-widest text-slate-700">{currentGeoZone === 'Todos' ? 'Filtrar por zona' : currentGeoZone}</span>
-                    </div>
-                    <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${showZoneMenu ? 'rotate-180' : ''}`} />
-                </button>
-
-                {showZoneMenu && (
-                <div className="absolute top-full left-0 mt-3 w-[calc(100vw-2rem)] sm:w-[240px] max-w-[90vw] p-4 bg-white rounded-[2rem] shadow-2xl border border-slate-100 z-[200] animate-fade-in flex flex-col gap-2">
-                    {['Todos', 'Norte', 'Sur', 'Este', 'Oeste'].map(zone => (
-                    <button 
-                        key={zone} 
-                        onClick={() => { setCurrentGeoZone(zone); setShowZoneMenu(false); }}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentGeoZone === zone ? 'bg-indigo-600 text-white border-transparent' : 'bg-white border-slate-100 text-slate-500 hover:bg-slate-50'}`}
-                    >
-                        <MapPin className="w-4 h-4" /> {zone === 'Todos' ? 'Toda la provincia' : `Zona ${zone}`}
-                    </button>
-                    ))}
-                </div>
-                )}
-            </div>
-          </div>
-
-          <div className="mt-10 flex flex-col items-center">
-            <p className="text-[12px] tracking-[0.2em] text-fuchsia-600 font-black uppercase bg-fuchsia-50 px-5 py-2 rounded-full border border-fuchsia-100 shadow-sm">
-                Mostrando {filteredPlaces.length} sitios de {allPlaces.length}
-            </p>
-            <div className="mt-8">
-                {totalPages > 1 && <PaginationControls />}
-            </div>
-          </div>
+      <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 text-center min-h-[600px]">
+        {/* PAGINADOR SUPERIOR REINCORPORADO */}
+        <div className="mb-12 flex flex-col items-center">
+            {totalPages > 1 && <PaginationControls />}
         </div>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left">
           {displayedPlaces.map((p) => (
             <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in flex flex-col h-full overflow-hidden`}>
                 <div className="relative z-10 flex flex-col h-full">
@@ -635,17 +678,16 @@ const App = () => {
           ))}
         </div>
 
-        {/* PAGINACIÓN INFERIOR SIEMPRE CON MARGEN DE 72PX RESPECTO AL BANNER FINAL */}
         <div className="mt-16 flex flex-col items-center pb-2 mb-[72px] border-b border-slate-100">
             {totalPages > 1 && <PaginationControls />}
         </div>
 
-        {/* BANNER CENTRAL REUBICADO AL FINAL - ALTURA 180PX, SIN RAYA, SIN CONTORNO, PEGADO AL FOOTER */}
+        {/* BANNER FINAL - TIPOGRAFÍA LIGHT SIN CONTORNO */}
         <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[180px] flex items-center justify-center overflow-hidden shadow-inner bg-cover bg-center group"
               style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/13R4eL4JuPn4XJnfGo58z3SUcH140ILub')`}}>
             <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/30 to-transparent"></div>
             <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-center relative z-20">
-                <h2 className="text-2xl md:text-4xl font-black text-white uppercase italic tracking-tighter drop-shadow-xl">
+                <h2 className="text-2xl md:text-4xl font-light text-white uppercase italic tracking-tighter drop-shadow-xl leading-none">
                   Segovia, piedras y más...
                 </h2>
             </div>
@@ -660,9 +702,9 @@ const App = () => {
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg"><HikerIcon /></div>
               <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none text-white">Rutabia</span>
             </div>
-            <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight uppercase text-white">Crea tu ruta</h3>
+            <h3 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter leading-none mb-5 uppercase">Crea tu ruta</h3>
             <div className="space-y-6">
-              <p className="text-white/40 text-[11px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-black italic text-white/60">
+              <p className="text-white/40 text-[14px] md:text-[16px] lg:text-[18px] leading-relaxed max-w-lg mx-auto tracking-wide font-light italic">
                 <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
               </p>
               
@@ -676,9 +718,9 @@ const App = () => {
         </div>
       </footer>
 
-      {/* MODAL GENERATOR */}
+      {/* MODALES GENERATOR, FAVORITOS, ALEATOR... */}
       {itinerary && (
-          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
+          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900">
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20">
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50">
                     <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none"><Route className="w-5 h-5" /> Ruta Zona {itinerary.zone}</h4>
@@ -708,18 +750,15 @@ const App = () => {
                         </div>
                     ))}
                     <div className="pt-6 border-t border-slate-100 mt-8 pb-10 px-4 text-center">
-                        {itinerary.places.length >= 2 ? (
-                          <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto" />Ver ruta</a>
-                        ) : null}
+                        <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto" />Ver ruta</a>
                     </div>
                 </div>
               </div>
           </div>
       )}
 
-      {/* MODAL FAVORITOS */}
       {showFavsModal && (
-          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
+          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900">
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20">
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-fuchsia-50">
                     <h4 className="font-black uppercase italic text-fuchsia-700 flex items-center gap-2 leading-none"><Heart className="w-5 h-5 fill-current" /> Listado de Favoritos</h4>
@@ -760,7 +799,7 @@ const App = () => {
       )}
 
       {randomPlace && (
-          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
+          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900">
               <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center">
                 <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm`}>{randomPlace.category}</span>
                 <h3 className="text-2xl font-black uppercase text-slate-800 mb-2 leading-tight">{randomPlace.name}</h3>
