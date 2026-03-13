@@ -116,7 +116,7 @@ const App = () => {
     return lonDiff > 0 ? "Este" : "Oeste";
   };
 
-  // --- BASE DE DATOS INTEGRAL (RESTAURADA 217 PUNTOS REALES) ---
+  // --- BASE DE DATOS INTEGRAL (217 PUNTOS REALES RESTAURADOS) ---
   const allPlaces = useMemo(() => [
     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas." },
@@ -279,7 +279,7 @@ const App = () => {
     { id: 159, name: "ERMITA DE SAN ROQUE", category: "Historia", coords: "41°22'24.6\"N 3°39'56.1\"W", address: "ENCINAS", note: "Oratorio místico rodeado de encinas centenarias." },
     { id: 160, name: "FÁBRICA DE HARINAS Y VIVIENDA", category: "Industrial", coords: "41°17'49.5\"N 3°55'56.5\"W", address: "FUENTE REBOLLO", note: "Complejo fabril harinero muy bien conservado." },
     { id: 161, name: "LA CASETA DEL VAQUERO", category: "Naturaleza", coords: "41°20'26.6\"N 3°58'05.7\"W", address: "NAVALILLA", note: "Pequeño refugio de pastores en el entorno natural de Navalilla." },
-    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenios hidráulicos representativos de la comarca." },
+    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenio harinero representativo de la comarca." },
     { id: 163, name: "COLMENARES", category: "Industrial", coords: "41°24'26.7\"N 3°44'47.4\"W", address: "NAVARES DE LAS CUEVAS", note: "Arquitectura tradicional para la explotación de la miel." },
     { id: 164, name: "DESPOBLADO DE CABRERIZOS", category: "Ruinas", coords: "41°12'55.6\"N 3°39'58.3\"W", address: "SANTA MARTA DEL CERRO", note: "Aldea mística que hoy permanece en el recuerdo." },
     { id: 165, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°10'50.4\"N 3°33'48.3\"W", address: "SANTO TOMÉ DEL PUERTO", note: "Estructura ferroviaria en la falda de Somosierra." },
@@ -312,7 +312,7 @@ const App = () => {
     { id: 192, name: "CONVENTO DE SAN JUAN", category: "Ruinas", coords: "41°26'58.1\"N 3°58'32.4\"W", address: "FUENTIDUEÑA", note: "Huellas de la espléndida vida religiosa del pasado." },
     { id: 193, name: "ERMITA DE LA SANTA CRUZ", category: "Historia", coords: "41°26'20.9\"N 3°56'52.8\"W", address: "FUENTIDUEÑA", note: "Santuario de gran encanto e historia milenaria." },
     { id: 194, name: "ERMITA DE VALCALBADO", category: "Historia", coords: "41°27'59.7\"N 3°58'25.8\"W", address: "VALTIENDAS", note: "Famosa ermita que da nombre al paraje místico." },
-    { id: 195, name: "MOLINO DE LOS REYES", category: "Industrial", coords: "41°29'42.6\"N 3°58'08.3\"W", address: "SACRAMENIA", note: "Importantes molinos del entorno cisterciense." },
+    { id: 195, name: "MOLINO DE LOS REYES", category: "Industrial", coords: "41°29'42.6\"N 3°58'08.3\"W", address: "SACRAMENIA", note: "Importante molinos del entorno cisterciense." },
     { id: 196, name: "LAGARES", category: "Industrial", coords: "41°28'46.8\"N 3°54'47.0\"W", address: "VALTIENDAS", note: "Corazón de la cultura vitivinícola del norte." },
     { id: 197, name: "IGLESIA DE SANTIAGO", category: "Historia", coords: "41°24'02.1\"N 4°18'54.8\"W", address: "CUÉLLAR", note: "Ejemplo del impresionante arte mudéjar de Cuéllar." },
     { id: 198, name: "MOLINO DE VIENTO EL CUBO", category: "Industrial", coords: "41°23'51.4\"N 4°19'05.9\"W", address: "CUÉLLAR", note: "Molino de viento restaurado que preside la loma." },
@@ -337,6 +337,7 @@ const App = () => {
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos." }
   ], []);
 
+  // --- LÓGICA DE FILTRADO INTELIGENTE ---
   const suggestions = useMemo(() => {
     if (!searchTerm.trim()) return [];
     const matches = new Set();
@@ -353,13 +354,16 @@ const App = () => {
       const matchCategory = currentCategory === 'Todos' || p.category === currentCategory;
       const matchZone = currentGeoZone === 'Todos' || getCardinal(p.coords) === currentGeoZone;
       const normalizedTerm = normalize(searchTerm);
+      
       const matchSearch = normalizedTerm === "" || 
                           normalize(p.name).includes(normalizedTerm) || 
                           normalize(p.address).includes(normalizedTerm);
+      
       return matchCategory && matchZone && matchSearch;
     });
   }, [currentCategory, currentGeoZone, searchTerm, allPlaces]);
 
+  // Paginación de 6 en 6
   const totalPages = Math.ceil(filteredPlaces.length / itemsPerPage);
   const displayedPlaces = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
@@ -446,9 +450,12 @@ const App = () => {
 
       <section className="relative min-h-[240px] py-12 flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6] px-6">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay"></div>
+        {/* ALFA DEGRADADO SUPERIOR EN HERO */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none"></div>
+        
         <div className="relative z-10 w-full max-w-2xl">
           <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 leading-none text-balance font-light text-white">
-            <span className="font-black text-white text-3xl md:text-4xl uppercase leading-none">Crea</span> tu ruta
+            <span className="font-black text-white text-3xl md:text-5xl uppercase leading-none">Crea</span> tu ruta
           </h2>
           <p className="text-white text-[10px] md:text-xs mb-8 opacity-90 tracking-wide font-light">
             <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
@@ -464,6 +471,7 @@ const App = () => {
               onChange={(e) => {setSearchTerm(e.target.value); setShowPredictive(true);}}
               className="w-full pl-14 pr-24 py-4 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-xl outline-none text-sm font-semibold text-white placeholder:text-white/40 focus:bg-white/20 focus:border-white/40 transition-all"
             />
+            {/* Predictor Gris más oscuro */}
             {showPredictive && suggestions.length > 0 && (
               <div className="absolute top-full left-0 right-0 mt-2 bg-slate-200/98 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-300 overflow-hidden z-[200] animate-fade-in text-left">
                 {suggestions.map((s, i) => (
@@ -473,7 +481,7 @@ const App = () => {
                     className="w-full px-5 py-3 hover:bg-white flex items-center justify-between group transition-colors border-b border-slate-300/50 last:border-0"
                   >
                     <div className="flex items-center gap-3">
-                        <MapPin size={14} className="text-slate-500 group-hover:text-[#4338ca]" />
+                        <MapPin size={14} className="text-slate-700 group-hover:text-[#4338ca]" />
                         <span className="text-slate-700 text-[11px] font-black uppercase tracking-tight">{s}</span>
                     </div>
                     <ChevronRight size={14} className="text-slate-400 opacity-0 group-hover:opacity-100 transition-all" />
@@ -501,7 +509,7 @@ const App = () => {
           <h3 className="text-[11px] font-black tracking-[0.2em] text-[#5b21b6] mb-6">Selecciona ubicaciones por categoría</h3>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <div className="relative w-full sm:w-auto">
+            <div className="relative w-full sm:w-auto text-left">
                 <button 
                 onClick={() => { setShowCatMenu(!showCatMenu); setShowZoneMenu(false); }}
                 className={`w-full sm:w-auto flex items-center justify-between gap-6 px-6 py-3.5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-all group ${showCatMenu ? 'ring-2 ring-indigo-100' : ''}`}
@@ -534,7 +542,7 @@ const App = () => {
                 )}
             </div>
 
-            <div className="relative w-full sm:w-auto">
+            <div className="relative w-full sm:w-auto text-left">
                 <button 
                 onClick={() => { setShowZoneMenu(!showZoneMenu); setShowCatMenu(false); }}
                 className={`w-full sm:w-auto flex items-center justify-between gap-6 px-6 py-3.5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-all group ${showZoneMenu ? 'ring-2 ring-indigo-100' : ''}`}
@@ -575,17 +583,22 @@ const App = () => {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left">
           {displayedPlaces.map((p, idx) => (
             <React.Fragment key={p.id}>
-              {/* FILA ESPECIAL ENTRE 3 PRIMERAS Y 3 SIGUIENTES - ALTURA 175PX */}
+              {/* FILA ESPECIAL ENTRE 3 PRIMERAS Y 3 SIGUIENTES - ALTURA 280PX */}
               {idx === 3 && (
-                <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[175px] flex items-center justify-center overflow-hidden mb-12 shadow-inner bg-cover bg-center group"
+                <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[280px] flex items-center justify-center overflow-hidden mb-12 shadow-inner bg-cover bg-center group"
                      style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/1imhymrWSJERehnHsME05bcDyK1HFrtnG')`}}>
-                   {/* ALFA DEGRADADO AJUSTADO: Más suave sobre las letras */}
-                   <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/30 to-transparent"></div>
-                   <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-center relative z-10">
-                        <h2 className="text-xl md:text-3xl font-black text-fuchsia-300 uppercase italic tracking-tighter drop-shadow-2xl">Segovia, piedras y más...</h2>
-                        <div className="w-16 h-0.5 bg-fuchsia-400 mx-auto mt-4 opacity-50"></div>
+                   {/* DEGRADADO ALFA: Negro arriba suave */}
+                   <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/25 to-transparent"></div>
+                   <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-center relative z-20">
+                        <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter drop-shadow-2xl"
+                            style={{ WebkitTextStroke: '10px #5b21b6', paintOrder: 'stroke fill' }}>
+                          Segovia, piedras y más...
+                        </h2>
                    </div>
-                   <div className="absolute inset-0 bg-esgrafiado-pattern opacity-10 pointer-events-none mix-blend-overlay"></div>
+                   {/* LÍNEA SOLIDA AL BOTTOM CON ESGRAFIADO DECORATIVO - ALTURA H-5 (MITAD DE ANTES) */}
+                   <div className="absolute bottom-0 left-0 right-0 h-5 bg-[#5b21b6] overflow-hidden">
+                      <div className="absolute inset-0 bg-esgrafiado-pattern opacity-40 mix-blend-overlay"></div>
+                   </div>
                 </div>
               )}
 
@@ -625,12 +638,14 @@ const App = () => {
           ))}
         </div>
 
+        {/* PAGINACIÓN INFERIOR SIEMPRE CON MARGEN DE 72PX RESPECTO AL FOOTER */}
         <div className="mt-16 flex flex-col items-center pb-2 mb-[72px] border-b border-slate-100">
             {totalPages > 1 && <PaginationControls />}
         </div>
       </main>
 
       <footer className="relative bg-[#111827] py-20 px-6 overflow-hidden text-center border-t border-white/5">
+        {/* INTENSIDAD FOOTER AL 5% */}
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.05] pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
@@ -654,7 +669,7 @@ const App = () => {
         </div>
       </footer>
 
-      {/* MODAL GENERATOR - BOTÓN ACTUALIZADO A "VER RUTA" */}
+      {/* MODAL GENERATOR */}
       {itinerary && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20">
