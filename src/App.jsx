@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route } from 'lucide-react';
 
-// Cargamos Analytics de forma dinámica para que el código sea válido en Vercel
-// pero no rompa la previsualización si el módulo no está disponible aquí.
+// Se utiliza la importación correcta para proyectos React/Vite.
+// El error en el log de Vercel confirma que "/next" no es compatible con este entorno.
 const Analytics = React.lazy(() => 
-  import("@vercel/analytics/next")
+  import("@vercel/analytics/react")
     .then(mod => ({ default: mod.Analytics }))
     .catch(() => ({ default: () => null }))
 );
@@ -99,7 +99,7 @@ const App = () => {
     return lonDiff > 0 ? "Este" : "Oeste";
   };
 
-  // --- BASE DE DATOS INTEGRAL (217 PUNTOS REALES RESTAURADOS) ---
+  // --- BASE DE DATOS INTEGRAL (217 PUNTOS REALES) ---
   const allPlaces = useMemo(() => [
     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas." },
@@ -320,7 +320,15 @@ const App = () => {
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos." }
   ], []);
 
-  // --- LÓGICA DE FILTRADO ---
+  const stats = useMemo(() => {
+    return {
+      Historia: allPlaces.filter(p => p.category === 'Historia').length,
+      Ruinas: allPlaces.filter(p => p.category === 'Ruinas').length,
+      Industrial: allPlaces.filter(p => p.category === 'Industrial').length,
+      Naturaleza: allPlaces.filter(p => p.category === 'Naturaleza').length,
+    };
+  }, [allPlaces]);
+
   const filteredPlaces = useMemo(() => {
     return allPlaces.filter(p => {
       const matchSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -373,11 +381,11 @@ const App = () => {
       </header>
 
       <section className="relative min-h-[240px] py-12 flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6] px-6">
-        {/* OPACIDAD DILUIDA AL 5% (MITAD DEL ANTERIOR) */}
+        {/* OPACIDAD DILUIDA AL 5% */}
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-5 mix-blend-overlay"></div>
         <div className="relative z-10 w-full max-w-2xl">
-          <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 leading-none text-balance font-light">
-            <span className="font-black text-white">Crea</span> tu ruta
+          <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 leading-none text-balance font-light text-white">
+            <span className="font-black">Crea</span> tu ruta
           </h2>
           <p className="text-white text-[10px] md:text-xs mb-8 opacity-90 tracking-wide font-light">
             <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black">Segovia</span>
@@ -458,7 +466,7 @@ const App = () => {
       </main>
 
       <footer className="relative bg-[#111827] py-24 md:py-32 px-6 overflow-hidden text-center border-t border-white/5">
-        {/* OPACIDAD DILUIDA AL 4% (MITAD DEL ANTERIOR) */}
+        {/* OPACIDAD DILUIDA AL 4% */}
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-4 pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
@@ -508,7 +516,7 @@ const App = () => {
                             </div>
                         </div>
                     ))}
-                    <div className="pt-6 border-t border-slate-100 mt-8 pb-8 px-4 text-center">
+                    <div className="pt-6 border-t border-slate-100 mt-8 pb-10 px-4 text-center">
                         {itinerary.places.length >= 2 ? (
                           <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto" />Ver ruta en coche</a>
                         ) : null}
@@ -518,6 +526,7 @@ const App = () => {
           </div>
       )}
 
+      {/* MODAL DESCUBRIMIENTO AL AZAR */}
       {randomPlace && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
               <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center">
