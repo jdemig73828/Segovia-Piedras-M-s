@@ -81,42 +81,61 @@ const App = () => {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
   };
 
+  // --- ARREGLO DE CÁLCULO DE DISTANCIAS ---
   const dmsToDec = (dms) => {
     if(!dms) return 0;
-    const parts = dms.match(/(\d+)°(\d+)'([\d.]+)"/);
-    if (!parts) return 0;
-    let dec = parseFloat(parts[1]) + (parseFloat(parts[2])/60) + (parseFloat(parts[3])/3600);
-    return dms.includes('W') || dms.includes('S') ? -dec : dec;
+    // Limpiamos caracteres extraños y extraemos números
+    const cleanDms = dms.replace(/\\"/g, '"');
+    const matches = cleanDms.match(/(\d+)°(\d+)'([\d.]+)"/);
+    if (!matches) return 0;
+    const [_, d, m, s] = matches;
+    let dec = parseFloat(d) + parseFloat(m)/60 + parseFloat(s)/3600;
+    if (cleanDms.includes('W') || cleanDms.includes('S')) dec = -dec;
+    return dec;
   };
 
   const calculateDistance = (coords1, coords2) => {
     const parse = (c) => {
-      const [la, lo] = c.split(' ');
-      return [dmsToDec(la), dmsToDec(lo)];
+      const parts = c.split(/ [NS] /); // Split más robusto para lat/lon
+      if (parts.length < 2) {
+          // Fallback para split por espacio si el formato es distinto
+          const splitSpace = c.split(' ');
+          return [dmsToDec(splitSpace[0] + splitSpace[1]), dmsToDec(splitSpace[2] + splitSpace[3])];
+      }
+      return [dmsToDec(c.split(' ')[0] + c.split(' ')[1]), dmsToDec(c.split(' ')[2] + c.split(' ')[3])];
     };
-    const [lat1, lon1] = parse(coords1);
-    const [lat2, lon2] = parse(coords2);
-    const R = 6371; 
+
+    // Helper interno para obtener Lat/Lon de forma segura
+    const getLatLon = (str) => {
+        const parts = str.trim().split(/\s+(?=\d)/);
+        return [dmsToDec(parts[0]), dmsToDec(parts[1])];
+    };
+
+    const [lat1, lon1] = getLatLon(coords1);
+    const [lat2, lon2] = getLatLon(coords2);
+    
+    const R = 6371; // Radio Tierra en km
     const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lat2 - lon1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
     const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
               Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
               Math.sin(dLon/2) * Math.sin(dLon/2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    return (R * c).toFixed(1);
+    const distance = R * c;
+    return distance.toFixed(1);
   };
 
   const getCardinal = (coords) => {
-    const [latStr, lonStr] = coords.split(' ');
-    const lat = dmsToDec(latStr);
-    const lon = dmsToDec(lonStr);
+    const parts = coords.trim().split(/\s+(?=\d)/);
+    const lat = dmsToDec(parts[0]);
+    const lon = dmsToDec(parts[1]);
     const centerLat = 41.15; const centerLon = -4.05;
     const latDiff = lat - centerLat; const lonDiff = lon - centerLon;
     if (Math.abs(latDiff) > Math.abs(lonDiff)) return latDiff > 0 ? "Norte" : "Sur";
     return lonDiff > 0 ? "Este" : "Oeste";
   };
 
-  // --- BASE DE DATOS INTEGRAL (217 PUNTOS REALES RESTAURADOS) ---
+  // --- BASE DE DATOS INTEGRAL (RESTAURADA 217 PUNTOS REALES) ---
   const allPlaces = useMemo(() => [
     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas." },
@@ -206,12 +225,12 @@ const App = () => {
     { id: 86, name: "CONVENTO DE SAN AGUSTÍN", category: "Ruinas", coords: "40°57'03.2\"N 4°07'08.2\"W", address: "SEGOVIA", note: "Restos del antiguo convector extramuros de la ciudad." },
     { id: 87, name: "PALACIO DE LOS MARQUESES DE CASABLANCA", category: "Historia", coords: "41°11'43.3\"N 4°04'01.4\"W", address: "SAUQUILLO DE CABEZAS", note: "Gran residencia nobiliaria en medio de las tierras de cereal." },
     { id: 88, name: "RANCHO DE ALFARO", category: "Industrial", coords: "41°00'16.5\"N 3°57'25.1\"W", address: "SANTO DOMINGO DE PIRÓN", note: "Esquileo tradicional y finca ganadera histórica." },
-    { id: 89, name: "ESQUILEO DE SANTILLANA", category: "Industrial", coords: "40°53'17.2\"N 4°04'04.3\"W", address: "REVENGA", note: "Centro neurálgico de la industria de la industria de la lana en el siglo XVIII." },
+    { id: 89, name: "ESQUILEO DE SANTILLANA", category: "Industrial", coords: "40°53'17.2\"N 4°04'04.3\"W", address: "REVENGA", note: "Centro neurálgico de la industria de la lana en el siglo XVIII." },
     { id: 90, name: "PALACIO DE LOS OSORIO PARADINAS", category: "Historia", coords: "41°00'42.0\"N 4°23'22.7\"W", address: "SANTA MARÍA LA REAL DE NIEVA", note: "Edificación señorial con gran escudo heráldico." },
     { id: 91, name: "FÁBRICA DE PASTA DE PAPEL", category: "Industrial", coords: "40°55'58.0\"N 4°04'19.0\"W", address: "PALAZUELOS DE ERESMA", note: "Complejo industrial movido por las aguas del río Eresma." },
     { id: 92, name: "ERMITA DE SAN PEDRO DE ACEDOS Y CASERÍO", category: "Ruinas", coords: "40°55'43.9\"N 4°29'30.0\"W", address: "MUÑOPEDRO", note: "Poblado abandonado que conserva la estructura eclesial." },
     { id: 93, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°05'04.1\"N 4°23'44.2\"W", address: "ORTIGOSA DE PESTAÑO", note: "Antigua parada ferroviaria de la línea Segovia-Medina." },
-    { id: 94, name: "FÁBRICA DE ACHICORIA LA MAESTRA", category: "Industrial", coords: "41°08'51.3\"N 4°11'13.6\"W", address: "MOZONCILLO", note: "Arquitectura industrial ligada al cultivo de la achicoria." },
+    { id: 94, name: "FÁBRICA DE ACHICORIA LA MAESTRA", category: "Industrial", coords: "41°11'13.6\"N 4°26'09.6\"W", address: "NAVAS DE ORO", note: "Emblemática fábrica de la industria resinera." },
     { id: 95, name: "RANCHO DE ESQUILEO Y LAVADERO", category: "Industrial", coords: "40°50'37.7\"N 4°10'25.9\"W", address: "ORTIGOSA DEL MONTE", note: "Importante complejo lanero del patrimonio industrial serrano." },
     { id: 96, name: "ERMITA Y CASERÍO DE BERNUY DE PÁRRACES", category: "Historia", coords: "40°54'56.5\"N 4°23'27.3\"W", address: "MARUGÁN", note: "Santuario y asentamiento tradicional segoviano." },
     { id: 97, name: "MOLINO DE LA IRVIENZA Y PUENTE DEL NARANJO", category: "Industrial", coords: "40°59'52.4\"N 4°32'17.2\"W", address: "MARTÍN MUÑOZ DE LAS POSADAS", note: "Conjunto hidráulico sobre el río Voltoya." },
@@ -225,7 +244,7 @@ const App = () => {
     { id: 105, name: "CASA ARMADA DEL MARQUÉS DEL ARCO", category: "Historia", coords: "41°04'41.0\"N 4°19'05.1\"W", address: "ARMUÑA", note: "Finca señorial con torre de vigilancia histórica." },
     { id: 106, name: "IGLESIA DE LA VIRGEN DE AGEJAS", category: "Ruinas", coords: "41°03'19.7\"N 4°05'47.8\"W", address: "CABAÑA DE POLENDOS", note: "Restos de la iglesia del antiguo despoblado de Agejas." },
     { id: 107, name: "MOLINO DEL PUENTE", category: "Industrial", coords: "41°08'56.7\"N 4°20'02.1\"W", address: "BERNARDOS", note: "Antiguo ingenio hidráulico para molienda de cereal." },
-    { id: 108, name: "ERMITA DE SANTA ÁGUEDA", category: "Historia", coords: "41°10'10.4\"N 4°18'14.4\"W", address: "CARBONERO EL MAYOR", note: "Santuario de gran devoción popular en la comarca." },
+    { id: 108, name: "ERMITA DE SAN TA ÁGUEDA", category: "Historia", coords: "41°10'10.4\"N 4°18'14.4\"W", address: "CARBONERO EL MAYOR", note: "Santuario de gran devoción popular en la comarca." },
     { id: 109, name: "ERMITA DE SAN ISIDRO", category: "Historia", coords: "41°06'26.3\"N 4°22'07.0\"W", address: "DOMINGO GARCÍA", note: "Templo situado cerca de la zona de los grabados rupestres." },
     { id: 110, name: "ERMITA DE SAN MIGUEL DE QUINTANAS", category: "Historia", coords: "41°09'11.8\"N 4°15'22.8\"W", address: "CARBONERO EL MAYOR", note: "Vestigio religioso de antiguos asentamientos." },
     { id: 111, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "40°59'21.1\"N 4°12'31.0\"W", address: "HONTANARES DE ERESMA", note: "Edificación típica de la red ferroviaria histórica." },
@@ -449,6 +468,7 @@ const App = () => {
 
       <section className="relative min-h-[240px] py-12 flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6] px-6">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay"></div>
+        {/* ALFA DEGRADADO SUPERIOR EN HERO */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none"></div>
         
         <div className="relative z-10 w-full max-w-2xl">
@@ -479,7 +499,8 @@ const App = () => {
                   >
                     <div className="flex items-center gap-3">
                         <MapPin size={14} className="text-slate-700 group-hover:text-[#4338ca]" />
-                        <span className="text-white text-[11px] font-black uppercase tracking-tight">{s}</span>
+                        {/* LETRAS EN BLANCO SEGUN SOLICITUD */}
+                        <span className="text-white bg-slate-700 px-2 py-0.5 rounded text-[11px] font-black uppercase tracking-tight">{s}</span>
                     </div>
                     <ChevronRight size={14} className="text-slate-400 opacity-0 group-hover:opacity-100 transition-all" />
                   </button>
@@ -614,11 +635,12 @@ const App = () => {
           ))}
         </div>
 
+        {/* PAGINACIÓN INFERIOR SIEMPRE CON MARGEN DE 72PX RESPECTO AL BANNER FINAL */}
         <div className="mt-16 flex flex-col items-center pb-2 mb-[72px] border-b border-slate-100">
             {totalPages > 1 && <PaginationControls />}
         </div>
 
-        {/* BANNER CENTRAL REUBICADO AL FINAL - ALTURA 180PX, SIN RAYA, SIN CONTORNO */}
+        {/* BANNER CENTRAL REUBICADO AL FINAL - ALTURA 180PX, SIN RAYA, SIN CONTORNO, PEGADO AL FOOTER */}
         <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[180px] flex items-center justify-center overflow-hidden shadow-inner bg-cover bg-center group"
               style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/13R4eL4JuPn4XJnfGo58z3SUcH140ILub')`}}>
             <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/30 to-transparent"></div>
