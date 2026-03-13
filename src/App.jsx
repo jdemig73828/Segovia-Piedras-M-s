@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
-import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route } from 'lucide-react';
+import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route, ChevronDown, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
 
-// Se utiliza la importación correcta para proyectos React/Vite.
-// El error en el log de Vercel confirma que "/next" no es compatible con este entorno.
+// Cargamos Analytics de forma dinámica para evitar errores de resolución en el entorno de previsualización
 const Analytics = React.lazy(() => 
   import("@vercel/analytics/react")
     .then(mod => ({ default: mod.Analytics }))
@@ -22,6 +21,7 @@ const categoryColors = {
   'Ruinas': 'bg-orange-500',
   'Industrial': 'bg-slate-500',
   'Naturaleza': 'bg-emerald-600', 
+  'Todos': 'bg-indigo-600',
   'default': 'bg-indigo-500'
 };
 
@@ -56,6 +56,14 @@ const App = () => {
   const [showScrollBtn, setShowScrollBtn] = useState(false);
   const [randomPlace, setRandomPlace] = useState(null);
   const [itinerary, setItinerary] = useState(null);
+  const [showCatMenu, setShowCatMenu] = useState(false);
+  const [showZoneMenu, setShowZoneMenu] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+  const [showFavsModal, setShowFavsModal] = useState(false);
+  
+  // Paginación
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
 
   useEffect(() => {
     document.title = "Rutabia - Crea tus rutas y excursiones locales";
@@ -63,6 +71,11 @@ const App = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Reset de página al filtrar
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [currentCategory, currentGeoZone, searchTerm]);
 
   const dmsToDec = (dms) => {
     if(!dms) return 0;
@@ -99,7 +112,7 @@ const App = () => {
     return lonDiff > 0 ? "Este" : "Oeste";
   };
 
-  // --- BASE DE DATOS INTEGRAL (217 PUNTOS REALES) ---
+  // --- BASE DE DATOS INTEGRAL (RESTAURADA 217 PUNTOS) ---
   const allPlaces = useMemo(() => [
     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas." },
@@ -320,24 +333,36 @@ const App = () => {
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos." }
   ], []);
 
-  const stats = useMemo(() => {
-    return {
-      Historia: allPlaces.filter(p => p.category === 'Historia').length,
-      Ruinas: allPlaces.filter(p => p.category === 'Ruinas').length,
-      Industrial: allPlaces.filter(p => p.category === 'Industrial').length,
-      Naturaleza: allPlaces.filter(p => p.category === 'Naturaleza').length,
-    };
-  }, [allPlaces]);
+  // --- LÓGICA DE FILTRADO INTELIGENTE (Normalización de búsqueda mejorada) ---
+  const normalize = (str) => {
+    if (!str) return "";
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+  };
 
   const filteredPlaces = useMemo(() => {
     return allPlaces.filter(p => {
-      const matchSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          p.address.toLowerCase().includes(searchTerm.toLowerCase());
       const matchCategory = currentCategory === 'Todos' || p.category === currentCategory;
       const matchZone = currentGeoZone === 'Todos' || getCardinal(p.coords) === currentGeoZone;
-      return matchSearch && matchCategory && matchZone;
+      const normalizedTerm = normalize(searchTerm);
+      
+      const matchSearch = normalizedTerm === "" || 
+                          normalize(p.name).includes(normalizedTerm) || 
+                          normalize(p.address).includes(normalizedTerm);
+      
+      return matchCategory && matchZone && matchSearch;
     });
   }, [currentCategory, currentGeoZone, searchTerm, allPlaces]);
+
+  // Paginación
+  const totalPages = Math.ceil(filteredPlaces.length / itemsPerPage);
+  const displayedPlaces = useMemo(() => {
+    const start = (currentPage - 1) * itemsPerPage;
+    return filteredPlaces.slice(start, start + itemsPerPage);
+  }, [filteredPlaces, currentPage]);
+
+  const toggleFavorite = (id) => {
+    setFavorites(prev => prev.includes(id) ? prev.filter(fid => fid !== id) : [...prev, id]);
+  };
 
   const generateItinerary = () => {
     const zoneToUse = currentGeoZone === 'Todos' ? ['Norte', 'Sur', 'Este', 'Oeste'][Math.floor(Math.random()*4)] : currentGeoZone;
@@ -352,11 +377,6 @@ const App = () => {
     setItinerary({ zone: zoneToUse, places: withDist });
   };
 
-  const handleRandomPlace = () => {
-    const item = allPlaces[Math.floor(Math.random() * allPlaces.length)];
-    setRandomPlace(item);
-  };
-
   return (
     <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100">
       <header className="sticky top-0 z-50 h-14 bg-white/90 backdrop-blur-md px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm">
@@ -367,24 +387,26 @@ const App = () => {
           <h1 className="text-sm font-black tracking-tight text-slate-900 uppercase italic leading-none">Rutabia</h1>
         </div>
         <div className="flex items-center gap-2 md:gap-3">
-            <button onClick={generateItinerary} title="Generar Ruta" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
+            <button onClick={() => setShowFavsModal(true)} className="flex items-center gap-2 px-3 py-1.5 bg-fuchsia-50 text-fuchsia-600 rounded-full hover:bg-fuchsia-600 hover:text-white transition-all shadow-sm active:scale-95">
+                <Heart className="w-4 h-4 fill-current" />
+                <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Ver favoritos</span>
+            </button>
+            <button onClick={generateItinerary} className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
                 <Route className="w-4 h-4" />
+                <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Generator</span>
             </button>
-            <button onClick={handleRandomPlace} title="Azar" className="p-2 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
+            <button onClick={() => setRandomPlace(allPlaces[Math.floor(Math.random() * allPlaces.length)])} className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
                 <Shuffle className="w-4 h-4" />
+                <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Aleator</span>
             </button>
-            <a href="https://maps.app.goo.gl/fnbQQ6Bvkw35PQBt5" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 md:px-4 py-1.5 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg active:scale-95 leading-none">
-              <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="GM" className="h-3.5 w-auto" />
-              MAPA
-            </a>
         </div>
       </header>
 
       <section className="relative min-h-[240px] py-12 flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6] px-6">
-        {/* OPACIDAD DILUIDA AL 5% */}
-        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-5 mix-blend-overlay"></div>
+        {/* Opacidad Hero al 7% (Subida un tercio del 5%) */}
+        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.07] mix-blend-overlay"></div>
         <div className="relative z-10 w-full max-w-2xl">
-          <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 leading-none text-balance font-light text-white">
+          <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 leading-none text-balance font-light">
             <span className="font-black">Crea</span> tu ruta
           </h2>
           <p className="text-white text-[10px] md:text-xs mb-8 opacity-90 tracking-wide font-light">
@@ -398,46 +420,138 @@ const App = () => {
               placeholder="Buscar parajes o municipios..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-14 pr-12 py-4 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-xl outline-none text-sm font-semibold text-white placeholder:text-white/40 focus:bg-white/20 focus:border-white/40 transition-all"
+              className="w-full pl-14 pr-24 py-4 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-xl outline-none text-sm font-semibold text-white placeholder:text-white/40 focus:bg-white/20 focus:border-white/40 transition-all"
             />
-            {searchTerm && (
-              <button onClick={() => setSearchTerm('')} className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-white/20 text-white hover:bg-white/40 transition-all">
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                {searchTerm && (
+                    <button onClick={() => setSearchTerm('')} className="p-1.5 rounded-full hover:bg-white/10 text-white/50 hover:text-white transition-all">
+                        <X className="w-4 h-4" />
+                    </button>
+                )}
+                <button className="px-3 py-1.5 bg-white/20 text-white rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-white/40 transition-all">Buscar</button>
+            </div>
           </div>
+          {searchTerm && filteredPlaces.length === 0 && (
+             <p className="mt-4 text-rose-300 text-[10px] font-bold uppercase tracking-widest animate-pulse">No hay disponible paraje en esta localidad</p>
+          )}
         </div>
       </section>
 
-      <main className="max-w-7xl mx-auto px-6 md:px-12 pt-8 pb-48">
-        <div className="flex flex-col lg:flex-row gap-6 items-center justify-between mb-8">
-          <div className="w-full lg:max-w-md text-left text-[9px] font-black uppercase tracking-widest text-slate-400">
-            Selecciona ubicaciones por zona cardinal
-            <div className="relative mt-2 max-w-sm">
-              <Compass className="absolute left-4 top-1/2 -translate-y-1/2 text-[#4338ca] w-4 h-4" />
-              <select value={currentGeoZone} onChange={e => setCurrentGeoZone(e.target.value)} className="w-full pl-10 pr-10 py-3 bg-white border border-slate-200 rounded-xl shadow-sm outline-none text-[11px] font-bold text-slate-700 appearance-none focus:ring-2 focus:ring-indigo-100 transition-all cursor-pointer">
-                <option value="Todos">Toda la Provincia</option>
-                <option value="Norte">Zona Norte</option>
-                <option value="Sur">Zona Sur</option>
-                <option value="Este">Zona Este</option>
-                <option value="Oeste">Zona Oeste</option>
-              </select>
+      <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 pb-48 text-center">
+        <div className="inline-block w-full max-w-4xl">
+          <h3 className="text-[11px] font-medium lowercase tracking-[0.2em] text-[#5b21b6] mb-6">selecciona ubicaciones por categoría</h3>
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            {/* SELECTOR CATEGORIAS CONDUCTUAL */}
+            <div className="relative w-full sm:w-auto">
+                <button 
+                onClick={() => { setShowCatMenu(!showCatMenu); setShowZoneMenu(false); }}
+                className={`w-full sm:w-auto flex items-center justify-between gap-6 px-6 py-3.5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-all group ${showCatMenu ? 'ring-2 ring-indigo-100' : ''}`}
+                >
+                    <div className="flex items-center gap-3">
+                        <BarChart2 className="w-4 h-4 text-[#4338ca]" />
+                        <span className="text-xs font-black uppercase tracking-widest text-slate-700">Categorías</span>
+                    </div>
+                    <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${showCatMenu ? 'rotate-180' : ''}`} />
+                </button>
+
+                {showCatMenu && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[280px] sm:w-[500px] p-4 bg-white rounded-[2rem] shadow-2xl border border-slate-100 z-[100] animate-fade-in grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                    {[
+                    { name: 'Todos', icon: <Compass className="w-4 h-4" /> },
+                    { name: 'Historia', icon: <Landmark className="w-4 h-4" /> },
+                    { name: 'Ruinas', icon: <Castle className="w-4 h-4" /> },
+                    { name: 'Industrial', icon: <Factory className="w-4 h-4" /> },
+                    { name: 'Naturaleza', icon: <Trees className="w-4 h-4" /> }
+                    ].map(cat => (
+                    <button 
+                        key={cat.name} 
+                        onClick={() => { setCurrentCategory(cat.name); setShowCatMenu(false); }}
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentCategory === cat.name ? (categoryColors[cat.name] || 'bg-[#4338ca]') + ' text-white border-transparent' : 'bg-white border-slate-100 text-slate-500 hover:bg-slate-50'}`}
+                    >
+                        {cat.icon} {cat.name}
+                    </button>
+                    ))}
+                </div>
+                )}
+            </div>
+
+            {/* SELECTOR ZONA CONDUCTUAL */}
+            <div className="relative w-full sm:w-auto">
+                <button 
+                onClick={() => { setShowZoneMenu(!showZoneMenu); setShowCatMenu(false); }}
+                className={`w-full sm:w-auto flex items-center justify-between gap-6 px-6 py-3.5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-all group ${showZoneMenu ? 'ring-2 ring-indigo-100' : ''}`}
+                >
+                    <div className="flex items-center gap-3">
+                        <Compass className="w-4 h-4 text-[#4338ca]" />
+                        <span className="text-xs font-black uppercase tracking-widest text-slate-700">Filtrar por zona</span>
+                    </div>
+                    <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${showZoneMenu ? 'rotate-180' : ''}`} />
+                </button>
+
+                {showZoneMenu && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[240px] p-4 bg-white rounded-[2rem] shadow-2xl border border-slate-100 z-[100] animate-fade-in grid grid-cols-1 gap-2">
+                    {['Todos', 'Norte', 'Sur', 'Este', 'Oeste'].map(zone => (
+                    <button 
+                        key={zone} 
+                        onClick={() => { setCurrentGeoZone(zone); setShowZoneMenu(false); }}
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentGeoZone === zone ? 'bg-indigo-600 text-white border-transparent' : 'bg-white border-slate-100 text-slate-500 hover:bg-slate-50'}`}
+                    >
+                        <MapPin className="w-4 h-4" /> {zone === 'Todos' ? 'Toda la provincia' : `Zona ${zone}`}
+                    </button>
+                    ))}
+                </div>
+                )}
             </div>
           </div>
-          <div className="flex flex-wrap justify-center gap-2.5">
-            {['TODOS', 'HISTORIA', 'RUINAS', 'INDUSTRIAL', 'NATURALEZA'].map(cat => {
-                const isActive = (currentCategory.toUpperCase() === cat);
-                const catName = cat === 'TODOS' ? 'Todos' : cat.charAt(0) + cat.slice(1).toLowerCase();
-                return <button key={cat} onClick={() => setCurrentCategory(catName)} className={`relative px-6 py-2.5 rounded-xl text-[10px] font-black border transition-all uppercase tracking-widest shadow-sm ${isActive ? (categoryColors[catName] || 'bg-[#4338ca]') + ' text-white border-transparent' : 'bg-white border-slate-200 text-slate-600'} focus:outline-none touch-manipulation`}>{cat}</button>;
-            })}
+
+          {/* CONTADOR Y PAGINACIÓN */}
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6">
+            <p className="text-[10px] lowercase tracking-[0.2em] text-slate-400 bg-slate-50 px-4 py-1.5 rounded-full border border-slate-100 shadow-sm">
+                mostrando {filteredPlaces.length} sitios de {allPlaces.length}
+            </p>
+            
+            {totalPages > 1 && (
+                <div className="flex items-center gap-2">
+                    <button 
+                        onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                        disabled={currentPage === 1}
+                        className="p-2 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all"
+                    >
+                        <ChevronLeft size={16} />
+                    </button>
+                    <div className="flex items-center gap-1">
+                        {[...Array(totalPages)].map((_, i) => {
+                            if (totalPages > 5 && Math.abs(currentPage - (i + 1)) > 2) {
+                                if (i === 0 || i === totalPages - 1) return <span key={i} className="px-1 text-slate-300">.</span>;
+                                return null;
+                            }
+                            return (
+                                <button
+                                    key={i}
+                                    onClick={() => setCurrentPage(i + 1)}
+                                    className={`w-7 h-7 rounded-lg text-[9px] font-black transition-all ${currentPage === i + 1 ? 'bg-[#5b21b6] text-white' : 'bg-white text-slate-400 border border-slate-100 hover:border-slate-300'}`}
+                                >
+                                    {i + 1}
+                                </button>
+                            );
+                        })}
+                    </div>
+                    <button 
+                        onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                        disabled={currentPage === totalPages}
+                        className="p-2 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all"
+                    >
+                        <ChevronRight size={16} />
+                    </button>
+                </div>
+            )}
           </div>
         </div>
 
-        <div className="flex items-center gap-2 mb-8 text-slate-400 font-bold text-[10px] uppercase tracking-widest px-1 animate-fade-in"><BarChart2 className="w-3.5 h-3.5" />Mostrando {filteredPlaces.length} resultados de {allPlaces.length}</div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {filteredPlaces.map(p => (
-            <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in text-left flex flex-col h-full overflow-hidden`}>
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left">
+          {displayedPlaces.map(p => (
+            <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in flex flex-col h-full overflow-hidden`}>
               <div className="relative z-10 flex flex-col h-full">
                 <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}>
                   <div className={`absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0 ${categoryIconColors[p.category]}`}>
@@ -446,6 +560,14 @@ const App = () => {
                     {p.category === 'Industrial' && <Factory size={140} strokeWidth={1.5} />}
                     {p.category === 'Naturaleza' && <Trees size={140} strokeWidth={1.5} />}
                   </div>
+                  
+                  <button 
+                    onClick={() => toggleFavorite(p.id)}
+                    className={`absolute top-4 right-4 z-30 p-2.5 rounded-xl backdrop-blur-md border transition-all ${favorites.includes(p.id) ? 'bg-fuchsia-500 text-white border-fuchsia-400 shadow-lg' : 'bg-white/40 text-slate-400 border-white/40 hover:bg-white hover:text-fuchsia-500'}`}
+                  >
+                    <Heart className={`w-5 h-5 ${favorites.includes(p.id) ? 'fill-current' : ''}`} />
+                  </button>
+
                   <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2">
                     <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
                     <div className="px-2.5 py-1 bg-white/60 backdrop-blur-sm rounded-lg border border-white/40 shadow-sm"><p className="text-[10px] font-mono text-slate-600 font-bold tracking-wider leading-none">{p.coords}</p></div>
@@ -466,8 +588,8 @@ const App = () => {
       </main>
 
       <footer className="relative bg-[#111827] py-24 md:py-32 px-6 overflow-hidden text-center border-t border-white/5">
-        {/* OPACIDAD DILUIDA AL 4% */}
-        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-4 pointer-events-none"></div>
+        {/* Opacidad Footer al 1.3% (Bajada dos tercios del 4%) */}
+        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.013] pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
             <div className="flex justify-center mb-8">
@@ -497,7 +619,7 @@ const App = () => {
                     <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none"><Route className="w-5 h-5" /> Ruta Zona {itinerary.zone}</h4>
                     <button onClick={() => setItinerary(null)} className="p-2 hover:bg-white rounded-full transition-all text-indigo-300"><X className="w-6 h-6" /></button>
                 </div>
-                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-8">
+                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12">
                     {itinerary.places.map((p, idx) => (
                         <div key={p.id} className="relative">
                             {p.kmFromPrev && (
@@ -509,7 +631,10 @@ const App = () => {
                             <div className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
                                 <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-black flex-shrink-0 text-xs">{idx + 1}</div>
                                 <div className="flex-grow">
-                                    <h5 className="font-black uppercase text-slate-800 text-sm leading-tight mb-1">{p.name}</h5>
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <h5 className="font-black uppercase text-slate-800 text-sm leading-tight">{p.name}</h5>
+                                        <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white text-[7px] font-black uppercase rounded leading-none`}>{p.category}</span>
+                                    </div>
                                     <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tight">{p.address}</p>
                                     <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline leading-none">Ver punto →</a>
                                 </div>
@@ -526,7 +651,47 @@ const App = () => {
           </div>
       )}
 
-      {/* MODAL DESCUBRIMIENTO AL AZAR */}
+      {showFavsModal && (
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
+              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20">
+                <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-fuchsia-50">
+                    <h4 className="font-black uppercase italic text-fuchsia-700 flex items-center gap-2 leading-none"><Heart className="w-5 h-5 fill-current" /> Listado de Favoritos</h4>
+                    <button onClick={() => setShowFavsModal(false)} className="p-2 hover:bg-white rounded-full transition-all text-fuchsia-300"><X className="w-6 h-6" /></button>
+                </div>
+                <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh]">
+                    {favorites.length === 0 ? (
+                        <div className="text-center py-20">
+                            <Info className="w-12 h-12 text-slate-200 mx-auto mb-4" />
+                            <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">No has guardado parajes aún</p>
+                        </div>
+                    ) : (
+                        favorites.map(fid => {
+                            const p = allPlaces.find(x => x.id === fid);
+                            if (!p) return null;
+                            return (
+                                <div key={p.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white transition-all shadow-sm">
+                                    <div className="flex items-center gap-4">
+                                        <div className={`w-3 h-10 rounded-full ${categoryColors[p.category]}`}></div>
+                                        <div>
+                                            <h5 className="font-black uppercase text-slate-800 text-sm leading-tight">{p.name}</h5>
+                                            <p className="text-[9px] font-bold text-slate-400 uppercase">{p.address}</p>
+                                        </div>
+                                    </div>
+                                    <button onClick={() => toggleFavorite(p.id)} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-all">
+                                        <X className="w-5 h-5" />
+                                    </button>
+                                </div>
+                            );
+                        })
+                    )}
+                </div>
+                <div className="p-6 bg-slate-50 border-t border-slate-100 text-center">
+                    <p className="text-[9px] uppercase tracking-widest font-bold text-slate-400">{favorites.length} parajes seleccionados</p>
+                </div>
+              </div>
+          </div>
+      )}
+
       {randomPlace && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
               <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center">
