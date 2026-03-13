@@ -61,9 +61,9 @@ const App = () => {
   const [favorites, setFavorites] = useState([]);
   const [showFavsModal, setShowFavsModal] = useState(false);
   
-  // Paginación
+  // Paginación de 12 en 12
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 20;
+  const itemsPerPage = 12;
 
   useEffect(() => {
     document.title = "Rutabia - Crea tus rutas y excursiones locales";
@@ -112,7 +112,7 @@ const App = () => {
     return lonDiff > 0 ? "Este" : "Oeste";
   };
 
-  // --- BASE DE DATOS INTEGRAL (RESTAURADA 217 PUNTOS) ---
+  // --- BASE DE DATOS INTEGRAL (217 PUNTOS REALES RESTAURADOS) ---
   const allPlaces = useMemo(() => [
     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas." },
@@ -353,7 +353,7 @@ const App = () => {
     });
   }, [currentCategory, currentGeoZone, searchTerm, allPlaces]);
 
-  // Paginación
+  // Paginación de 12 en 12
   const totalPages = Math.ceil(filteredPlaces.length / itemsPerPage);
   const displayedPlaces = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
@@ -377,6 +377,48 @@ const App = () => {
     setItinerary({ zone: zoneToUse, places: withDist });
   };
 
+  const handleRandomPlace = () => {
+    const item = allPlaces[Math.floor(Math.random() * allPlaces.length)];
+    setRandomPlace(item);
+  };
+
+  // Componente de Paginación Reutilizable
+  const PaginationControls = () => (
+    <div className="flex items-center gap-2">
+        <button 
+            onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+            disabled={currentPage === 1}
+            className="p-2 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all"
+        >
+            <ChevronLeft size={16} />
+        </button>
+        <div className="flex items-center gap-1">
+            {[...Array(totalPages)].map((_, i) => {
+                if (totalPages > 5 && Math.abs(currentPage - (i + 1)) > 2) {
+                    if (i === 0 || i === totalPages - 1) return <span key={i} className="px-1 text-slate-300">.</span>;
+                    return null;
+                }
+                return (
+                    <button
+                        key={i}
+                        onClick={() => setCurrentPage(i + 1)}
+                        className={`w-7 h-7 rounded-lg text-[9px] font-black transition-all ${currentPage === i + 1 ? 'bg-[#5b21b6] text-white' : 'bg-white text-slate-400 border border-slate-100 hover:border-slate-300'}`}
+                    >
+                        {i + 1}
+                    </button>
+                );
+            })}
+        </div>
+        <button 
+            onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+            disabled={currentPage === totalPages}
+            className="p-2 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all"
+        >
+            <ChevronRight size={16} />
+        </button>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100">
       <header className="sticky top-0 z-50 h-14 bg-white/90 backdrop-blur-md px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm">
@@ -395,7 +437,7 @@ const App = () => {
                 <Route className="w-4 h-4" />
                 <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Generator</span>
             </button>
-            <button onClick={() => setRandomPlace(allPlaces[Math.floor(Math.random() * allPlaces.length)])} className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
+            <button onClick={handleRandomPlace} className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
                 <Shuffle className="w-4 h-4" />
                 <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Aleator</span>
             </button>
@@ -403,14 +445,13 @@ const App = () => {
       </header>
 
       <section className="relative min-h-[240px] py-12 flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6] px-6">
-        {/* Opacidad Hero al 7% (Subida un tercio del 5%) */}
-        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.07] mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.20] mix-blend-overlay"></div>
         <div className="relative z-10 w-full max-w-2xl">
-          <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 leading-none text-balance font-light">
-            <span className="font-black">Crea</span> tu ruta
+          <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 leading-none text-balance font-light text-white">
+            <span className="font-black text-white">Crea</span> tu ruta
           </h2>
           <p className="text-white text-[10px] md:text-xs mb-8 opacity-90 tracking-wide font-light">
-            <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black">Segovia</span>
+            <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
           </p>
 
           <div className="w-full max-w-lg mx-auto relative group">
@@ -439,7 +480,7 @@ const App = () => {
 
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 pb-48 text-center">
         <div className="inline-block w-full max-w-4xl">
-          <h3 className="text-[11px] font-medium lowercase tracking-[0.2em] text-[#5b21b6] mb-6">selecciona ubicaciones por categoría</h3>
+          <h3 className="text-[11px] font-medium lowercase tracking-[0.2em] text-[#5b21b6] mb-6">Selecciona ubicaciones por categoría</h3>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             {/* SELECTOR CATEGORIAS CONDUCTUAL */}
@@ -505,47 +546,12 @@ const App = () => {
             </div>
           </div>
 
-          {/* CONTADOR Y PAGINACIÓN */}
+          {/* CONTADOR Y PAGINACIÓN SUPERIOR */}
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6">
-            <p className="text-[10px] lowercase tracking-[0.2em] text-slate-400 bg-slate-50 px-4 py-1.5 rounded-full border border-slate-100 shadow-sm">
-                mostrando {filteredPlaces.length} sitios de {allPlaces.length}
+            <p className="text-[10px] lowercase tracking-[0.2em] text-slate-400/80 bg-slate-50 px-4 py-1.5 rounded-full border border-slate-100 shadow-sm">
+                Mostrando {filteredPlaces.length} sitios de {allPlaces.length}
             </p>
-            
-            {totalPages > 1 && (
-                <div className="flex items-center gap-2">
-                    <button 
-                        onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                        disabled={currentPage === 1}
-                        className="p-2 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all"
-                    >
-                        <ChevronLeft size={16} />
-                    </button>
-                    <div className="flex items-center gap-1">
-                        {[...Array(totalPages)].map((_, i) => {
-                            if (totalPages > 5 && Math.abs(currentPage - (i + 1)) > 2) {
-                                if (i === 0 || i === totalPages - 1) return <span key={i} className="px-1 text-slate-300">.</span>;
-                                return null;
-                            }
-                            return (
-                                <button
-                                    key={i}
-                                    onClick={() => setCurrentPage(i + 1)}
-                                    className={`w-7 h-7 rounded-lg text-[9px] font-black transition-all ${currentPage === i + 1 ? 'bg-[#5b21b6] text-white' : 'bg-white text-slate-400 border border-slate-100 hover:border-slate-300'}`}
-                                >
-                                    {i + 1}
-                                </button>
-                            );
-                        })}
-                    </div>
-                    <button 
-                        onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                        disabled={currentPage === totalPages}
-                        className="p-2 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all"
-                    >
-                        <ChevronRight size={16} />
-                    </button>
-                </div>
-            )}
+            {totalPages > 1 && <PaginationControls />}
           </div>
         </div>
 
@@ -585,11 +591,17 @@ const App = () => {
             </div>
           ))}
         </div>
+
+        {/* PAGINACIÓN INFERIOR REPETIDA */}
+        {totalPages > 1 && (
+            <div className="mt-16 flex justify-center pb-8 border-b border-slate-100">
+                <PaginationControls />
+            </div>
+        )}
       </main>
 
       <footer className="relative bg-[#111827] py-24 md:py-32 px-6 overflow-hidden text-center border-t border-white/5">
-        {/* Opacidad Footer al 1.3% (Bajada dos tercios del 4%) */}
-        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.013] pointer-events-none"></div>
+        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.13] pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
             <div className="flex justify-center mb-8">
