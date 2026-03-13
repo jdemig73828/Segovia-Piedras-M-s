@@ -211,7 +211,7 @@ const App = () => {
     { id: 91, name: "FÁBRICA DE PASTA DE PAPEL", category: "Industrial", coords: "40°55'58.0\"N 4°04'19.0\"W", address: "PALAZUELOS DE ERESMA", note: "Complejo industrial movido por las aguas del río Eresma." },
     { id: 92, name: "ERMITA DE SAN PEDRO DE ACEDOS Y CASERÍO", category: "Ruinas", coords: "40°55'43.9\"N 4°29'30.0\"W", address: "MUÑOPEDRO", note: "Poblado abandonado que conserva la estructura eclesial." },
     { id: 93, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°05'04.1\"N 4°23'44.2\"W", address: "ORTIGOSA DE PESTAÑO", note: "Antigua parada ferroviaria de la línea Segovia-Medina." },
-    { id: 94, name: "FÁBRICA DE ACHICORIA LA MAESTRA", category: "Industrial", coords: "41°08'51.3\"N 4°11'13.6\"W", address: "MOZONCILLO", note: "Arquitectura industrial ligada al cultivo de la achicoria." },
+    { id: 94, name: "FÁBRICA DE ACHICORIA LA MAESTRA", category: "Industrial", coords: "41°11'13.6\"N 4°26'09.6\"W", address: "NAVAS DE ORO", note: "Emblemática fábrica de la industria resinera." },
     { id: 95, name: "RANCHO DE ESQUILEO Y LAVADERO", category: "Industrial", coords: "40°50'37.7\"N 4°10'25.9\"W", address: "ORTIGOSA DEL MONTE", note: "Importante complejo lanero del patrimonio industrial serrano." },
     { id: 96, name: "ERMITA Y CASERÍO DE BERNUY DE PÁRRACES", category: "Historia", coords: "40°54'56.5\"N 4°23'27.3\"W", address: "MARUGÁN", note: "Santuario y asentamiento tradicional segoviano." },
     { id: 97, name: "MOLINO DE LA IRVIENZA Y PUENTE DEL NARANJO", category: "Industrial", coords: "40°59'52.4\"N 4°32'17.2\"W", address: "MARTÍN MUÑOZ DE LAS POSADAS", note: "Conjunto hidráulico sobre el río Voltoya." },
@@ -225,7 +225,7 @@ const App = () => {
     { id: 105, name: "CASA ARMADA DEL MARQUÉS DEL ARCO", category: "Historia", coords: "41°04'41.0\"N 4°19'05.1\"W", address: "ARMUÑA", note: "Finca señorial con torre de vigilancia histórica." },
     { id: 106, name: "IGLESIA DE LA VIRGEN DE AGEJAS", category: "Ruinas", coords: "41°03'19.7\"N 4°05'47.8\"W", address: "CABAÑA DE POLENDOS", note: "Restos de la iglesia del antiguo despoblado de Agejas." },
     { id: 107, name: "MOLINO DEL PUENTE", category: "Industrial", coords: "41°08'56.7\"N 4°20'02.1\"W", address: "BERNARDOS", note: "Antiguo ingenio hidráulico para molienda de cereal." },
-    { id: 108, name: "ERMITA DE SANTA ÁGUEDA", category: "Historia", coords: "41°10'10.4\"N 4°18'14.4\"W", address: "CARBONERO EL MAYOR", note: "Santuario de gran devoción popular en la comarca." },
+    { id: 108, name: "ERMITA DE SAN TA ÁGUEDA", category: "Historia", coords: "41°10'10.4\"N 4°18'14.4\"W", address: "CARBONERO EL MAYOR", note: "Santuario de gran devoción popular en la comarca." },
     { id: 109, name: "ERMITA DE SAN ISIDRO", category: "Historia", coords: "41°06'26.3\"N 4°22'07.0\"W", address: "DOMINGO GARCÍA", note: "Templo situado cerca de la zona de los grabados rupestres." },
     { id: 110, name: "ERMITA DE SAN MIGUEL DE QUINTANAS", category: "Historia", coords: "41°09'11.8\"N 4°15'22.8\"W", address: "CARBONERO EL MAYOR", note: "Vestigio religioso de antiguos asentamientos." },
     { id: 111, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "40°59'21.1\"N 4°12'31.0\"W", address: "HONTANARES DE ERESMA", note: "Edificación típica de la red ferroviaria histórica." },
@@ -337,7 +337,6 @@ const App = () => {
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos." }
   ], []);
 
-  // --- LÓGICA DE FILTRADO INTELIGENTE ---
   const suggestions = useMemo(() => {
     if (!searchTerm.trim()) return [];
     const matches = new Set();
@@ -449,12 +448,11 @@ const App = () => {
 
       <section className="relative min-h-[240px] py-12 flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6] px-6">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay"></div>
-        {/* ALFA DEGRADADO SUPERIOR EN HERO */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none"></div>
         
         <div className="relative z-10 w-full max-w-2xl">
           <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 leading-none text-balance font-light text-white">
-            <span className="font-black text-white text-3xl md:text-5xl uppercase leading-none">Crea</span> tu ruta
+            <span className="font-black text-white text-3xl md:text-4xl uppercase leading-none">Crea</span> tu ruta
           </h2>
           <p className="text-white text-[10px] md:text-xs mb-8 opacity-90 tracking-wide font-light">
             <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
@@ -479,8 +477,8 @@ const App = () => {
                     className="w-full px-5 py-3 hover:bg-white flex items-center justify-between group transition-colors border-b border-slate-300/50 last:border-0"
                   >
                     <div className="flex items-center gap-3">
-                        <MapPin size={14} className="text-slate-700 group-hover:text-[#4338ca]" />
-                        <span className="text-slate-700 text-[11px] font-black uppercase tracking-tight">{s}</span>
+                        <MapPin size={14} className="text-slate-500 group-hover:text-[#4338ca]" />
+                        <span className="text-white text-[11px] font-black uppercase tracking-tight">{s}</span>
                     </div>
                     <ChevronRight size={14} className="text-slate-400 opacity-0 group-hover:opacity-100 transition-all" />
                   </button>
@@ -579,25 +577,8 @@ const App = () => {
         </div>
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left">
-          {displayedPlaces.map((p, idx) => (
-            <React.Fragment key={p.id}>
-              {/* FILA ESPECIAL ENTRE 3 PRIMERAS Y 3 SIGUIENTES - ALTURA 280PX */}
-              {idx === 3 && (
-                <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[280px] flex items-center justify-center overflow-hidden mb-12 shadow-inner bg-cover bg-center group"
-                     style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/1imhymrWSJERehnHsME05bcDyK1HFrtnG')`}}>
-                   <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/25 to-transparent"></div>
-                   <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-center relative z-20">
-                        <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter drop-shadow-2xl"
-                            style={{ WebkitTextStroke: '5px #5b21b6', paintOrder: 'stroke fill' }}>
-                          Segovia, piedras y más...
-                        </h2>
-                   </div>
-                   {/* FRANJA INFERIOR - 8PX ALTO, COLOR SOLIDO MORADO, SIN ESGRAFIADO */}
-                   <div className="absolute bottom-0 left-0 right-0 h-[8px] bg-[#5b21b6]"></div>
-                </div>
-              )}
-
-              <div className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in flex flex-col h-full overflow-hidden`}>
+          {displayedPlaces.map((p) => (
+            <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in flex flex-col h-full overflow-hidden`}>
                 <div className="relative z-10 flex flex-col h-full">
                   <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}>
                     <div className={`absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0 ${categoryIconColors[p.category]}`}>
@@ -628,14 +609,24 @@ const App = () => {
                     <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-[#4338ca] transition-all block active:scale-95 leading-none">VER SITIO</a>
                   </div>
                 </div>
-              </div>
-            </React.Fragment>
+            </div>
           ))}
         </div>
 
-        {/* PAGINACIÓN INFERIOR SIEMPRE CON MARGEN DE 72PX RESPECTO AL FOOTER */}
         <div className="mt-16 flex flex-col items-center pb-2 mb-[72px] border-b border-slate-100">
             {totalPages > 1 && <PaginationControls />}
+        </div>
+
+        {/* BANNER CENTRAL REUBICADO AL FINAL - ALTURA 180PX, SIN RAYA, SIN CONTORNO */}
+        <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[180px] flex items-center justify-center overflow-hidden shadow-inner bg-cover bg-center group"
+              style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/13R4eL4JuPn4XJnfGo58z3SUcH140ILub')`}}>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/30 to-transparent"></div>
+            <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-center relative z-20">
+                <h2 className="text-2xl md:text-4xl font-black text-white uppercase italic tracking-tighter drop-shadow-xl">
+                  Segovia, piedras y más...
+                </h2>
+                <div className="w-16 h-0.5 bg-white/30 mx-auto mt-4 opacity-50"></div>
+            </div>
         </div>
       </main>
 
