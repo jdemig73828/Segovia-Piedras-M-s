@@ -116,7 +116,7 @@ const App = () => {
     return lonDiff > 0 ? "Este" : "Oeste";
   };
 
-  // --- BASE DE DATOS INTEGRAL (217 PUNTOS REALES RESTAURADOS) ---
+  // --- BASE DE DATOS INTEGRAL (RESTAURADA 217 PUNTOS REALES) ---
   const allPlaces = useMemo(() => [
     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas." },
@@ -319,7 +319,7 @@ const App = () => {
     { id: 199, name: "PUENTE DE BARRANCALES", category: "Historia", coords: "41°22'30.3\"N 4°22'00.0\"W", address: "CUÉLLAR", note: "Antiguo puente de piedra que cruza el río Cega." },
     { id: 200, name: "TORRE DE SANTA MARINA", category: "Historia", coords: "41°24'00.1\"N 4°18'50.6\"W", address: "CUÉLLAR", note: "Único resto visible de la antigua iglesia." },
     { id: 201, name: "PEGUERAS", category: "Industrial", coords: "41°20'04.5\"N 4°25'36.4\"W", address: "CHAÑE", note: "Antiguos hornos para la obtención de pez." },
-    { id: 202, name: "MOLINO DEL BOTILLER", category: "Industrial", coords: "41°23'07.5\"N 4°16'55.2\"W", address: "ESCARABAJOSA", note: "Maquinaria e ingenio hidráulico muy relevante." },
+    { id: 202, name: "MOLINO DEL BOTILLER", category: "Industrial", coords: "41°23'07.5\"N 4°16'55.2\"W", address: "ESCARABAJOSA", note: "Ingenio hidráulico muy relevante." },
     { id: 203, name: "TEJERAS DE LOS SERAFINES", category: "Industrial", coords: "41°18'05.7\"N 4°06'06.4\"W", address: "LASTRAS DE CUÉLLAR", note: "Centenarias instalaciones cerámicas ya en desuso." },
     { id: 204, name: "POCIEGUILLO", category: "Naturaleza", coords: "41°25'49.8\"N 4°15'48.7\"W", address: "LOVINGOS", note: "Lugar de agua y vida en el secano cuellarano." },
     { id: 205, name: "FÁBRICA DE RESINAS", category: "Industrial", coords: "41°12'50.5\"N 4°14'59.9\"W", address: "NAVALMANZANO", note: "Patrimonio industrial vivo de la Tierra de Pinares." },
@@ -337,7 +337,6 @@ const App = () => {
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos." }
   ], []);
 
-  // --- LÓGICA PREDICTIVA ---
   const suggestions = useMemo(() => {
     if (!searchTerm.trim()) return [];
     const matches = new Set();
@@ -449,7 +448,7 @@ const App = () => {
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay"></div>
         <div className="relative z-10 w-full max-w-2xl">
           <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 leading-none text-balance font-light text-white">
-            <span className="font-black text-white text-3xl md:text-4xl uppercase">Crea</span> tu ruta
+            <span className="font-black text-white text-3xl md:text-4xl uppercase leading-none">Crea</span> tu ruta
           </h2>
           <p className="text-white text-[10px] md:text-xs mb-8 opacity-90 tracking-wide font-light">
             <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
@@ -497,7 +496,7 @@ const App = () => {
         </div>
       </section>
 
-      <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 pb-10 text-center">
+      <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 text-center">
         <div className="inline-block w-full max-w-4xl">
           <h3 className="text-[11px] font-black tracking-[0.2em] text-[#5b21b6] mb-6">Selecciona ubicaciones por categoría</h3>
           
@@ -563,25 +562,30 @@ const App = () => {
             </div>
           </div>
 
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6">
-            <p className="text-[10px] tracking-[0.2em] text-slate-400/80 bg-slate-50 px-4 py-1.5 rounded-full border border-slate-100 shadow-sm font-medium">
+          <div className="mt-10 flex flex-col items-center">
+            <p className="text-[10px] tracking-[0.2em] text-fuchsia-600 font-black uppercase bg-fuchsia-50 px-5 py-2 rounded-full border border-fuchsia-100 shadow-sm">
                 Mostrando {filteredPlaces.length} sitios de {allPlaces.length}
             </p>
-            {totalPages > 1 && <PaginationControls />}
+            <div className="mt-8">
+                {totalPages > 1 && <PaginationControls />}
+            </div>
           </div>
         </div>
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left">
           {displayedPlaces.map((p, idx) => (
             <React.Fragment key={p.id}>
-              {/* FILA ESPECIAL ENTRE 3 PRIMERAS Y 3 SIGUIENTES */}
+              {/* FILA ESPECIAL ENTRE 3 PRIMERAS Y 3 SIGUIENTES - ALTURA 175PX */}
               {idx === 3 && (
-                <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 bg-gradient-to-r from-indigo-900 via-[#5b21b6] to-indigo-950 h-[350px] flex items-center justify-center overflow-hidden mb-12 shadow-inner">
+                <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[175px] flex items-center justify-center overflow-hidden mb-12 shadow-inner bg-cover bg-center group"
+                     style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/1imhymrWSJERehnHsME05bcDyK1HFrtnG')`}}>
+                   {/* ALFA DEGRADADO AJUSTADO: Más suave sobre las letras */}
+                   <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/30 to-transparent"></div>
                    <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-center relative z-10">
-                        <h2 className="text-3xl md:text-5xl font-black text-fuchsia-300 uppercase italic tracking-tighter">Segovia, piedras y más...</h2>
-                        <div className="w-20 h-1 bg-fuchsia-400 mx-auto mt-6 opacity-40"></div>
+                        <h2 className="text-xl md:text-3xl font-black text-fuchsia-300 uppercase italic tracking-tighter drop-shadow-2xl">Segovia, piedras y más...</h2>
+                        <div className="w-16 h-0.5 bg-fuchsia-400 mx-auto mt-4 opacity-50"></div>
                    </div>
-                   <div className="absolute inset-0 bg-esgrafiado-pattern opacity-10 pointer-events-none"></div>
+                   <div className="absolute inset-0 bg-esgrafiado-pattern opacity-10 pointer-events-none mix-blend-overlay"></div>
                 </div>
               )}
 
@@ -621,8 +625,7 @@ const App = () => {
           ))}
         </div>
 
-        {/* PAGINACIÓN INFERIOR CON MARGEN DE 72PX RESPECTO AL FOOTER */}
-        <div className="mt-16 flex justify-center pb-2 mb-[72px] border-b border-slate-100">
+        <div className="mt-16 flex flex-col items-center pb-2 mb-[72px] border-b border-slate-100">
             {totalPages > 1 && <PaginationControls />}
         </div>
       </main>
@@ -651,7 +654,7 @@ const App = () => {
         </div>
       </footer>
 
-      {/* MODAL GENERATOR - INCLUYE DESCRIPCIONES */}
+      {/* MODAL GENERATOR - BOTÓN ACTUALIZADO A "VER RUTA" */}
       {itinerary && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20">
@@ -684,7 +687,7 @@ const App = () => {
                     ))}
                     <div className="pt-6 border-t border-slate-100 mt-8 pb-10 px-4 text-center">
                         {itinerary.places.length >= 2 ? (
-                          <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto" />Ver ruta en coche</a>
+                          <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto" />Ver ruta</a>
                         ) : null}
                     </div>
                 </div>
