@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route } from 'lucide-react';
 
-// Intentamos cargar Analytics de forma dinámica para que no bloquee la previsualización si el módulo no está disponible localmente
-const VercelAnalytics = React.lazy(() => 
-  import("@vercel/analytics/react")
+// Cargamos Analytics de forma dinámica para que el código sea válido en Vercel
+// pero no rompa la previsualización si el módulo no está disponible aquí.
+const Analytics = React.lazy(() => 
+  import("@vercel/analytics/next")
     .then(mod => ({ default: mod.Analytics }))
     .catch(() => ({ default: () => null }))
 );
@@ -319,6 +320,7 @@ const App = () => {
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos." }
   ], []);
 
+  // --- LÓGICA DE FILTRADO ---
   const filteredPlaces = useMemo(() => {
     return allPlaces.filter(p => {
       const matchSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -328,15 +330,6 @@ const App = () => {
       return matchSearch && matchCategory && matchZone;
     });
   }, [currentCategory, currentGeoZone, searchTerm, allPlaces]);
-
-  const stats = useMemo(() => {
-    return {
-      Historia: allPlaces.filter(p => p.category === 'Historia').length,
-      Ruinas: allPlaces.filter(p => p.category === 'Ruinas').length,
-      Industrial: allPlaces.filter(p => p.category === 'Industrial').length,
-      Naturaleza: allPlaces.filter(p => p.category === 'Naturaleza').length,
-    };
-  }, [allPlaces]);
 
   const generateItinerary = () => {
     const zoneToUse = currentGeoZone === 'Todos' ? ['Norte', 'Sur', 'Este', 'Oeste'][Math.floor(Math.random()*4)] : currentGeoZone;
@@ -380,22 +373,30 @@ const App = () => {
       </header>
 
       <section className="relative min-h-[240px] py-12 flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6] px-6">
-        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-40 mix-blend-overlay"></div>
+        {/* OPACIDAD DILUIDA AL 5% (MITAD DEL ANTERIOR) */}
+        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-5 mix-blend-overlay"></div>
         <div className="relative z-10 w-full max-w-2xl">
-          <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 italic leading-none text-balance">
-            <span className="font-black text-white">Segovia</span>, piedras & más
+          <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 leading-none text-balance font-light">
+            <span className="font-black text-white">Crea</span> tu ruta
           </h2>
-          <p className="text-white text-[10px] md:text-xs mb-4 opacity-90 tracking-wide">
-            <span className="font-black text-white">Crea</span> tus rutas y excursiones locales
+          <p className="text-white text-[10px] md:text-xs mb-8 opacity-90 tracking-wide font-light">
+            <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black">Segovia</span>
           </p>
-          <div className="space-y-1 mb-8">
-            <p className="text-white font-black text-[10px] md:text-xs tracking-[0.4em] uppercase opacity-90 leading-none">217 PUNTOS MAPEADOS</p>
-            <p className="text-white/70 text-[8px] md:text-[9px] font-medium uppercase tracking-[0.2em]">Parajes sorprendentes e inhóspitos de la provincia de Segovia</p>
-          </div>
+
           <div className="w-full max-w-lg mx-auto relative group">
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-white/50 group-focus-within:text-white transition-colors w-5 h-5" />
-            <input type="text" placeholder="Buscar parajes o municipios..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-14 pr-12 py-4 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-xl outline-none text-sm font-semibold text-white placeholder:text-white/40 focus:bg-white/20 focus:border-white/40 transition-all" />
-            {searchTerm && <button onClick={() => setSearchTerm('')} className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-white/20 text-white hover:bg-white/40 transition-all"><X className="w-3.5 h-3.5" /></button>}
+            <input 
+              type="text" 
+              placeholder="Buscar parajes o municipios..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-14 pr-12 py-4 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-xl outline-none text-sm font-semibold text-white placeholder:text-white/40 focus:bg-white/20 focus:border-white/40 transition-all"
+            />
+            {searchTerm && (
+              <button onClick={() => setSearchTerm('')} className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-white/20 text-white hover:bg-white/40 transition-all">
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
         </div>
       </section>
@@ -419,7 +420,7 @@ const App = () => {
             {['TODOS', 'HISTORIA', 'RUINAS', 'INDUSTRIAL', 'NATURALEZA'].map(cat => {
                 const isActive = (currentCategory.toUpperCase() === cat);
                 const catName = cat === 'TODOS' ? 'Todos' : cat.charAt(0) + cat.slice(1).toLowerCase();
-                return <button key={cat} onClick={() => setCurrentCategory(catName)} className={`relative px-6 py-2.5 rounded-xl text-[10px] font-black border transition-all uppercase tracking-widest shadow-sm ${isActive ? (categoryColors[catName] || 'bg-[#4338ca]') + ' text-white border-transparent' : 'bg-white border-slate-200 text-slate-600'} focus:outline-none touch-manipulation`}>{cat} {cat !== 'TODOS' && `(${stats[catName]})`}</button>;
+                return <button key={cat} onClick={() => setCurrentCategory(catName)} className={`relative px-6 py-2.5 rounded-xl text-[10px] font-black border transition-all uppercase tracking-widest shadow-sm ${isActive ? (categoryColors[catName] || 'bg-[#4338ca]') + ' text-white border-transparent' : 'bg-white border-slate-200 text-slate-600'} focus:outline-none touch-manipulation`}>{cat}</button>;
             })}
           </div>
         </div>
@@ -444,11 +445,11 @@ const App = () => {
                 </div>
                 <div className="px-3 flex-grow flex flex-col justify-between">
                   <div>
-                    <h4 className="text-[15px] font-black uppercase mb-1.5 text-slate-800 tracking-tight leading-tight group-hover:text-indigo-600 transition-colors line-clamp-2">{p.name}</h4>
+                    <h4 className="text-[15px] font-black uppercase mb-1.5 text-slate-800 tracking-tight leading-tight group-hover:text-[#4338ca] transition-colors line-clamp-2">{p.name}</h4>
                     <p className="text-[9px] text-slate-400 font-bold uppercase mb-4 flex items-center gap-1.5 leading-none"><MapPin className="w-3 h-3 text-[#4338ca]" /> {p.address}</p>
                     <p className="text-[11px] text-slate-500 italic mb-8 leading-relaxed opacity-80 line-clamp-3">"{p.note}"</p>
                   </div>
-                  <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-indigo-900 transition-all block active:scale-95 leading-none">VER SITIO</a>
+                  <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-[#4338ca] transition-all block active:scale-95 leading-none">VER SITIO</a>
                 </div>
               </div>
             </div>
@@ -457,24 +458,27 @@ const App = () => {
       </main>
 
       <footer className="relative bg-[#111827] py-24 md:py-32 px-6 overflow-hidden text-center border-t border-white/5">
-        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-15 pointer-events-none"></div>
+        {/* OPACIDAD DILUIDA AL 4% (MITAD DEL ANTERIOR) */}
+        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-4 pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg"><HikerIcon /></div>
               <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none text-white">Rutabia</span>
             </div>
-            <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight uppercase">217 parajes documentados</h3>
+            <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight uppercase">Crea tu ruta</h3>
             <div className="space-y-6">
-              <p className="text-white/40 text-[10px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-bold">Mapeo técnico exhaustivo basado en las fuentes bibliográficas de esther maganto y juan enrique del barrio.</p>
-              <div className="border-t border-white/5 pt-6 pb-6 text-white/60 text-[11px] leading-relaxed max-w-lg mx-auto uppercase tracking-[0.15em] font-black italic">Auditoría visual por Javier de Miguel Torres.</div>
-              <div className="flex flex-col items-center gap-3 pt-8 transition-opacity opacity-60 hover:opacity-100">
+              <p className="text-white/40 text-[11px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-black italic text-white/60">
+                <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
+              </p>
+              
+              <div className="flex flex-col items-center gap-3 pt-8 border-t border-white/5 transition-opacity opacity-60 hover:opacity-100">
                 <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-8 h-8" />
                 <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Powered By Google Maps</p>
               </div>
             </div>
           </div>
-          <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase">© 2026 RUTABIA | JAVIER DE MIGUEL TORRES</div>
+          <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase">© 2026 RUTABIA</div>
         </div>
       </footer>
 
@@ -485,7 +489,7 @@ const App = () => {
                     <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none"><Route className="w-5 h-5" /> Ruta Zona {itinerary.zone}</h4>
                     <button onClick={() => setItinerary(null)} className="p-2 hover:bg-white rounded-full transition-all text-indigo-300"><X className="w-6 h-6" /></button>
                 </div>
-                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12">
+                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-8">
                     {itinerary.places.map((p, idx) => (
                         <div key={p.id} className="relative">
                             {p.kmFromPrev && (
@@ -504,7 +508,7 @@ const App = () => {
                             </div>
                         </div>
                     ))}
-                    <div className="pt-6 border-t border-slate-100 mt-8 pb-12 px-4 text-center">
+                    <div className="pt-6 border-t border-slate-100 mt-8 pb-8 px-4 text-center">
                         {itinerary.places.length >= 2 ? (
                           <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto" />Ver ruta en coche</a>
                         ) : null}
@@ -532,7 +536,7 @@ const App = () => {
       {showScrollBtn && <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="fixed bottom-8 right-8 z-[100] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all border border-white/10"><ArrowUp className="w-6 h-6" /></button>}
       
       <Suspense fallback={null}>
-        <VercelAnalytics />
+        <Analytics />
       </Suspense>
     </div>
   );
