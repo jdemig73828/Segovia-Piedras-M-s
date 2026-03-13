@@ -98,7 +98,7 @@ const App = () => {
     const [lat2, lon2] = parse(coords2);
     const R = 6371; 
     const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const dLon = (lat2 - lon1) * Math.PI / 180;
     const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
               Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
               Math.sin(dLon/2) * Math.sin(dLon/2);
@@ -206,12 +206,12 @@ const App = () => {
     { id: 86, name: "CONVENTO DE SAN AGUSTÍN", category: "Ruinas", coords: "40°57'03.2\"N 4°07'08.2\"W", address: "SEGOVIA", note: "Restos del antiguo convector extramuros de la ciudad." },
     { id: 87, name: "PALACIO DE LOS MARQUESES DE CASABLANCA", category: "Historia", coords: "41°11'43.3\"N 4°04'01.4\"W", address: "SAUQUILLO DE CABEZAS", note: "Gran residencia nobiliaria en medio de las tierras de cereal." },
     { id: 88, name: "RANCHO DE ALFARO", category: "Industrial", coords: "41°00'16.5\"N 3°57'25.1\"W", address: "SANTO DOMINGO DE PIRÓN", note: "Esquileo tradicional y finca ganadera histórica." },
-    { id: 89, name: "ESQUILEO DE SANTILLANA", category: "Industrial", coords: "40°53'17.2\"N 4°04'04.3\"W", address: "REVENGA", note: "Centro neurálgico de la industria de la lana en el siglo XVIII." },
+    { id: 89, name: "ESQUILEO DE SANTILLANA", category: "Industrial", coords: "40°53'17.2\"N 4°04'04.3\"W", address: "REVENGA", note: "Centro neurálgico de la industria de la industria de la lana en el siglo XVIII." },
     { id: 90, name: "PALACIO DE LOS OSORIO PARADINAS", category: "Historia", coords: "41°00'42.0\"N 4°23'22.7\"W", address: "SANTA MARÍA LA REAL DE NIEVA", note: "Edificación señorial con gran escudo heráldico." },
     { id: 91, name: "FÁBRICA DE PASTA DE PAPEL", category: "Industrial", coords: "40°55'58.0\"N 4°04'19.0\"W", address: "PALAZUELOS DE ERESMA", note: "Complejo industrial movido por las aguas del río Eresma." },
     { id: 92, name: "ERMITA DE SAN PEDRO DE ACEDOS Y CASERÍO", category: "Ruinas", coords: "40°55'43.9\"N 4°29'30.0\"W", address: "MUÑOPEDRO", note: "Poblado abandonado que conserva la estructura eclesial." },
     { id: 93, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°05'04.1\"N 4°23'44.2\"W", address: "ORTIGOSA DE PESTAÑO", note: "Antigua parada ferroviaria de la línea Segovia-Medina." },
-    { id: 94, name: "FÁBRICA DE ACHICORIA LA MAESTRA", category: "Industrial", coords: "41°11'13.6\"N 4°26'09.6\"W", address: "NAVAS DE ORO", note: "Emblemática fábrica de la industria resinera." },
+    { id: 94, name: "FÁBRICA DE ACHICORIA LA MAESTRA", category: "Industrial", coords: "41°08'51.3\"N 4°11'13.6\"W", address: "MOZONCILLO", note: "Arquitectura industrial ligada al cultivo de la achicoria." },
     { id: 95, name: "RANCHO DE ESQUILEO Y LAVADERO", category: "Industrial", coords: "40°50'37.7\"N 4°10'25.9\"W", address: "ORTIGOSA DEL MONTE", note: "Importante complejo lanero del patrimonio industrial serrano." },
     { id: 96, name: "ERMITA Y CASERÍO DE BERNUY DE PÁRRACES", category: "Historia", coords: "40°54'56.5\"N 4°23'27.3\"W", address: "MARUGÁN", note: "Santuario y asentamiento tradicional segoviano." },
     { id: 97, name: "MOLINO DE LA IRVIENZA Y PUENTE DEL NARANJO", category: "Industrial", coords: "40°59'52.4\"N 4°32'17.2\"W", address: "MARTÍN MUÑOZ DE LAS POSADAS", note: "Conjunto hidráulico sobre el río Voltoya." },
@@ -225,7 +225,7 @@ const App = () => {
     { id: 105, name: "CASA ARMADA DEL MARQUÉS DEL ARCO", category: "Historia", coords: "41°04'41.0\"N 4°19'05.1\"W", address: "ARMUÑA", note: "Finca señorial con torre de vigilancia histórica." },
     { id: 106, name: "IGLESIA DE LA VIRGEN DE AGEJAS", category: "Ruinas", coords: "41°03'19.7\"N 4°05'47.8\"W", address: "CABAÑA DE POLENDOS", note: "Restos de la iglesia del antiguo despoblado de Agejas." },
     { id: 107, name: "MOLINO DEL PUENTE", category: "Industrial", coords: "41°08'56.7\"N 4°20'02.1\"W", address: "BERNARDOS", note: "Antiguo ingenio hidráulico para molienda de cereal." },
-    { id: 108, name: "ERMITA DE SAN TA ÁGUEDA", category: "Historia", coords: "41°10'10.4\"N 4°18'14.4\"W", address: "CARBONERO EL MAYOR", note: "Santuario de gran devoción popular en la comarca." },
+    { id: 108, name: "ERMITA DE SANTA ÁGUEDA", category: "Historia", coords: "41°10'10.4\"N 4°18'14.4\"W", address: "CARBONERO EL MAYOR", note: "Santuario de gran devoción popular en la comarca." },
     { id: 109, name: "ERMITA DE SAN ISIDRO", category: "Historia", coords: "41°06'26.3\"N 4°22'07.0\"W", address: "DOMINGO GARCÍA", note: "Templo situado cerca de la zona de los grabados rupestres." },
     { id: 110, name: "ERMITA DE SAN MIGUEL DE QUINTANAS", category: "Historia", coords: "41°09'11.8\"N 4°15'22.8\"W", address: "CARBONERO EL MAYOR", note: "Vestigio religioso de antiguos asentamientos." },
     { id: 111, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "40°59'21.1\"N 4°12'31.0\"W", address: "HONTANARES DE ERESMA", note: "Edificación típica de la red ferroviaria histórica." },
@@ -337,6 +337,7 @@ const App = () => {
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos." }
   ], []);
 
+  // --- LÓGICA DE FILTRADO INTELIGENTE ---
   const suggestions = useMemo(() => {
     if (!searchTerm.trim()) return [];
     const matches = new Set();
@@ -390,21 +391,21 @@ const App = () => {
         <button 
             onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
             disabled={currentPage === 1}
-            className="p-2 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all"
+            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all"
         >
-            <ChevronLeft size={16} />
+            <ChevronLeft size={20} />
         </button>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5">
             {[...Array(totalPages)].map((_, i) => {
                 if (totalPages > 5 && Math.abs(currentPage - (i + 1)) > 2) {
-                    if (i === 0 || i === totalPages - 1) return <span key={i} className="px-0.5 text-slate-300">.</span>;
+                    if (i === 0 || i === totalPages - 1) return <span key={i} className="px-1 text-slate-300">.</span>;
                     return null;
                 }
                 return (
                     <button
                         key={i}
                         onClick={() => setCurrentPage(i + 1)}
-                        className={`w-7 h-7 rounded-lg text-[9px] font-black transition-all ${currentPage === i + 1 ? 'bg-[#5b21b6] text-white' : 'bg-white text-slate-400 border border-slate-100 hover:border-slate-300'}`}
+                        className={`w-10 h-10 rounded-lg text-xs font-black transition-all ${currentPage === i + 1 ? 'bg-[#5b21b6] text-white shadow-md' : 'bg-white text-slate-400 border border-slate-100 hover:border-slate-300'}`}
                     >
                         {i + 1}
                     </button>
@@ -414,9 +415,9 @@ const App = () => {
         <button 
             onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
             disabled={currentPage === totalPages}
-            className="p-2 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all"
+            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all"
         >
-            <ChevronRight size={16} />
+            <ChevronRight size={20} />
         </button>
     </div>
   );
@@ -477,7 +478,7 @@ const App = () => {
                     className="w-full px-5 py-3 hover:bg-white flex items-center justify-between group transition-colors border-b border-slate-300/50 last:border-0"
                   >
                     <div className="flex items-center gap-3">
-                        <MapPin size={14} className="text-slate-500 group-hover:text-[#4338ca]" />
+                        <MapPin size={14} className="text-slate-700 group-hover:text-[#4338ca]" />
                         <span className="text-white text-[11px] font-black uppercase tracking-tight">{s}</span>
                     </div>
                     <ChevronRight size={14} className="text-slate-400 opacity-0 group-hover:opacity-100 transition-all" />
@@ -502,7 +503,7 @@ const App = () => {
 
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 text-center">
         <div className="inline-block w-full max-w-4xl">
-          <h3 className="text-[11px] font-black tracking-[0.2em] text-[#5b21b6] mb-6">Selecciona ubicaciones por categoría</h3>
+          <h3 className="text-[14px] font-black tracking-normal text-[#5b21b6] mb-6">Selecciona ubicaciones por categoría</h3>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <div className="relative w-full sm:w-auto text-left">
@@ -567,7 +568,7 @@ const App = () => {
           </div>
 
           <div className="mt-10 flex flex-col items-center">
-            <p className="text-[10px] tracking-[0.2em] text-fuchsia-600 font-black uppercase bg-fuchsia-50 px-5 py-2 rounded-full border border-fuchsia-100 shadow-sm">
+            <p className="text-[12px] tracking-[0.2em] text-fuchsia-600 font-black uppercase bg-fuchsia-50 px-5 py-2 rounded-full border border-fuchsia-100 shadow-sm">
                 Mostrando {filteredPlaces.length} sitios de {allPlaces.length}
             </p>
             <div className="mt-8">
@@ -625,7 +626,6 @@ const App = () => {
                 <h2 className="text-2xl md:text-4xl font-black text-white uppercase italic tracking-tighter drop-shadow-xl">
                   Segovia, piedras y más...
                 </h2>
-                <div className="w-16 h-0.5 bg-white/30 mx-auto mt-4 opacity-50"></div>
             </div>
         </div>
       </main>
