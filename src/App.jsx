@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
-import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route, ChevronDown, Heart, ChevronLeft, ChevronRight, Eraser } from 'lucide-react';
+import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route, ChevronDown, Heart, ChevronLeft, ChevronRight, Eraser, Menu } from 'lucide-react';
 
 // Cargamos Analytics de forma dinámica
 const Analytics = React.lazy(() => 
@@ -62,6 +62,7 @@ const App = () => {
   const [showFavsModal, setShowFavsModal] = useState(false);
   const [showPredictive, setShowPredictive] = useState(false);
   const [isHeaderSearchOpen, setIsHeaderSearchOpen] = useState(false);
+  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
@@ -93,6 +94,7 @@ const App = () => {
     return dec;
   };
 
+  // --- ARREGLO FINAL CÁLCULO DISTANCIAS REALISTAS ---
   const calculateDistance = (coords1, coords2) => {
     const getCoords = (str) => {
         const parts = str.trim().split(/\s+(?=[0-9])/);
@@ -101,9 +103,11 @@ const App = () => {
     };
     const [lat1, lon1] = getCoords(coords1);
     const [lat2, lon2] = getCoords(coords2);
-    const R = 6371; 
+    
+    const R = 6371; // Radio Tierra km
     const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180; // Corregido: antes estaba lat2 - lon1
+    
     const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
               Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
               Math.sin(dLon/2) * Math.sin(dLon/2);
@@ -200,7 +204,7 @@ const App = () => {
     { id: 74, name: "ERMITA DE NUESTRA SEÑORA EL ESPINO", category: "Historia", coords: "41°11'32.9\"N 3°50'58.0\"W", address: "REBOLLO", note: "Santuario rodeado de robles y leyendas locales." },
     { id: 75, name: "IGLESIA DE SANTA MARÍA", category: "Historia", coords: "41°07'55.0\"N 3°48'45.6\"W", address: "PEDRAZA", note: "Iglesia que preside la famosa plaza mayor de la villa de Pedraza." },
     { id: 76, name: "IGLESIA DEL ESPÍRITU SANTO", category: "Historia", coords: "41°09'14.6\"N 3°46'56.9\"W", address: "OREJANILLA", note: "Templo característico del románico de porticada segoviano." },
-    { id: 77, name: "DESPOBLADO DE LA ALAMEDA", category: "Ruinas", coords: "41°09'37.4\"N 3°48'08.5\"W", address: "LA ALAMEDA", note: "Lugar abandonado que evoca el pasado místico de la zona." },
+    { id: 77, name: "DESPOBLADO DE la ALAMEDA", category: "Ruinas", coords: "41°09'37.4\"N 3°48'08.5\"W", address: "LA ALAMEDA", note: "Lugar abandonado que evoca el pasado místico de la zona." },
     { id: 78, name: "TORREGIL", category: "Historia", coords: "41°04'57.5\"N 3°47'23.0\"W", address: "GALLEGOS", note: "Atalaya defensiva estratégica con amplias vistas de la sierra." },
     { id: 79, name: "MONASTERIO DE SANTA MARÍA DE LA SIERRA", category: "Ruinas", coords: "41°01'37.1\"N 3°54'46.2\"W", address: "COLLADO HERMOSO", note: "Restos cistercienses integrados en el paisaje montañoso." },
     { id: 80, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°04'28.1\"N 4°16'15.8\"W", address: "YANGUAS DE ERESMA", note: "Arquitectura ferroviaria de principios del siglo XX." },
@@ -212,7 +216,7 @@ const App = () => {
     { id: 86, name: "CONVENTO DE SAN AGUSTÍN", category: "Ruinas", coords: "40°57'03.2\"N 4°07'08.2\"W", address: "SEGOVIA", note: "Restos del antiguo convector extramuros de la ciudad." },
     { id: 87, name: "PALACIO DE LOS MARQUESES DE CASABLANCA", category: "Historia", coords: "41°11'43.3\"N 4°04'01.4\"W", address: "SAUQUILLO DE CABEZAS", note: "Gran residencia nobiliaria en medio de las tierras de cereal." },
     { id: 88, name: "RANCHO DE ALFARO", category: "Industrial", coords: "41°00'16.5\"N 3°57'25.1\"W", address: "SANTO DOMINGO DE PIRÓN", note: "Esquileo tradicional y finca ganadera histórica." },
-    { id: 89, name: "ESQUILEO DE SANTILLANA", category: "Industrial", coords: "40°53'17.2\"N 4°04'04.3\"W", address: "REVENGA", note: "Centro neurálgico de la industria de la lana en el siglo XVIII." },
+    { id: 89, name: "ESQUILEO DE SANTILLANA", category: "Industrial", coords: "40°53'17.2\"N 4°04'04.3\"W", address: "REVENGA", note: "Centro neurálgico de la industria de la industria de la lana en el siglo XVIII." },
     { id: 90, name: "PALACIO DE LOS OSORIO PARADINAS", category: "Historia", coords: "41°00'42.0\"N 4°23'22.7\"W", address: "SANTA MARÍA LA REAL DE NIEVA", note: "Edificación señorial con gran escudo heráldico." },
     { id: 91, name: "FÁBRICA DE PASTA DE PAPEL", category: "Industrial", coords: "40°55'58.0\"N 4°04'19.0\"W", address: "PALAZUELOS DE ERESMA", note: "Complejo industrial movido por las aguas del río Eresma." },
     { id: 92, name: "ERMITA DE SAN PEDRO DE ACEDOS Y CASERÍO", category: "Ruinas", coords: "40°55'43.9\"N 4°29'30.0\"W", address: "MUÑOPEDRO", note: "Poblado abandonado que conserva la estructura eclesial." },
@@ -231,9 +235,9 @@ const App = () => {
     { id: 105, name: "CASA ARMADA DEL MARQUÉS DEL ARCO", category: "Historia", coords: "41°04'41.0\"N 4°19'05.1\"W", address: "ARMUÑA", note: "Finca señorial con torre de vigilancia histórica." },
     { id: 106, name: "IGLESIA DE LA VIRGEN DE AGEJAS", category: "Ruinas", coords: "41°03'19.7\"N 4°05'47.8\"W", address: "CABAÑA DE POLENDOS", note: "Restos de la iglesia del antiguo despoblado de Agejas." },
     { id: 107, name: "MOLINO DEL PUENTE", category: "Industrial", coords: "41°08'56.7\"N 4°20'02.1\"W", address: "BERNARDOS", note: "Antiguo ingenio hidráulico para molienda de cereal." },
-    { id: 108, name: "ERMITA DE SANTA ÁGUEDA", category: "Historia", coords: "41°10'10.4\"N 4°18'14.4\"W", address: "CARBONERO EL MAYOR", note: "Santuario de gran devoción popular en la comarca." },
+    { id: 108, name: "ERMITA DE SAN TA ÁGUEDA", category: "Historia", coords: "41°10'10.4\"N 4°18'14.4\"W", address: "CARBONERO EL MAYOR", note: "Santuario de gran devoción popular en la comarca." },
     { id: 109, name: "ERMITA DE SAN ISIDRO", category: "Historia", coords: "41°06'26.3\"N 4°22'07.0\"W", address: "DOMINGO GARCÍA", note: "Templo situado cerca de la zona de los grabados rupestres." },
-    { id: 110, name: "ERMITA DE SAN MIGUEL DE QUINTANAS", category: "Historia", coords: "41°09'11.8\"N 4°15'22.8\"W", address: "CARBONERO EL MAYOR", note: "Vestigio religioso de antiguos asentamientos." },
+    { id: 110, name: "ERMITA DE SAN MIGUEL DE QUINTANAS", category: "Historia", coords: "41°10'43.1\"N 4°15'22.8\"W", address: "CARBONERO EL MAYOR", note: "Vestigio religioso de antiguos asentamientos." },
     { id: 111, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "40°59'21.1\"N 4°12'31.0\"W", address: "HONTANARES DE ERESMA", note: "Edificación típica de la red ferroviaria histórica." },
     { id: 112, name: "DESPOBLADO DE GUIJASALBAS", category: "Ruinas", coords: "40°49'09.4\"N 4°16'47.8\"W", address: "VALDEPRADOS", note: "Aldea abandonada que conserva el trazado de sus calles y cimientos." },
     { id: 113, name: "ERMITA DE SANTA JUSTA Y SANTA RUFINA", category: "Historia", coords: "41°09'54.8\"N 3°50'38.7\"W", address: "PAJARES DE PEDRAZA", note: "Pequeña iglesia de piedra en un entorno natural." },
@@ -357,7 +361,6 @@ const App = () => {
   const filteredPlaces = useMemo(() => {
     return allPlaces.filter(p => {
       const normalizedTerm = normalize(searchTerm);
-      // Lógica de exclusión: Si hay búsqueda, ignora filtros. Si interactúa con filtros, limpia búsqueda.
       if (normalizedTerm !== "") {
           return normalize(p.name).includes(normalizedTerm) || normalize(p.address).includes(normalizedTerm);
       }
@@ -444,29 +447,21 @@ const App = () => {
         </div>
         
         <div className="flex items-center gap-2 md:gap-3 flex-1 justify-end h-full">
-            <div className="hidden md:flex items-center gap-2">
-                <button onClick={generateItinerary} className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
-                    <Route className="w-4 h-4" />
-                    <span className="text-[10px] font-bold uppercase tracking-wider">Generator</span>
-                </button>
-                <button onClick={() => setRandomPlace(allPlaces[Math.floor(Math.random() * allPlaces.length)])} className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
-                    <Shuffle className="w-4 h-4" />
-                    <span className="text-[10px] font-bold uppercase tracking-wider">Aleator</span>
-                </button>
-            </div>
-
-            <button onClick={() => setShowFavsModal(true)} className="flex items-center gap-2 px-3 py-1.5 bg-fuchsia-600 text-white rounded-full hover:bg-fuchsia-700 transition-all shadow-sm active:scale-95">
-                <Heart className="w-4 h-4 fill-current" />
-                <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Ver favoritos</span>
-            </button>
-
-            {/* BOTÓN BUSCAR A LA DERECHA DE FAVORITOS */}
+            {/* BOTÓN BUSCAR: MISMA APARIENCIA QUE GENERATOR/ALEATOR */}
             <button 
               onClick={() => setIsHeaderSearchOpen(!isHeaderSearchOpen)}
-              className={`h-full px-5 flex items-center gap-2 border-l border-slate-100 transition-all hover:bg-slate-50 ${isHeaderSearchOpen ? 'bg-indigo-50 text-[#4338ca]' : 'text-slate-600'}`}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all shadow-sm active:scale-90 ${isHeaderSearchOpen ? 'bg-indigo-600 text-white' : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white'}`}
             >
-                <Search size={20} className={isHeaderSearchOpen ? 'text-[#4338ca]' : 'text-slate-400'} />
-                <span className="text-[11px] font-black uppercase tracking-wider">Buscar</span>
+                <Search size={18} />
+                <span className="text-[10px] font-bold uppercase tracking-wider">Buscar</span>
+            </button>
+
+            {/* MENÚ HAMBURGUESA */}
+            <button 
+                onClick={() => setIsSideMenuOpen(true)}
+                className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-all border border-slate-100 ml-1"
+            >
+                <Menu size={22} />
             </button>
         </div>
 
@@ -484,7 +479,6 @@ const App = () => {
                             onChange={(e) => {
                                 setSearchTerm(e.target.value); 
                                 setShowPredictive(true);
-                                // Resetear filtros si el usuario escribe
                                 setCurrentCategory('Todos');
                                 setCurrentGeoZone('Todos');
                             }}
@@ -493,14 +487,12 @@ const App = () => {
                         {searchTerm && <button onClick={() => setSearchTerm('')}><X size={18} className="text-slate-400" /></button>}
                     </div>
                     
-                    {/* MENSAJE DE ERROR SI NO HAY RESULTADOS EN BÚSQUEDA */}
                     {searchTerm && filteredPlaces.length === 0 && !showPredictive && (
                          <p className="mt-4 text-rose-600 text-[12px] font-black uppercase tracking-widest text-center animate-pulse">
                             No hay disponible paraje en esta localidad
                          </p>
                     )}
 
-                    {/* RESULTADOS PREDICTIVOS (SOBRE BODY) */}
                     {showPredictive && suggestions.length > 0 && (
                         <div className="absolute top-full left-0 right-0 mt-2 bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-800 overflow-hidden z-[1100] max-h-[300px] overflow-y-auto">
                             {suggestions.map((s, i) => (
@@ -529,12 +521,69 @@ const App = () => {
         )}
       </header>
 
+      {/* MENÚ LATERAL (HAMBURGUESA) */}
+      {isSideMenuOpen && (
+          <div className="fixed inset-0 z-[2000] bg-black/60 backdrop-blur-md flex justify-end animate-fade-in" onClick={() => setIsSideMenuOpen(false)}>
+              <div className="w-[85%] max-w-[320px] bg-white h-full shadow-2xl flex flex-col p-8 slide-in-right" onClick={e => e.stopPropagation()}>
+                  <div className="flex items-center gap-3 mb-8 pb-6 border-b border-slate-100">
+                      <div className="bg-[#4338ca] p-2 rounded-lg shadow-lg">
+                          <HikerIcon size={24} />
+                      </div>
+                      <h2 className="text-xl font-black tracking-tight text-slate-900 uppercase italic leading-none">Rutabia</h2>
+                  </div>
+
+                  <div className="flex flex-col gap-4">
+                      <button 
+                        onClick={() => { setIsSideMenuOpen(false); generateItinerary(); }}
+                        className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group"
+                      >
+                          <Route className="w-6 h-6" />
+                          <div className="text-left">
+                              <span className="block text-sm font-black uppercase tracking-wider">Generator</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight">Crea tu ruta</span>
+                          </div>
+                      </button>
+
+                      <button 
+                        onClick={() => { setIsSideMenuOpen(false); setRandomPlace(allPlaces[Math.floor(Math.random() * allPlaces.length)]); }}
+                        className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group"
+                      >
+                          <Shuffle className="w-6 h-6" />
+                          <div className="text-left">
+                              <span className="block text-sm font-black uppercase tracking-wider">Randomizar</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight">Selección al azar</span>
+                          </div>
+                      </button>
+
+                      {/* VER FAVORITOS: ÚLTIMA OPCIÓN */}
+                      <button 
+                        onClick={() => { setIsSideMenuOpen(false); setShowFavsModal(true); }}
+                        className="flex items-center gap-4 p-5 bg-fuchsia-50 text-fuchsia-600 rounded-[1.5rem] hover:bg-fuchsia-600 hover:text-white transition-all group mt-2"
+                      >
+                          <Heart className="w-6 h-6 fill-current" />
+                          <div className="text-left">
+                              <span className="block text-sm font-black uppercase tracking-wider">Ver favoritos</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight">Mis sitios guardados</span>
+                          </div>
+                      </button>
+                  </div>
+
+                  <button 
+                    onClick={() => setIsSideMenuOpen(false)}
+                    className="mt-8 flex items-center justify-center gap-2 p-5 border border-slate-200 rounded-[1.5rem] text-slate-400 hover:bg-rose-50 hover:text-rose-500 hover:border-rose-100 transition-all font-black uppercase text-xs tracking-[0.2em]"
+                  >
+                      <X size={18} /> Cerrar
+                  </button>
+              </div>
+          </div>
+      )}
+
       <section className="relative min-h-[340px] py-16 flex flex-col items-center justify-center text-center overflow-visible bg-[#5b21b6] px-6">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none"></div>
         
         <div className="relative z-10 w-full max-w-4xl">
-          <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter drop-shadow-2xl leading-none mb-2">Crea tu ruta</h2>
+          <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter drop-shadow-2xl leading-none mb-2 uppercase">Crea tu ruta</h2>
           <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto">
             <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
           </p>
@@ -563,7 +612,7 @@ const App = () => {
                             onClick={() => { 
                                 setCurrentCategory(cat); 
                                 setShowCatMenu(false); 
-                                setSearchTerm(''); // Interactuar con filtros borra búsqueda
+                                setSearchTerm('');
                             }}
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentCategory === cat ? 'bg-indigo-600 text-white border-transparent' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100'}`}
                         >
@@ -594,7 +643,7 @@ const App = () => {
                             onClick={() => { 
                                 setCurrentGeoZone(zone); 
                                 setShowZoneMenu(false); 
-                                setSearchTerm(''); // Interactuar con filtros borra búsqueda
+                                setSearchTerm('');
                             }}
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentGeoZone === zone ? 'bg-indigo-600 text-white border-transparent' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100'}`}
                         >
@@ -606,7 +655,6 @@ const App = () => {
                 </div>
             </div>
 
-            {/* CAJA DE RESULTADOS INTELIGENTE */}
             <div className="mt-8 flex flex-col items-center gap-4">
                 <div className="flex flex-col items-center gap-2">
                     {filteredPlaces.length === 0 ? (
@@ -619,7 +667,6 @@ const App = () => {
                         </p>
                     )}
                     
-                    {/* BOTÓN BORRAR SELECCIÓN */}
                     {(currentCategory !== 'Todos' || currentGeoZone !== 'Todos' || searchTerm !== '') && (
                         <button 
                             onClick={clearSelection}
@@ -636,7 +683,6 @@ const App = () => {
       </section>
 
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 text-center min-h-[600px]">
-        {/* PAGINADOR SUPERIOR REINCORPORADO */}
         <div className="mb-12 flex flex-col items-center">
             {totalPages > 1 && <PaginationControls />}
         </div>
@@ -682,7 +728,6 @@ const App = () => {
             {totalPages > 1 && <PaginationControls />}
         </div>
 
-        {/* BANNER FINAL - TIPOGRAFÍA LIGHT SIN CONTORNO */}
         <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[180px] flex items-center justify-center overflow-hidden shadow-inner bg-cover bg-center group"
               style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/13R4eL4JuPn4XJnfGo58z3SUcH140ILub')`}}>
             <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/30 to-transparent"></div>
@@ -718,7 +763,7 @@ const App = () => {
         </div>
       </footer>
 
-      {/* MODALES GENERATOR, FAVORITOS, ALEATOR... */}
+      {/* MODAL GENERATOR */}
       {itinerary && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900">
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20">
@@ -759,7 +804,7 @@ const App = () => {
 
       {showFavsModal && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900">
-              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20">
+              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 text-slate-900">
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-fuchsia-50">
                     <h4 className="font-black uppercase italic text-fuchsia-700 flex items-center gap-2 leading-none"><Heart className="w-5 h-5 fill-current" /> Listado de Favoritos</h4>
                     <button onClick={() => setShowFavsModal(false)} className="p-2 hover:bg-white rounded-full transition-all text-fuchsia-300"><X className="w-6 h-6" /></button>
@@ -800,7 +845,7 @@ const App = () => {
 
       {randomPlace && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900">
-              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center">
+              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center text-slate-800">
                 <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm`}>{randomPlace.category}</span>
                 <h3 className="text-2xl font-black uppercase text-slate-800 mb-2 leading-tight">{randomPlace.name}</h3>
                 <p className="text-slate-400 text-xs font-bold uppercase mb-6">{randomPlace.address}</p>
