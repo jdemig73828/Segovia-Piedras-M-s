@@ -164,7 +164,7 @@ const App = () => {
     { id: 34, name: "MOLINO DE ABAJO Y MOLINO DE ENMEDIO", category: "Industrial", coords: "41°27'02.8\"N 4°04'53.0\"W", address: "MEMBRIBRE DE LA HOZ", note: "Conjunto hidráulico harinero en un entorno natural encajonado." },
     { id: 35, name: "MURALLA Y CASTILLO", category: "Historia", coords: "41°26'21.0\"N 3°58'40.6\"W", address: "FUENTIDUEÑA", note: "Importante conjunto defensivo medieval sobre el cerro." },
     { id: 36, name: "LINARES DEL ARROYO", category: "Ruinas", coords: "41°31'24.9\"N 3°33'23.9\"W", address: "MADERUELO", note: "Pueblo sumergido bajo las aguas del embalse de Linares." },
-    { id: 37, name: "IGLESIA DE SAN MARTÍN", category: "Historia", coords: "41°26'21.3\"N 3°58'39.7\"W", address: "FUENTIDUEÑA", note: "Templo románico exento situado en la zona alta de la villa." },
+    { id: 37, name: "IGLESIA DE SAN MARTÍN", category: "Historia", coords: "41°26'21.3\"N 3°58'39.7\"W", address: "FUENTIDUEÑA", note: "Templo románico con elementos defensivos singulares." },
     { id: 38, name: "HOSPITAL DE SANTA MARÍA MAGDALENA", category: "Historia", coords: "41°26'30.5\"N 3°58'52.2\"W", address: "FUENTIDUEÑA", note: "Fundación benéfica medieval de gran interés histórico." },
     { id: 39, name: "ERMITA DE SAN MIGUEL", category: "Historia", coords: "41°29'48.6\"N 3°57'55.2\"W", address: "SACRAMENIA", note: "Joya del románico rural segoviano en un paraje solitario." },
     { id: 40, name: "PALACIO DE LOS CONTRERAS", category: "Historia", coords: "41°29'38.0\"N 4°01'42.0\"W", address: "LAGUNA DE CONTRERAS", note: "Palacio fortificado que conserva su aire de dominio medieval." },
@@ -524,7 +524,7 @@ const App = () => {
       {/* MENÚ LATERAL COMPACTO */}
       {isSideMenuOpen && (
           <div className="fixed inset-0 z-[2000] bg-black/60 backdrop-blur-md flex justify-end animate-fade-in" onClick={() => setIsSideMenuOpen(false)}>
-              <div className="w-[85%] max-w-[320px] bg-white h-full shadow-2xl flex flex-col p-8 pt-6 slide-in-right" onClick={e => e.stopPropagation()}>
+              <div className="w-[85%] max-w-[320px] bg-white h-full shadow-2xl flex flex-col p-8 pt-4 slide-in-right" onClick={e => e.stopPropagation()}>
                   <div className="flex items-center gap-3 mb-6 pb-6 border-b border-slate-100">
                       <div className="bg-[#4338ca] p-2 rounded-lg shadow-lg">
                           <HikerIcon size={24} />
@@ -578,7 +578,7 @@ const App = () => {
           </div>
       )}
 
-      <section className="relative min-h-[340px] py-16 flex flex-col items-center justify-center text-center bg-[#5b21b6] px-6">
+      <section className="relative min-h-[340px] py-16 flex flex-col items-center justify-center text-center overflow-visible bg-[#5b21b6] px-6">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none"></div>
         
@@ -606,17 +606,23 @@ const App = () => {
 
                     {showCatMenu && (
                     <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
-                        {['Todos', 'Historia', 'Ruinas', 'Industrial', 'Naturaleza'].map(cat => (
+                        {[
+                          { name: 'Todos', icon: <Compass className="w-4 h-4" /> },
+                          { name: 'Historia', icon: <Landmark className="w-4 h-4" /> },
+                          { name: 'Ruinas', icon: <Castle className="w-4 h-4" /> },
+                          { name: 'Industrial', icon: <Factory className="w-4 h-4" /> },
+                          { name: 'Naturaleza', icon: <Trees className="w-4 h-4" /> }
+                        ].map(cat => (
                         <button 
-                            key={cat} 
+                            key={cat.name} 
                             onClick={() => { 
-                                setCurrentCategory(cat); 
+                                setCurrentCategory(cat.name); 
                                 setShowCatMenu(false); 
                                 setSearchTerm('');
                             }}
-                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentCategory === cat ? 'bg-indigo-600 text-white border-transparent' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100'}`}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentCategory === cat.name ? 'bg-indigo-600 text-white border-transparent' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100'}`}
                         >
-                            {cat}
+                            {cat.icon} {cat.name}
                         </button>
                         ))}
                     </div>
@@ -647,7 +653,7 @@ const App = () => {
                             }}
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentGeoZone === zone ? 'bg-indigo-600 text-white border-transparent' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100'}`}
                         >
-                            {zone === 'Todos' ? 'Toda la provincia' : `Zona ${zone}`}
+                            <MapPin className="w-4 h-4" /> {zone === 'Todos' ? 'Toda la provincia' : `Zona ${zone}`}
                         </button>
                         ))}
                     </div>
@@ -683,6 +689,7 @@ const App = () => {
       </section>
 
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 text-center min-h-[600px]">
+        {/* PAGINADOR SUPERIOR */}
         <div className="mb-12 flex flex-col items-center">
             {totalPages > 1 && <PaginationControls />}
         </div>
@@ -747,7 +754,7 @@ const App = () => {
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg"><HikerIcon /></div>
               <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none text-white">Rutabia</span>
             </div>
-            <h3 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter leading-none mb-5 uppercase">Crea tu ruta</h3>
+            <h3 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter leading-none mb-5 uppercase">Crea tu ruta</h3>
             <div className="space-y-6">
               <p className="text-white/40 text-[14px] md:text-[16px] lg:text-[18px] leading-relaxed max-w-lg mx-auto tracking-wide font-light italic">
                 <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
@@ -759,7 +766,7 @@ const App = () => {
               </div>
             </div>
           </div>
-          <div className="text-white/30 text-[10px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase">© 2026 RUTABIA</div>
+          <div className="text-white/30 text-[14px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase">© 2026 RUTABIA</div>
         </div>
       </footer>
 
@@ -845,7 +852,7 @@ const App = () => {
 
       {randomPlace && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900">
-              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center text-slate-800">
+              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center">
                 <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm`}>{randomPlace.category}</span>
                 <h3 className="text-2xl font-black uppercase text-slate-800 mb-2 leading-tight">{randomPlace.name}</h3>
                 <p className="text-slate-400 text-xs font-bold uppercase mb-6">{randomPlace.address}</p>
