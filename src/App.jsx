@@ -363,7 +363,6 @@ const App = () => {
     });
   }, [currentCategory, currentGeoZone, searchTerm, allPlaces]);
 
-  // Paginación de 6 en 6
   const totalPages = Math.ceil(filteredPlaces.length / itemsPerPage);
   const displayedPlaces = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
@@ -471,7 +470,6 @@ const App = () => {
               onChange={(e) => {setSearchTerm(e.target.value); setShowPredictive(true);}}
               className="w-full pl-14 pr-24 py-4 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-xl outline-none text-sm font-semibold text-white placeholder:text-white/40 focus:bg-white/20 focus:border-white/40 transition-all"
             />
-            {/* Predictor Gris más oscuro */}
             {showPredictive && suggestions.length > 0 && (
               <div className="absolute top-full left-0 right-0 mt-2 bg-slate-200/98 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-300 overflow-hidden z-[200] animate-fade-in text-left">
                 {suggestions.map((s, i) => (
@@ -587,18 +585,15 @@ const App = () => {
               {idx === 3 && (
                 <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[280px] flex items-center justify-center overflow-hidden mb-12 shadow-inner bg-cover bg-center group"
                      style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/1imhymrWSJERehnHsME05bcDyK1HFrtnG')`}}>
-                   {/* DEGRADADO ALFA: Negro arriba suave */}
                    <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/25 to-transparent"></div>
                    <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-center relative z-20">
                         <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter drop-shadow-2xl"
-                            style={{ WebkitTextStroke: '10px #5b21b6', paintOrder: 'stroke fill' }}>
+                            style={{ WebkitTextStroke: '5px #5b21b6', paintOrder: 'stroke fill' }}>
                           Segovia, piedras y más...
                         </h2>
                    </div>
-                   {/* LÍNEA SOLIDA AL BOTTOM CON ESGRAFIADO DECORATIVO - ALTURA H-5 (MITAD DE ANTES) */}
-                   <div className="absolute bottom-0 left-0 right-0 h-5 bg-[#5b21b6] overflow-hidden">
-                      <div className="absolute inset-0 bg-esgrafiado-pattern opacity-40 mix-blend-overlay"></div>
-                   </div>
+                   {/* FRANJA INFERIOR - 8PX ALTO, COLOR SOLIDO MORADO, SIN ESGRAFIADO */}
+                   <div className="absolute bottom-0 left-0 right-0 h-[8px] bg-[#5b21b6]"></div>
                 </div>
               )}
 
@@ -645,7 +640,6 @@ const App = () => {
       </main>
 
       <footer className="relative bg-[#111827] py-20 px-6 overflow-hidden text-center border-t border-white/5">
-        {/* INTENSIDAD FOOTER AL 5% */}
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.05] pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
