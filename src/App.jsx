@@ -63,7 +63,8 @@ const App = () => {
   const [showPredictive, setShowPredictive] = useState(false);
   
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
+  // MODIFICACIÓN SOLICITADA: Resultados de 6 en 6
+  const itemsPerPage = 6;
 
   useEffect(() => {
     document.title = "Rutabia - Crea tus rutas y excursiones locales";
@@ -279,7 +280,7 @@ const App = () => {
     { id: 159, name: "ERMITA DE SAN ROQUE", category: "Historia", coords: "41°22'24.6\"N 3°39'56.1\"W", address: "ENCINAS", note: "Oratorio místico rodeado de encinas centenarias." },
     { id: 160, name: "FÁBRICA DE HARINAS Y VIVIENDA", category: "Industrial", coords: "41°17'49.5\"N 3°55'56.5\"W", address: "FUENTE REBOLLO", note: "Complejo fabril harinero muy bien conservado." },
     { id: 161, name: "LA CASETA DEL VAQUERO", category: "Naturaleza", coords: "41°20'26.6\"N 3°58'05.7\"W", address: "NAVALILLA", note: "Pequeño refugio de pastores en el entorno natural de Navalilla." },
-    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenio hidráulicos representativos de la comarca." },
+    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenio harinero representativo de la comarca." },
     { id: 163, name: "COLMENARES", category: "Industrial", coords: "41°24'26.7\"N 3°44'47.4\"W", address: "NAVARES DE LAS CUEVAS", note: "Arquitectura tradicional para la explotación de la miel." },
     { id: 164, name: "DESPOBLADO DE CABRERIZOS", category: "Ruinas", coords: "41°12'55.6\"N 3°39'58.3\"W", address: "SANTA MARTA DEL CERRO", note: "Aldea mística que hoy permanece en el recuerdo." },
     { id: 165, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°10'50.4\"N 3°33'48.3\"W", address: "SANTO TOMÉ DEL PUERTO", note: "Estructura ferroviaria en la falda de Somosierra." },
@@ -337,7 +338,7 @@ const App = () => {
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos." }
   ], []);
 
-  // --- LÓGICA PREDICTIVA ---
+  // --- LÓGICA PREDICTIVA (Sugerencias inteligentes) ---
   const suggestions = useMemo(() => {
     if (!searchTerm.trim()) return [];
     const matches = new Set();
@@ -438,7 +439,7 @@ const App = () => {
                 <Shuffle className="w-4 h-4" />
                 <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Aleator</span>
             </button>
-            <button onClick={() => setShowFavsModal(true)} className="flex items-center gap-2 px-3 py-1.5 bg-fuchsia-50 text-fuchsia-600 rounded-full hover:bg-fuchsia-600 hover:text-white transition-all shadow-sm active:scale-95">
+            <button onClick={() => setShowFavsModal(true)} className="flex items-center gap-2 px-3 py-1.5 bg-fuchsia-600 text-white rounded-full hover:bg-fuchsia-700 transition-all shadow-sm active:scale-95">
                 <Heart className="w-4 h-4 fill-current" />
                 <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Ver favoritos</span>
             </button>
@@ -450,7 +451,7 @@ const App = () => {
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay"></div>
         <div className="relative z-10 w-full max-w-2xl">
           <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 leading-none text-balance font-light text-white">
-            <span className="font-black">Crea</span> tu ruta
+            <span className="font-black text-white text-3xl md:text-5xl uppercase">Crea</span> tu ruta
           </h2>
           <p className="text-white text-[10px] md:text-xs mb-8 opacity-90 tracking-wide font-light">
             <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
