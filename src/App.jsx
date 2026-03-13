@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route, ChevronDown, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
 
-// Cargamos Analytics de forma dinámica para evitar errores de resolución en el entorno de previsualización
+// Cargamos Analytics de forma dinámica para evitar errores de resolución en el entorno de edición/Vercel
 const Analytics = React.lazy(() => 
   import("@vercel/analytics/react")
     .then(mod => ({ default: mod.Analytics }))
@@ -60,8 +60,8 @@ const App = () => {
   const [showZoneMenu, setShowZoneMenu] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [showFavsModal, setShowFavsModal] = useState(false);
+  const [showPredictive, setShowPredictive] = useState(false);
   
-  // Paginación de 12 en 12
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
@@ -72,10 +72,14 @@ const App = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Reset de página al filtrar
   useEffect(() => {
     setCurrentPage(1);
   }, [currentCategory, currentGeoZone, searchTerm]);
+
+  const normalize = (str) => {
+    if (!str) return "";
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+  };
 
   const dmsToDec = (dms) => {
     if(!dms) return 0;
@@ -275,7 +279,7 @@ const App = () => {
     { id: 159, name: "ERMITA DE SAN ROQUE", category: "Historia", coords: "41°22'24.6\"N 3°39'56.1\"W", address: "ENCINAS", note: "Oratorio místico rodeado de encinas centenarias." },
     { id: 160, name: "FÁBRICA DE HARINAS Y VIVIENDA", category: "Industrial", coords: "41°17'49.5\"N 3°55'56.5\"W", address: "FUENTE REBOLLO", note: "Complejo fabril harinero muy bien conservado." },
     { id: 161, name: "LA CASETA DEL VAQUERO", category: "Naturaleza", coords: "41°20'26.6\"N 3°58'05.7\"W", address: "NAVALILLA", note: "Pequeño refugio de pastores en el entorno natural de Navalilla." },
-    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenios hidráulicos representativos de la comarca." },
+    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenio hidráulicos representativos de la comarca." },
     { id: 163, name: "COLMENARES", category: "Industrial", coords: "41°24'26.7\"N 3°44'47.4\"W", address: "NAVARES DE LAS CUEVAS", note: "Arquitectura tradicional para la explotación de la miel." },
     { id: 164, name: "DESPOBLADO DE CABRERIZOS", category: "Ruinas", coords: "41°12'55.6\"N 3°39'58.3\"W", address: "SANTA MARTA DEL CERRO", note: "Aldea mística que hoy permanece en el recuerdo." },
     { id: 165, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°10'50.4\"N 3°33'48.3\"W", address: "SANTO TOMÉ DEL PUERTO", note: "Estructura ferroviaria en la falda de Somosierra." },
@@ -333,27 +337,30 @@ const App = () => {
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos." }
   ], []);
 
-  // --- LÓGICA DE FILTRADO INTELIGENTE (Normalización de búsqueda mejorada) ---
-  const normalize = (str) => {
-    if (!str) return "";
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
-  };
+  // --- LÓGICA PREDICTIVA ---
+  const suggestions = useMemo(() => {
+    if (!searchTerm.trim()) return [];
+    const matches = new Set();
+    const term = normalize(searchTerm);
+    allPlaces.forEach(p => {
+        if (normalize(p.address).includes(term)) matches.add(p.address.toUpperCase());
+        if (normalize(p.name).includes(term)) matches.add(p.name.toUpperCase());
+    });
+    return Array.from(matches).slice(0, 12);
+  }, [searchTerm, allPlaces]);
 
   const filteredPlaces = useMemo(() => {
     return allPlaces.filter(p => {
       const matchCategory = currentCategory === 'Todos' || p.category === currentCategory;
       const matchZone = currentGeoZone === 'Todos' || getCardinal(p.coords) === currentGeoZone;
       const normalizedTerm = normalize(searchTerm);
-      
       const matchSearch = normalizedTerm === "" || 
                           normalize(p.name).includes(normalizedTerm) || 
                           normalize(p.address).includes(normalizedTerm);
-      
       return matchCategory && matchZone && matchSearch;
     });
   }, [currentCategory, currentGeoZone, searchTerm, allPlaces]);
 
-  // Paginación de 12 en 12
   const totalPages = Math.ceil(filteredPlaces.length / itemsPerPage);
   const displayedPlaces = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
@@ -377,12 +384,6 @@ const App = () => {
     setItinerary({ zone: zoneToUse, places: withDist });
   };
 
-  const handleRandomPlace = () => {
-    const item = allPlaces[Math.floor(Math.random() * allPlaces.length)];
-    setRandomPlace(item);
-  };
-
-  // Componente de Paginación Reutilizable
   const PaginationControls = () => (
     <div className="flex items-center gap-2">
         <button 
@@ -395,7 +396,7 @@ const App = () => {
         <div className="flex items-center gap-1">
             {[...Array(totalPages)].map((_, i) => {
                 if (totalPages > 5 && Math.abs(currentPage - (i + 1)) > 2) {
-                    if (i === 0 || i === totalPages - 1) return <span key={i} className="px-1 text-slate-300">.</span>;
+                    if (i === 0 || i === totalPages - 1) return <span key={i} className="px-0.5 text-slate-300">.</span>;
                     return null;
                 }
                 return (
@@ -421,7 +422,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100">
-      <header className="sticky top-0 z-50 h-14 bg-white/90 backdrop-blur-md px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm">
+      <header className="sticky top-0 z-[150] h-14 bg-white/90 backdrop-blur-md px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm">
         <div className="flex items-center gap-2">
           <div className="bg-[#4338ca] p-1.5 rounded-md shadow-sm">
             <HikerIcon />
@@ -429,26 +430,27 @@ const App = () => {
           <h1 className="text-sm font-black tracking-tight text-slate-900 uppercase italic leading-none">Rutabia</h1>
         </div>
         <div className="flex items-center gap-2 md:gap-3">
-            <button onClick={() => setShowFavsModal(true)} className="flex items-center gap-2 px-3 py-1.5 bg-fuchsia-50 text-fuchsia-600 rounded-full hover:bg-fuchsia-600 hover:text-white transition-all shadow-sm active:scale-95">
-                <Heart className="w-4 h-4 fill-current" />
-                <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Ver favoritos</span>
-            </button>
             <button onClick={generateItinerary} className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
                 <Route className="w-4 h-4" />
                 <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Generator</span>
             </button>
-            <button onClick={handleRandomPlace} className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
+            <button onClick={() => setRandomPlace(allPlaces[Math.floor(Math.random() * allPlaces.length)])} className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-full hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
                 <Shuffle className="w-4 h-4" />
                 <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Aleator</span>
+            </button>
+            <button onClick={() => setShowFavsModal(true)} className="flex items-center gap-2 px-3 py-1.5 bg-fuchsia-50 text-fuchsia-600 rounded-full hover:bg-fuchsia-600 hover:text-white transition-all shadow-sm active:scale-95">
+                <Heart className="w-4 h-4 fill-current" />
+                <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Ver favoritos</span>
             </button>
         </div>
       </header>
 
       <section className="relative min-h-[240px] py-12 flex flex-col items-center justify-center text-center overflow-hidden bg-[#5b21b6] px-6">
-        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.20] mix-blend-overlay"></div>
+        {/* INTENSIDAD HERO AL 30% */}
+        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay"></div>
         <div className="relative z-10 w-full max-w-2xl">
           <h2 className="text-2xl md:text-3xl text-white uppercase tracking-[0.1em] mb-1 leading-none text-balance font-light text-white">
-            <span className="font-black text-white">Crea</span> tu ruta
+            <span className="font-black">Crea</span> tu ruta
           </h2>
           <p className="text-white text-[10px] md:text-xs mb-8 opacity-90 tracking-wide font-light">
             <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
@@ -460,30 +462,47 @@ const App = () => {
               type="text" 
               placeholder="Buscar parajes o municipios..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onFocus={() => setShowPredictive(true)}
+              onChange={(e) => {setSearchTerm(e.target.value); setShowPredictive(true);}}
               className="w-full pl-14 pr-24 py-4 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-xl outline-none text-sm font-semibold text-white placeholder:text-white/40 focus:bg-white/20 focus:border-white/40 transition-all"
             />
+            {showPredictive && suggestions.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-slate-100/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-[200] animate-fade-in text-left">
+                {suggestions.map((s, i) => (
+                  <button 
+                    key={i}
+                    onClick={() => {setSearchTerm(s); setShowPredictive(false);}}
+                    className="w-full px-5 py-3 hover:bg-white flex items-center justify-between group transition-colors border-b border-slate-200/50 last:border-0"
+                  >
+                    <div className="flex items-center gap-3">
+                        <MapPin size={14} className="text-slate-400 group-hover:text-[#4338ca]" />
+                        <span className="text-slate-600 text-[11px] font-black uppercase tracking-tight">{s}</span>
+                    </div>
+                    <ChevronRight size={14} className="text-slate-300 opacity-0 group-hover:opacity-100 transition-all" />
+                  </button>
+                ))}
+              </div>
+            )}
             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
                 {searchTerm && (
-                    <button onClick={() => setSearchTerm('')} className="p-1.5 rounded-full hover:bg-white/10 text-white/50 hover:text-white transition-all">
+                    <button onClick={() => {setSearchTerm(''); setShowPredictive(false);}} className="p-1.5 rounded-full hover:bg-white/10 text-white/50 hover:text-white transition-all">
                         <X className="w-4 h-4" />
                     </button>
                 )}
                 <button className="px-3 py-1.5 bg-white/20 text-white rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-white/40 transition-all">Buscar</button>
             </div>
           </div>
-          {searchTerm && filteredPlaces.length === 0 && (
+          {searchTerm && filteredPlaces.length === 0 && !showPredictive && (
              <p className="mt-4 text-rose-300 text-[10px] font-bold uppercase tracking-widest animate-pulse">No hay disponible paraje en esta localidad</p>
           )}
         </div>
       </section>
 
-      <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 pb-48 text-center">
+      <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 text-center">
         <div className="inline-block w-full max-w-4xl">
-          <h3 className="text-[11px] font-medium lowercase tracking-[0.2em] text-[#5b21b6] mb-6">Selecciona ubicaciones por categoría</h3>
+          <h3 className="text-[11px] font-black tracking-[0.2em] text-[#5b21b6] mb-6">Selecciona ubicaciones por categoría</h3>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            {/* SELECTOR CATEGORIAS CONDUCTUAL */}
             <div className="relative w-full sm:w-auto">
                 <button 
                 onClick={() => { setShowCatMenu(!showCatMenu); setShowZoneMenu(false); }}
@@ -491,13 +510,13 @@ const App = () => {
                 >
                     <div className="flex items-center gap-3">
                         <BarChart2 className="w-4 h-4 text-[#4338ca]" />
-                        <span className="text-xs font-black uppercase tracking-widest text-slate-700">Categorías</span>
+                        <span className="text-xs font-black uppercase tracking-widest text-slate-700">{currentCategory === 'Todos' ? 'Categorías' : currentCategory}</span>
                     </div>
                     <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${showCatMenu ? 'rotate-180' : ''}`} />
                 </button>
 
                 {showCatMenu && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[280px] sm:w-[500px] p-4 bg-white rounded-[2rem] shadow-2xl border border-slate-100 z-[100] animate-fade-in grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[calc(100vw-2rem)] sm:w-[240px] max-w-[90vw] p-4 bg-white rounded-[2rem] shadow-2xl border border-slate-100 z-[200] animate-fade-in flex flex-col gap-2">
                     {[
                     { name: 'Todos', icon: <Compass className="w-4 h-4" /> },
                     { name: 'Historia', icon: <Landmark className="w-4 h-4" /> },
@@ -517,7 +536,6 @@ const App = () => {
                 )}
             </div>
 
-            {/* SELECTOR ZONA CONDUCTUAL */}
             <div className="relative w-full sm:w-auto">
                 <button 
                 onClick={() => { setShowZoneMenu(!showZoneMenu); setShowCatMenu(false); }}
@@ -525,13 +543,13 @@ const App = () => {
                 >
                     <div className="flex items-center gap-3">
                         <Compass className="w-4 h-4 text-[#4338ca]" />
-                        <span className="text-xs font-black uppercase tracking-widest text-slate-700">Filtrar por zona</span>
+                        <span className="text-xs font-black uppercase tracking-widest text-slate-700">{currentGeoZone === 'Todos' ? 'Filtrar por zona' : currentGeoZone}</span>
                     </div>
                     <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${showZoneMenu ? 'rotate-180' : ''}`} />
                 </button>
 
                 {showZoneMenu && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[240px] p-4 bg-white rounded-[2rem] shadow-2xl border border-slate-100 z-[100] animate-fade-in grid grid-cols-1 gap-2">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[calc(100vw-2rem)] sm:w-[240px] max-w-[90vw] p-4 bg-white rounded-[2rem] shadow-2xl border border-slate-100 z-[200] animate-fade-in flex flex-col gap-2">
                     {['Todos', 'Norte', 'Sur', 'Este', 'Oeste'].map(zone => (
                     <button 
                         key={zone} 
@@ -546,9 +564,8 @@ const App = () => {
             </div>
           </div>
 
-          {/* CONTADOR Y PAGINACIÓN SUPERIOR */}
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6">
-            <p className="text-[10px] lowercase tracking-[0.2em] text-slate-400/80 bg-slate-50 px-4 py-1.5 rounded-full border border-slate-100 shadow-sm">
+            <p className="text-[10px] tracking-[0.2em] text-slate-400/60 bg-slate-50 px-4 py-1.5 rounded-full border border-slate-100 shadow-sm font-medium">
                 Mostrando {filteredPlaces.length} sitios de {allPlaces.length}
             </p>
             {totalPages > 1 && <PaginationControls />}
@@ -569,7 +586,7 @@ const App = () => {
                   
                   <button 
                     onClick={() => toggleFavorite(p.id)}
-                    className={`absolute top-4 right-4 z-30 p-2.5 rounded-xl backdrop-blur-md border transition-all ${favorites.includes(p.id) ? 'bg-fuchsia-500 text-white border-fuchsia-400 shadow-lg' : 'bg-white/40 text-slate-400 border-white/40 hover:bg-white hover:text-fuchsia-500'}`}
+                    className={`absolute top-4 right-4 z-30 p-2.5 rounded-xl backdrop-blur-md border transition-all ${favorites.includes(p.id) ? 'bg-fuchsia-600 text-white border-fuchsia-400 shadow-lg' : 'bg-white/40 text-slate-400 border-white/40 hover:bg-white hover:text-fuchsia-600'}`}
                   >
                     <Heart className={`w-5 h-5 ${favorites.includes(p.id) ? 'fill-current' : ''}`} />
                   </button>
@@ -592,23 +609,24 @@ const App = () => {
           ))}
         </div>
 
-        {/* PAGINACIÓN INFERIOR REPETIDA */}
+        {/* PAGINACIÓN INFERIOR CON MARGEN DE 72PX RESPECTO AL FOOTER */}
         {totalPages > 1 && (
-            <div className="mt-16 flex justify-center pb-8 border-b border-slate-100">
+            <div className="mt-16 flex justify-center pb-2 mb-[72px] border-b border-slate-100">
                 <PaginationControls />
             </div>
         )}
       </main>
 
-      <footer className="relative bg-[#111827] py-24 md:py-32 px-6 overflow-hidden text-center border-t border-white/5">
-        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.13] pointer-events-none"></div>
+      <footer className="relative bg-[#111827] py-20 px-6 overflow-hidden text-center border-t border-white/5">
+        {/* INTENSIDAD FOOTER AL 5% */}
+        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.05] pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg"><HikerIcon /></div>
               <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none text-white">Rutabia</span>
             </div>
-            <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight uppercase">Crea tu ruta</h3>
+            <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter mb-5 leading-tight uppercase text-white">Crea tu ruta</h3>
             <div className="space-y-6">
               <p className="text-white/40 text-[11px] leading-relaxed max-w-lg mx-auto uppercase tracking-widest font-black italic text-white/60">
                 <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
@@ -624,6 +642,7 @@ const App = () => {
         </div>
       </footer>
 
+      {/* MODAL GENERATOR - INCLUYE DESCRIPCIONES */}
       {itinerary && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20">
@@ -631,7 +650,7 @@ const App = () => {
                     <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none"><Route className="w-5 h-5" /> Ruta Zona {itinerary.zone}</h4>
                     <button onClick={() => setItinerary(null)} className="p-2 hover:bg-white rounded-full transition-all text-indigo-300"><X className="w-6 h-6" /></button>
                 </div>
-                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12">
+                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left">
                     {itinerary.places.map((p, idx) => (
                         <div key={p.id} className="relative">
                             {p.kmFromPrev && (
@@ -648,6 +667,7 @@ const App = () => {
                                         <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white text-[7px] font-black uppercase rounded leading-none`}>{p.category}</span>
                                     </div>
                                     <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tight">{p.address}</p>
+                                    <p className="text-[11px] text-slate-500 italic mb-3 leading-relaxed">"{p.note}"</p>
                                     <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline leading-none">Ver punto →</a>
                                 </div>
                             </div>
@@ -663,6 +683,7 @@ const App = () => {
           </div>
       )}
 
+      {/* MODAL FAVORITOS */}
       {showFavsModal && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20">
@@ -670,7 +691,7 @@ const App = () => {
                     <h4 className="font-black uppercase italic text-fuchsia-700 flex items-center gap-2 leading-none"><Heart className="w-5 h-5 fill-current" /> Listado de Favoritos</h4>
                     <button onClick={() => setShowFavsModal(false)} className="p-2 hover:bg-white rounded-full transition-all text-fuchsia-300"><X className="w-6 h-6" /></button>
                 </div>
-                <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh]">
+                <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh] text-left">
                     {favorites.length === 0 ? (
                         <div className="text-center py-20">
                             <Info className="w-12 h-12 text-slate-200 mx-auto mb-4" />
