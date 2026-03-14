@@ -94,7 +94,6 @@ const App = () => {
     return dec;
   };
 
-  // --- ARREGLO FINAL CÁLCULO DISTANCIAS REALISTAS ---
   const calculateDistance = (coords1, coords2) => {
     const getCoords = (str) => {
         const parts = str.trim().split(/\s+(?=[0-9])/);
@@ -104,7 +103,7 @@ const App = () => {
     const [lat1, lon1] = getCoords(coords1);
     const [lat2, lon2] = getCoords(coords2);
     
-    const R = 6371; // Radio Tierra km
+    const R = 6371; 
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180; 
     
@@ -287,9 +286,9 @@ const App = () => {
     { id: 157, name: "ERMITA", category: "Historia", coords: "41°13'12.4\"N 3°35'45.7\"W", address: "CEREZO DE ABAJO", note: "Edificación religiosa sencilla pero de gran valor etnográfico." },
     { id: 158, name: "DESPOBLADO DE CORRAL DE DURATÓN", category: "Ruinas", coords: "41°17'17.5\"N 3°41'45.0\"W", address: "CORRAL DE DURATÓN", note: "Restos de población cercanos al cauce del río místico." },
     { id: 159, name: "ERMITA DE SAN ROQUE", category: "Historia", coords: "41°22'24.6\"N 3°39'56.1\"W", address: "ENCINAS", note: "Oratorio místico rodeado de encinas centenarias." },
-    { id: 160, name: "FÁBRICA DE HARINAS Y VIVIENDA", category: "Industrial", coords: "41°17'49.5\"N 3°55'56.5\"W", address: "FUENTE REBOLLO", note: "Complejo fabril harinero muy bien conservado." },
+    { id: 160, name: "FÁBRICA DE HARINAS Y VIVIENDA", category: "Industrial", coords: "41°17'49.5\"N 3°55'56.5\"W", address: "FUENTE REBOLLO", note: "Compleplejo fabril harinero muy bien conservado." },
     { id: 161, name: "LA CASETA DEL VAQUERO", category: "Naturaleza", coords: "41°20'26.6\"N 3°58'05.7\"W", address: "NAVALILLA", note: "Pequeño refugio de pastores en el entorno natural de Navalilla." },
-    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenios hidráulicos representativos de la comarca." },
+    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenios hidráulicos muy relevantes." },
     { id: 163, name: "COLMENARES", category: "Industrial", coords: "41°24'26.7\"N 3°44'47.4\"W", address: "NAVARES DE LAS CUEVAS", note: "Arquitectura tradicional para la explotación de la miel." },
     { id: 164, name: "DESPOBLADO DE CABRERIZOS", category: "Ruinas", coords: "41°12'55.6\"N 3°39'58.3\"W", address: "SANTA MARTA DEL CERRO", note: "Aldea mística que hoy permanece en el recuerdo." },
     { id: 165, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°10'50.4\"N 3°33'48.3\"W", address: "SANTO TOMÉ DEL PUERTO", note: "Estructura ferroviaria en la falda de Somosierra." },
@@ -447,7 +446,6 @@ const App = () => {
         </div>
         
         <div className="flex items-center gap-2 md:gap-3 flex-1 justify-end h-full">
-            {/* BOTÓN BUSCAR */}
             <button 
               onClick={() => setIsHeaderSearchOpen(!isHeaderSearchOpen)}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all shadow-sm active:scale-90 ${isHeaderSearchOpen ? 'bg-indigo-600 text-white' : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white'}`}
@@ -456,7 +454,6 @@ const App = () => {
                 <span className="text-[10px] font-bold uppercase tracking-wider">Buscar</span>
             </button>
 
-            {/* MENÚ HAMBURGUESA */}
             <button 
                 onClick={() => setIsSideMenuOpen(true)}
                 className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-all border border-slate-100 ml-1"
@@ -465,7 +462,6 @@ const App = () => {
             </button>
         </div>
 
-        {/* PANEL BUSCADOR DESPLEGABLE INFERIOR */}
         {isHeaderSearchOpen && (
             <div className="absolute top-full left-0 right-0 bg-white border-b border-slate-200 shadow-2xl p-4 z-[1001] animate-fade-in">
                 <div className="max-w-3xl mx-auto relative">
@@ -521,7 +517,6 @@ const App = () => {
         )}
       </header>
 
-      {/* MENÚ LATERAL COMPACTO */}
       {isSideMenuOpen && (
           <div className="fixed inset-0 z-[2000] bg-black/60 backdrop-blur-md flex justify-end animate-fade-in" onClick={() => setIsSideMenuOpen(false)}>
               <div className="w-[85%] max-w-[320px] bg-white h-full shadow-2xl flex flex-col p-8 pt-4 slide-in-right" onClick={e => e.stopPropagation()}>
@@ -532,7 +527,7 @@ const App = () => {
                       <h2 className="text-xl font-black tracking-tight text-slate-900 uppercase italic leading-none">Rutabia</h2>
                   </div>
 
-                  <div className="flex flex-col gap-3 flex-1">
+                  <div className="flex flex-col gap-3 flex-1 text-slate-800">
                       <button 
                         onClick={() => { setIsSideMenuOpen(false); generateItinerary(); }}
                         className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group"
@@ -544,7 +539,6 @@ const App = () => {
                           </div>
                       </button>
 
-                      {/* RANDOMIZER ACTUALIZADO CON DISEÑO AZUL */}
                       <button 
                         onClick={() => { setIsSideMenuOpen(false); setRandomPlace(allPlaces[Math.floor(Math.random() * allPlaces.length)]); }}
                         className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group"
@@ -570,7 +564,7 @@ const App = () => {
 
                   <button 
                     onClick={() => setIsSideMenuOpen(false)}
-                    className="mt-4 flex items-center justify-center gap-2 p-5 border border-slate-200 rounded-[1.5rem] text-slate-400 hover:bg-rose-50 hover:text-rose-500 transition-all font-black uppercase text-xs tracking-[0.2em]"
+                    className="mt-4 flex items-center justify-center gap-2 p-5 border-2 border-rose-500 rounded-[1.5rem] text-slate-800 hover:bg-rose-50 hover:text-rose-600 transition-all font-black uppercase text-xs tracking-[0.2em]"
                   >
                       <X size={18} /> Cerrar
                   </button>
@@ -584,7 +578,7 @@ const App = () => {
         
         <div className="relative z-10 w-full max-w-4xl">
           <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter drop-shadow-2xl leading-none mb-2 uppercase">Crea tu ruta</h2>
-          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto">
+          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance">
             <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
           </p>
 
@@ -620,7 +614,7 @@ const App = () => {
                                 setShowCatMenu(false); 
                                 setSearchTerm('');
                             }}
-                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentCategory === cat.name ? 'bg-indigo-600 text-white border-transparent' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100'}`}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentCategory === cat.name ? 'bg-indigo-600 text-white border-transparent' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100 text-left'}`}
                         >
                             {cat.icon} {cat.name}
                         </button>
@@ -642,7 +636,7 @@ const App = () => {
                     </button>
 
                     {showZoneMenu && (
-                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
+                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2 text-slate-800">
                         {['Todos', 'Norte', 'Sur', 'Este', 'Oeste'].map(zone => (
                         <button 
                             key={zone} 
@@ -653,7 +647,7 @@ const App = () => {
                             }}
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentGeoZone === zone ? 'bg-indigo-600 text-white border-transparent' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100'}`}
                         >
-                            <MapPin className="w-4 h-4" /> {zone === 'Todos' ? 'Toda la provincia' : `Zona ${zone}`}
+                            <MapPin className="w-4 h-4 text-indigo-500" /> {zone === 'Todos' ? 'Toda la provincia' : `Zona ${zone}`}
                         </button>
                         ))}
                     </div>
@@ -676,7 +670,7 @@ const App = () => {
                     {(currentCategory !== 'Todos' || currentGeoZone !== 'Todos' || searchTerm !== '') && (
                         <button 
                             onClick={clearSelection}
-                            className="flex items-center gap-2 text-white/60 hover:text-white transition-all text-[11px] font-bold uppercase tracking-widest mt-2 group"
+                            className="flex items-center gap-2 text-white/60 hover:text-white transition-all text-[11px] font-bold uppercase tracking-widest mt-6 group"
                         >
                             <Eraser size={14} className="group-hover:rotate-12 transition-transform" />
                             Borrar selección
@@ -689,7 +683,6 @@ const App = () => {
       </section>
 
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 text-center min-h-[600px]">
-        {/* PAGINADOR SUPERIOR */}
         <div className="mb-12 flex flex-col items-center">
             {totalPages > 1 && <PaginationControls />}
         </div>
@@ -713,8 +706,8 @@ const App = () => {
                       <Heart className={`w-5 h-5 ${favorites.includes(p.id) ? 'fill-current' : ''}`} />
                     </button>
 
-                    <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2">
-                      <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
+                    <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2 text-white">
+                      <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
                       <div className="px-2.5 py-1 bg-white/60 backdrop-blur-sm rounded-lg border border-white/40 shadow-sm"><p className="text-[10px] font-mono text-slate-600 font-bold tracking-wider leading-none">{p.coords}</p></div>
                     </div>
                   </div>
@@ -770,13 +763,19 @@ const App = () => {
         </div>
       </footer>
 
-      {/* MODAL GENERATOR */}
+      {/* MODALES GENERATOR, FAVORITOS, ALEATOR... */}
       {itinerary && (
-          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900">
-              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20">
+          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setItinerary(null)}>
+              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative" onClick={e => e.stopPropagation()}>
+                <button 
+                    onClick={() => setItinerary(null)} 
+                    className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all text-slate-400 z-10"
+                >
+                    <X className="w-6 h-6" />
+                </button>
+
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50">
                     <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none"><Route className="w-5 h-5" /> Ruta Zona {itinerary.zone}</h4>
-                    <button onClick={() => setItinerary(null)} className="p-2 hover:bg-white rounded-full transition-all text-indigo-300"><X className="w-6 h-6" /></button>
                 </div>
                 <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left">
                     {itinerary.places.map((p, idx) => (
@@ -802,7 +801,14 @@ const App = () => {
                         </div>
                     ))}
                     <div className="pt-6 border-t border-slate-100 mt-8 pb-10 px-4 text-center">
-                        <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto" />Ver ruta</a>
+                        <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95 mb-10"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto" />Ver ruta</a>
+                        
+                        <button 
+                            onClick={() => setItinerary(null)} 
+                            className="mt-6 text-slate-400 hover:text-indigo-600 text-[11px] font-black uppercase tracking-widest transition-colors"
+                        >
+                            Cerrar
+                        </button>
                     </div>
                 </div>
               </div>
@@ -810,13 +816,13 @@ const App = () => {
       )}
 
       {showFavsModal && (
-          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900">
-              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 text-slate-900">
+          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setShowFavsModal(false)}>
+              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 text-slate-900" onClick={e => e.stopPropagation()}>
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-fuchsia-50">
                     <h4 className="font-black uppercase italic text-fuchsia-700 flex items-center gap-2 leading-none"><Heart className="w-5 h-5 fill-current" /> Listado de Favoritos</h4>
-                    <button onClick={() => setShowFavsModal(false)} className="p-2 hover:bg-white rounded-full transition-all text-fuchsia-300"><X className="w-6 h-6" /></button>
+                    <button onClick={() => setShowFavsModal(false)} className="p-2 hover:bg-fuchsia-100 hover:text-fuchsia-600 rounded-full transition-all text-fuchsia-300"><X className="w-6 h-6" /></button>
                 </div>
-                <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh] text-left">
+                <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh] text-left text-slate-800">
                     {favorites.length === 0 ? (
                         <div className="text-center py-20">
                             <Info className="w-12 h-12 text-slate-200 mx-auto mb-4" />
@@ -851,15 +857,28 @@ const App = () => {
       )}
 
       {randomPlace && (
-          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900">
-              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center">
+          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setRandomPlace(null)}>
+              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center relative" onClick={e => e.stopPropagation()}>
+                <button 
+                    onClick={() => setRandomPlace(null)} 
+                    className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all text-slate-400 z-10"
+                >
+                    <X className="w-6 h-6" />
+                </button>
+
                 <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm`}>{randomPlace.category}</span>
                 <h3 className="text-2xl font-black uppercase text-slate-800 mb-2 leading-tight">{randomPlace.name}</h3>
                 <p className="text-slate-400 text-xs font-bold uppercase mb-6">{randomPlace.address}</p>
                 <p className="text-slate-500 italic text-sm mb-10 leading-relaxed">"{randomPlace.note}"</p>
                 <div className="flex flex-col gap-3">
                     <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:scale-105 transition-transform">Abrir en Mapa</a>
-                    <button onClick={() => setRandomPlace(null)} className="text-slate-400 text-[10px] font-bold uppercase tracking-widest hover:text-slate-600 mt-2 transition-colors">Cerrar</button>
+                    
+                    <button 
+                        onClick={() => setRandomPlace(null)} 
+                        className="text-slate-800 text-[10px] font-bold uppercase tracking-widest hover:text-indigo-600 mt-8 transition-colors"
+                    >
+                        Cerrar
+                    </button>
                 </div>
               </div>
           </div>
