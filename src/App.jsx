@@ -125,6 +125,7 @@ const App = () => {
     return lonDiff > 0 ? "Este" : "Oeste";
   };
 
+  // --- BASE DE DATOS INTEGRAL ---
   const allPlaces = useMemo(() => [
     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas." },
@@ -435,7 +436,7 @@ const App = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100 text-[18px] sm:text-[20px]">
+    <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100 text-[20px] sm:text-[22px] lg:text-[20px]">
       <header className="sticky top-0 z-[1000] h-14 bg-white px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm overflow-visible">
         <div className="flex items-center gap-2">
           <div className="bg-[#4338ca] p-1.5 rounded-md shadow-sm">
@@ -444,7 +445,7 @@ const App = () => {
           <h1 className="text-sm font-black tracking-tight text-slate-900 uppercase italic leading-none">Rutabia</h1>
         </div>
         
-        <div className="flex items-center gap-2 md:gap-3 flex-1 justify-end h-full">
+        <div className="flex items-center gap-2 md:gap-3 flex-1 justify-end h-full text-slate-800">
             <button 
               onClick={() => setIsHeaderSearchOpen(!isHeaderSearchOpen)}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all shadow-sm active:scale-90 ${isHeaderSearchOpen ? 'bg-indigo-600 text-white' : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white'}`}
@@ -462,7 +463,7 @@ const App = () => {
         </div>
 
         {isHeaderSearchOpen && (
-            <div className="absolute top-full left-0 right-0 bg-white border-b border-slate-200 shadow-2xl p-4 z-[1001] animate-fade-in">
+            <div className="absolute top-full left-0 right-0 bg-white border-b border-slate-200 shadow-2xl p-4 z-[1001] animate-fade-in text-slate-800">
                 <div className="max-w-3xl mx-auto relative">
                     <div className="flex items-center gap-3 bg-slate-100 rounded-2xl px-5 py-3 border border-slate-200 focus-within:ring-2 focus-within:ring-[#4338ca] transition-all">
                         <Search className="text-slate-400" size={20} />
@@ -682,6 +683,7 @@ const App = () => {
       </section>
 
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 text-center min-h-[600px]">
+        {/* PAGINADOR SUPERIOR */}
         <div className="mb-12 flex flex-col items-center">
             {totalPages > 1 && <PaginationControls />}
         </div>
@@ -707,7 +709,7 @@ const App = () => {
 
                     <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2 text-white">
                       <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
-                      <div className="px-2.5 py-1 bg-white/60 backdrop-blur-sm rounded-lg border border-white/40 shadow-sm text-slate-600"><p className="text-[10px] font-mono font-bold tracking-wider leading-none">{p.coords}</p></div>
+                      <div className="px-2.5 py-1 bg-white/60 backdrop-blur-sm rounded-lg border border-white/40 shadow-sm text-slate-600 font-bold"><p className="text-[10px] font-mono leading-none">{p.coords}</p></div>
                     </div>
                   </div>
                   <div className="px-3 flex-grow flex flex-col justify-between">
@@ -760,7 +762,7 @@ const App = () => {
                 <p className="font-bold text-white/70 pt-2 text-balance">Lleva tu oferta al siguiente nivel, ¿hablamos?</p>
                 
                 <div className="pt-4">
-                  <a href="mailto:rutabiasegovia@gmail.com" className="text-fuchsia-500 font-black tracking-widest underline decoration-2 underline-offset-4 hover:text-fuchsia-400 transition-colors">
+                  <a href="mailto:rutabiasegovia@gmail.com" className="text-fuchsia-500 font-black uppercase tracking-widest underline decoration-2 underline-offset-4 hover:text-fuchsia-400 transition-colors">
                     Contactar con Rutabia
                   </a>
                 </div>
@@ -769,8 +771,8 @@ const App = () => {
               <div className="border-t border-white/5 pt-8 max-w-xl mx-auto"></div>
               
               <div className="text-white/30 text-[12px] md:text-[14px] flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 font-medium">
-                <span className="hover:text-white transition-colors cursor-pointer">Política de Privacidad</span>
-                <span className="hover:text-white transition-colors cursor-pointer">Términos y Condiciones</span>
+                <span className="hover:text-white transition-colors cursor-pointer text-slate-400">Política de Privacidad</span>
+                <span className="hover:text-white transition-colors cursor-pointer text-slate-400">Términos y Condiciones</span>
               </div>
 
               <div className="flex flex-col items-center gap-3 transition-opacity opacity-60 hover:opacity-100">
@@ -783,7 +785,7 @@ const App = () => {
         </div>
       </footer>
 
-      {/* MODALES GENERATOR, FAVORITOS, ALEATOR... */}
+      {/* MODAL GENERATOR */}
       {itinerary && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setItinerary(null)}>
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative" onClick={e => e.stopPropagation()}>
@@ -797,19 +799,19 @@ const App = () => {
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50 text-indigo-700">
                     <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none text-indigo-700"><Route className="w-5 h-5" /> Ruta Zona {itinerary.zone}</h4>
                 </div>
-                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left">
+                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left text-slate-800">
                     {itinerary.places.map((p, idx) => (
                         <div key={p.id} className="relative">
                             {p.kmFromPrev && (
                                 <div className="flex flex-col items-center -mt-6 mb-4">
                                     <ArrowDown className="w-5 h-5 text-black mb-1" />
-                                    <span className="text-[9px] font-black text-black uppercase bg-slate-100 px-3 py-1 rounded-full border border-slate-200">A {p.kmFromPrev} km</span>
+                                    <span className="text-[9px] font-black text-black uppercase bg-slate-100 px-3 py-1 rounded-full border border-slate-200 text-slate-800">A {p.kmFromPrev} km</span>
                                 </div>
                             )}
                             <div className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm text-slate-800">
                                 <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-black flex-shrink-0 text-xs">{idx + 1}</div>
                                 <div className="flex-grow">
-                                    <div className="flex items-center gap-2 mb-1">
+                                    <div className="flex items-center gap-2 mb-1 text-slate-800">
                                         <h5 className="font-black uppercase text-sm leading-tight">{p.name}</h5>
                                         <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white text-[7px] font-black uppercase rounded leading-none`}>{p.category}</span>
                                     </div>
@@ -842,7 +844,7 @@ const App = () => {
                     <h4 className="font-black uppercase italic text-fuchsia-700 flex items-center gap-2 leading-none text-fuchsia-700"><Heart className="w-5 h-5 fill-current" /> Listado de Favoritos</h4>
                     <button onClick={() => setShowFavsModal(false)} className="p-2 hover:bg-fuchsia-100 hover:text-fuchsia-600 rounded-full transition-all text-fuchsia-300"><X className="w-6 h-6" /></button>
                 </div>
-                <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh] text-left">
+                <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh] text-left text-slate-800">
                     {favorites.length === 0 ? (
                         <div className="text-center py-20">
                             <Info className="w-12 h-12 text-slate-200 mx-auto mb-4" />
@@ -854,10 +856,10 @@ const App = () => {
                             if (!p) return null;
                             return (
                                 <div key={p.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white transition-all shadow-sm">
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-4 text-slate-800">
                                         <div className={`w-3 h-10 rounded-full ${categoryColors[p.category]}`}></div>
                                         <div>
-                                            <h5 className="font-black uppercase text-slate-800 text-sm leading-tight">{p.name}</h5>
+                                            <h5 className="font-black uppercase text-sm leading-tight">{p.name}</h5>
                                             <p className="text-[9px] font-bold text-slate-400 uppercase">{p.address}</p>
                                         </div>
                                     </div>
@@ -887,7 +889,7 @@ const App = () => {
                 </button>
 
                 <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm`}>{randomPlace.category}</span>
-                <h3 className="text-2xl font-black uppercase text-slate-800 mb-2 leading-tight">{randomPlace.name}</h3>
+                <h3 className="text-2xl font-black uppercase mb-2 leading-tight text-slate-800">{randomPlace.name}</h3>
                 <p className="text-slate-400 text-xs font-bold uppercase mb-6">{randomPlace.address}</p>
                 <p className="text-slate-500 italic text-sm mb-10 leading-relaxed">"{randomPlace.note}"</p>
                 <div className="flex flex-col gap-3">
