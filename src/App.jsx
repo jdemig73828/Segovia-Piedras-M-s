@@ -145,7 +145,7 @@ const App = () => {
     { id: 16, name: "FÁBRICA DE HARINA", category: "Industrial", coords: "41°09'36.1\"N 4°29'19.1\"W", address: "NAVA DE LA ASUNCIÓN", note: "Patrimonio industrial ligado a la explotación cerealista." },
     { id: 17, name: "ERMITA DE SANTA ROSALÍA", category: "Historia", coords: "41°13'21.1\"N 4°31'21.2\"W", address: "COCA", note: "Edificación religiosa situada en el entorno histórico de la villa de Coca.", image: "https://lh3.googleusercontent.com/d/1H4Qy9199zEY225AzNDjzUc84IlBdFLsp" },
     { id: 18, name: "ERMITA DE SAN ANDRÉS", category: "Historia", coords: "41°15'25.8\"N 4°09'45.2\"W", address: "ZARZUELA DEL PINAR", note: "Templo románico rodeado de la inmensidad de los pinares.", image: "https://lh3.googleusercontent.com/d/1yZO7HGi4LScjNgk8EK-Ulo9tY06dAYpY" },
-    { id: 19, name: "ERMITA DE SAN CEBRIÁN", category: "Historia", coords: "41°15'00.0\"N 4°12'36.7\"W", address: "ZARZUELA DEL PINAR", note: "Pequeño santuario medieval en el corazón de Tierra de Pinares.", image: "https://lh3.googleusercontent.com/d/1h8Z2_YXPJzMlWhOJWyCEBR2Xm2am0ekJ" },
+    { id: 19, name: "ERMITA DE SAN CEBRIÁN", category: "Historia", coords: "41°15'00.0\"N 4°12'36.7\"W", address: "ZARZUELA DEL PINAR", note: "Pequeño santuario medieval en el corazón de Tierra de Pinares.", image: "https://lh3.googleusercontent.com/d/1EaWFX44q9pVh4wp77gLo9xPD56k58PZa" },
     { id: 20, name: "MOLINO DE MINGELA", category: "Industrial", coords: "41°22'40.9\"N 4°25'54.4\"W", address: "VALLELADO", note: "Antiguo molino situado en la margen del río Cega." },
     { id: 21, name: "MOLINO DE POTRICOS", category: "Industrial", coords: "41°24'02.7\"N 4°07'27.2\"W", address: "PEROSILLO", note: "Ingenio hidráulico histórico preservado en el paisaje rural." },
     { id: 22, name: "MOLINO DEL PINO", category: "Industrial", coords: "41°23'11.3\"N 4°28'40.2\"W", address: "MATA DE CUÉLLAR", note: "Molino harinero tradicional de construcción en piedra." },
@@ -192,7 +192,7 @@ const App = () => {
     { id: 63, name: "DESPOBLADO DE VILLAREJO", category: "Ruinas", coords: "41°17'54.7\"N 3°40'32.6\"W", address: "EL OLMO", note: "Vestigios de un antiguo nucleus de población hoy desaparecido." },
     { id: 64, name: "DESPOBLADO DE CORRALEJO", category: "Ruinas", coords: "41°17'46.5\"N 3°38'34.4\"W", address: "EL OLMO", note: "Huellas de la historia rural en el campo segoviano." },
     { id: 65, name: "ERMITA DE SAN LORENZO", category: "Historia", coords: "41°19'25.0\"N 3°42'12.3\"W", address: "EL OLMILLO", note: "Pequeño templo románico de gran sencillez y belleza." },
-    { id: 66, name: "CASA PALACIO DE LOS MARQUESES DE CASTROSERNA", category: "Historia", coords: "41°11'23.5\"N 3°42'54.2\"W", address: "CASTROSERNA DE ARRIBA", note: "Edificio señorial representativo de la nobleza segoviana." },
+    { id: 66, name: "CASA PALACIO DE LOS MARQUESES DE CASTROSERNA", category: "Historia", coords: "41°11'23.5\"N 3°42'54.2\"W", address: "CASTROSERNA DE ARRIBA", note: "Edificio señorial representative de la nobleza segoviana." },
     { id: 67, name: "ERMITA DE SAN JULIÁN", category: "Historia", coords: "41°17'51.6\"N 3°47'00.3\"W", address: "CASTRILLO DE SEPÚLVEDA", note: "Lugar de culto tradicional en un entorno paisajístico privilegiado." },
     { id: 68, name: "MOLINO HARINERO", category: "Industrial", coords: "41°21'52.2\"N 3°53'57.7\"W", address: "CARRASCAL DEL RÍO", note: "Ejemplo de la industria molinera fluvial del Duratón." },
     { id: 69, name: "FÁBRICA DE RESINA", category: "Industrial", coords: "41°14'12.5\"N 3°55'35.4\"W", address: "CABEZUELA", note: "Patrimonio industrial ligado a la explotación de los pinos." },
@@ -334,7 +334,7 @@ const App = () => {
     { id: 205, name: "FÁBRICA DE RESINAS", category: "Industrial", coords: "41°12'50.5\"N 4°14'59.9\"W", address: "NAVALMANZANO", note: "Patrimonio industrial vivo de la Tierra de Pinares." },
     { id: 206, name: "FÁBRICA BAUDILIO MESA", category: "Industrial", coords: "41°11'53.0\"N 4°26'09.6\"W", address: "NAVAS DE ORO", note: "Emblemática fábrica de la industria resinera." },
     { id: 207, name: "PALACIO DE BUEN GRADO", category: "Historia", coords: "41°22'51.1\"N 4°09'29.9\"W", address: "PEROSILLO", note: "Antigua residencia señorial de gran importancia." },
-    { id: 208, name: "FÁBRICA DE HARINA", category: "Industrial", coords: "41°15'32.3\"N 4°25'09.2\"W", address: "SAMBOAL", note: "Complejo harinero representativo de la zona mística." },
+    { id: 208, name: "FÁBRICA DE HARINA", category: "Industrial", coords: "41°15'32.3\"N 4°25'09.2\"W", address: "SAMBOAL", note: "Complejo harinero representative de la zona mística." },
     { id: 209, name: "FÁBRICAS ATILANO GILSANZ", category: "Industrial", coords: "41°19'28.3\"N 4°18'12.5\"W", address: "SANCHONUÑO", note: "Doble industria que modernizó el sector agrario." },
     { id: 210, name: "APARTADERO DE TREN", category: "Industrial", coords: "41°13'32.3\"N 4°34'53.6\"W", address: "CIRUELOS DE COCA", note: "Estación mística de la Segovia NO Garleada." },
     { id: 211, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°12'11.4\"N 4°32'33.7\"W", address: "COCA", note: "Punto de transporte vital para la villa ducal." },
@@ -623,7 +623,7 @@ const App = () => {
                     )}
                 </div>
 
-                <div className="relative w-full sm:w-auto text-left text-slate-800 text-slate-800">
+                <div className="relative w-full sm:w-auto text-left text-slate-800">
                     <button 
                     onClick={() => { setShowZoneMenu(!showZoneMenu); setShowCatMenu(false); }}
                     className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
@@ -636,7 +636,7 @@ const App = () => {
                     </button>
 
                     {showZoneMenu && (
-                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
+                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2 text-slate-800">
                         {['Todos', 'Norte', 'Sur', 'Este', 'Oeste'].map(zone => (
                         <button 
                             key={zone} 
@@ -683,14 +683,15 @@ const App = () => {
       </section>
 
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 text-center min-h-[600px]">
+        {/* PAGINADOR SUPERIOR */}
         <div className="mb-12 flex flex-col items-center">
             {totalPages > 1 && <PaginationControls />}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left text-slate-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left">
           {displayedPlaces.map((p) => (
             <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in flex flex-col h-full overflow-hidden text-slate-800`}>
-                <div className="relative z-10 flex flex-col h-full">
+                <div className="relative z-10 flex flex-col h-full text-slate-800">
                   <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}
                        style={p.image ? {backgroundImage: `url(${p.image})`, backgroundSize: 'cover', backgroundPosition: 'center'} : {}}>
                     
@@ -714,16 +715,16 @@ const App = () => {
 
                     <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2">
                       <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
-                      <div className="px-2.5 py-1 bg-white/95 rounded-lg border border-white shadow-sm text-slate-900 font-bold font-bold"><p className="text-[10px] font-mono leading-none">{p.coords}</p></div>
+                      <div className="px-2.5 py-1 bg-white/95 rounded-lg border border-white shadow-sm text-slate-900 font-bold font-bold font-bold font-bold"><p className="text-[10px] font-mono leading-none">{p.coords}</p></div>
                     </div>
                   </div>
                   <div className="px-3 flex-grow flex flex-col justify-between">
                     <div>
                       <h4 className="text-[15px] font-black uppercase mb-1.5 text-slate-800 tracking-tight leading-tight group-hover:text-[#4338ca] transition-colors line-clamp-2">{p.name}</h4>
                       <p className="text-[9px] text-slate-400 font-bold uppercase mb-4 flex items-center gap-1.5 leading-none"><MapPin className="w-3 h-3 text-[#4338ca]" /> {p.address}</p>
-                      <p className="text-[11px] text-slate-500 italic mb-8 leading-relaxed opacity-80 line-clamp-3 text-slate-500">"{p.note}"</p>
+                      <p className="text-[11px] text-slate-500 italic mb-8 leading-relaxed opacity-80 line-clamp-3 text-slate-500 text-slate-500">"{p.note}"</p>
                     </div>
-                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-[#4338ca] transition-all block active:scale-95 leading-none text-white">VER SITIO</a>
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-[#4338ca] transition-all block active:scale-95 leading-none text-white text-white">VER SITIO</a>
                   </div>
                 </div>
             </div>
@@ -734,7 +735,7 @@ const App = () => {
             {totalPages > 1 && <PaginationControls />}
         </div>
 
-        <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[180px] flex items-center justify-center overflow-hidden shadow-inner bg-cover bg-center group text-white text-white"
+        <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[180px] flex items-center justify-center overflow-hidden shadow-inner bg-cover bg-center group text-white text-white text-white text-white"
               style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/13R4eL4JuPn4XJnfGo58z3SUcH140ILub')`}}>
             <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/30 to-transparent"></div>
             <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-center relative z-20">
@@ -750,47 +751,47 @@ const App = () => {
         <div className="relative z-10 max-w-4xl mx-auto text-balance">
           <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
             <div className="flex justify-center mb-8 text-white">
-              <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg text-white text-white text-white"><HikerIcon /></div>
-              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Rutabia</span>
+              <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg text-white text-white text-white text-white text-white"><HikerIcon /></div>
+              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none text-white text-white">Rutabia</span>
             </div>
-            <h3 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter leading-none mb-5 uppercase text-white">Crea tu ruta</h3>
-            <div className="space-y-6 text-slate-300">
-              <p className="text-white/40 text-[14px] md:text-[16px] lg:text-[18px] leading-relaxed max-w-lg mx-auto tracking-wide font-light italic text-balance">
+            <h3 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter leading-none mb-5 uppercase text-white text-white">Crea tu ruta</h3>
+            <div className="space-y-6 text-slate-300 text-slate-300">
+              <p className="text-white/40 text-[14px] md:text-[16px] lg:text-[18px] leading-relaxed max-w-lg mx-auto tracking-wide font-light italic">
                 <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
               </p>
 
-              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto text-slate-400"></div>
+              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto text-slate-400 text-slate-400"></div>
 
               <div className="text-white/50 text-[12px] md:text-[14px] leading-relaxed max-w-2xl mx-auto space-y-2 text-slate-400">
                 <p>¿Eres una administración interesada en © RUTABIA?</p>
                 <p>¿Tienes un hotel rural, camping o negocio y quieres contactar con nosotros?</p>
                 <p className="font-bold text-white/70 pt-2 text-balance">Lleva tu oferta al siguiente nivel, ¿hablamos?</p>
                 
-                <div className="pt-4">
-                  <a href="mailto:rutabiasegovia@gmail.com" className="text-fuchsia-500 font-black tracking-widest underline decoration-2 underline-offset-4 hover:text-fuchsia-400 transition-colors">
+                <div className="pt-4 text-slate-400">
+                  <a href="mailto:rutabiasegovia@gmail.com" className="text-fuchsia-500 font-black uppercase tracking-widest underline decoration-2 underline-offset-4 hover:text-fuchsia-400 transition-colors">
                     Contactar con Rutabia
                   </a>
                 </div>
               </div>
 
-              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto text-slate-400 text-slate-400"></div>
+              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto text-slate-400 text-slate-400 text-slate-400 text-slate-400"></div>
               
               <div className="text-white/30 text-[12px] md:text-[14px] flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 font-medium">
-                <span className="hover:text-white transition-colors cursor-pointer text-slate-400">Política de Privacidad</span>
-                <span className="hover:text-white transition-colors cursor-pointer text-slate-400">Términos y Condiciones</span>
+                <span className="hover:text-white transition-colors cursor-pointer text-slate-400 text-slate-400">Política de Privacidad</span>
+                <span className="hover:text-white transition-colors cursor-pointer text-slate-400 text-slate-400">Términos y Condiciones</span>
               </div>
 
-              <div className="flex flex-col items-center gap-3 transition-opacity opacity-60 hover:opacity-100 text-slate-400 text-slate-400">
+              <div className="flex flex-col items-center gap-3 transition-opacity opacity-60 hover:opacity-100 text-slate-400 text-slate-400 text-slate-400 text-slate-400">
                 <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-8 h-8" />
-                <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">Powered By Google Maps</p>
+                <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400 text-slate-400">Powered By Google Maps</p>
               </div>
             </div>
           </div>
-          <div className="text-white/30 text-[14px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase text-slate-400 text-slate-400">© 2026 RUTABIA</div>
+          <div className="text-white/30 text-[14px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase text-slate-400 text-slate-400 text-slate-400 text-slate-400">© 2026 RUTABIA</div>
         </div>
       </footer>
 
-      {/* MODALES GENERATOR, FAVORITOS, ALEATOR... */}
+      {/* MODAL GENERATOR */}
       {itinerary && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setItinerary(null)}>
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative text-[20px] sm:text-[22px] lg:text-[20px]" onClick={e => e.stopPropagation()}>
@@ -802,37 +803,37 @@ const App = () => {
                 </button>
 
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50">
-                    <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none lg:text-[22px]"><Route className="w-5 h-5 lg:w-7 lg:h-7 lg:w-9 lg:h-9" /> Ruta Zona {itinerary.zone}</h4>
+                    <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none lg:text-[22px] lg:text-[22px]"><Route className="w-5 h-5 lg:w-7 lg:h-7 lg:w-9 lg:h-9" /> Ruta Zona {itinerary.zone}</h4>
                 </div>
-                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left">
+                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left text-slate-800">
                     {itinerary.places.map((p, idx) => (
                         <div key={p.id} className="relative">
                             {p.kmFromPrev && (
-                                <div className="flex flex-col items-center -mt-6 mb-4 text-slate-800 text-slate-800">
+                                <div className="flex flex-col items-center -mt-6 mb-4 text-slate-800 text-slate-800 text-slate-800 text-slate-800">
                                     <ArrowDown className="w-5 h-5 text-black mb-1 lg:w-7 lg:h-7 lg:w-9 lg:h-9" />
-                                    <span className="text-[9px] font-black text-black uppercase bg-slate-100 px-3 py-1 rounded-full border border-slate-200 lg:text-[13px] lg:text-[17px]">A {p.kmFromPrev} km</span>
+                                    <span className="text-[9px] font-black text-black uppercase bg-slate-100 px-3 py-1 rounded-full border border-slate-200 lg:text-[13px] lg:text-[13px]">A {p.kmFromPrev} km</span>
                                 </div>
                             )}
                             <div className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm text-slate-800">
                                 <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-black flex-shrink-0 text-xs lg:w-10 lg:h-10 lg:text-[14px] lg:w-14 lg:h-14 lg:text-[18px]">{idx + 1}</div>
                                 <div className="flex-grow">
                                     <div className="flex items-center gap-2 mb-1">
-                                        <h5 className="font-black uppercase text-sm leading-tight lg:text-[18px] lg:text-[22px]">{p.name}</h5>
-                                        <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white text-[7px] font-black uppercase rounded leading-none lg:text-[11px] lg:text-[15px]`}>{p.category}</span>
+                                        <h5 className="font-black uppercase text-sm leading-tight lg:text-[18px] lg:text-[18px]">{p.name}</h5>
+                                        <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white text-[7px] font-black uppercase rounded leading-none lg:text-[11px] lg:text-[11px]`}>{p.category}</span>
                                     </div>
-                                    <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tight lg:text-[14px] lg:text-[18px]">{p.address}</p>
-                                    <p className="text-[11px] text-slate-500 italic mb-3 leading-relaxed lg:text-[15px] lg:text-[19px]">"{p.note}"</p>
-                                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline leading-none lg:text-[13px] lg:text-[17px]">Ver punto →</a>
+                                    <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tight lg:text-[14px] lg:text-[14px]">{p.address}</p>
+                                    <p className="text-[11px] text-slate-500 italic mb-3 leading-relaxed lg:text-[15px] lg:text-[15px]">"{p.note}"</p>
+                                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline leading-none lg:text-[13px] lg:text-[13px]">Ver punto →</a>
                                 </div>
                             </div>
                         </div>
                     ))}
                     <div className="pt-6 border-t border-slate-100 mt-8 pb-10 px-4 text-center">
-                        <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95 mb-10 lg:text-[16px] text-white text-white lg:text-[20px]"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6 lg:h-8" />Ver ruta</a>
+                        <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95 mb-10 lg:text-[16px] text-white text-white lg:text-[16px] text-white"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6 lg:h-8" />Ver ruta</a>
                         
                         <button 
                             onClick={() => setItinerary(null)} 
-                            className="mt-6 text-slate-400 hover:text-indigo-600 text-[11px] font-black uppercase tracking-widest transition-colors lg:text-[15px] lg:text-[19px]"
+                            className="mt-6 text-slate-400 hover:text-indigo-600 text-[11px] font-black uppercase tracking-widest transition-colors lg:text-[15px] lg:text-[15px]"
                         >
                             Cerrar
                         </button>
@@ -845,15 +846,15 @@ const App = () => {
       {showFavsModal && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setShowFavsModal(false)}>
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative text-[20px] sm:text-[22px] lg:text-[20px]" onClick={e => e.stopPropagation()}>
-                <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-fuchsia-50">
-                    <h4 className="font-black uppercase italic text-fuchsia-700 flex items-center gap-2 leading-none lg:text-[22px] font-black lg:text-[26px]"><Heart className="w-5 h-5 fill-current lg:w-7 lg:h-7 lg:w-9 lg:h-9" /> Listado de Favoritos</h4>
+                <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-fuchsia-50 text-fuchsia-700">
+                    <h4 className="font-black uppercase italic text-fuchsia-700 flex items-center gap-2 leading-none lg:text-[22px] lg:text-[22px] font-black lg:text-[22px]"><Heart className="w-5 h-5 fill-current lg:w-7 lg:h-7 lg:w-9 lg:h-9" /> Listado de Favoritos</h4>
                     <button onClick={() => setShowFavsModal(false)} className="p-2 hover:bg-fuchsia-100 hover:text-fuchsia-600 rounded-full transition-all text-fuchsia-300 lg:w-8 lg:h-8 lg:w-12 lg:h-12"><X className="w-6 h-6 lg:w-7 lg:h-7 lg:w-9 lg:h-9" /></button>
                 </div>
-                <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh] text-left text-slate-800">
+                <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh] text-left text-slate-800 text-slate-800">
                     {favorites.length === 0 ? (
-                        <div className="text-center py-20 text-slate-400">
+                        <div className="text-center py-20 text-slate-400 text-slate-400">
                             <Info className="w-12 h-12 text-slate-200 mx-auto mb-4 lg:w-16 lg:h-16 lg:w-20 lg:h-20 text-slate-200" />
-                            <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] lg:text-[14px] lg:text-[18px]">No has guardado parajes aún</p>
+                            <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] lg:text-[14px] lg:text-[14px]">No has guardado parajes aún</p>
                         </div>
                     ) : (
                         favorites.map(fid => {
@@ -861,11 +862,11 @@ const App = () => {
                             if (!p) return null;
                             return (
                                 <div key={p.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white transition-all shadow-sm text-slate-800">
-                                    <div className="flex items-center gap-4 text-slate-800">
+                                    <div className="flex items-center gap-4 text-slate-800 text-slate-800">
                                         <div className={`w-3 h-10 rounded-full ${categoryColors[p.category]}`}></div>
                                         <div>
-                                            <h5 className="font-black uppercase text-sm leading-tight lg:text-[18px] text-slate-800 lg:text-[22px]">{p.name}</h5>
-                                            <p className="text-[9px] font-bold text-slate-400 uppercase lg:text-[13px] lg:text-[17px]">{p.address}</p>
+                                            <h5 className="font-black uppercase text-sm leading-tight lg:text-[18px] lg:text-[18px] text-slate-800 lg:text-[18px]">{p.name}</h5>
+                                            <p className="text-[9px] font-bold text-slate-400 uppercase lg:text-[13px] lg:text-[13px]">{p.address}</p>
                                         </div>
                                     </div>
                                     <button onClick={() => toggleFavorite(p.id)} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-all font-black">
@@ -877,7 +878,7 @@ const App = () => {
                     )}
                 </div>
                 <div className="p-6 bg-slate-50 border-t border-slate-100 text-center">
-                    <p className="text-[9px] uppercase tracking-widest font-bold text-slate-400 lg:text-[13px] lg:text-[17px]">{favorites.length} parajes seleccionados</p>
+                    <p className="text-[9px] uppercase tracking-widest font-bold text-slate-400 lg:text-[13px] lg:text-[13px]">{favorites.length} parajes seleccionados</p>
                 </div>
               </div>
           </div>
@@ -885,7 +886,7 @@ const App = () => {
 
       {randomPlace && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setRandomPlace(null)}>
-              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center relative text-[20px] sm:text-[22px] lg:text-[20px] text-slate-800" onClick={e => e.stopPropagation()}>
+              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center relative text-[20px] sm:text-[22px] lg:text-[20px] text-slate-800 text-slate-800" onClick={e => e.stopPropagation()}>
                 <button 
                     onClick={() => setRandomPlace(null)} 
                     className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all text-slate-400 z-10 font-black"
@@ -893,16 +894,16 @@ const App = () => {
                     <X className="w-6 h-6 lg:w-8 lg:h-8 lg:w-10 lg:h-10" />
                 </button>
 
-                <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm lg:text-[13px] lg:text-[17px]`}>{randomPlace.category}</span>
-                <h3 className="text-2xl font-black uppercase mb-2 leading-tight text-slate-800 lg:text-[28px] text-slate-800 lg:text-[32px]">{randomPlace.name}</h3>
-                <p className="text-slate-400 text-xs font-bold uppercase mb-6 lg:text-[16px] lg:text-[20px] text-slate-400">{randomPlace.address}</p>
-                <p className="text-slate-500 italic text-sm mb-10 leading-relaxed lg:text-[18px] text-slate-500 lg:text-[22px]">"{randomPlace.note}"</p>
+                <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm lg:text-[13px] lg:text-[13px]`}>{randomPlace.category}</span>
+                <h3 className="text-2xl font-black uppercase mb-2 leading-tight text-slate-800 lg:text-[28px] lg:text-[28px] text-slate-800 lg:text-[28px]">{randomPlace.name}</h3>
+                <p className="text-slate-400 text-xs font-bold uppercase mb-6 lg:text-[16px] lg:text-[16px] text-slate-400">{randomPlace.address}</p>
+                <p className="text-slate-500 italic text-sm mb-10 leading-relaxed lg:text-[18px] lg:text-[18px] text-slate-500 lg:text-[18px]">"{randomPlace.note}"</p>
                 <div className="flex flex-col gap-3">
-                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:scale-105 transition-transform lg:text-[16px] text-white text-white lg:text-[20px]">Abrir en Mapa</a>
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:scale-105 transition-transform lg:text-[16px] lg:text-[16px] text-white text-white lg:text-[16px]">Abrir en Mapa</a>
                     
                     <button 
                         onClick={() => setRandomPlace(null)} 
-                        className="text-slate-800 text-[10px] font-bold uppercase tracking-widest hover:text-indigo-600 mt-8 transition-colors lg:text-[14px] font-black lg:text-[18px]"
+                        className="text-slate-800 text-[10px] font-bold uppercase tracking-widest hover:text-indigo-600 mt-8 transition-colors lg:text-[14px] lg:text-[14px] font-black lg:text-[14px]"
                     >
                         Cerrar
                     </button>
@@ -911,7 +912,7 @@ const App = () => {
           </div>
       )}
 
-      {showScrollBtn && <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="fixed bottom-8 right-8 z-[100] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all border border-white/10"><ArrowUp className="w-6 h-6" /></button>}
+      {showScrollBtn && <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="fixed bottom-8 right-8 z-[100] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all border border-white/10 text-white"><ArrowUp className="w-6 h-6" /></button>}
       
       <Suspense fallback={null}>
         <Analytics />
