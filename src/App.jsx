@@ -163,7 +163,7 @@ const App = () => {
     { id: 34, name: "MOLINO DE ABAJO Y MOLINO DE ENMEDIO", category: "Industrial", coords: "41°27'02.8\"N 4°04'53.0\"W", address: "MEMBRIBRE DE LA HOZ", note: "Conjunto hidráulico harinero en un entorno natural encajonado." },
     { id: 35, name: "MURALLA Y CASTILLO", category: "Historia", coords: "41°26'21.0\"N 3°58'40.6\"W", address: "FUENTIDUEÑA", note: "Importante conjunto defensivo medieval sobre el cerro." },
     { id: 36, name: "LINARES DEL ARROYO", category: "Ruinas", coords: "41°31'24.9\"N 3°33'23.9\"W", address: "MADERUELO", note: "Pueblo sumergido bajo las aguas del embalse de Linares." },
-    { id: 37, name: "IGLESIA DE SAN MARTÍN", category: "Historia", coords: "41°26'21.3\"N 3°58'39.7\"W", address: "FUENTIDUEÑA", note: "Templo románico con elementos defensivos singulares." },
+    { id: 37, name: "IGLESIA DE SAN MARTÍN", category: "Historia", coords: "41°26'21.3\"N 3°58'39.7\"W", address: "FUENTIDUEÑA", note: "Templo románico exento situado en la zona alta de la villa." },
     { id: 38, name: "HOSPITAL DE SANTA MARÍA MAGDALENA", category: "Historia", coords: "41°26'30.5\"N 3°58'52.2\"W", address: "FUENTIDUEÑA", note: "Fundación benéfica medieval de gran interés histórico." },
     { id: 39, name: "ERMITA DE SAN MIGUEL", category: "Historia", coords: "41°29'48.6\"N 3°57'55.2\"W", address: "SACRAMENIA", note: "Joya del románico rural segoviano en un paraje solitario." },
     { id: 40, name: "PALACIO DE LOS CONTRERAS", category: "Historia", coords: "41°29'38.0\"N 4°01'42.0\"W", address: "LAGUNA DE CONTRERAS", note: "Palacio fortificado que conserva su aire de dominio medieval." },
@@ -288,7 +288,7 @@ const App = () => {
     { id: 159, name: "ERMITA DE SAN ROQUE", category: "Historia", coords: "41°22'24.6\"N 3°39'56.1\"W", address: "ENCINAS", note: "Oratorio místico rodeado de encinas centenarias." },
     { id: 160, name: "FÁBRICA DE HARINAS Y VIVIENDA", category: "Industrial", coords: "41°17'49.5\"N 3°55'56.5\"W", address: "FUENTE REBOLLO", note: "Compleplejo fabril harinero muy bien conservado." },
     { id: 161, name: "LA CASETA DEL VAQUERO", category: "Naturaleza", coords: "41°20'26.6\"N 3°58'05.7\"W", address: "NAVALILLA", note: "Pequeño refugio de pastores en el entorno natural de Navalilla." },
-    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenios hidráulicos muy relevantes." },
+    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenios hidráulicos muy relevante." },
     { id: 163, name: "COLMENARES", category: "Industrial", coords: "41°24'26.7\"N 3°44'47.4\"W", address: "NAVARES DE LAS CUEVAS", note: "Arquitectura tradicional para la explotación de la miel." },
     { id: 164, name: "DESPOBLADO DE CABRERIZOS", category: "Ruinas", coords: "41°12'55.6\"N 3°39'58.3\"W", address: "SANTA MARTA DEL CERRO", note: "Aldea mística que hoy permanece en el recuerdo." },
     { id: 165, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°10'50.4\"N 3°33'48.3\"W", address: "SANTO TOMÉ DEL PUERTO", note: "Estructura ferroviaria en la falda de Somosierra." },
@@ -578,14 +578,14 @@ const App = () => {
         
         <div className="relative z-10 w-full max-w-4xl">
           <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter drop-shadow-2xl leading-none mb-2 uppercase">Crea tu ruta</h2>
-          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance">
-            <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
+          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance text-white/90">
+            <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
           </p>
 
           <div className="bg-white/10 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/20 shadow-2xl">
             <h3 className="text-[16px] lg:text-[18px] font-black tracking-normal text-white mb-6 uppercase text-center">Selecciona ubicaciones</h3>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-slate-800">
                 <div className="relative w-full sm:w-auto text-left">
                     <button 
                     onClick={() => { setShowCatMenu(!showCatMenu); setShowZoneMenu(false); }}
@@ -623,7 +623,7 @@ const App = () => {
                     )}
                 </div>
 
-                <div className="relative w-full sm:w-auto text-left">
+                <div className="relative w-full sm:w-auto text-left text-slate-800">
                     <button 
                     onClick={() => { setShowZoneMenu(!showZoneMenu); setShowCatMenu(false); }}
                     className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
@@ -636,7 +636,7 @@ const App = () => {
                     </button>
 
                     {showZoneMenu && (
-                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2 text-slate-800">
+                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
                         {['Todos', 'Norte', 'Sur', 'Este', 'Oeste'].map(zone => (
                         <button 
                             key={zone} 
@@ -708,7 +708,7 @@ const App = () => {
 
                     <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2 text-white">
                       <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
-                      <div className="px-2.5 py-1 bg-white/60 backdrop-blur-sm rounded-lg border border-white/40 shadow-sm"><p className="text-[10px] font-mono text-slate-600 font-bold tracking-wider leading-none">{p.coords}</p></div>
+                      <div className="px-2.5 py-1 bg-white/60 backdrop-blur-sm rounded-lg border border-white/40 shadow-sm text-slate-600"><p className="text-[10px] font-mono font-bold tracking-wider leading-none">{p.coords}</p></div>
                     </div>
                   </div>
                   <div className="px-3 flex-grow flex flex-col justify-between">
@@ -742,18 +742,39 @@ const App = () => {
       <footer className="relative bg-[#111827] py-20 px-6 overflow-hidden text-center border-t border-white/5">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.05] pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
-          <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
+          <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12 text-balance">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg"><HikerIcon /></div>
-              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none text-white">Rutabia</span>
+              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Rutabia</span>
             </div>
             <h3 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter leading-none mb-5 uppercase">Crea tu ruta</h3>
             <div className="space-y-6">
               <p className="text-white/40 text-[14px] md:text-[16px] lg:text-[18px] leading-relaxed max-w-lg mx-auto tracking-wide font-light italic">
                 <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
               </p>
+
+              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto"></div>
+
+              <div className="text-white/50 text-[12px] md:text-[14px] leading-relaxed max-w-2xl mx-auto space-y-2">
+                <p>¿Eres una administración interesada en ©RUTABIA?</p>
+                <p>¿Tienes un hotel rural, camping o negocio y quieres contactar con nosotros?</p>
+                <p className="font-bold text-white/70 pt-2">Lleva tu oferta al siguiente nivel, ¿hablamos?</p>
+                
+                <div className="pt-4">
+                  <a href="mailto:turabiasegovia@gmail.com" className="text-fuchsia-500 font-black uppercase tracking-widest underline decoration-2 underline-offset-4 hover:text-fuchsia-400 transition-colors">
+                    Contactar con Rutabia
+                  </a>
+                </div>
+              </div>
+
+              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto"></div>
               
-              <div className="flex flex-col items-center gap-3 pt-8 border-t border-white/5 transition-opacity opacity-60 hover:opacity-100">
+              <div className="text-white/30 text-[12px] md:text-[14px] flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 font-medium">
+                <span className="hover:text-white transition-colors cursor-pointer">Política de Privacidad</span>
+                <span className="hover:text-white transition-colors cursor-pointer">Términos y Condiciones</span>
+              </div>
+
+              <div className="flex flex-col items-center gap-3 transition-opacity opacity-60 hover:opacity-100">
                 <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-8 h-8" />
                 <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Powered By Google Maps</p>
               </div>
@@ -763,7 +784,7 @@ const App = () => {
         </div>
       </footer>
 
-      {/* MODALES GENERATOR, FAVORITOS, ALEATOR... */}
+      {/* MODAL GENERATOR */}
       {itinerary && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setItinerary(null)}>
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative" onClick={e => e.stopPropagation()}>
@@ -774,7 +795,7 @@ const App = () => {
                     <X className="w-6 h-6" />
                 </button>
 
-                <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50">
+                <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50 text-indigo-700">
                     <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none"><Route className="w-5 h-5" /> Ruta Zona {itinerary.zone}</h4>
                 </div>
                 <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left">
@@ -788,9 +809,9 @@ const App = () => {
                             )}
                             <div className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
                                 <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-black flex-shrink-0 text-xs">{idx + 1}</div>
-                                <div className="flex-grow">
+                                <div className="flex-grow text-slate-800">
                                     <div className="flex items-center gap-2 mb-1">
-                                        <h5 className="font-black uppercase text-slate-800 text-sm leading-tight">{p.name}</h5>
+                                        <h5 className="font-black uppercase text-sm leading-tight">{p.name}</h5>
                                         <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white text-[7px] font-black uppercase rounded leading-none`}>{p.category}</span>
                                     </div>
                                     <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tight">{p.address}</p>
@@ -870,12 +891,12 @@ const App = () => {
                 <h3 className="text-2xl font-black uppercase text-slate-800 mb-2 leading-tight">{randomPlace.name}</h3>
                 <p className="text-slate-400 text-xs font-bold uppercase mb-6">{randomPlace.address}</p>
                 <p className="text-slate-500 italic text-sm mb-10 leading-relaxed">"{randomPlace.note}"</p>
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-3 text-slate-800">
                     <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:scale-105 transition-transform">Abrir en Mapa</a>
                     
                     <button 
                         onClick={() => setRandomPlace(null)} 
-                        className="text-slate-800 text-[10px] font-bold uppercase tracking-widest hover:text-indigo-600 mt-8 transition-colors"
+                        className="text-slate-800 text-[10px] font-black uppercase tracking-widest hover:text-indigo-600 mt-8 transition-colors"
                     >
                         Cerrar
                     </button>
