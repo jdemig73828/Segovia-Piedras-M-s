@@ -125,7 +125,6 @@ const App = () => {
     return lonDiff > 0 ? "Este" : "Oeste";
   };
 
-  // --- BASE DE DATOS INTEGRAL ---
   const allPlaces = useMemo(() => [
     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas." },
@@ -227,7 +226,7 @@ const App = () => {
     { id: 98, name: "VENTA DE LUMBRERAS", category: "Historia", coords: "40°53'30.1\"N 4°19'22.1\"W", address: "LASTRAS DEL POZO", note: "Antiguo parador de viajeros en la vía real." },
     { id: 99, name: "ERMITA DE SANTA INÉS", category: "Historia", coords: "41°06'46.5\"N 4°19'26.3\"W", address: "BERNARDOS", note: "Capilla románica rodeada de las famosas canteras de pizarra." },
     { id: 100, name: "IGLESIA DE NUESTRA SEÑORA DE LA ASUNCIÓN Y DESPOBLADO", category: "Ruinas", coords: "41°07'34.7\"N 4°17'35.6\"W", address: "FUENTES", note: "Restos del núcleo primitivo de población de Fuentes." },
-    { id: 101, name: "ERMITA DE NUESTRA SEÑORA DE LA LOSA", category: "Historia", coords: "40°46'20.0\"N 4°15'02.1\"W", address: "EL ESPINAR", note: "Lugar de peregrinación tradicional en la sierra." },
+    { id: 101, name: "ERMITA DE NUESTRA SEÑORA EL LOSA", category: "Historia", coords: "40°46'20.0\"N 4°15'02.1\"W", address: "EL ESPINAR", note: "Lugar de peregrinación tradicional en la sierra." },
     { id: 102, name: "CASA PALACIO DEL MARQUÉS DE PERALES", category: "Historia", coords: "40°43'12.1\"N 4°14'50.1\"W", address: "EL ESPINAR", note: "Ejemplo destacado de arquitectura civil nobiliaria." },
     { id: 103, name: "FÁBRICA DE MADERA", category: "Industrial", coords: "40°44'26.8\"N 4°11'24.1\"W", address: "LA ESTACIÓN DEL ESPINAR", note: "Arquitectura industrial maderera del entorno de la sierra." },
     { id: 104, name: "LA VENTA GRANDE", category: "Historia", coords: "40°44'35.0\"N 4°16'19.7\"W", address: "EL ESPINAR", note: "Histórico establecimiento de hospedaje en el puerto del Guadarrama." },
@@ -662,7 +661,7 @@ const App = () => {
                             NO HAY RESULTADOS
                         </p>
                     ) : (
-                        <p className="text-[14px] md:text-[16px] tracking-[0.2em] text-fuchsia-400 font-black uppercase bg-black/40 px-6 py-2 rounded-full border border-white/10 shadow-inner">
+                        <p className="text-[14px] md:text-[16px] tracking-normal text-fuchsia-400 font-black bg-black/40 px-6 py-2 rounded-full border border-white/10 shadow-inner">
                             Mostrando {filteredPlaces.length} sitios de {allPlaces.length}
                         </p>
                     )}
@@ -742,7 +741,7 @@ const App = () => {
       <footer className="relative bg-[#111827] py-20 px-6 overflow-hidden text-center border-t border-white/5">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.05] pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
-          <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12 text-balance">
+          <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12 text-balance text-slate-300">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg"><HikerIcon /></div>
               <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Rutabia</span>
@@ -761,7 +760,7 @@ const App = () => {
                 <p className="font-bold text-white/70 pt-2">Lleva tu oferta al siguiente nivel, ¿hablamos?</p>
                 
                 <div className="pt-4">
-                  <a href="mailto:turabiasegovia@gmail.com" className="text-fuchsia-500 font-black uppercase tracking-widest underline decoration-2 underline-offset-4 hover:text-fuchsia-400 transition-colors">
+                  <a href="mailto:rutabiasegovia@gmail.com" className="text-fuchsia-500 font-black uppercase tracking-widest underline decoration-2 underline-offset-4 hover:text-fuchsia-400 transition-colors">
                     Contactar con Rutabia
                   </a>
                 </div>
@@ -796,7 +795,7 @@ const App = () => {
                 </button>
 
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50 text-indigo-700">
-                    <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none"><Route className="w-5 h-5" /> Ruta Zona {itinerary.zone}</h4>
+                    <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none text-indigo-700"><Route className="w-5 h-5" /> Ruta Zona {itinerary.zone}</h4>
                 </div>
                 <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left">
                     {itinerary.places.map((p, idx) => (
