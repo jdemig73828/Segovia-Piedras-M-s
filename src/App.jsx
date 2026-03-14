@@ -658,11 +658,11 @@ const App = () => {
             <div className="mt-8 flex flex-col items-center gap-4">
                 <div className="flex flex-col items-center gap-2">
                     {filteredPlaces.length === 0 ? (
-                        <p className="text-[14px] md:text-[16px] tracking-[0.2em] text-fuchsia-400 font-black uppercase bg-black/40 px-6 py-2 rounded-full border border-fuchsia-400/50 shadow-lg">
+                        <p className="text-[14px] md:text-[16px] tracking-[0.2em] text-[#5b21b6] font-black uppercase bg-fuchsia-500 px-6 py-2 rounded-full border-2 border-[#5b21b6] shadow-lg">
                             NO HAY RESULTADOS
                         </p>
                     ) : (
-                        <p className="text-[14px] md:text-[16px] tracking-normal text-fuchsia-400 font-black bg-black/40 px-6 py-2 rounded-full border border-white/10 shadow-inner">
+                        <p className="text-[14px] md:text-[16px] tracking-tight text-fuchsia-400 font-black bg-black/40 px-6 py-2 rounded-full border border-white/10 shadow-inner">
                             Mostrando {filteredPlaces.length} sitios de {allPlaces.length}
                         </p>
                     )}
@@ -688,7 +688,7 @@ const App = () => {
             {totalPages > 1 && <PaginationControls />}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left text-slate-800">
           {displayedPlaces.map((p) => (
             <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in flex flex-col h-full overflow-hidden`}>
                 <div className="relative z-10 flex flex-col h-full">
@@ -718,7 +718,7 @@ const App = () => {
                       <p className="text-[9px] text-slate-400 font-bold uppercase mb-4 flex items-center gap-1.5 leading-none"><MapPin className="w-3 h-3 text-[#4338ca]" /> {p.address}</p>
                       <p className="text-[11px] text-slate-500 italic mb-8 leading-relaxed opacity-80 line-clamp-3">"{p.note}"</p>
                     </div>
-                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-[#4338ca] transition-all block active:scale-95 leading-none">VER SITIO</a>
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-[#4338ca] transition-all block active:scale-95 leading-none text-white">VER SITIO</a>
                   </div>
                 </div>
             </div>
@@ -746,9 +746,9 @@ const App = () => {
           <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12 text-balance">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg"><HikerIcon /></div>
-              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Rutabia</span>
+              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none text-white">Rutabia</span>
             </div>
-            <h3 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter leading-none mb-5 uppercase">Crea tu ruta</h3>
+            <h3 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter leading-none mb-5 uppercase text-white">Crea tu ruta</h3>
             <div className="space-y-6">
               <p className="text-white/40 text-[14px] md:text-[16px] lg:text-[18px] leading-relaxed max-w-lg mx-auto tracking-wide font-light italic">
                 <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
@@ -756,7 +756,7 @@ const App = () => {
 
               <div className="border-t border-white/5 pt-8 max-w-xl mx-auto"></div>
 
-              <div className="text-white/50 text-[12px] md:text-[14px] leading-relaxed max-w-2xl mx-auto space-y-2">
+              <div className="text-white/50 text-[12px] md:text-[14px] leading-relaxed max-w-2xl mx-auto space-y-2 text-slate-400">
                 <p>¿Eres una administración interesada en © RUTABIA?</p>
                 <p>¿Tienes un hotel rural, camping o negocio y quieres contactar con nosotros?</p>
                 <p className="font-bold text-white/70 pt-2 text-balance">Lleva tu oferta al siguiente nivel, ¿hablamos?</p>
@@ -768,7 +768,7 @@ const App = () => {
                 </div>
               </div>
 
-              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto"></div>
+              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto text-slate-400"></div>
               
               <div className="text-white/30 text-[12px] md:text-[14px] flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 font-medium">
                 <span className="hover:text-white transition-colors cursor-pointer text-slate-400">Política de Privacidad</span>
@@ -777,18 +777,18 @@ const App = () => {
 
               <div className="flex flex-col items-center gap-3 transition-opacity opacity-60 hover:opacity-100">
                 <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-8 h-8" />
-                <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Powered By Google Maps</p>
+                <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">Powered By Google Maps</p>
               </div>
             </div>
           </div>
-          <div className="text-white/30 text-[14px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase">© 2026 RUTABIA</div>
+          <div className="text-white/30 text-[14px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase text-slate-400">© 2026 RUTABIA</div>
         </div>
       </footer>
 
       {/* MODAL GENERATOR */}
       {itinerary && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setItinerary(null)}>
-              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative" onClick={e => e.stopPropagation()}>
+              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative text-slate-900" onClick={e => e.stopPropagation()}>
                 <button 
                     onClick={() => setItinerary(null)} 
                     className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all text-slate-400 z-10"
@@ -797,9 +797,9 @@ const App = () => {
                 </button>
 
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50 text-indigo-700">
-                    <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none text-indigo-700"><Route className="w-5 h-5" /> Ruta Zona {itinerary.zone}</h4>
+                    <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none text-indigo-700 font-black"><Route className="w-5 h-5" /> Ruta Zona {itinerary.zone}</h4>
                 </div>
-                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left text-slate-800">
+                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left">
                     {itinerary.places.map((p, idx) => (
                         <div key={p.id} className="relative">
                             {p.kmFromPrev && (
@@ -812,7 +812,7 @@ const App = () => {
                                 <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-black flex-shrink-0 text-xs">{idx + 1}</div>
                                 <div className="flex-grow">
                                     <div className="flex items-center gap-2 mb-1 text-slate-800">
-                                        <h5 className="font-black uppercase text-sm leading-tight">{p.name}</h5>
+                                        <h5 className="font-black uppercase text-sm leading-tight text-slate-800">{p.name}</h5>
                                         <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white text-[7px] font-black uppercase rounded leading-none`}>{p.category}</span>
                                     </div>
                                     <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tight">{p.address}</p>
@@ -823,11 +823,11 @@ const App = () => {
                         </div>
                     ))}
                     <div className="pt-6 border-t border-slate-100 mt-8 pb-10 px-4 text-center">
-                        <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95 mb-10"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto" />Ver ruta</a>
+                        <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95 mb-10 text-white"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto" />Ver ruta</a>
                         
                         <button 
                             onClick={() => setItinerary(null)} 
-                            className="mt-6 text-slate-400 hover:text-indigo-600 text-[11px] font-black uppercase tracking-widest transition-colors"
+                            className="mt-6 text-slate-400 hover:text-indigo-600 text-[11px] font-black uppercase tracking-widest transition-colors font-black"
                         >
                             Cerrar
                         </button>
@@ -840,9 +840,9 @@ const App = () => {
       {showFavsModal && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setShowFavsModal(false)}>
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 text-slate-900" onClick={e => e.stopPropagation()}>
-                <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-fuchsia-50">
-                    <h4 className="font-black uppercase italic text-fuchsia-700 flex items-center gap-2 leading-none text-fuchsia-700"><Heart className="w-5 h-5 fill-current" /> Listado de Favoritos</h4>
-                    <button onClick={() => setShowFavsModal(false)} className="p-2 hover:bg-fuchsia-100 hover:text-fuchsia-600 rounded-full transition-all text-fuchsia-300"><X className="w-6 h-6" /></button>
+                <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-fuchsia-50 text-fuchsia-700">
+                    <h4 className="font-black uppercase italic text-fuchsia-700 flex items-center gap-2 leading-none text-fuchsia-700 font-black"><Heart className="w-5 h-5 fill-current text-fuchsia-700" /> Listado de Favoritos</h4>
+                    <button onClick={() => setShowFavsModal(false)} className="p-2 hover:bg-fuchsia-100 hover:text-fuchsia-600 rounded-full transition-all text-fuchsia-300 font-black"><X className="w-6 h-6" /></button>
                 </div>
                 <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh] text-left text-slate-800">
                     {favorites.length === 0 ? (
@@ -855,15 +855,15 @@ const App = () => {
                             const p = allPlaces.find(x => x.id === fid);
                             if (!p) return null;
                             return (
-                                <div key={p.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white transition-all shadow-sm">
+                                <div key={p.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white transition-all shadow-sm text-slate-800">
                                     <div className="flex items-center gap-4 text-slate-800">
                                         <div className={`w-3 h-10 rounded-full ${categoryColors[p.category]}`}></div>
                                         <div>
-                                            <h5 className="font-black uppercase text-sm leading-tight">{p.name}</h5>
+                                            <h5 className="font-black uppercase text-sm leading-tight text-slate-800">{p.name}</h5>
                                             <p className="text-[9px] font-bold text-slate-400 uppercase">{p.address}</p>
                                         </div>
                                     </div>
-                                    <button onClick={() => toggleFavorite(p.id)} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-all">
+                                    <button onClick={() => toggleFavorite(p.id)} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-all font-black">
                                         <X className="w-5 h-5" />
                                     </button>
                                 </div>
@@ -883,21 +883,21 @@ const App = () => {
               <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center relative text-slate-800" onClick={e => e.stopPropagation()}>
                 <button 
                     onClick={() => setRandomPlace(null)} 
-                    className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all text-slate-400 z-10"
+                    className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all text-slate-400 z-10 font-black"
                 >
                     <X className="w-6 h-6" />
                 </button>
 
                 <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm`}>{randomPlace.category}</span>
                 <h3 className="text-2xl font-black uppercase mb-2 leading-tight text-slate-800">{randomPlace.name}</h3>
-                <p className="text-slate-400 text-xs font-bold uppercase mb-6">{randomPlace.address}</p>
-                <p className="text-slate-500 italic text-sm mb-10 leading-relaxed">"{randomPlace.note}"</p>
+                <p className="text-slate-400 text-xs font-bold uppercase mb-6 text-slate-400">{randomPlace.address}</p>
+                <p className="text-slate-500 italic text-sm mb-10 leading-relaxed text-slate-500">"{randomPlace.note}"</p>
                 <div className="flex flex-col gap-3">
-                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:scale-105 transition-transform">Abrir en Mapa</a>
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:scale-105 transition-transform text-white">Abrir en Mapa</a>
                     
                     <button 
                         onClick={() => setRandomPlace(null)} 
-                        className="text-slate-800 text-[10px] font-black uppercase tracking-widest hover:text-indigo-600 mt-8 transition-colors"
+                        className="text-slate-800 text-[10px] font-black uppercase tracking-widest hover:text-indigo-600 mt-8 transition-colors font-black"
                     >
                         Cerrar
                     </button>
