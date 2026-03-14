@@ -127,7 +127,7 @@ const App = () => {
 
   // --- BASE DE DATOS INTEGRAL ---
   const allPlaces = useMemo(() => [
-    { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
+    { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1twm1fqZ7yytOPc-NXvvdM6VQTdBPnfqm" },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas." },
     { id: 3, name: "FORTALEZA CASTILLO", category: "Historia", coords: "41°21'13.6\"N 3°53'15.2\"W", address: "CARRASCAL DEL RÍO", note: "Fortaleza dominante sobre el paisaje de las hoces del río Duratón." },
     { id: 4, name: "MOLINO DE LOS MESA", category: "Industrial", coords: "41°12'19.5\"N 3°58'56.7\"W", address: "CABEZUELA", note: "Ingenio harinero tradicional situado en la ribera del río Cega." },
@@ -400,7 +400,7 @@ const App = () => {
   };
 
   const PaginationControls = () => (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 text-slate-800">
         <button 
             onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
             disabled={currentPage === 1}
@@ -445,7 +445,7 @@ const App = () => {
           <h1 className="text-sm font-black tracking-tight text-slate-900 uppercase italic leading-none">Rutabia</h1>
         </div>
         
-        <div className="flex items-center gap-2 md:gap-3 flex-1 justify-end h-full text-slate-800">
+        <div className="flex items-center gap-2 md:gap-3 flex-1 justify-end h-full">
             <button 
               onClick={() => setIsHeaderSearchOpen(!isHeaderSearchOpen)}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all shadow-sm active:scale-90 ${isHeaderSearchOpen ? 'bg-indigo-600 text-white' : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white'}`}
@@ -578,14 +578,14 @@ const App = () => {
         
         <div className="relative z-10 w-full max-w-4xl">
           <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter drop-shadow-2xl leading-none mb-2 uppercase">Crea tu ruta</h2>
-          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance text-white/90">
+          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance">
             <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
           </p>
 
           <div className="bg-white/10 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/20 shadow-2xl">
             <h3 className="text-[16px] lg:text-[18px] font-black tracking-normal text-white mb-6 uppercase text-center">Selecciona ubicaciones</h3>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-slate-800">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <div className="relative w-full sm:w-auto text-left">
                     <button 
                     onClick={() => { setShowCatMenu(!showCatMenu); setShowZoneMenu(false); }}
@@ -599,7 +599,7 @@ const App = () => {
                     </button>
 
                     {showCatMenu && (
-                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
+                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2 text-slate-800">
                         {[
                           { name: 'Todos', icon: <Compass className="w-4 h-4" /> },
                           { name: 'Historia', icon: <Landmark className="w-4 h-4" /> },
@@ -636,7 +636,7 @@ const App = () => {
                     </button>
 
                     {showZoneMenu && (
-                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
+                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2 text-slate-800">
                         {['Todos', 'Norte', 'Sur', 'Este', 'Oeste'].map(zone => (
                         <button 
                             key={zone} 
@@ -688,37 +688,44 @@ const App = () => {
             {totalPages > 1 && <PaginationControls />}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left text-slate-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left">
           {displayedPlaces.map((p) => (
             <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in flex flex-col h-full overflow-hidden`}>
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}>
-                    <div className={`absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0 ${categoryIconColors[p.category]}`}>
-                      {p.category === 'Historia' && <Landmark size={140} strokeWidth={1.5} />}
-                      {p.category === 'Ruinas' && <Castle size={140} strokeWidth={1.5} />}
-                      {p.category === 'Industrial' && <Factory size={140} strokeWidth={1.5} />}
-                      {p.category === 'Naturaleza' && <Trees size={140} strokeWidth={1.5} />}
-                    </div>
+                <div className="relative z-10 flex flex-col h-full text-slate-800">
+                  <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}
+                       style={p.image ? {backgroundImage: `url(${p.image})`, backgroundSize: 'cover', backgroundPosition: 'center'} : {}}>
+                    
+                    {/* OVERLAY DE OSCURIDAD PARA LEGIBILIDAD SI HAY IMAGEN */}
+                    {p.image && <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 z-0 pointer-events-none"></div>}
+
+                    {!p.image && (
+                      <div className={`absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0 ${categoryIconColors[p.category]}`}>
+                        {p.category === 'Historia' && <Landmark size={140} strokeWidth={1.5} />}
+                        {p.category === 'Ruinas' && <Castle size={140} strokeWidth={1.5} />}
+                        {p.category === 'Industrial' && <Factory size={140} strokeWidth={1.5} />}
+                        {p.category === 'Naturaleza' && <Trees size={140} strokeWidth={1.5} />}
+                      </div>
+                    )}
                     
                     <button 
                       onClick={() => toggleFavorite(p.id)}
-                      className={`absolute top-4 right-4 z-30 p-2.5 rounded-xl backdrop-blur-md border transition-all ${favorites.includes(p.id) ? 'bg-fuchsia-600 text-white border-fuchsia-400 shadow-lg' : 'bg-white/40 text-slate-400 border-white/40 hover:bg-white hover:text-fuchsia-600'}`}
+                      className={`absolute top-4 right-4 z-30 p-2.5 rounded-xl border transition-all shadow-sm ${favorites.includes(p.id) ? 'bg-fuchsia-600 text-white border-fuchsia-400' : 'bg-white/95 text-slate-500 border-white hover:bg-white hover:text-fuchsia-600 hover:shadow-md'}`}
                     >
                       <Heart className={`w-5 h-5 ${favorites.includes(p.id) ? 'fill-current' : ''}`} />
                     </button>
 
-                    <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2 text-white">
-                      <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
-                      <div className="px-2.5 py-1 bg-white/60 backdrop-blur-sm rounded-lg border border-white/40 shadow-sm text-slate-600 font-bold"><p className="text-[10px] font-mono leading-none">{p.coords}</p></div>
+                    <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2">
+                      <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
+                      <div className="px-2.5 py-1 bg-white/95 rounded-lg border border-white shadow-sm text-slate-900 font-bold"><p className="text-[10px] font-mono leading-none">{p.coords}</p></div>
                     </div>
                   </div>
                   <div className="px-3 flex-grow flex flex-col justify-between">
                     <div>
                       <h4 className="text-[15px] font-black uppercase mb-1.5 text-slate-800 tracking-tight leading-tight group-hover:text-[#4338ca] transition-colors line-clamp-2">{p.name}</h4>
                       <p className="text-[9px] text-slate-400 font-bold uppercase mb-4 flex items-center gap-1.5 leading-none"><MapPin className="w-3 h-3 text-[#4338ca]" /> {p.address}</p>
-                      <p className="text-[11px] text-slate-500 italic mb-8 leading-relaxed opacity-80 line-clamp-3">"{p.note}"</p>
+                      <p className="text-[11px] text-slate-500 italic mb-8 leading-relaxed opacity-80 line-clamp-3 text-slate-500">"{p.note}"</p>
                     </div>
-                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-[#4338ca] transition-all block active:scale-95 leading-none text-white">VER SITIO</a>
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-[#4338ca] transition-all block active:scale-95 leading-none">VER SITIO</a>
                   </div>
                 </div>
             </div>
@@ -742,11 +749,11 @@ const App = () => {
 
       <footer className="relative bg-[#111827] py-20 px-6 overflow-hidden text-center border-t border-white/5 text-slate-300">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.05] pointer-events-none"></div>
-        <div className="relative z-10 max-w-4xl mx-auto">
-          <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12 text-balance">
+        <div className="relative z-10 max-w-4xl mx-auto text-balance">
+          <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
             <div className="flex justify-center mb-8">
               <div className="bg-[#4338ca] p-2 rounded-xl shadow-lg"><HikerIcon /></div>
-              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none text-white">Rutabia</span>
+              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Rutabia</span>
             </div>
             <h3 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter leading-none mb-5 uppercase text-white">Crea tu ruta</h3>
             <div className="space-y-6">
@@ -756,10 +763,10 @@ const App = () => {
 
               <div className="border-t border-white/5 pt-8 max-w-xl mx-auto"></div>
 
-              <div className="text-white/50 text-[12px] md:text-[14px] leading-relaxed max-w-2xl mx-auto space-y-2 text-slate-400">
+              <div className="text-white/50 text-[12px] md:text-[14px] leading-relaxed max-w-2xl mx-auto space-y-2">
                 <p>¿Eres una administración interesada en © RUTABIA?</p>
                 <p>¿Tienes un hotel rural, camping o negocio y quieres contactar con nosotros?</p>
-                <p className="font-bold text-white/70 pt-2 text-balance">Lleva tu oferta al siguiente nivel, ¿hablamos?</p>
+                <p className="font-bold text-white/70 pt-2">Lleva tu oferta al siguiente nivel, ¿hablamos?</p>
                 
                 <div className="pt-4">
                   <a href="mailto:rutabiasegovia@gmail.com" className="text-fuchsia-500 font-black uppercase tracking-widest underline decoration-2 underline-offset-4 hover:text-fuchsia-400 transition-colors">
@@ -768,7 +775,7 @@ const App = () => {
                 </div>
               </div>
 
-              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto text-slate-400"></div>
+              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto"></div>
               
               <div className="text-white/30 text-[12px] md:text-[14px] flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 font-medium">
                 <span className="hover:text-white transition-colors cursor-pointer text-slate-400">Política de Privacidad</span>
@@ -799,13 +806,13 @@ const App = () => {
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50 text-indigo-700">
                     <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none text-indigo-700 font-black"><Route className="w-5 h-5" /> Ruta Zona {itinerary.zone}</h4>
                 </div>
-                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left">
+                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left text-slate-800">
                     {itinerary.places.map((p, idx) => (
                         <div key={p.id} className="relative">
                             {p.kmFromPrev && (
                                 <div className="flex flex-col items-center -mt-6 mb-4">
                                     <ArrowDown className="w-5 h-5 text-black mb-1" />
-                                    <span className="text-[9px] font-black text-black uppercase bg-slate-100 px-3 py-1 rounded-full border border-slate-200 text-slate-800">A {p.kmFromPrev} km</span>
+                                    <span className="text-[9px] font-black text-black uppercase bg-slate-100 px-3 py-1 rounded-full border border-slate-200 text-slate-800 font-bold">A {p.kmFromPrev} km</span>
                                 </div>
                             )}
                             <div className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm text-slate-800">
@@ -816,7 +823,7 @@ const App = () => {
                                         <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white text-[7px] font-black uppercase rounded leading-none`}>{p.category}</span>
                                     </div>
                                     <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tight">{p.address}</p>
-                                    <p className="text-[11px] text-slate-500 italic mb-3 leading-relaxed">"{p.note}"</p>
+                                    <p className="text-[11px] text-slate-500 italic mb-3 leading-relaxed text-slate-500">"{p.note}"</p>
                                     <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline leading-none">Ver punto →</a>
                                 </div>
                             </div>
@@ -844,7 +851,7 @@ const App = () => {
                     <h4 className="font-black uppercase italic text-fuchsia-700 flex items-center gap-2 leading-none text-fuchsia-700 font-black"><Heart className="w-5 h-5 fill-current text-fuchsia-700" /> Listado de Favoritos</h4>
                     <button onClick={() => setShowFavsModal(false)} className="p-2 hover:bg-fuchsia-100 hover:text-fuchsia-600 rounded-full transition-all text-fuchsia-300 font-black"><X className="w-6 h-6" /></button>
                 </div>
-                <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh] text-left text-slate-800">
+                <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh] text-left text-slate-800 text-slate-800">
                     {favorites.length === 0 ? (
                         <div className="text-center py-20">
                             <Info className="w-12 h-12 text-slate-200 mx-auto mb-4" />
@@ -855,8 +862,8 @@ const App = () => {
                             const p = allPlaces.find(x => x.id === fid);
                             if (!p) return null;
                             return (
-                                <div key={p.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white transition-all shadow-sm text-slate-800">
-                                    <div className="flex items-center gap-4 text-slate-800">
+                                <div key={p.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white transition-all shadow-sm text-slate-800 text-slate-800">
+                                    <div className="flex items-center gap-4 text-slate-800 text-slate-800">
                                         <div className={`w-3 h-10 rounded-full ${categoryColors[p.category]}`}></div>
                                         <div>
                                             <h5 className="font-black uppercase text-sm leading-tight text-slate-800">{p.name}</h5>
@@ -880,7 +887,7 @@ const App = () => {
 
       {randomPlace && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setRandomPlace(null)}>
-              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center relative text-slate-800" onClick={e => e.stopPropagation()}>
+              <div className="bg-white rounded-[3rem] w-full max-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center relative text-slate-800 text-slate-800" onClick={e => e.stopPropagation()}>
                 <button 
                     onClick={() => setRandomPlace(null)} 
                     className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all text-slate-400 z-10 font-black"
@@ -889,9 +896,9 @@ const App = () => {
                 </button>
 
                 <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm`}>{randomPlace.category}</span>
-                <h3 className="text-2xl font-black uppercase mb-2 leading-tight text-slate-800">{randomPlace.name}</h3>
-                <p className="text-slate-400 text-xs font-bold uppercase mb-6 text-slate-400">{randomPlace.address}</p>
-                <p className="text-slate-500 italic text-sm mb-10 leading-relaxed text-slate-500">"{randomPlace.note}"</p>
+                <h3 className="text-2xl font-black uppercase mb-2 leading-tight text-slate-800 text-slate-800">{randomPlace.name}</h3>
+                <p className="text-slate-400 text-xs font-bold uppercase mb-6 text-slate-400 text-slate-400">{randomPlace.address}</p>
+                <p className="text-slate-500 italic text-sm mb-10 leading-relaxed text-slate-500 text-slate-500">"{randomPlace.note}"</p>
                 <div className="flex flex-col gap-3">
                     <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:scale-105 transition-transform text-white">Abrir en Mapa</a>
                     
