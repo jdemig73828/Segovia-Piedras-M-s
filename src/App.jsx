@@ -8,12 +8,15 @@ const Analytics = React.lazy(() =>
     .catch(() => ({ default: () => null }))
 );
 
-// Icono personalizado: Brújula sencilla (Blanco)
-const CompassIcon = ({ size = 20 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10"/>
-    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
-  </svg>
+// Componente para el nuevo Logotipo de Rutabia
+const RutabiaLogo = ({ size = 24 }) => (
+  <img 
+    src="https://lh3.googleusercontent.com/d/1imVDbq_9sZYdpjRCQ4i-XmRmxWzSQv8l" 
+    alt="Rutabia" 
+    className="object-contain"
+    style={{ width: size, height: size }}
+    onError={(e) => e.target.style.display = 'none'}
+  />
 );
 
 const categoryColors = {
@@ -430,7 +433,7 @@ const App = () => {
         >
             <ChevronLeft size={24} />
         </button>
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5 text-slate-800">
             {[...Array(totalPages)].map((_, i) => {
                 if (totalPages > 5 && Math.abs(currentPage - (i + 1)) > 2) {
                     if (i === 0 || i === totalPages - 1) return <span key={i} className="px-1 text-slate-300">.</span>;
@@ -469,14 +472,14 @@ const App = () => {
 
   const CompassIconWithSquare = ({ size = 20 }) => (
     <div className="bg-[#4338ca] p-1.5 rounded-md shadow-sm text-white">
-      <CompassIcon size={size} />
+      <RutabiaLogo size={size} />
     </div>
   );
 
   return (
     <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100 text-[24px] sm:text-[26px] lg:text-[24px]">
       <header className="sticky top-0 z-[1000] h-14 bg-white px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm overflow-visible text-slate-800">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 text-slate-900">
           <CompassIconWithSquare />
           <h1 className="text-sm font-black tracking-tight uppercase italic leading-none">Rutabia</h1>
         </div>
@@ -500,8 +503,8 @@ const App = () => {
 
         {isHeaderSearchOpen && (
             <div className="absolute top-full left-0 right-0 bg-white border-b border-slate-200 shadow-2xl p-4 z-[1001] animate-fade-in text-slate-800">
-                <div className="max-w-3xl mx-auto relative">
-                    <div className="flex items-center gap-3 bg-slate-100 rounded-2xl px-5 py-3 border border-slate-200 focus-within:ring-2 focus-within:ring-[#4338ca] transition-all">
+                <div className="max-w-3xl mx-auto relative text-slate-800">
+                    <div className="flex items-center gap-3 bg-slate-100 rounded-2xl px-5 py-3 border border-slate-200 focus-within:ring-2 focus-within:ring-[#4338ca] transition-all text-slate-800">
                         <Search className="text-slate-400" size={20} />
                         <input 
                             type="text" 
@@ -570,7 +573,7 @@ const App = () => {
               <div className="w-[85%] max-w-[320px] bg-white h-full shadow-2xl flex flex-col p-8 pt-4 slide-in-right text-slate-800" onClick={e => e.stopPropagation()}>
                   <div className="flex items-center gap-3 mb-6 pb-6 border-b border-slate-100">
                       <div className="bg-[#4338ca] p-2 rounded-lg shadow-lg text-white">
-                          <CompassIcon size={24} />
+                          <RutabiaLogo size={24} />
                       </div>
                       <h2 className="text-xl font-black tracking-tight text-slate-900 uppercase italic leading-none">Rutabia</h2>
                   </div>
@@ -585,7 +588,7 @@ const App = () => {
                           </div>
                           <div className="text-left flex-grow">
                               <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0">Generator</span>
-                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none mt-0">Crea tu ruta al azar</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none">Crea tu ruta al azar</span>
                           </div>
                       </button>
 
@@ -598,7 +601,7 @@ const App = () => {
                           </div>
                           <div className="text-left flex-grow">
                               <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0">Randomizer</span>
-                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none mt-0">Selección al azar</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none text-slate-800">Selección al azar</span>
                           </div>
                       </button>
                   </div>
@@ -622,19 +625,19 @@ const App = () => {
             <span className="font-black text-white">CREA</span> <span className="font-semibold text-white">TU RUTA</span>
           </h2>
           <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance">
-            <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white text-white">Segovia</span>
+            <span className="font-black text-white text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white text-white">Segovia</span>
           </p>
 
           <div className="bg-white/10 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/20 shadow-2xl relative mb-12 text-slate-800">
             <h3 className="text-[16px] lg:text-[18px] font-normal tracking-normal text-white mb-6 text-center">Selecciona ubicaciones</h3>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-slate-800">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-slate-800 text-slate-800">
                 <div className="relative w-full sm:w-auto text-left text-slate-800">
                     <button 
                     onClick={() => { setShowCatMenu(!showCatMenu); setShowZoneMenu(false); }}
-                    className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
+                    className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group text-slate-800"
                     >
-                        <div className="flex items-center gap-3 text-slate-800">
+                        <div className="flex items-center gap-3">
                             {getCategoryIcon(currentCategory)}
                             <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{currentCategory === 'Todos' ? 'Categorías' : currentCategory}</span>
                         </div>
@@ -669,9 +672,9 @@ const App = () => {
                 <div className="relative w-full sm:w-auto text-left text-slate-800">
                     <button 
                     onClick={() => { setShowZoneMenu(!showZoneMenu); setShowCatMenu(false); }}
-                    className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
+                    className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group text-slate-800 text-slate-800"
                     >
-                        <div className="flex items-center gap-3 text-slate-800">
+                        <div className="flex items-center gap-3 text-slate-800 text-slate-800">
                             <Compass className="w-4 h-4 text-[#4338ca]" />
                             <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{currentGeoZone === 'Todos' ? 'ZONA' : currentGeoZone}</span>
                         </div>
@@ -726,7 +729,7 @@ const App = () => {
       </section>
 
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 text-center min-h-[600px]">
-        {/* FAVORITOS 1 Y PAGINADOR SUPERIOR */}
+        {/* FAVORITOS 1 Y PAGINADOR SUPERIOR: SIEMPRE VISIBLES */}
         <div className="flex flex-col items-center gap-12 my-12 text-slate-800">
             {totalPages > 1 && <PaginationControls />}
             <div className={isStickyFavVisible ? 'lg:block hidden' : 'block'}>
@@ -737,11 +740,11 @@ const App = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left">
           {displayedPlaces.map((p) => (
             <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in flex flex-col h-full overflow-hidden text-slate-800`}>
-                <div className="relative z-10 flex flex-col h-full">
+                <div className="relative z-10 flex flex-col h-full text-slate-800">
                   <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}
                        style={p.image ? {backgroundImage: `url(${p.image})`, backgroundSize: 'cover', backgroundPosition: 'center'} : {}}>
                     
-                    {p.image && <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 z-0 pointer-events-none"></div>}
+                    {p.image && <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 z-0 pointer-events-none text-slate-800"></div>}
 
                     {!p.image && (
                       <div className={`absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0 ${categoryIconColors[p.category]}`}>
@@ -754,7 +757,7 @@ const App = () => {
                     
                     <button 
                       onClick={() => toggleFavorite(p.id)}
-                      className={`absolute top-4 right-4 z-30 p-2.5 rounded-xl border transition-all shadow-sm ${favorites.includes(p.id) ? 'bg-fuchsia-600 text-white border-fuchsia-400' : 'bg-white/95 text-slate-500 border-white hover:bg-white hover:text-fuchsia-600 hover:shadow-md'}`}
+                      className={`absolute top-4 right-4 z-30 p-2.5 rounded-xl border transition-all shadow-sm ${favorites.includes(p.id) ? 'bg-fuchsia-600 text-white border-fuchsia-400 shadow-lg' : 'bg-white/95 text-slate-500 border-white hover:bg-white hover:text-fuchsia-600 hover:shadow-md'}`}
                     >
                       <Heart className={`w-5 h-5 ${favorites.includes(p.id) ? 'fill-current' : ''}`} />
                     </button>
@@ -770,7 +773,7 @@ const App = () => {
                       <p className="text-[9px] text-slate-400 font-bold uppercase mb-4 flex items-center gap-1.5 leading-none"><MapPin className="w-3 h-3 text-[#4338ca]" /> {p.address}</p>
                       <p className="text-[11px] text-slate-500 italic mb-8 leading-relaxed opacity-80 line-clamp-3 text-slate-500">"{p.note}"</p>
                     </div>
-                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-[#4338ca] transition-all block active:scale-95 leading-none">VER SITIO</a>
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-[#4338ca] transition-all block active:scale-95 leading-none text-white">VER SITIO</a>
                   </div>
                 </div>
             </div>
@@ -785,8 +788,9 @@ const App = () => {
             {totalPages > 1 && <PaginationControls />}
         </div>
 
+        {/* BANNER PRE-FOOTER ACTUALIZADO */}
         <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[180px] flex items-center justify-center overflow-hidden shadow-inner bg-cover bg-center group"
-              style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/13R4eL4JuPn4XJnfGo58z3SUcH140ILub')`}}>
+              style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/1DeS7wJlOjyaDHov6V1coSMASyphNIaJQ')`}}>
             <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/30 to-transparent"></div>
             <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-center relative z-20 text-white">
                 <h2 className="text-2xl md:text-4xl font-light text-white uppercase italic tracking-tighter drop-shadow-xl leading-none">
@@ -798,20 +802,20 @@ const App = () => {
 
       <footer className="relative bg-[#111827] py-20 px-6 overflow-hidden text-center border-t border-white/5 text-slate-300">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.05] pointer-events-none"></div>
-        <div className="relative z-10 max-w-4xl mx-auto text-balance text-slate-300">
+        <div className="relative z-10 max-w-4xl mx-auto text-balance">
           <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
             <div className="flex justify-center mb-8">
               <CompassIconWithSquare size={24} />
-              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none text-white">Rutabia</span>
+              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Rutabia</span>
             </div>
             
             <h3 className="text-3xl md:text-5xl uppercase italic tracking-tighter leading-none mb-5 text-white">
                <span className="font-black">CREA</span> <span className="font-semibold">TU RUTA</span>
             </h3>
 
-            <div className="space-y-6">
+            <div className="space-y-6 text-slate-300">
               <p className="text-white/40 text-[14px] md:text-[16px] lg:text-[18px] leading-relaxed max-w-lg mx-auto tracking-wide font-light italic text-balance">
-                <span className="font-black text-white text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white text-white">Segovia</span>
+                <span className="font-black text-white text-white text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white text-white">Segovia</span>
               </p>
 
               <div className="border-t border-white/5 pt-8 max-w-xl mx-auto text-slate-400"></div>
@@ -830,9 +834,9 @@ const App = () => {
 
               <div className="border-t border-white/5 pt-8 max-w-xl mx-auto text-slate-400"></div>
               
-              <div className="text-white/30 text-[12px] md:text-[14px] flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 font-medium text-slate-400">
-                <span className="hover:text-white transition-colors cursor-pointer">Política de Privacidad</span>
-                <span className="hover:text-white transition-colors cursor-pointer">Términos y Condiciones</span>
+              <div className="text-white/30 text-[12px] md:text-[14px] flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 font-medium">
+                <span className="hover:text-white transition-colors cursor-pointer text-slate-400">Política de Privacidad</span>
+                <span className="hover:text-white transition-colors cursor-pointer text-slate-400">Términos y Condiciones</span>
               </div>
 
               <div className="flex flex-col items-center gap-3 transition-opacity opacity-60 hover:opacity-100 text-slate-400">
@@ -861,14 +865,14 @@ const App = () => {
                 </div>
                 <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left text-slate-800">
                     {itinerary.places.map((p, idx) => (
-                        <div key={p.id} className="relative">
+                        <div key={p.id} className="relative text-slate-800">
                             {p.kmFromPrev && (
                                 <div className="flex flex-col items-center -mt-6 mb-4">
                                     <ArrowDown className="w-5 h-5 text-black mb-1 lg:w-7 lg:h-7" />
                                     <span className="text-[9px] font-black text-black uppercase bg-slate-100 px-3 py-1 rounded-full border border-slate-200 lg:text-[13px] font-bold">A {p.kmFromPrev} km</span>
                                 </div>
                             )}
-                            <div className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm text-slate-800">
+                            <div className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm text-slate-800 text-slate-800">
                                 <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-black flex-shrink-0 text-xs lg:w-10 lg:h-10 lg:text-[14px]">{idx + 1}</div>
                                 <div className="flex-grow">
                                     <div className="flex items-center gap-2 mb-1">
@@ -903,13 +907,13 @@ const App = () => {
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative text-slate-800" onClick={e => e.stopPropagation()}>
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-fuchsia-50 text-fuchsia-700">
                     <h4 className="font-black uppercase italic text-fuchsia-700 flex items-center gap-2 leading-none lg:text-[22px] lg:text-[26px] font-black"><Heart className="w-5 h-5 fill-current lg:w-7 lg:h-7 lg:w-9 lg:h-9" /> Crear ruta</h4>
-                    <button onClick={() => setShowFavsModal(false)} className="p-2 hover:bg-fuchsia-100 hover:text-fuchsia-600 rounded-full transition-all text-fuchsia-300"><X className="w-6 h-6 lg:w-7 lg:h-7 lg:w-9 lg:h-9" /></button>
+                    <button onClick={() => setShowFavsModal(false)} className="p-2 hover:bg-fuchsia-100 hover:text-fuchsia-600 rounded-full transition-all text-fuchsia-300 lg:w-12 lg:h-12"><X className="w-6 h-6 lg:w-7 lg:h-7 lg:w-9 lg:h-9" /></button>
                 </div>
                 <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh] text-left text-slate-800">
                     {favPlacesWithDist.length === 0 ? (
                         <div className="text-center py-20 text-slate-400">
                             <Info className="w-12 h-12 text-slate-200 mx-auto mb-4 lg:w-16 lg:h-16 lg:w-20 lg:h-20" />
-                            <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] lg:text-[14px] lg:text-[14px] lg:text-[18px]">No has guardado parajes aún</p>
+                            <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] lg:text-[14px] lg:text-[18px]">No has guardado parajes aún</p>
                         </div>
                     ) : (
                       <>
@@ -925,7 +929,7 @@ const App = () => {
                                     <div className="flex items-center gap-4 text-slate-800 flex-1">
                                         <div className={`w-3 h-10 rounded-full flex-shrink-0 ${categoryColors[p.category]}`}></div>
                                         <div>
-                                            <div className="flex items-center gap-2 mb-1 text-slate-800">
+                                            <div className="flex items-center gap-2 mb-1">
                                                 <h5 className="font-black uppercase text-sm leading-tight lg:text-[18px] lg:text-[22px] font-black">{p.name}</h5>
                                                 <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white text-[7px] font-black uppercase rounded leading-none lg:text-[11px]`}>{p.category}</span>
                                             </div>
@@ -971,9 +975,9 @@ const App = () => {
                 </button>
 
                 <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm lg:text-[13px] lg:text-[17px]`}>{randomPlace.category}</span>
-                <h3 className="text-2xl font-black uppercase mb-2 leading-tight text-slate-800 lg:text-[28px] lg:text-[32px] font-black">{randomPlace.name}</h3>
-                <p className="text-slate-400 text-xs font-bold uppercase mb-6 lg:text-[16px] lg:text-[20px]">{randomPlace.address}</p>
-                <p className="text-slate-500 italic text-sm mb-10 leading-relaxed lg:text-[18px] lg:text-[22px]">"{randomPlace.note}"</p>
+                <h3 className="text-2xl font-black uppercase mb-2 leading-tight text-slate-800 lg:text-[28px] lg:text-[32px] font-black text-slate-800">{randomPlace.name}</h3>
+                <p className="text-slate-400 text-xs font-bold uppercase mb-6 lg:text-[16px] lg:text-[20px] text-slate-400">{randomPlace.address}</p>
+                <p className="text-slate-500 italic text-sm mb-10 leading-relaxed lg:text-[18px] lg:text-[22px] text-slate-500">"{randomPlace.note}"</p>
                 <div className="flex flex-col gap-3">
                     <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:scale-105 transition-transform lg:text-[16px] lg:text-[20px] flex items-center justify-center gap-3 text-white"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />Abrir en Mapa</a>
                     
@@ -988,7 +992,7 @@ const App = () => {
           </div>
       )}
 
-      {showScrollBtn && <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="fixed bottom-8 right-8 z-[100] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all border border-white/10 text-white"><ArrowUp className="w-6 h-6" /></button>}
+      {showScrollBtn && <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="fixed bottom-8 right-8 z-[100] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all border border-white/10 text-white text-white text-white text-white"><ArrowUp className="w-6 h-6" /></button>}
       
       <Suspense fallback={null}>
         <Analytics />
