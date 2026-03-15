@@ -206,7 +206,7 @@ const App = () => {
     { id: 63, name: "DESPOBLADO DE VILLAREJO", category: "Ruinas", coords: "41°17'54.7\"N 3°40'32.6\"W", address: "EL OLMO", note: "Vestigios de un antiguo núcleo de población hoy desaparecido." },
     { id: 64, name: "DESPOBLADO DE CORRALEJO", category: "Ruinas", coords: "41°17'46.5\"N 3°38'34.4\"W", address: "EL OLMO", note: "Huellas de la historia rural en el campo segoviano." },
     { id: 65, name: "ERMITA DE SAN LORENZO", category: "Historia", coords: "41°19'25.0\"N 3°42'12.3\"W", address: "EL OLMILLO", note: "Pequeño templo románico de gran sencillez y belleza." },
-    { id: 66, name: "CASA PALACIO DE LOS MARQUESES DE CASTROSERNA", category: "Historia", coords: "41°11'23.5\"N 3°42'54.2\"W", address: "CASTROSERNA DE ARRIBA", note: "Edificio señorial representative de la nobleza segoviana." },
+    { id: 66, name: "CASA PALACIO DE LOS MARQUESES DE CASTROSERNA", category: "Historia", coords: "41°11'23.5\"N 3°42'54.2\"W", address: "CASTROSERNA DE ARRIBA", note: "Edificio señorial representativo de la nobleza segoviana." },
     { id: 67, name: "ERMITA DE SAN JULIÁN", category: "Historia", coords: "41°17'51.6\"N 3°47'00.3\"W", address: "CASTRILLO DE SEPÚLVEDA", note: "Lugar de culto tradicional en un entorno paisajístico privilegiado." },
     { id: 68, name: "MOLINO HARINERO", category: "Industrial", coords: "41°21'52.2\"N 3°53'57.7\"W", address: "CARRASCAL DEL RÍO", note: "Ejemplo de la industria molinera fluvial del Duratón." },
     { id: 69, name: "FÁBRICA DE RESINA", category: "Industrial", coords: "41°14'12.5\"N 3°55'35.4\"W", address: "CABEZUELA", note: "Patrimonio industrial ligado a la explotación de los pinos." },
@@ -288,7 +288,7 @@ const App = () => {
     { id: 145, name: "CHOZO DE LA PORTERA DE LA DEHESA", category: "Historia", coords: "41°02'35.4\"N 3°47'43.4\"W", address: "ALDEALENGUA DE PEDRAZA", note: "Arquitectura tradicional de pastores perfectamente conservada." },
     { id: 146, name: "MOLINO DE LOS GORICHES", category: "Industrial", coords: "41°10'43.1\"N 3°53'10.3\"W", address: "ARVALILLO DE CEGA", note: "Molino que dominaba el cauce del río Cega en su zona media." },
     { id: 147, name: "FÁBRICA DE LUZ", category: "Industrial", coords: "41°02'18.1\"N 3°49'29.7\"W", address: "NAVAFRÍA", note: "Antigua central hidroeléctrica que modernizó la zona." },
-    { id: 148, name: "PRESA Y MOLINO CASTELLANOS", category: "Industrial", coords: "41°04'36.6\"N 3°50'11.0\"W", address: "NAVAFRÍA", note: "Compleplejo hidráulico de gran importancia local." },
+    { id: 148, name: "PRESA Y MOLINO CASTELLANOS", category: "Industrial", coords: "41°04'36.6\"N 3°50'11.0\"W", address: "NAVAFRÍA", note: "Complejo hidráulico de gran importancia local." },
     { id: 149, name: "ERMITA DE SAN NICOLÁS", category: "Historia", coords: "41°09'03.2\"N 3°47'10.5\"W", address: "OREJANA", note: "Templo románico rodeado de misterios de la zona mística." },
     { id: 150, name: "LA TEJERA DE RAMÓN MARTÍN", category: "Industrial", coords: "41°05'24.5\"N 3°51'18.1\"W", address: "VALLE de SAN PEDRO", note: "Instalaciones artesanales de elaboración de tejas." },
     { id: 151, name: "DESPOBLADO DE ALDEALAFUENTE", category: "Ruinas", coords: "41°14'19.8\"N 3°48'45.5\"W", address: "ALDEALAFUENTE", note: "Huellas de la vida rural medieval desaparecida." },
@@ -430,7 +430,7 @@ const App = () => {
         >
             <ChevronLeft size={24} />
         </button>
-        <div className="flex items-center gap-1.5 text-slate-800">
+        <div className="flex items-center gap-1.5">
             {[...Array(totalPages)].map((_, i) => {
                 if (totalPages > 5 && Math.abs(currentPage - (i + 1)) > 2) {
                     if (i === 0 || i === totalPages - 1) return <span key={i} className="px-1 text-slate-300">.</span>;
@@ -478,7 +478,7 @@ const App = () => {
       <header className="sticky top-0 z-[1000] h-14 bg-white px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm overflow-visible text-slate-800">
         <div className="flex items-center gap-2">
           <CompassIconWithSquare />
-          <h1 className="text-sm font-black tracking-tight uppercase italic leading-none text-slate-900">Rutabia</h1>
+          <h1 className="text-sm font-black tracking-tight uppercase italic leading-none">Rutabia</h1>
         </div>
         
         <div className="flex items-center gap-2 md:gap-3 flex-1 justify-end h-full">
@@ -501,7 +501,7 @@ const App = () => {
         {isHeaderSearchOpen && (
             <div className="absolute top-full left-0 right-0 bg-white border-b border-slate-200 shadow-2xl p-4 z-[1001] animate-fade-in text-slate-800">
                 <div className="max-w-3xl mx-auto relative">
-                    <div className="flex items-center gap-3 bg-slate-100 rounded-2xl px-5 py-3 border border-slate-200 focus-within:ring-2 focus-within:ring-[#4338ca] transition-all text-slate-800">
+                    <div className="flex items-center gap-3 bg-slate-100 rounded-2xl px-5 py-3 border border-slate-200 focus-within:ring-2 focus-within:ring-[#4338ca] transition-all">
                         <Search className="text-slate-400" size={20} />
                         <input 
                             type="text" 
@@ -539,7 +539,7 @@ const App = () => {
                                 }}
                                 className="w-full px-5 py-4 hover:bg-white/10 flex items-center justify-between group transition-colors border-b border-white/5 last:border-0 text-left text-white"
                             >
-                                <div className="flex items-center gap-3 text-white">
+                                <div className="flex items-center gap-3">
                                     <MapPin size={14} className="text-slate-500" />
                                     <span className="text-white text-[11px] font-black uppercase tracking-tight">{s}</span>
                                 </div>
@@ -580,12 +580,12 @@ const App = () => {
                         onClick={() => { setIsSideMenuOpen(false); generateItinerary(); }}
                         className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full"
                       >
-                          <div className="w-8 flex justify-center flex-shrink-0 text-[#4338ca] group-hover:text-white transition-colors">
-                            <Route className="w-7 h-7" />
+                          <div className="w-8 flex justify-center flex-shrink-0">
+                            <Route className="w-7 h-7 text-[#4338ca] group-hover:text-white transition-colors" />
                           </div>
                           <div className="text-left flex-grow">
                               <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0">Generator</span>
-                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none">Crea tu ruta al azar</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none mt-0">Crea tu ruta al azar</span>
                           </div>
                       </button>
 
@@ -593,12 +593,12 @@ const App = () => {
                         onClick={() => { setIsSideMenuOpen(false); setRandomPlace(allPlaces[Math.floor(Math.random() * allPlaces.length)]); }}
                         className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full"
                       >
-                          <div className="w-8 flex justify-center flex-shrink-0 text-[#4338ca] group-hover:text-white transition-colors">
-                            <Shuffle className="w-7 h-7" />
+                          <div className="w-8 flex justify-center flex-shrink-0">
+                            <Shuffle className="w-7 h-7 text-[#4338ca] group-hover:text-white transition-colors" />
                           </div>
                           <div className="text-left flex-grow">
                               <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0">Randomizer</span>
-                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none">Selección al azar</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none mt-0">Selección al azar</span>
                           </div>
                       </button>
                   </div>
@@ -613,7 +613,7 @@ const App = () => {
           </div>
       )}
 
-      <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible bg-[#5b21b6] px-6 pt-6 pb-8">
+      <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible bg-[#5b21b6] px-6 pt-12 pb-8">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none"></div>
         
@@ -622,17 +622,17 @@ const App = () => {
             <span className="font-black text-white">CREA</span> <span className="font-semibold text-white">TU RUTA</span>
           </h2>
           <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance">
-            <span className="font-black text-white text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
+            <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white text-white">Segovia</span>
           </p>
 
           <div className="bg-white/10 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/20 shadow-2xl relative mb-12 text-slate-800">
-            <h3 className="text-[12px] lg:text-[14px] font-normal tracking-normal text-white mb-6 text-center">Selecciona ubicaciones</h3>
+            <h3 className="text-[16px] lg:text-[18px] font-normal tracking-normal text-white mb-6 text-center">Selecciona ubicaciones</h3>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-slate-800">
-                <div className="relative w-full sm:w-auto text-left">
+                <div className="relative w-full sm:w-auto text-left text-slate-800">
                     <button 
                     onClick={() => { setShowCatMenu(!showCatMenu); setShowZoneMenu(false); }}
-                    className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group text-slate-800"
+                    className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
                     >
                         <div className="flex items-center gap-3 text-slate-800">
                             {getCategoryIcon(currentCategory)}
@@ -642,7 +642,7 @@ const App = () => {
                     </button>
 
                     {showCatMenu && (
-                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2 text-slate-800">
+                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
                         {[
                           { name: 'Todos', icon: <BarChart2 className="w-4 h-4" /> },
                           { name: 'Historia', icon: <Landmark className="w-4 h-4" /> },
@@ -669,7 +669,7 @@ const App = () => {
                 <div className="relative w-full sm:w-auto text-left text-slate-800">
                     <button 
                     onClick={() => { setShowZoneMenu(!showZoneMenu); setShowCatMenu(false); }}
-                    className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group text-slate-800"
+                    className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
                     >
                         <div className="flex items-center gap-3 text-slate-800">
                             <Compass className="w-4 h-4 text-[#4338ca]" />
@@ -679,7 +679,7 @@ const App = () => {
                     </button>
 
                     {showZoneMenu && (
-                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2 text-slate-800 text-slate-800 text-slate-800">
+                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
                         {['Todos', 'Norte', 'Sur', 'Este', 'Oeste'].map(zone => (
                         <button 
                             key={zone} 
@@ -726,7 +726,7 @@ const App = () => {
       </section>
 
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 text-center min-h-[600px]">
-        {/* FAVORITOS 1 Y PAGINADOR SUPERIOR: SIEMPRE VISIBLES */}
+        {/* FAVORITOS 1 Y PAGINADOR SUPERIOR */}
         <div className="flex flex-col items-center gap-12 my-12 text-slate-800">
             {totalPages > 1 && <PaginationControls />}
             <div className={isStickyFavVisible ? 'lg:block hidden' : 'block'}>
@@ -737,7 +737,7 @@ const App = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left">
           {displayedPlaces.map((p) => (
             <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in flex flex-col h-full overflow-hidden text-slate-800`}>
-                <div className="relative z-10 flex flex-col h-full text-slate-800">
+                <div className="relative z-10 flex flex-col h-full">
                   <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}
                        style={p.image ? {backgroundImage: `url(${p.image})`, backgroundSize: 'cover', backgroundPosition: 'center'} : {}}>
                     
@@ -767,7 +767,7 @@ const App = () => {
                   <div className="px-3 flex-grow flex flex-col justify-between">
                     <div>
                       <h4 className="text-[15px] font-black uppercase mb-1.5 text-slate-800 tracking-tight leading-tight group-hover:text-[#4338ca] transition-colors line-clamp-2">{p.name}</h4>
-                      <p className="text-[9px] text-slate-400 font-bold uppercase mb-4 flex items-center gap-1.5 leading-none text-slate-400"><MapPin className="w-3 h-3 text-[#4338ca]" /> {p.address}</p>
+                      <p className="text-[9px] text-slate-400 font-bold uppercase mb-4 flex items-center gap-1.5 leading-none"><MapPin className="w-3 h-3 text-[#4338ca]" /> {p.address}</p>
                       <p className="text-[11px] text-slate-500 italic mb-8 leading-relaxed opacity-80 line-clamp-3 text-slate-500">"{p.note}"</p>
                     </div>
                     <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[10px] text-center uppercase tracking-[0.2em] shadow-lg hover:bg-[#4338ca] transition-all block active:scale-95 leading-none">VER SITIO</a>
@@ -777,8 +777,8 @@ const App = () => {
           ))}
         </div>
 
-        {/* PAGINADOR INFERIOR: SIEMPRE VISIBLE. BOTÓN FAVORITOS SOLO EN DESKTOP */}
-        <div className="mt-16 flex flex-col items-center gap-12 pb-2 mb-[72px] border-b border-slate-100">
+        {/* PAGINADOR INFERIOR Y BOTÓN FAVORITOS DESKTOP */}
+        <div className="mt-16 flex flex-col items-center gap-12 pb-2 mb-[72px] border-b border-slate-100 text-slate-800">
             <div className="hidden lg:block">
               <FavoriteButton />
             </div>
@@ -788,7 +788,7 @@ const App = () => {
         <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[180px] flex items-center justify-center overflow-hidden shadow-inner bg-cover bg-center group"
               style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/13R4eL4JuPn4XJnfGo58z3SUcH140ILub')`}}>
             <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/30 to-transparent"></div>
-            <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-center relative z-20 text-white text-white">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 w-full text-center relative z-20 text-white">
                 <h2 className="text-2xl md:text-4xl font-light text-white uppercase italic tracking-tighter drop-shadow-xl leading-none">
                   Segovia, piedras y más...
                 </h2>
@@ -802,53 +802,53 @@ const App = () => {
           <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
             <div className="flex justify-center mb-8">
               <CompassIconWithSquare size={24} />
-              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Rutabia</span>
+              <span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none text-white">Rutabia</span>
             </div>
             
             <h3 className="text-3xl md:text-5xl uppercase italic tracking-tighter leading-none mb-5 text-white">
-               <span className="font-black text-white">CREA</span> <span className="font-semibold text-white">TU RUTA</span>
+               <span className="font-black">CREA</span> <span className="font-semibold">TU RUTA</span>
             </h3>
 
-            <div className="space-y-6 text-slate-300">
+            <div className="space-y-6">
               <p className="text-white/40 text-[14px] md:text-[16px] lg:text-[18px] leading-relaxed max-w-lg mx-auto tracking-wide font-light italic text-balance">
                 <span className="font-black text-white text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white text-white">Segovia</span>
               </p>
 
               <div className="border-t border-white/5 pt-8 max-w-xl mx-auto text-slate-400"></div>
 
-              <div className="text-white/50 text-[12px] md:text-[14px] leading-relaxed max-w-2xl mx-auto space-y-2 text-slate-400 text-slate-400">
+              <div className="text-white/50 text-[12px] md:text-[14px] leading-relaxed max-w-2xl mx-auto space-y-2 text-slate-400">
                 <p>¿Eres una administración interesada en © RUTABIA?</p>
                 <p>¿Tienes un hotel rural, camping o negocio y quieres contactar con nosotros?</p>
-                <p className="font-bold text-white/70 pt-2 text-balance text-balance">Lleva tu oferta al siguiente nivel, ¿hablamos?</p>
+                <p className="font-bold text-white/70 pt-2 text-balance">Lleva tu oferta al siguiente nivel, ¿hablamos?</p>
                 
-                <div className="pt-4 text-slate-400">
+                <div className="pt-4">
                   <a href="mailto:rutabiasegovia@gmail.com" className="text-fuchsia-500 font-bold transition-colors no-underline">
                     Contactar con Rutabia
                   </a>
                 </div>
               </div>
 
-              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto text-slate-400 text-slate-400 text-slate-400"></div>
+              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto text-slate-400"></div>
               
-              <div className="text-white/30 text-[12px] md:text-[14px] flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 font-medium">
-                <span className="hover:text-white transition-colors cursor-pointer text-slate-400 text-slate-400 text-slate-400">Política de Privacidad</span>
-                <span className="hover:text-white transition-colors cursor-pointer text-slate-400 text-slate-400 text-slate-400">Términos y Condiciones</span>
+              <div className="text-white/30 text-[12px] md:text-[14px] flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 font-medium text-slate-400">
+                <span className="hover:text-white transition-colors cursor-pointer">Política de Privacidad</span>
+                <span className="hover:text-white transition-colors cursor-pointer">Términos y Condiciones</span>
               </div>
 
-              <div className="flex flex-col items-center gap-3 transition-opacity opacity-60 hover:opacity-100 text-slate-400 text-slate-400">
+              <div className="flex flex-col items-center gap-3 transition-opacity opacity-60 hover:opacity-100 text-slate-400">
                 <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-8 h-8" />
                 <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Powered By Google Maps</p>
               </div>
             </div>
           </div>
-          <div className="text-white/30 text-[14px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase text-slate-400 text-slate-400">© 2026 RUTABIA</div>
+          <div className="text-white/30 text-[14px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase text-slate-400">© 2026 RUTABIA</div>
         </div>
       </footer>
 
       {/* MODAL GENERATOR */}
       {itinerary && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setItinerary(null)}>
-              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative text-slate-800 text-slate-800 text-slate-800 text-slate-800 text-slate-800" onClick={e => e.stopPropagation()}>
+              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative text-slate-800" onClick={e => e.stopPropagation()}>
                 <button 
                     onClick={() => setItinerary(null)} 
                     className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all text-slate-400 z-10"
@@ -859,31 +859,31 @@ const App = () => {
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50 text-indigo-700">
                     <h4 className="font-black uppercase italic text-indigo-700 flex items-center gap-2 leading-none lg:text-[22px] font-black"><Route className="w-5 h-5 lg:w-7 lg:h-7" /> Ruta Zona {itinerary.zone}</h4>
                 </div>
-                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left text-slate-800 text-slate-800">
+                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left text-slate-800">
                     {itinerary.places.map((p, idx) => (
                         <div key={p.id} className="relative">
                             {p.kmFromPrev && (
-                                <div className="flex flex-col items-center -mt-6 mb-4 text-slate-800 text-slate-800">
+                                <div className="flex flex-col items-center -mt-6 mb-4">
                                     <ArrowDown className="w-5 h-5 text-black mb-1 lg:w-7 lg:h-7" />
                                     <span className="text-[9px] font-black text-black uppercase bg-slate-100 px-3 py-1 rounded-full border border-slate-200 lg:text-[13px] font-bold">A {p.kmFromPrev} km</span>
                                 </div>
                             )}
-                            <div className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm text-slate-800 text-slate-800">
+                            <div className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm text-slate-800">
                                 <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-black flex-shrink-0 text-xs lg:w-10 lg:h-10 lg:text-[14px]">{idx + 1}</div>
                                 <div className="flex-grow">
-                                    <div className="flex items-center gap-2 mb-1 text-slate-800 text-slate-800">
-                                        <h5 className="font-black uppercase text-sm leading-tight text-slate-800 lg:text-[18px] font-black">{p.name}</h5>
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <h5 className="font-black uppercase text-sm leading-tight lg:text-[18px] text-slate-800 font-black">{p.name}</h5>
                                         <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white text-[7px] font-black uppercase rounded leading-none lg:text-[11px]`}>{p.category}</span>
                                     </div>
-                                    <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tight lg:text-[14px] text-slate-400 text-slate-400">{p.address}</p>
-                                    <p className="text-[11px] text-slate-500 italic mb-3 leading-relaxed lg:text-[15px] text-slate-500 text-slate-500">"{p.note}"</p>
-                                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline leading-none lg:text-[13px] text-indigo-600 font-black">Ver punto →</a>
+                                    <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tight lg:text-[14px]">{p.address}</p>
+                                    <p className="text-[11px] text-slate-500 italic mb-3 leading-relaxed lg:text-[15px]">"{p.note}"</p>
+                                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:underline leading-none lg:text-[13px] font-black">Ver punto →</a>
                                 </div>
                             </div>
                         </div>
                     ))}
                     <div className="pt-6 border-t border-slate-100 mt-8 pb-10 px-4 text-center">
-                        <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95 mb-10 text-white lg:text-[16px] font-black text-white"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />Ver ruta</a>
+                        <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95 mb-10 text-white lg:text-[16px] font-black"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />Ver ruta</a>
                         
                         <button 
                             onClick={() => setItinerary(null)} 
@@ -909,7 +909,7 @@ const App = () => {
                     {favPlacesWithDist.length === 0 ? (
                         <div className="text-center py-20 text-slate-400">
                             <Info className="w-12 h-12 text-slate-200 mx-auto mb-4 lg:w-16 lg:h-16 lg:w-20 lg:h-20" />
-                            <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] lg:text-[14px] lg:text-[18px]">No has guardado parajes aún</p>
+                            <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] lg:text-[14px] lg:text-[14px] lg:text-[18px]">No has guardado parajes aún</p>
                         </div>
                     ) : (
                       <>
@@ -918,15 +918,15 @@ const App = () => {
                                 {p.kmFromPrev && (
                                     <div className="flex flex-col items-center -mt-4 mb-4">
                                         <ArrowDown className="w-4 h-4 text-slate-300 mb-1 lg:w-7 lg:h-7 lg:w-9 lg:h-9" />
-                                        <span className="text-[9px] font-black text-slate-400 uppercase bg-slate-50 px-3 py-1 rounded-full border border-slate-100 lg:text-[14px] text-slate-400">A {p.kmFromPrev} km</span>
+                                        <span className="text-[9px] font-black text-slate-400 uppercase bg-slate-50 px-3 py-1 rounded-full border border-slate-100 lg:text-[14px] lg:text-[17px]">A {p.kmFromPrev} km</span>
                                     </div>
                                 )}
-                                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white transition-all shadow-sm text-slate-800">
+                                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white transition-all shadow-sm">
                                     <div className="flex items-center gap-4 text-slate-800 flex-1">
                                         <div className={`w-3 h-10 rounded-full flex-shrink-0 ${categoryColors[p.category]}`}></div>
                                         <div>
-                                            <div className="flex items-center gap-2 mb-1">
-                                                <h5 className="font-black uppercase text-sm leading-tight lg:text-[18px] lg:text-[22px] text-slate-800 font-black">{p.name}</h5>
+                                            <div className="flex items-center gap-2 mb-1 text-slate-800">
+                                                <h5 className="font-black uppercase text-sm leading-tight lg:text-[18px] lg:text-[22px] font-black">{p.name}</h5>
                                                 <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white text-[7px] font-black uppercase rounded leading-none lg:text-[11px]`}>{p.category}</span>
                                             </div>
                                             <p className="text-[9px] font-bold text-slate-400 uppercase lg:text-[13px] lg:text-[17px] mb-2">{p.address}</p>
@@ -940,17 +940,15 @@ const App = () => {
                             </div>
                         ))}
                         <div className="pt-6 border-t border-slate-100 mt-8 pb-10 text-center">
-                            <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(favPlacesWithDist[0].coords)}&destination=${encodeURIComponent(favPlacesWithDist[favPlacesWithDist.length-1].coords)}${favPlacesWithDist.length > 2 ? `&waypoints=${favPlacesWithDist.slice(1,-1).map(p => encodeURIComponent(p.coords)).join('|')}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-fuchsia-900 transition-all flex items-center justify-center gap-3 active:scale-95 text-white lg:text-[20px] lg:text-[24px] text-white font-black text-white text-white"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-8" />Ver ruta favoritos</a>
+                            <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(favPlacesWithDist[0].coords)}&destination=${encodeURIComponent(favPlacesWithDist[favPlacesWithDist.length-1].coords)}${favPlacesWithDist.length > 2 ? `&waypoints=${favPlacesWithDist.slice(1,-1).map(p => encodeURIComponent(p.coords)).join('|')}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-fuchsia-900 transition-all flex items-center justify-center gap-3 active:scale-95 text-white lg:text-[20px] lg:text-[24px] font-black"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-8" />Ver ruta favoritos</a>
                         </div>
                       </>
                     )}
                 </div>
-                <div className="p-6 bg-slate-50 border-t border-slate-100 text-center text-slate-400">
-                    <p className="text-[9px] uppercase tracking-widest font-bold text-slate-400 lg:text-[13px] lg:text-[17px] text-slate-400">{favorites.length} parajes seleccionados</p>
+                <div className="p-6 bg-slate-50 border-t border-slate-100 text-center">
+                    <p className="text-[9px] uppercase tracking-widest font-bold text-slate-400 lg:text-[13px] lg:text-[17px]">{favorites.length} parajes seleccionados</p>
                 </div>
-
-                {/* BOTÓN CERRAR - ESPACIADO IGUALADO AL RANDOMIZER */}
-                <div className="p-6 pt-2 pb-10 flex justify-center">
+                <div className="flex justify-center mt-8 pb-12">
                   <button 
                     onClick={() => setShowFavsModal(false)}
                     className="text-slate-800 text-[10px] font-bold uppercase tracking-widest hover:text-indigo-600 transition-colors lg:text-[18px] font-black"
@@ -964,24 +962,24 @@ const App = () => {
 
       {randomPlace && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setRandomPlace(null)}>
-              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center relative text-slate-800 text-slate-800 text-slate-800 text-slate-800 text-slate-800 text-slate-800 text-slate-800" onClick={e => e.stopPropagation()}>
+              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center relative text-slate-800" onClick={e => e.stopPropagation()}>
                 <button 
                     onClick={() => setRandomPlace(null)} 
-                    className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all text-slate-400 z-10 font-black text-slate-400"
+                    className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all text-slate-400 z-10 font-black"
                 >
                     <X className="w-6 h-6 lg:w-8 lg:h-8 lg:w-10 lg:h-10" />
                 </button>
 
                 <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm lg:text-[13px] lg:text-[17px]`}>{randomPlace.category}</span>
-                <h3 className="text-2xl font-black uppercase mb-2 leading-tight text-slate-800 lg:text-[28px] lg:text-[32px] font-black text-slate-800">{randomPlace.name}</h3>
-                <p className="text-slate-400 text-xs font-bold uppercase mb-6 lg:text-[16px] lg:text-[20px] text-slate-400">{randomPlace.address}</p>
-                <p className="text-slate-500 italic text-sm mb-10 leading-relaxed lg:text-[18px] lg:text-[22px] text-slate-500">"{randomPlace.note}"</p>
+                <h3 className="text-2xl font-black uppercase mb-2 leading-tight text-slate-800 lg:text-[28px] lg:text-[32px] font-black">{randomPlace.name}</h3>
+                <p className="text-slate-400 text-xs font-bold uppercase mb-6 lg:text-[16px] lg:text-[20px]">{randomPlace.address}</p>
+                <p className="text-slate-500 italic text-sm mb-10 leading-relaxed lg:text-[18px] lg:text-[22px]">"{randomPlace.note}"</p>
                 <div className="flex flex-col gap-3">
                     <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:scale-105 transition-transform lg:text-[16px] lg:text-[20px] flex items-center justify-center gap-3 text-white"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />Abrir en Mapa</a>
                     
                     <button 
                         onClick={() => setRandomPlace(null)} 
-                        className="text-slate-800 text-[10px] font-bold uppercase tracking-widest hover:text-indigo-600 mt-8 transition-colors lg:text-[14px] lg:text-[18px] font-black text-slate-800"
+                        className="text-slate-800 text-[10px] font-bold uppercase tracking-widest hover:text-indigo-600 mt-8 transition-colors lg:text-[14px] lg:text-[18px] font-black"
                     >
                         Cerrar
                     </button>
