@@ -747,7 +747,7 @@ const App = () => {
           <div className="w-full max-w-4xl mt-12 flex flex-wrap justify-center gap-x-8 gap-y-4 px-4 text-white">
               <div className="flex items-center gap-2.5 text-white">
                   <CheckCircle2 className="w-5 h-5 text-white" />
-                  <span className="text-[12px] md:text-[14px] font-medium tracking-wide">Las mejores rutas</span>
+                  <span className="text-[12px] md:text-[14px] font-medium tracking-wide">Los mejores parajes</span>
               </div>
               <div className="flex items-center gap-2.5 text-white">
                   <Percent className="w-5 h-5 text-white" />
