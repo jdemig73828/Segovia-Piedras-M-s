@@ -161,31 +161,31 @@ const App = () => {
     }
   };
 
-  // --- BASE DE DATOS INTEGRAL (217 PUNTOS) ---
+  // --- BASE DE DATOS INTEGRAL (217 PUNTOS) - IMÁGENES ELIMINADAS ---
   const allPlaces = useMemo(() => [
-    { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1twm1fqZ7yytOPc-NXvvdM6VQTdBPnfqm" },
-    { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas.", image: "https://lh3.googleusercontent.com/d/1FvLT4ujPzG-8WW4Pa-ji248RF4McYDUT" },
-    { id: 3, name: "FORTALEZA CASTILLO", category: "Historia", coords: "41°21'13.6\"N 3°53'15.2\"W", address: "CARRASCAL DEL RÍO", note: "Fortaleza dominante sobre el paisaje de las hoces del río Duratón.", image: "https://lh3.googleusercontent.com/d/1jpFFHlAPzmUA6hcTA6qqNvzYomyt-peC" },
+    { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo." },
+    { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas." },
+    { id: 3, name: "FORTALEZA CASTILLO", category: "Historia", coords: "41°21'13.6\"N 3°53'15.2\"W", address: "CARRASCAL DEL RÍO", note: "Fortaleza dominante sobre el paisaje de las hoces del río Duratón." },
     { id: 4, name: "MOLINO DE LOS MESA", category: "Industrial", coords: "41°12'19.5\"N 3°58'56.7\"W", address: "CABEZUELA", note: "Ingenio harinero tradicional situado en la ribera del río Cega." },
-    { id: 5, name: "PUERTA DE LA FUERZA", category: "Historia", coords: "41°18'09.1\"N 3°45'31.9\"W", address: "SEPÚLVEDA", note: "Acceso amurallado histórico de la villa medieval.", image: "https://lh3.googleusercontent.com/d/1r7Ued9WLHv7hyiIUjICY-__1F5WjXUwv" },
-    { id: 6, name: "PESQUERÍAS REALES", category: "Historia", coords: "40°53'25.4\"N 4°01'20.6\"W", address: "VALSAÍN", note: "Senda regia empedrada construida junto al cauce del río Eresma.", image: "https://lh3.googleusercontent.com/d/1Q3VwQ6IY0YJMxzo8UvVqxE8VZyrosx_-" },
-    { id: 7, name: "PALACIO REAL DE VALSAÍN", category: "Historia", coords: "40°52'36.9\"N 4°01'36.3\"W", address: "VALSAÍN", note: "Ruinas del antiguo palacio de recreo de los Austrias.", image: "https://lh3.googleusercontent.com/d/1GF2FHZQBOXZLoXBh7PXA3wzDXIDqow5p" },
-    { id: 8, name: "CASA ERASO", category: "Historia", coords: "40°48'22.3\"N 4°03'07.3\"W", address: "VALSAÍN", note: "Edificación ligada históricamente a la gestión de montes y caza real.", image: "https://lh3.googleusercontent.com/d/1CfL25K-WMrisH_tUuLBD6ZTtQIC4145k" },
+    { id: 5, name: "PUERTA DE LA FUERZA", category: "Historia", coords: "41°18'09.1\"N 3°45'31.9\"W", address: "SEPÚLVEDA", note: "Acceso amurallado histórico de la villa medieval." },
+    { id: 6, name: "PESQUERÍAS REALES", category: "Historia", coords: "40°53'25.4\"N 4°01'20.6\"W", address: "VALSAÍN", note: "Senda regia empedrada construida junto al cauce del río Eresma." },
+    { id: 7, name: "PALACIO REAL DE VALSAÍN", category: "Historia", coords: "40°52'36.9\"N 4°01'36.3\"W", address: "VALSAÍN", note: "Ruinas del antiguo palacio de recreo de los Austrias." },
+    { id: 8, name: "CASA ERASO", category: "Historia", coords: "40°48'22.3\"N 4°03'07.3\"W", address: "VALSAÍN", note: "Edificación ligada históricamente a la gestión de montes y caza real." },
     { id: 9, name: "FÁBRICA DE HARINA LA JULITA", category: "Industrial", coords: "41°09'24.6\"N 4°00'26.2\"W", address: "TURÉGANO", note: "Patrimonio industrial harinero del siglo XX con maquinaria de época." },
     { id: 10, name: "ESTACIÓN APEADERO DE TREN", category: "Industrial", coords: "41°30'10.5\"N 3°32'34.7\"W", address: "MADERUELO", note: "Antigua parada de la línea ferroviaria que conectaba la zona mística." },
     { id: 11, name: "CASA DE LA MÁQUINA DEL PULIMENTO", category: "Industrial", coords: "40°54'46.4\"N 4°00'46.7\"W", address: "LA GRANJA DE SAN ILDEFONSO", note: "Ingenio industrial de la Real Fábrica de Cristales." },
     { id: 12, name: "FÁBRICA DE HARINA MARTÍNEZ", category: "Industrial", coords: "41°13'14.8\"N 4°10'27.6\"W", address: "FUENTEPELAYO", note: "Antiguo complejo harinero representativo de la comarca." },
-    { id: 13, name: "PALACIO DE LOS MARQUESES DE AGUILAFUENTE", category: "Historia", coords: "41°13'47.7\"N 4°06'54.3\"W", address: "AGUILAFUENTE", note: "Residencia señorial histórica de gran relevancia arquitectónica.", image: "https://lh3.googleusercontent.com/d/1Y_3k_xrkVEW-Xw3ysljP2XKTySVqXKjR" },
+    { id: 13, name: "PALACIO DE LOS MARQUESES DE AGUILAFUENTE", category: "Historia", coords: "41°13'47.7\"N 4°06'54.3\"W", address: "AGUILAFUENTE", note: "Residencia señorial histórica de gran relevancia arquitectónica." },
     { id: 14, name: "TELÉGRAFO ÓPTICO", category: "Industrial", coords: "41°08'44.9\"N 4°37'36.4\"W", address: "TOLOCIRIO", note: "Torre de comunicación del siglo XIX perteneciente a la línea de Castilla." },
     { id: 15, name: "TELÉGRAFO ÓPTICO", category: "Industrial", coords: "41°03'21.7\"N 4°36'34.2\"W", address: "CODORNIZ", note: "Restos de la infraestructura de telecomunicaciones históricas." },
     { id: 16, name: "FÁBRICA DE HARINA", category: "Industrial", coords: "41°09'36.1\"N 4°29'19.1\"W", address: "NAVA DE LA ASUNCIÓN", note: "Patrimonio industrial ligado a la explotación cerealista." },
-    { id: 17, name: "ERMITA DE SANTA ROSALÍA", category: "Historia", coords: "41°13'21.1\"N 4°31'21.2\"W", address: "COCA", note: "Edificación religiosa situada en el entorno histórico de la villa de Coca.", image: "https://lh3.googleusercontent.com/d/1H4Qy9199zEY225AzNDjzUc84IlBdFLsp" },
-    { id: 18, name: "ERMITA DE SAN ANDRÉS", category: "Historia", coords: "41°15'25.8\"N 4°09'45.2\"W", address: "ZARZUELA DEL PINAR", note: "Templo románico rodeado de la inmensidad de los pinares.", image: "https://lh3.googleusercontent.com/d/1yZO7HGi4LScjNgk8EK-Ulo9tY06dAYpY" },
-    { id: 19, name: "ERMITA DE SAN CEBRIÁN", category: "Historia", coords: "41°15'00.0\"N 4°12'36.7\"W", address: "ZARZUELA DEL PINAR", note: "Pequeño santuario medieval en el corazón de Tierra de Pinares.", image: "https://lh3.googleusercontent.com/d/1EaWFX44q9pVh4wp77gLo9xPD56k58PZa" },
+    { id: 17, name: "ERMITA DE SANTA ROSALÍA", category: "Historia", coords: "41°13'21.1\"N 4°31'21.2\"W", address: "COCA", note: "Edificación religiosa situada en el entorno histórico de la villa de Coca." },
+    { id: 18, name: "ERMITA DE SAN ANDRÉS", category: "Historia", coords: "41°15'25.8\"N 4°09'45.2\"W", address: "ZARZUELA DEL PINAR", note: "Templo románico rodeado de la inmensidad de los pinares." },
+    { id: 19, name: "ERMITA DE SAN CEBRIÁN", category: "Historia", coords: "41°15'00.0\"N 4°12'36.7\"W", address: "ZARZUELA DEL PINAR", note: "Pequeño santuario medieval en el corazón de Tierra de Pinares." },
     { id: 20, name: "MOLINO DE MINGELA", category: "Industrial", coords: "41°22'40.9\"N 4°25'54.4\"W", address: "VALLELADO", note: "Antiguo molino situado en la margen del río Cega." },
     { id: 21, name: "MOLINO DE POTRICOS", category: "Industrial", coords: "41°24'02.7\"N 4°07'27.2\"W", address: "PEROSILLO", note: "Ingenio hidráulico histórico preservado en el paisaje rural." },
     { id: 22, name: "MOLINO DEL PINO", category: "Industrial", coords: "41°23'11.3\"N 4°28'40.2\"W", address: "MATA DE CUÉLLAR", note: "Molino harinero tradicional de construcción en piedra." },
-    { id: 23, name: "TORREÓN DE SANTA MARÍA", category: "Historia", coords: "41°24'00.1\"N 4°13'24.6\"W", address: "LOVINGOS", note: "Restos de la torre de la antigua iglesia parroquial.", image: "https://lh3.googleusercontent.com/d/1kyTc642i9kF2-MOfSWE9I_xLVrjcFISX" },
+    { id: 23, name: "TORREÓN DE SANTA MARÍA", category: "Historia", coords: "41°24'00.1\"N 4°13'24.6\"W", address: "LOVINGOS", note: "Restos de la torre de la antigua iglesia parroquial." },
     { id: 24, name: "MOLINO BATÁN DE GARRIDO", category: "Industrial", coords: "41°17'01.9\"N 4°08'49.1\"W", address: "LASTRAS DE CUÉLLAR", note: "Antiguo batán utilizado para el tratamiento de tujeidos." },
     { id: 25, name: "MOLINO DEL LADRÓN", category: "Industrial", coords: "41°17'24.8\"N 4°09'04.2\"W", address: "LASTRAS DE CUÉLLAR", note: "Construcción hidráulica ssingular en la ribera del cega." },
     { id: 26, name: "FÁBRICA DE HARINA", category: "Industrial", coords: "41°20'52.1\"N 4°07'09.3\"W", address: "HONTALBILLA", note: "Instalación industrial cerealista de principios del siglo XX." },
@@ -324,7 +324,7 @@ const App = () => {
     { id: 159, name: "ERMITA DE SAN ROQUE", category: "Historia", coords: "41°22'24.6\"N 3°39'56.1\"W", address: "ENCINAS", note: "Oratorio místico rodeado de encinas centenarias." },
     { id: 160, name: "FÁBRICA DE HARINAS Y VIVIENDA", category: "Industrial", coords: "41°17'49.5\"N 3°55'56.5\"W", address: "FUENTE REBOLLO", note: "Complejo fabril harinero muy bien conservado." },
     { id: 161, name: "LA CASETA DEL VAQUERO", category: "Naturaleza", coords: "41°20'26.6\"N 3°58'05.7\"W", address: "NAVALILLA", note: "Pequeño refugio de pastores en el entorno natural de Navalilla." },
-    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenios hidráulicos muy relevantes." },
+    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenios hidráulicos muy relevante." },
     { id: 163, name: "COLMENARES", category: "Industrial", coords: "41°24'26.7\"N 3°44'47.4\"W", address: "NAVARES DE LAS CUEVAS", note: "Arquitectura tradicional para la explotación de la miel." },
     { id: 164, name: "DESPOBLADO DE CABRERIZOS", category: "Ruinas", coords: "41°12'55.6\"N 3°39'58.3\"W", address: "SANTA MARTA DEL CERRO", note: "Aldea mística que hoy permanece en el recuerdo." },
     { id: 165, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°10'50.4\"N 3°33'48.3\"W", address: "SANTO TOMÉ DEL PUERTO", note: "Estructura ferroviaria en la falda de Somosierra." },
@@ -448,11 +448,11 @@ const App = () => {
   };
 
   const PaginationControls = () => (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 text-slate-800">
         <button 
             onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
             disabled={currentPage === 1}
-            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-slate-800"
+            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center"
         >
             <ChevronLeft size={24} />
         </button>
@@ -476,7 +476,7 @@ const App = () => {
         <button 
             onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
             disabled={currentPage === totalPages}
-            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-slate-800"
+            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center"
         >
             <ChevronRight size={24} />
         </button>
@@ -507,7 +507,7 @@ const App = () => {
           <h1 className="text-sm font-black tracking-tight uppercase italic leading-none">Rutabia</h1>
         </div>
         
-        <div className="flex items-center gap-2 md:gap-3 flex-1 justify-end h-full">
+        <div className="flex items-center gap-2 md:gap-3 flex-1 justify-end h-full text-slate-800">
             <button 
               onClick={() => setIsHeaderSearchOpen(!isHeaderSearchOpen)}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all shadow-sm active:scale-90 ${isHeaderSearchOpen ? 'bg-indigo-600 text-white shadow-lg' : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white'}`}
@@ -522,10 +522,10 @@ const App = () => {
         </div>
       </header>
 
-      {/* ÁREA DEL BUSCADOR: DESPLEGABLE DEBAJO DE LA CABECERA */}
+      {/* ÁREA DEL BUSCADOR */}
       {isHeaderSearchOpen && (
           <div ref={searchRef} className="relative bg-white z-40 border-b border-slate-100 p-4 animate-fade-in shadow-xl text-slate-800">
-            <div className="max-w-3xl mx-auto relative">
+            <div className="max-w-3xl mx-auto relative text-slate-800">
               <div className="flex items-center gap-3 bg-slate-100 rounded-2xl px-5 py-3 border border-slate-200 focus-within:ring-2 focus-within:ring-[#4338ca] transition-all">
                 <Search className="text-slate-400" size={20} />
                 <input 
@@ -569,11 +569,12 @@ const App = () => {
           </div>
       )}
 
+      {/* BOTÓN STICKY FAVORITOS */}
       {isStickyFavVisible && !isHeaderSearchOpen && (
         <div className="fixed top-16 left-0 right-0 z-40 bg-fuchsia-600 shadow-2xl h-14 flex items-center justify-center animate-fade-in lg:hidden">
           <button 
             onClick={() => setShowFavsModal(true)}
-            className="w-full h-full flex items-center justify-center gap-3 font-black text-xs uppercase tracking-[0.2em] text-white"
+            className="w-full h-full flex items-center justify-center gap-3 text-white font-black text-xs uppercase tracking-[0.2em]"
           >
             <Heart size={20} className="fill-current" /> Ver favoritos {favorites.length > 0 ? `(${favorites.length})` : ''}
           </button>
@@ -583,14 +584,14 @@ const App = () => {
       {isSideMenuOpen && (
           <div className="fixed inset-0 z-[2000] bg-black/60 backdrop-blur-md flex justify-end animate-fade-in" onClick={() => setIsSideMenuOpen(false)}>
               <div className="w-[85%] max-w-[320px] bg-white h-full shadow-2xl flex flex-col p-8 pt-4 slide-in-right text-slate-800" onClick={e => e.stopPropagation()}>
-                  <div className="flex items-center gap-3 mb-6 pb-6 border-b border-slate-100">
-                      <div className="bg-[#4338ca] p-2 rounded-lg shadow-lg flex items-center text-white">
+                  <div className="flex items-center gap-3 mb-6 pb-6 border-b border-slate-100 text-slate-800">
+                      <div className="bg-[#4338ca] p-2 rounded-lg shadow-lg text-white flex items-center">
                           <RutabiaLogo size={24} />
                       </div>
-                      <h2 className="text-xl font-black tracking-tight uppercase italic leading-none text-slate-900">Rutabia</h2>
+                      <h2 className="text-xl font-black tracking-tight uppercase italic leading-none">Rutabia</h2>
                   </div>
 
-                  <div className="flex flex-col gap-3 flex-1">
+                  <div className="flex flex-col gap-3 flex-1 text-slate-800">
                       <button 
                         onClick={() => { setIsSideMenuOpen(false); setIsHeaderSearchOpen(false); generateItinerary(); }}
                         className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full"
@@ -599,8 +600,8 @@ const App = () => {
                             <Route className="w-7 h-7" />
                           </div>
                           <div className="text-left flex-grow">
-                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 text-slate-900 group-hover:text-white transition-colors">Generator</span>
-                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none text-slate-700 group-hover:text-white/90 transition-colors">Crea tu ruta al azar</span>
+                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 group-hover:text-white transition-colors">Generator</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none group-hover:text-white/90 transition-colors">Crea tu ruta al azar</span>
                           </div>
                       </button>
 
@@ -611,9 +612,9 @@ const App = () => {
                           <div className="w-8 flex justify-center flex-shrink-0 group-hover:text-white transition-colors">
                             <Shuffle className="w-7 h-7" />
                           </div>
-                          <div className="text-left flex-grow">
-                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 text-slate-900 group-hover:text-white transition-colors">Randomizer</span>
-                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none text-slate-700 group-hover:text-white/90 transition-colors">Selección al azar</span>
+                          <div className="text-left flex-grow text-slate-800">
+                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 group-hover:text-white transition-colors">Randomizer</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none group-hover:text-white/90 transition-colors">Selección al azar</span>
                           </div>
                       </button>
                   </div>
@@ -629,7 +630,7 @@ const App = () => {
       )}
 
       {/* HERO SECTION */}
-      <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible px-6 pt-12 pb-8 bg-[#5b21b6]">
+      <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible bg-[#5b21b6] px-6 pt-12 pb-8">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none text-white"></div>
         
@@ -638,19 +639,19 @@ const App = () => {
             <span className="font-black">CREA</span> <span className="font-semibold">TU RUTA</span>
           </h2>
           <p className="text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance">
-            <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black">Segovia</span>
+            <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
           </p>
 
           <div className="bg-white/10 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/20 shadow-2xl relative text-slate-800">
-            <h3 className="text-[20px] lg:text-[22px] font-normal tracking-normal mb-6 text-center text-white">Selecciona ubicaciones</h3>
+            <h3 className="text-[20px] lg:text-[22px] font-normal tracking-normal text-white mb-6 text-center">Selecciona ubicaciones</h3>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <div className="relative w-full sm:w-auto text-left">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-slate-800">
+                <div className="relative w-full sm:w-auto text-left text-slate-800">
                     <button 
                     onClick={() => { setShowCatMenu(!showCatMenu); setShowZoneMenu(false); setIsHeaderSearchOpen(false); }}
                     className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
                     >
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 text-slate-800">
                             {getCategoryIcon(currentCategory)}
                             <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{currentCategory === 'Todos' ? 'Categorías' : currentCategory}</span>
                         </div>
@@ -683,12 +684,12 @@ const App = () => {
                     )}
                 </div>
 
-                <div className="relative w-full sm:w-auto text-left">
+                <div className="relative w-full sm:w-auto text-left text-slate-800">
                     <button 
                     onClick={() => { setShowZoneMenu(!showZoneMenu); setShowCatMenu(false); setIsHeaderSearchOpen(false); }}
                     className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
                     >
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 text-slate-800">
                             <Compass className="w-4 h-4 text-[#4338ca]" />
                             <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{currentGeoZone === 'Todos' ? 'ZONA' : currentGeoZone}</span>
                         </div>
@@ -716,7 +717,7 @@ const App = () => {
                 </div>
             </div>
 
-            <div className="mt-8 flex flex-col items-center gap-4">
+            <div className="mt-8 flex flex-col items-center gap-4 text-slate-800">
                 <div className="flex flex-col items-center gap-2">
                     {filteredPlaces.length === 0 ? (
                         <p className="text-[14px] md:text-[16px] tracking-[0.2em] font-black uppercase bg-fuchsia-500 px-6 py-2 rounded-full border-2 border-fuchsia-600 shadow-lg text-white">
@@ -744,24 +745,26 @@ const App = () => {
             </div>
           </div>
           
+          {/* ÍTEMS DE INFORMACIÓN AL FINAL DEL BANNER MORADO */}
           <div className="w-full max-w-4xl mt-12 flex justify-center gap-x-2 sm:gap-x-8 px-4 text-white">
-              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-2.5 flex-1 sm:flex-none">
+              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-2.5 flex-1 sm:flex-none text-center">
                   <CheckCircle2 className="w-5 h-5 text-white" />
-                  <span className="text-[9px] md:text-[14px] font-medium tracking-wide text-center">Los mejores parajes</span>
+                  <span className="text-[9px] md:text-[14px] font-medium tracking-wide">Los mejores parajes</span>
               </div>
-              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-2.5 flex-1 sm:flex-none border-x border-white/10 sm:border-none px-2 sm:px-0">
+              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-2.5 flex-1 sm:flex-none border-x border-white/10 sm:border-none px-2 sm:px-0 text-center">
                   <Percent className="w-5 h-5 text-white" />
-                  <span className="text-[9px] md:text-[14px] font-medium tracking-wide text-center">Servicio 100% gratuito</span>
+                  <span className="text-[9px] md:text-[14px] font-medium tracking-wide">Servicio 100% gratuito</span>
               </div>
-              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-2.5 flex-1 sm:flex-none">
+              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-2.5 flex-1 sm:flex-none text-center">
                   <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-5 h-5 brightness-0 invert opacity-80" />
-                  <span className="text-[9px] md:text-[14px] font-medium tracking-wide text-center">Generado con Google Maps</span>
+                  <span className="text-[9px] md:text-[14px] font-medium tracking-wide text-white">Generado con Google Maps</span>
               </div>
           </div>
         </div>
       </section>
 
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 text-center min-h-[600px]">
+        {/* FAVORITOS Y PAGINADOR SUPERIOR */}
         <div className="flex flex-col items-center gap-12 my-12 text-slate-800">
             {totalPages > 1 && <PaginationControls />}
             <div className={isStickyFavVisible ? 'lg:block hidden' : 'block'}>
@@ -771,11 +774,19 @@ const App = () => {
 
         <div id="results-grid" ref={resultsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left text-slate-800">
           {displayedPlaces.map((p) => (
-            <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in flex flex-col h-full overflow-hidden`}>
+            <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in flex flex-col h-full overflow-hidden text-slate-800`}>
                 <div className="relative z-10 flex flex-col h-full text-slate-800">
                   <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}
                        style={p.image ? {backgroundImage: `url(${p.image})`, backgroundSize: 'cover', backgroundPosition: 'center'} : {}}>
                     
+                    {/* ICONOS EXTRA PARA CATEGORÍAS ALINEADOS AL CORAZON Y BADGE */}
+                    <div className="absolute top-4 left-6 z-30 w-10 h-10">
+                      {p.category === 'Historia' && <img src="https://lh3.googleusercontent.com/d/1AOjjE1keDy3dv5O9qhbpO--Ah3k6X1qU" alt="Historia" className="w-full h-full object-contain drop-shadow-md" />}
+                      {p.category === 'Ruinas' && <img src="https://lh3.googleusercontent.com/d/13fKY5MeYYVYKPwisLYovRIDO-aXD44oi" alt="Ruinas" className="w-full h-full object-contain drop-shadow-md" />}
+                      {p.category === 'Industrial' && <img src="https://lh3.googleusercontent.com/d/1xStUXWwWc2d7u_knhs4bG-o2JMWQlX-4" alt="Industrial" className="w-full h-full object-contain drop-shadow-md" />}
+                      {p.category === 'Naturaleza' && <img src="https://lh3.googleusercontent.com/d/1q0lXfp54LN15w4Cbk6BX8UUAi1XRyUPW" alt="Naturaleza" className="w-full h-full object-contain drop-shadow-md" />}
+                    </div>
+
                     {p.image && <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 z-0 pointer-events-none"></div>}
 
                     {!p.image && (
@@ -794,8 +805,8 @@ const App = () => {
                       <Heart className={`w-5 h-5 ${favorites.includes(p.id) ? 'fill-current' : ''}`} />
                     </button>
 
-                    <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2">
-                      <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
+                    <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2 text-white">
+                      <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
                       <div className="px-2.5 py-1 bg-white/95 rounded-lg border border-white shadow-sm font-bold"><p className="text-[10px] font-mono leading-none text-slate-900">{p.coords}</p></div>
                     </div>
                   </div>
@@ -819,17 +830,17 @@ const App = () => {
             {totalPages > 1 && <PaginationControls />}
         </div>
 
-        {/* BANNER PRE-FOOTER */}
+        {/* BANNER PRE-FOOTER CON NUEVA IMAGEN Y CAJA MORADA AL 50% */}
         <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[320px] flex items-center justify-center overflow-hidden shadow-inner bg-cover bg-center group"
               style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/1JZAGFg1x2dpEGP1CwIdxbNsZpjWL8-UR')`}}>
             <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-black/80 to-transparent pointer-events-none text-white"></div>
             <div className="relative z-20 bg-[#5b21b6]/50 backdrop-blur-sm p-8 sm:p-12 rounded-[2rem] border border-white/10 text-white text-center max-w-lg mx-4">
                 <h2 className="text-xl sm:text-3xl leading-tight mb-4 tracking-tight">
                     <span className="font-black">Descubre</span> <span className="font-light italic">parajes</span><br/>
-                    <span className="font-light italic">sorprendentes en</span> <span className="font-black">Segovia</span>
+                    <span className="font-light italic">sorprendentes en</span> <span className="font-black text-white">Segovia</span>
                 </h2>
-                <div className="w-24 h-[2px] bg-[#ff0080] mx-auto mb-4 rounded-full"></div>
-                <p className="text-[10px] sm:text-xs font-black tracking-[0.3em] uppercase italic opacity-90">© 2026 RUTABIA</p>
+                <div className="w-24 h-[1px] bg-[#ff0080] mx-auto mb-4 rounded-full text-white"></div>
+                <p className="text-[10px] sm:text-xs font-black tracking-[0.3em] uppercase italic opacity-90 text-white">© 2026 RUTABIA</p>
             </div>
         </div>
       </main>
@@ -844,7 +855,7 @@ const App = () => {
             </div>
             
             <h3 className="text-3xl md:text-5xl uppercase italic tracking-tighter leading-none mb-5 text-white">
-               <span className="font-black">CREA</span> <span className="font-semibold">TU RUTA</span>
+               <span className="font-black">CREA</span> <span className="font-semibold text-white">TU RUTA</span>
             </h3>
 
             <div className="space-y-6">
@@ -852,25 +863,25 @@ const App = () => {
                 <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
               </p>
 
-              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto"></div>
+              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto text-slate-400"></div>
 
               <div className="text-[12px] md:text-[14px] leading-relaxed max-w-2xl mx-auto space-y-2 text-slate-400">
                 <p>¿Eres una administración interesada en © RUTABIA?</p>
                 <p>¿Tienes un hotel rural, camping o negocio y quieres contactar con nosotros?</p>
                 <p className="font-bold pt-2 text-balance text-white/70">Lleva tu oferta al siguiente nivel, ¿hablamos?</p>
                 
-                <div className="pt-4">
+                <div className="pt-4 text-slate-400">
                   <a href="mailto:rutabiasegovia@gmail.com" className="text-fuchsia-500 font-bold transition-colors no-underline">
                     Contactar con Rutabia
                   </a>
                 </div>
               </div>
 
-              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto"></div>
+              <div className="border-t border-white/5 pt-8 max-w-xl mx-auto text-slate-400"></div>
               
               <div className="text-[12px] md:text-[14px] flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 font-medium text-slate-400">
-                <span className="hover:text-white transition-colors cursor-pointer">Política de Privacidad</span>
-                <span className="hover:text-white transition-colors cursor-pointer">Términos y Condiciones</span>
+                <span className="hover:text-white transition-colors cursor-pointer text-slate-400">Política de Privacidad</span>
+                <span className="hover:text-white transition-colors cursor-pointer text-slate-400">Términos y Condiciones</span>
               </div>
 
               <div className="flex flex-col items-center gap-3 transition-opacity opacity-60 hover:opacity-100 text-slate-400">
@@ -879,34 +890,35 @@ const App = () => {
               </div>
             </div>
           </div>
-          <div className="text-[14px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic text-slate-400">© 2026 RUTABIA</div>
+          <div className="text-[14px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase text-slate-400">© 2026 RUTABIA</div>
         </div>
       </footer>
 
+      {/* MODAL FAVORITOS (CREAR RUTA) */}
       {showFavsModal && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setShowFavsModal(false)}>
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative" onClick={e => e.stopPropagation()}>
-                <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-fuchsia-50 text-fuchsia-700">
-                    <h4 className="font-black uppercase italic flex items-center gap-2 leading-none lg:text-[22px] lg:text-[26px]"><Heart className="w-5 h-5 fill-current lg:w-7 lg:h-7 lg:w-9 lg:h-9" /> Crear ruta</h4>
+                <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-fuchsia-50 text-fuchsia-700 text-fuchsia-700">
+                    <h4 className="font-black uppercase italic flex items-center gap-2 leading-none lg:text-[22px] lg:text-[26px] text-fuchsia-700"><Heart className="w-5 h-5 fill-current lg:w-7 lg:h-7 lg:w-9 lg:h-9" /> Crear ruta</h4>
                     <button onClick={() => setShowFavsModal(false)} className="p-2 hover:bg-fuchsia-100 hover:text-fuchsia-600 rounded-full transition-all text-fuchsia-300 lg:w-12 lg:h-12"><X className="w-6 h-6 lg:w-7 lg:h-7" /></button>
                 </div>
-                <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh] text-left text-slate-800">
+                <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh] text-left text-slate-800 text-slate-800">
                     {favPlacesWithDist.length === 0 ? (
                         <div className="text-center py-20 text-slate-400">
                             <Info className="w-12 h-12 text-slate-200 mx-auto mb-4 lg:w-16 lg:h-16" />
-                            <p className="font-bold uppercase tracking-widest text-[10px] lg:text-[14px] lg:text-[18px]">No has guardado parajes aún</p>
+                            <p className="font-bold uppercase tracking-widest text-[10px] lg:text-[14px] lg:text-[18px] text-slate-400">No has guardado parajes aún</p>
                         </div>
                     ) : (
                       <>
                         {favPlacesWithDist.map((p, idx) => (
-                            <div key={p.id} className="relative">
+                            <div key={p.id} className="relative text-slate-800">
                                 {p.kmFromPrev && (
-                                    <div className="flex flex-col items-center -mt-4 mb-4">
+                                    <div className="flex flex-col items-center -mt-4 mb-4 text-slate-800">
                                         <ArrowDown className="w-4 h-4 text-slate-300 mb-1 lg:w-7 lg:h-7" />
                                         <span className="text-[9px] font-black uppercase bg-slate-50 px-3 py-1 rounded-full border border-slate-100 lg:text-[14px] text-slate-400">A {p.kmFromPrev} km</span>
                                     </div>
                                 )}
-                                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white transition-all shadow-sm">
+                                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white transition-all shadow-sm text-slate-800">
                                     <div className="flex items-center gap-4 flex-1">
                                         <div className={`w-3 h-10 rounded-full flex-shrink-0 ${categoryColors[p.category]}`}></div>
                                         <div>
@@ -918,7 +930,7 @@ const App = () => {
                                             <p className="text-[11px] italic leading-relaxed lg:text-[15px] lg:text-[19px] text-slate-500">"{p.note}"</p>
                                         </div>
                                     </div>
-                                    <button onClick={() => toggleFavorite(p.id)} className="p-2 hover:bg-rose-50 rounded-lg transition-all font-black ml-4 text-rose-500">
+                                    <button onClick={() => toggleFavorite(p.id)} className="p-2 hover:bg-rose-50 rounded-lg transition-all font-black ml-4 text-rose-500 text-rose-500">
                                         <X className="w-5 h-5 lg:w-7 lg:h-7 lg:w-9 lg:h-9" />
                                     </button>
                                 </div>
@@ -939,10 +951,10 @@ const App = () => {
                 <div className="p-6 bg-slate-50 border-t border-slate-100 text-center text-slate-400">
                     <p className="text-[9px] uppercase tracking-widest font-bold lg:text-[13px] lg:text-[17px]">{favorites.length} parajes seleccionados</p>
                 </div>
-                <div className="flex justify-center mt-8 pb-12">
+                <div className="flex justify-center mt-8 pb-12 text-slate-800">
                   <button 
                     onClick={() => setShowFavsModal(false)}
-                    className="text-[10px] font-bold uppercase tracking-widest hover:text-indigo-600 transition-colors lg:text-[18px] font-black text-slate-800"
+                    className="text-[10px] font-bold uppercase tracking-widest hover:text-indigo-600 transition-colors lg:text-[18px] font-black"
                   >
                       Cerrar
                   </button>
@@ -953,7 +965,7 @@ const App = () => {
 
       {randomPlace && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setRandomPlace(null)}>
-              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center relative text-slate-800" onClick={e => e.stopPropagation()}>
+              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center relative text-slate-800 text-slate-800" onClick={e => e.stopPropagation()}>
                 <button 
                     onClick={() => setRandomPlace(null)} 
                     className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all z-10 font-black text-slate-400"
@@ -987,7 +999,7 @@ const App = () => {
 
       {itinerary && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setItinerary(null)}>
-              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative" onClick={e => e.stopPropagation()}>
+              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative text-slate-800 text-slate-800" onClick={e => e.stopPropagation()}>
                 <button 
                     onClick={() => setItinerary(null)} 
                     className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all z-10 text-slate-400"
@@ -998,37 +1010,37 @@ const App = () => {
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50 text-indigo-700">
                     <h4 className="font-black uppercase italic flex items-center gap-2 leading-none lg:text-[22px]"><Route className="w-5 h-5 lg:w-7 lg:h-7" /> Ruta Zona {itinerary.zone}</h4>
                 </div>
-                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left text-slate-800">
+                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left text-slate-800 text-slate-800">
                     {itinerary.places.map((p, idx) => (
-                        <div key={p.id} className="relative">
+                        <div key={p.id} className="relative text-slate-800 text-slate-800">
                             {p.kmFromPrev && (
-                                <div className="flex flex-col items-center -mt-6 mb-4">
+                                <div className="flex flex-col items-center -mt-6 mb-4 text-slate-800 text-slate-800">
                                     <ArrowDown className="w-5 h-5 mb-1 lg:w-7 lg:h-7 text-black" />
                                     <span className="text-[9px] font-black uppercase bg-slate-100 px-3 py-1 rounded-full border border-slate-200 lg:text-[13px] text-black">A {p.kmFromPrev} km</span>
                                 </div>
                             )}
-                            <div className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
+                            <div className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm text-slate-800 text-slate-800">
                                 <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-black flex-shrink-0 text-xs lg:w-10 lg:h-10 lg:text-[14px]">
                                   {idx + 1}
                                 </div>
-                                <div className="flex-grow">
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <h5 className="font-black uppercase text-sm leading-tight lg:text-[18px] text-slate-800">{p.name}</h5>
+                                <div className="flex-grow text-slate-800">
+                                    <div className="flex items-center gap-2 mb-1 text-slate-800 text-slate-800">
+                                        <h5 className="font-black uppercase text-sm leading-tight lg:text-[18px]">{p.name}</h5>
                                         <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[7px] font-black uppercase leading-none lg:text-[11px]`}>{p.category}</span>
                                     </div>
                                     <p className="text-[10px] font-bold mb-1 uppercase tracking-tight lg:text-[14px] text-slate-400">{p.address}</p>
                                     <p className="text-[11px] italic mb-3 leading-relaxed lg:text-[15px] text-slate-500">"{p.note}"</p>
-                                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black uppercase tracking-widest hover:underline leading-none lg:text-[13px] text-indigo-600">Ver punto →</a>
+                                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black uppercase tracking-widest hover:underline leading-none lg:text-[13px] text-indigo-600 font-black">Ver punto →</a>
                                 </div>
                             </div>
                         </div>
                     ))}
-                    <div className="pt-6 border-t border-slate-100 mt-8 pb-10 px-4 text-center">
-                        <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95 mb-10 lg:text-[16px]"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />Ver ruta</a>
+                    <div className="pt-6 border-t border-slate-100 mt-8 pb-10 px-4 text-center text-white">
+                        <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95 mb-10 lg:text-[16px] text-white text-white text-white text-white text-white text-white"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />Ver ruta</a>
                         
                         <button 
                             onClick={() => setItinerary(null)} 
-                            className="mt-6 hover:text-indigo-600 text-[11px] font-black uppercase tracking-widest transition-colors lg:text-[15px] text-slate-400"
+                            className="mt-6 hover:text-indigo-600 text-[11px] font-black uppercase tracking-widest transition-colors lg:text-[15px] text-slate-400 text-slate-400 text-slate-400"
                         >
                             Cerrar
                         </button>
@@ -1038,7 +1050,7 @@ const App = () => {
           </div>
       )}
 
-      {showScrollBtn && <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="fixed bottom-8 right-8 z-[100] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all border border-white/10"><ArrowUp className="w-6 h-6" /></button>}
+      {showScrollBtn && <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="fixed bottom-8 right-8 z-[100] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all border border-white/10 text-white text-white text-white text-white text-white text-white text-white text-white text-white text-white text-white text-white text-white text-white text-white text-white"><ArrowUp className="w-6 h-6" /></button>}
       
       <Suspense fallback={null}>
         <Analytics />
