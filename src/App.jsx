@@ -8,7 +8,7 @@ const Analytics = React.lazy(() =>
     .catch(() => ({ default: () => null }))
 );
 
-// Componente para el nuevo Logotipo de Rutabia
+// Componente para el Logotipo de Rutabia
 const RutabiaLogo = ({ size = 24 }) => (
   <img 
     src="https://lh3.googleusercontent.com/d/171x3yTsvbITp5aTQxOhOhgPapHgX2ovN" 
@@ -77,6 +77,7 @@ const App = () => {
   useEffect(() => {
     document.title = "Rutabia - Crea tus rutas y excursiones locales";
     
+    // Inyección dinámica de Favicon
     const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
     link.rel = 'icon';
     link.href = 'https://lh3.googleusercontent.com/d/1Hd6LJDM8QNx4RGv1muTcsJ59EFJQAnhR';
@@ -252,7 +253,7 @@ const App = () => {
     { id: 88, name: "RANCHO DE ALFARO", category: "Industrial", coords: "41°00'16.5\"N 3°57'25.1\"W", address: "SANTO DOMINGO DE PIRÓN", note: "Esquileo tradicional y finca ganadera histórica." },
     { id: 89, name: "ESQUILEO DE SANTILLANA", category: "Industrial", coords: "40°53'17.2\"N 4°04'04.3\"W", address: "REVENGA", note: "Centro neurálgico de la industria de la industria de la lana en el siglo XVIII." },
     { id: 90, name: "PALACIO DE LOS OSORIO PARADINAS", category: "Historia", coords: "41°00'42.0\"N 4°23'22.7\"W", address: "SANTA MARÍA LA REAL DE NIEVA", note: "Edificación señorial con gran escudo heráldico." },
-    { id: 91, name: "FÁBRICA DE PASTA DE PAPEL", category: "Industrial", coords: "40°55'58.0\"N 4°04'19.0\"W", address: "PALAZUELOS DE ERESMA", note: "Compleplejo industrial movido por las aguas del río Eresma." },
+    { id: 91, name: "FÁBRICA DE PASTA DE PAPEL", category: "Industrial", coords: "40°55'58.0\"N 4°04'19.0\"W", address: "PALAZUELOS DE ERESMA", note: "Complejo industrial movido por las aguas del río Eresma." },
     { id: 92, name: "ERMITA DE SAN PEDRO DE ACEDOS Y CASERÍO", category: "Ruinas", coords: "40°55'43.9\"N 4°29'30.0\"W", address: "MUÑOPEDRO", note: "Poblado abandonado que conserva la estructura eclesial." },
     { id: 93, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°05'04.1\"N 4°23'44.2\"W", address: "ORTIGOSA DE PESTAÑO", note: "Antigua parada ferroviaria de la línea Segovia-Medina." },
     { id: 94, name: "FÁBRICA DE ACHICORIA LA MAESTRA", category: "Industrial", coords: "41°11'13.6\"N 4°26'09.6\"W", address: "NAVAS DE ORO", note: "Emblemática fábrica de la industria resinera." },
@@ -294,10 +295,10 @@ const App = () => {
     { id: 130, name: "DESPOBLADO DE HERREROS", category: "Ruinas", coords: "40°48'25.4\"N 4°13'51.4\"W", address: "OTERO DE HERREROS", note: "Restos de población de tradición metalúrgica." },
     { id: 131, name: "MOLINO DE GAMONES", category: "Industrial", coords: "40°55'39.2\"N 4°01'40.4\"W", address: "PALAZUELOS DE ERESMA", note: "Molino que aprovechaba la fuerza del río Eresma." },
     { id: 132, name: "VENTA DE LOBONES", category: "Historia", coords: "40°57'59.7\"N 4°12'17.1\"W", address: "VALVERDE DEL MAJANO", note: "Histórico alto en el camino del río Eresma." },
-    { id: 133, name: "CASA DEL TÍO GITANO", category: "Naturaleza", coords: "41°11'24.0\"N 4°12'28.6\"W", address: "PINAR NEGRILLO", note: "Lugar ssingular envuelto en mitos y leyendas locales." },
+    { id: 133, name: "CASA DEL TÍO GITANO", category: "Naturaleza", coords: "41°11'24.0\"N 4°12'28.6\"W", address: "PINAR NEGRILLO", note: "Lugar singular envuelto en mitos y leyendas locales." },
     { id: 134, name: "ESQUILEO DE BURGOS Y PUENTE", category: "Industrial", coords: "40°52'12.8\"N 4°06'20.1\"W", address: "REVENGA", note: "Importante infraestructura de la Mesta." },
     { id: 135, name: "CASA DE LOS BUITRAGO", category: "Historia", coords: "40°56'39.0\"N 4°06'55.6\"W", address: "SEGOVIA", note: "Palacio urbano de gran relevancia histórica." },
-    { id: 136, name: "CASERÍO DEL TERMINILLO", category: "Historia", coords: "40°57'39.5\"N 4°06'29.6\"W", address: "SEGOVIA", note: "Compleplejo rural típico de las cercanías de la ciudad." },
+    { id: 136, name: "CASERÍO DEL TERMINILLO", category: "Historia", coords: "40°57'39.5\"N 4°06'29.6\"W", address: "SEGOVIA", note: "Complejo rural típico de las cercanías de la ciudad." },
     { id: 137, name: "PUENTE DEL TESORO", category: "Naturaleza", coords: "40°55'45.0\"N 4°10'54.9\"W", address: "TORREDONDO", note: "Puente envuelto en leyendas de ocultamientos históricos." },
     { id: 138, name: "ESQUILEO DEL PAULAR", category: "Industrial", coords: "40°57'54.3\"N 4°02'15.6\"W", address: "TRESCASAS", note: "Uno de los complejos de esquileo más grandes de la sierra." },
     { id: 139, name: "MOLINO DE LOBONES", category: "Industrial", coords: "40°58'12.5\"N 4°12'00.5\"W", address: "VALVERDE DEL MAJANO", note: "Molino situado cerca de la emblemática Quinta de Lobones." },
@@ -321,13 +322,13 @@ const App = () => {
     { id: 157, name: "ERMITA", category: "Historia", coords: "41°13'12.4\"N 3°35'45.7\"W", address: "CEREZO DE ABAJO", note: "Edificación religiosa sencilla pero de gran valor etnográfico." },
     { id: 158, name: "DESPOBLADO DE CORRAL DE DURATÓN", category: "Ruinas", coords: "41°17'17.5\"N 3°41'45.0\"W", address: "CORRAL DE DURATÓN", note: "Restos de población cercanos al cauce del río místico." },
     { id: 159, name: "ERMITA DE SAN ROQUE", category: "Historia", coords: "41°22'24.6\"N 3°39'56.1\"W", address: "ENCINAS", note: "Oratorio místico rodeado de encinas centenarias." },
-    { id: 160, name: "FÁBRICA DE HARINAS Y VIVIENDA", category: "Industrial", coords: "41°17'49.5\"N 3°55'56.5\"W", address: "FUENTE REBOLLO", note: "Compleplejo fabril harinero muy bien conservado." },
+    { id: 160, name: "FÁBRICA DE HARINAS Y VIVIENDA", category: "Industrial", coords: "41°17'49.5\"N 3°55'56.5\"W", address: "FUENTE REBOLLO", note: "Complejo fabril harinero muy bien conservado." },
     { id: 161, name: "LA CASETA DEL VAQUERO", category: "Naturaleza", coords: "41°20'26.6\"N 3°58'05.7\"W", address: "NAVALILLA", note: "Pequeño refugio de pastores en el entorno natural de Navalilla." },
-    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenios hidráulicos muy relevante." },
+    { id: 162, name: "MOLINOS", category: "Industrial", coords: "41°24'05.6\"N 3°44'25.0\"W", address: "NAVARES DE ENMEDIO", note: "Ingenios hidráulicos muy relevantes." },
     { id: 163, name: "COLMENARES", category: "Industrial", coords: "41°24'26.7\"N 3°44'47.4\"W", address: "NAVARES DE LAS CUEVAS", note: "Arquitectura tradicional para la explotación de la miel." },
     { id: 164, name: "DESPOBLADO DE CABRERIZOS", category: "Ruinas", coords: "41°12'55.6\"N 3°39'58.3\"W", address: "SANTA MARTA DEL CERRO", note: "Aldea mística que hoy permanece en el recuerdo." },
     { id: 165, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°10'50.4\"N 3°33'48.3\"W", address: "SANTO TOMÉ DEL PUERTO", note: "Estructura ferroviaria en la falda de Somosierra." },
-    { id: 166, name: "DESPOBLADO DE CASABLANCA", category: "Ruinas", coords: "41°17'36.1\"N 3°50'43.9\"W", address: "SEBÚLCOR", note: "Lugar inhóhóspito que guarda secretos de antiguos pobladores." },
+    { id: 166, name: "DESPOBLADO DE CASABLANCA", category: "Ruinas", coords: "41°17'36.1\"N 3°50'43.9\"W", address: "SEBÚLCOR", note: "Lugar inhóspito que guarda secretos de antiguos pobladores." },
     { id: 167, name: "FÁBRICA DE LUZ", category: "Industrial", coords: "41°17'42.8\"N 3°45'47.9\"W", address: "SEPÚLVEDA", note: "Importante obra de ingeniería industrial para la villa." },
     { id: 168, name: "MOLINO DE LAS CANALEJAS", category: "Industrial", coords: "41°18'14.0\"N 3°45'44.7\"W", address: "SEPÚLVEDA", note: "Molino que aprovechaba las aguas del río Caslilla." },
     { id: 169, name: "PUENTE DE TALCANO", category: "Historia", coords: "41°17'42.9\"N 3°45'53.8\"W", address: "SEPÚLVEDA", note: "Puente medieval icónico en la entrada de las Hoces del Duratón." },
@@ -381,6 +382,17 @@ const App = () => {
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos." }
   ], []);
 
+  const suggestions = useMemo(() => {
+    if (!searchTerm.trim()) return [];
+    const matches = new Set();
+    const term = normalize(searchTerm);
+    allPlaces.forEach(p => {
+        if (normalize(p.address).includes(term)) matches.add(p.address.toUpperCase());
+        if (normalize(p.name).includes(term)) matches.add(p.name.toUpperCase());
+    });
+    return Array.from(matches).slice(0, 12);
+  }, [searchTerm, allPlaces]);
+
   const filteredPlaces = useMemo(() => {
     return allPlaces.filter(p => {
       const normalizedTerm = normalize(searchTerm);
@@ -392,6 +404,14 @@ const App = () => {
       return matchCategory && matchZone;
     });
   }, [currentCategory, currentGeoZone, searchTerm, allPlaces]);
+
+  const favPlacesWithDist = useMemo(() => {
+    const list = favorites.map(id => allPlaces.find(p => p.id === id)).filter(Boolean);
+    return list.map((p, idx) => ({
+      ...p,
+      kmFromPrev: idx === 0 ? null : calculateDistance(p.coords, list[idx-1].coords)
+    }));
+  }, [favorites, allPlaces]);
 
   const totalPages = Math.ceil(filteredPlaces.length / itemsPerPage);
   const displayedPlaces = useMemo(() => {
@@ -410,16 +430,29 @@ const App = () => {
     setIsHeaderSearchOpen(false);
   };
 
+  const generateItinerary = () => {
+    const zoneToUse = currentGeoZone === 'Todos' ? ['Norte', 'Sur', 'Este', 'Oeste'][Math.floor(Math.random()*4)] : currentGeoZone;
+    const zonePlaces = allPlaces.filter(p => getCardinal(p.coords) === zoneToUse);
+    if (zonePlaces.length < 2) return;
+    const shuffled = [...zonePlaces].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, 3);
+    const withDist = selected.map((p, idx) => ({
+        ...p,
+        kmFromPrev: idx === 0 ? null : calculateDistance(p.coords, selected[idx-1].coords)
+    }));
+    setItinerary({ zone: zoneToUse, places: withDist });
+  };
+
   const scrollToResults = () => {
     resultsRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const PaginationControls = () => (
-    <div className="flex items-center gap-2 text-slate-800">
+    <div className="flex items-center gap-2">
         <button 
             onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
             disabled={currentPage === 1}
-            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center"
+            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-slate-800"
         >
             <ChevronLeft size={24} />
         </button>
@@ -443,7 +476,7 @@ const App = () => {
         <button 
             onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
             disabled={currentPage === totalPages}
-            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center"
+            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-slate-800"
         >
             <ChevronRight size={24} />
         </button>
@@ -460,14 +493,18 @@ const App = () => {
     </button>
   );
 
+  const CompassIconWithSquare = ({ size = 20 }) => (
+    <div className="bg-[#4338ca] p-1.5 rounded-md shadow-sm flex items-center justify-center text-white">
+      <RutabiaLogo size={size} />
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100 text-[24px] sm:text-[26px] lg:text-[24px]">
       <header className="sticky top-0 z-[1000] h-16 bg-white px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm overflow-visible text-slate-800">
         <div className="flex items-center gap-2">
-          <div className="bg-[#4338ca] p-1.5 rounded-md shadow-sm text-white flex items-center justify-center">
-            <RutabiaLogo size={28} />
-          </div>
-          <h1 className="text-sm font-black tracking-tight uppercase italic leading-none text-slate-900">Rutabia</h1>
+          <CompassIconWithSquare size={28} />
+          <h1 className="text-sm font-black tracking-tight uppercase italic leading-none">Rutabia</h1>
         </div>
         
         <div className="flex items-center gap-2 md:gap-3 flex-1 justify-end h-full">
@@ -485,6 +522,7 @@ const App = () => {
         </div>
       </header>
 
+      {/* ÁREA DEL BUSCADOR: DESPLEGABLE DEBAJO DE LA CABECERA */}
       {isHeaderSearchOpen && (
           <div ref={searchRef} className="relative bg-white z-40 border-b border-slate-100 p-4 animate-fade-in shadow-xl text-slate-800">
             <div className="max-w-3xl mx-auto relative">
@@ -496,25 +534,102 @@ const App = () => {
                   value={searchTerm}
                   autoFocus
                   onChange={(e) => {setSearchTerm(e.target.value); setShowPredictive(true);}}
-                  className="bg-transparent border-none outline-none text-sm font-bold text-slate-800 flex-1 placeholder:text-slate-400"
+                  className="bg-transparent border-none outline-none text-sm font-bold flex-1 placeholder:text-slate-400 text-slate-800"
                 />
                 {searchTerm && <button onClick={() => setSearchTerm('')}><X size={18} className="text-slate-400" /></button>}
               </div>
-              {showPredictive && searchTerm && (
+              
+              {showPredictive && suggestions.length > 0 && (
                 <div className="absolute top-full left-0 right-0 mt-2 bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-800 overflow-hidden z-[1100] max-h-[300px] overflow-y-auto">
-                  {allPlaces.filter(p => normalize(p.name).includes(normalize(searchTerm)) || normalize(p.address).includes(normalize(searchTerm))).slice(0, 8).map((s, i) => (
-                    <button key={i} onClick={() => {setSearchTerm(s.name); setShowPredictive(false); setIsHeaderSearchOpen(false);}} className="w-full px-5 py-4 hover:bg-white/10 flex items-center justify-between group transition-colors border-b border-white/5 last:border-0 text-left text-white">
-                      <div className="flex items-center gap-3"><MapPin size={14} className="text-slate-500" /><span className="text-white text-[11px] font-black uppercase tracking-tight">{s.name}</span></div>
+                  {suggestions.map((s, i) => (
+                    <button 
+                      key={i}
+                      onClick={() => {
+                        setSearchTerm(s); 
+                        setShowPredictive(false); 
+                        setIsHeaderSearchOpen(false);
+                      }}
+                      className="w-full px-5 py-4 hover:bg-white/10 flex items-center justify-between group transition-colors border-b border-white/5 last:border-0 text-left text-white"
+                    >
+                      <div className="flex items-center gap-3">
+                        <MapPin size={14} className="text-slate-500" />
+                        <span className="text-[11px] font-black uppercase tracking-tight">{s}</span>
+                      </div>
                       <ChevronRight size={14} className="text-white/20 group-hover:text-white transition-all" />
                     </button>
                   ))}
                 </div>
               )}
+              {searchTerm && filteredPlaces.length === 0 && (
+                 <p className="mt-8 text-[#be185d] text-[12px] font-black uppercase tracking-widest text-center animate-fade-in">
+                    No hay disponible paraje en esta localidad
+                 </p>
+              )}
             </div>
           </div>
       )}
 
-      <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible bg-[#5b21b6] px-6 pt-12 pb-8 bg-[#5b21b6]">
+      {isStickyFavVisible && !isHeaderSearchOpen && (
+        <div className="fixed top-16 left-0 right-0 z-40 bg-fuchsia-600 shadow-2xl h-14 flex items-center justify-center animate-fade-in lg:hidden">
+          <button 
+            onClick={() => setShowFavsModal(true)}
+            className="w-full h-full flex items-center justify-center gap-3 font-black text-xs uppercase tracking-[0.2em] text-white"
+          >
+            <Heart size={20} className="fill-current" /> Ver favoritos {favorites.length > 0 ? `(${favorites.length})` : ''}
+          </button>
+        </div>
+      )}
+
+      {isSideMenuOpen && (
+          <div className="fixed inset-0 z-[2000] bg-black/60 backdrop-blur-md flex justify-end animate-fade-in" onClick={() => setIsSideMenuOpen(false)}>
+              <div className="w-[85%] max-w-[320px] bg-white h-full shadow-2xl flex flex-col p-8 pt-4 slide-in-right text-slate-800" onClick={e => e.stopPropagation()}>
+                  <div className="flex items-center gap-3 mb-6 pb-6 border-b border-slate-100">
+                      <div className="bg-[#4338ca] p-2 rounded-lg shadow-lg flex items-center text-white">
+                          <RutabiaLogo size={24} />
+                      </div>
+                      <h2 className="text-xl font-black tracking-tight uppercase italic leading-none text-slate-900">Rutabia</h2>
+                  </div>
+
+                  <div className="flex flex-col gap-3 flex-1">
+                      <button 
+                        onClick={() => { setIsSideMenuOpen(false); setIsHeaderSearchOpen(false); generateItinerary(); }}
+                        className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full"
+                      >
+                          <div className="w-8 flex justify-center flex-shrink-0 group-hover:text-white transition-colors">
+                            <Route className="w-7 h-7" />
+                          </div>
+                          <div className="text-left flex-grow">
+                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 text-slate-900 group-hover:text-white transition-colors">Generator</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none text-slate-700 group-hover:text-white/90 transition-colors">Crea tu ruta al azar</span>
+                          </div>
+                      </button>
+
+                      <button 
+                        onClick={() => { setIsSideMenuOpen(false); setIsHeaderSearchOpen(false); setRandomPlace(allPlaces[Math.floor(Math.random() * allPlaces.length)]); }}
+                        className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full"
+                      >
+                          <div className="w-8 flex justify-center flex-shrink-0 group-hover:text-white transition-colors">
+                            <Shuffle className="w-7 h-7" />
+                          </div>
+                          <div className="text-left flex-grow">
+                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 text-slate-900 group-hover:text-white transition-colors">Randomizer</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none text-slate-700 group-hover:text-white/90 transition-colors">Selección al azar</span>
+                          </div>
+                      </button>
+                  </div>
+
+                  <button 
+                    onClick={() => setIsSideMenuOpen(false)}
+                    className="mt-4 flex items-center justify-center gap-2 p-5 border-2 border-rose-100 rounded-[1.5rem] hover:bg-rose-50 hover:text-rose-600 transition-all font-black uppercase text-xs tracking-[0.2em] text-slate-800"
+                  >
+                      <X size={18} /> Cerrar
+                  </button>
+              </div>
+          </div>
+      )}
+
+      {/* HERO SECTION */}
+      <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible px-6 pt-12 pb-8 bg-[#5b21b6]">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none text-white"></div>
         
@@ -522,59 +637,113 @@ const App = () => {
           <h2 className="text-4xl md:text-6xl uppercase italic tracking-tighter drop-shadow-2xl leading-none mb-2">
             <span className="font-black">CREA</span> <span className="font-semibold">TU RUTA</span>
           </h2>
-          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance">
-            <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
+          <p className="text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance">
+            <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black">Segovia</span>
           </p>
 
           <div className="bg-white/10 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/20 shadow-2xl relative text-slate-800">
-            <h3 className="text-[20px] lg:text-[22px] font-normal tracking-normal text-white mb-6 text-center">Selecciona ubicaciones</h3>
+            <h3 className="text-[20px] lg:text-[22px] font-normal tracking-normal mb-6 text-center text-white">Selecciona ubicaciones</h3>
+            
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <div className="relative w-full sm:w-auto text-left text-slate-800">
-                    <button onClick={() => { setShowCatMenu(!showCatMenu); setShowZoneMenu(false); setIsHeaderSearchOpen(false); }} className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group">
-                        <div className="flex items-center gap-3">{getCategoryIcon(currentCategory)}<span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{currentCategory === 'Todos' ? 'Categorías' : currentCategory}</span></div>
+                <div className="relative w-full sm:w-auto text-left">
+                    <button 
+                    onClick={() => { setShowCatMenu(!showCatMenu); setShowZoneMenu(false); setIsHeaderSearchOpen(false); }}
+                    className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
+                    >
+                        <div className="flex items-center gap-3">
+                            {getCategoryIcon(currentCategory)}
+                            <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{currentCategory === 'Todos' ? 'Categorías' : currentCategory}</span>
+                        </div>
                         <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${showCatMenu ? 'rotate-180' : ''}`} />
                     </button>
+
                     {showCatMenu && (
-                      <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
-                        {['Todos', 'Historia', 'Ruinas', 'Industrial', 'Naturaleza'].map(cat => (
-                          <button key={cat} onClick={() => { setCurrentCategory(cat); setShowCatMenu(false); setSearchTerm(''); setIsHeaderSearchOpen(false); }} className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentCategory === cat ? 'bg-indigo-600 text-white border-transparent shadow-lg' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100 text-left'}`}>
-                            {getCategoryIcon(cat, currentCategory === cat ? 'text-white' : 'text-indigo-600')} {cat}
-                          </button>
+                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
+                        {[
+                          { name: 'Todos', icon: <BarChart2 className="w-4 h-4" /> },
+                          { name: 'Historia', icon: <Landmark className="w-4 h-4" /> },
+                          { name: 'Ruinas', icon: <Castle className="w-4 h-4" /> },
+                          { name: 'Industrial', icon: <Factory className="w-4 h-4" /> },
+                          { name: 'Naturaleza', icon: <Trees className="w-4 h-4" /> }
+                        ].map(cat => (
+                        <button 
+                            key={cat.name} 
+                            onClick={() => { 
+                                setCurrentCategory(cat.name); 
+                                setShowCatMenu(false); 
+                                setSearchTerm('');
+                                setIsHeaderSearchOpen(false);
+                            }}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentCategory === cat.name ? 'bg-indigo-600 text-white border-transparent shadow-lg' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100 text-left'}`}
+                        >
+                            {cat.icon} {cat.name}
+                        </button>
                         ))}
-                      </div>
+                    </div>
                     )}
                 </div>
-                <div className="relative w-full sm:w-auto text-left text-slate-800">
-                    <button onClick={() => { setShowZoneMenu(!showZoneMenu); setShowCatMenu(false); setIsHeaderSearchOpen(false); }} className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group">
-                        <div className="flex items-center gap-3 text-slate-800"><Compass className="w-4 h-4 text-[#4338ca]" /><span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{currentGeoZone === 'Todos' ? 'ZONA' : currentGeoZone}</span></div>
+
+                <div className="relative w-full sm:w-auto text-left">
+                    <button 
+                    onClick={() => { setShowZoneMenu(!showZoneMenu); setShowCatMenu(false); setIsHeaderSearchOpen(false); }}
+                    className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
+                    >
+                        <div className="flex items-center gap-3">
+                            <Compass className="w-4 h-4 text-[#4338ca]" />
+                            <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{currentGeoZone === 'Todos' ? 'ZONA' : currentGeoZone}</span>
+                        </div>
                         <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${showZoneMenu ? 'rotate-180' : ''}`} />
                     </button>
+
                     {showZoneMenu && (
-                      <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2 text-slate-800">
+                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
                         {['Todos', 'Norte', 'Sur', 'Este', 'Oeste'].map(zone => (
-                          <button key={zone} onClick={() => { setCurrentGeoZone(zone); setShowZoneMenu(false); setSearchTerm(''); setIsHeaderSearchOpen(false); }} className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentGeoZone === zone ? 'bg-indigo-600 text-white border-transparent shadow-lg' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100'}`}>
+                        <button 
+                            key={zone} 
+                            onClick={() => { 
+                                setCurrentGeoZone(zone); 
+                                setShowZoneMenu(false); 
+                                setSearchTerm(''); 
+                                setIsHeaderSearchOpen(false);
+                            }}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentGeoZone === zone ? 'bg-indigo-600 text-white border-transparent shadow-lg' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100'}`}
+                        >
                             <MapPin className="w-4 h-4 text-indigo-500" /> {zone === 'Todos' ? 'Toda la provincia' : `Zona ${zone}`}
-                          </button>
+                        </button>
                         ))}
-                      </div>
+                    </div>
                     )}
                 </div>
             </div>
-            <div className="mt-8 flex flex-col items-center gap-4 text-slate-800">
+
+            <div className="mt-8 flex flex-col items-center gap-4">
                 <div className="flex flex-col items-center gap-2">
-                    {filteredPlaces.length > 0 ? (
-                        <button onClick={scrollToResults} className="text-[14px] md:text-[16px] tracking-tight text-fuchsia-400 font-black bg-black/40 px-6 py-2 rounded-full border border-white/10 shadow-inner hover:scale-105 transition-all active:scale-95">
+                    {filteredPlaces.length === 0 ? (
+                        <p className="text-[14px] md:text-[16px] tracking-[0.2em] font-black uppercase bg-fuchsia-500 px-6 py-2 rounded-full border-2 border-fuchsia-600 shadow-lg text-white">
+                            NO HAY RESULTADOS
+                        </p>
+                    ) : (
+                        <button 
+                          onClick={scrollToResults}
+                          className="text-[14px] md:text-[16px] tracking-tight font-black bg-black/40 px-6 py-2 rounded-full border border-white/10 shadow-inner hover:scale-105 active:scale-95 transition-all text-fuchsia-400"
+                        >
                             Ver {filteredPlaces.length} sitios de {allPlaces.length} ...
                         </button>
-                    ) : (
-                        <p className="text-[14px] md:text-[16px] tracking-[0.2em] text-white font-black uppercase bg-fuchsia-500 px-6 py-2 rounded-full border-2 border-fuchsia-600 shadow-lg">NO HAY RESULTADOS</p>
                     )}
+                    
                     {(currentCategory !== 'Todos' || currentGeoZone !== 'Todos' || searchTerm !== '') && (
-                        <button onClick={clearSelection} className="flex items-center gap-2 text-white/60 hover:text-white transition-all text-[11px] font-bold uppercase tracking-widest mt-6 group"><Eraser size={14} className="group-hover:rotate-12 transition-transform" /> Borrar selección</button>
+                        <button 
+                            onClick={clearSelection}
+                            className="flex items-center gap-2 hover:text-white transition-all text-[11px] font-bold uppercase tracking-widest mt-6 group text-white/60"
+                        >
+                            <Eraser size={14} className="group-hover:rotate-12 transition-transform text-white" />
+                            Borrar selección
+                        </button>
                     )}
                 </div>
             </div>
           </div>
+          
           <div className="w-full max-w-4xl mt-12 flex justify-center gap-x-2 sm:gap-x-8 px-4 text-white">
               <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-2.5 flex-1 sm:flex-none">
                   <CheckCircle2 className="w-5 h-5 text-white" />
@@ -595,29 +764,46 @@ const App = () => {
       <main className="max-w-7xl mx-auto px-6 md:px-12 pt-12 text-center min-h-[600px]">
         <div className="flex flex-col items-center gap-12 my-12 text-slate-800">
             {totalPages > 1 && <PaginationControls />}
-            <div className={isStickyFavVisible ? 'lg:block hidden' : 'block'}><FavoriteButton /></div>
+            <div className={isStickyFavVisible ? 'lg:block hidden' : 'block'}>
+              <FavoriteButton />
+            </div>
         </div>
-        <div ref={resultsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left text-slate-800">
+
+        <div id="results-grid" ref={resultsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left text-slate-800">
           {displayedPlaces.map((p) => (
             <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in flex flex-col h-full overflow-hidden`}>
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`} style={p.image ? {backgroundImage: `url(${p.image})`, backgroundSize: 'cover', backgroundPosition: 'center'} : {}}>
-                    {p.image && <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 z-0"></div>}
-                    {!p.image && (<div className={`absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0 ${categoryIconColors[p.category]}`}>
+                <div className="relative z-10 flex flex-col h-full text-slate-800">
+                  <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}
+                       style={p.image ? {backgroundImage: `url(${p.image})`, backgroundSize: 'cover', backgroundPosition: 'center'} : {}}>
+                    
+                    {p.image && <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 z-0 pointer-events-none"></div>}
+
+                    {!p.image && (
+                      <div className={`absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0 ${categoryIconColors[p.category]}`}>
                         {p.category === 'Historia' && <Landmark size={140} strokeWidth={1.5} />}
                         {p.category === 'Ruinas' && <Castle size={140} strokeWidth={1.5} />}
                         {p.category === 'Industrial' && <Factory size={140} strokeWidth={1.5} />}
                         {p.category === 'Naturaleza' && <Trees size={140} strokeWidth={1.5} />}
-                      </div>)}
-                    <button onClick={() => toggleFavorite(p.id)} className={`absolute top-4 right-4 z-30 p-2.5 rounded-xl border transition-all shadow-sm ${favorites.includes(p.id) ? 'bg-fuchsia-600 text-white border-fuchsia-400 shadow-lg' : 'bg-white/95 text-slate-500 border-white hover:bg-white hover:text-fuchsia-600 hover:shadow-md'}`}><Heart className={`w-5 h-5 ${favorites.includes(p.id) ? 'fill-current' : ''}`} /></button>
-                    <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2"><span className={`px-2.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
-                      <div className="px-2.5 py-1 bg-white/95 rounded-lg border border-white shadow-sm text-slate-900 font-bold"><p className="text-[10px] font-mono leading-none">{p.coords}</p></div>
+                      </div>
+                    )}
+                    
+                    <button 
+                      onClick={() => toggleFavorite(p.id)}
+                      className={`absolute top-4 right-4 z-30 p-2.5 rounded-xl border transition-all shadow-sm ${favorites.includes(p.id) ? 'bg-fuchsia-600 text-white border-fuchsia-400 shadow-lg' : 'bg-white/95 text-slate-500 border-white hover:bg-white hover:text-fuchsia-600 hover:shadow-md'}`}
+                    >
+                      <Heart className={`w-5 h-5 ${favorites.includes(p.id) ? 'fill-current' : ''}`} />
+                    </button>
+
+                    <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2">
+                      <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
+                      <div className="px-2.5 py-1 bg-white/95 rounded-lg border border-white shadow-sm font-bold"><p className="text-[10px] font-mono leading-none text-slate-900">{p.coords}</p></div>
                     </div>
                   </div>
                   <div className="px-3 flex-grow flex flex-col justify-between">
-                    <div><h4 className="text-[15px] font-black uppercase mb-1.5 text-slate-800 tracking-tight leading-tight group-hover:text-[#4338ca] transition-colors line-clamp-2">{p.name}</h4>
-                      <p className="text-[9px] text-slate-400 font-bold uppercase mb-4 flex items-center gap-1.5 leading-none"><MapPin className="w-3 h-3 text-[#4338ca]" /> {p.address}</p>
-                      <p className="text-[11px] text-slate-500 italic mb-8 leading-relaxed opacity-80 line-clamp-3 text-slate-500 text-slate-500 text-slate-500">"{p.note}"</p>
+                    <div>
+                      <h4 className="text-[15px] font-black uppercase mb-1.5 tracking-tight leading-tight group-hover:text-[#4338ca] transition-colors line-clamp-2 text-slate-800">{p.name}</h4>
+                      <p className="text-[9px] font-bold uppercase mb-4 flex items-center gap-1.5 leading-none text-slate-400"><MapPin className="w-3 h-3 text-[#4338ca]" /> {p.address}</p>
+                      <p className="text-[11px] italic mb-8 leading-relaxed opacity-80 line-clamp-3 text-slate-500">"{p.note}"</p>
                     </div>
                     <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[12px] text-center shadow-lg hover:bg-[#4338ca] transition-all block active:scale-95 leading-none">Ver sitio</a>
                   </div>
@@ -625,80 +811,234 @@ const App = () => {
             </div>
           ))}
         </div>
+
         <div className="mt-16 flex flex-col items-center gap-12 pb-2 mb-[72px] border-b border-slate-100 text-slate-800">
-            <div className={isStickyFavVisible ? 'lg:block hidden' : 'block'}><FavoriteButton /></div>
+            <div className={isStickyFavVisible ? 'lg:block hidden' : 'block'}>
+              <FavoriteButton />
+            </div>
             {totalPages > 1 && <PaginationControls />}
         </div>
-        {/* BANNER PRE-FOOTER ACTUALIZADO */}
-        <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[320px] flex items-center justify-center overflow-hidden shadow-inner bg-cover bg-center group" style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/15cZ8czSz8_n64rfRDTxzLc7p9FbZZk9z')`}}>
+
+        {/* BANNER PRE-FOOTER */}
+        <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[320px] flex items-center justify-center overflow-hidden shadow-inner bg-cover bg-center group"
+              style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/1JZAGFg1x2dpEGP1CwIdxbNsZpjWL8-UR')`}}>
             <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-black/80 to-transparent pointer-events-none text-white"></div>
             <div className="relative z-20 bg-[#5b21b6]/50 backdrop-blur-sm p-8 sm:p-12 rounded-[2rem] border border-white/10 text-white text-center max-w-lg mx-4">
                 <h2 className="text-xl sm:text-3xl leading-tight mb-4 tracking-tight">
-                    <span className="font-black">Descubre</span> <span className="font-light italic">parajes</span><br/><span className="font-light italic">sorprendentes en</span> <span className="font-black text-white">Segovia</span>
+                    <span className="font-black">Descubre</span> <span className="font-light italic">parajes</span><br/>
+                    <span className="font-light italic">sorprendentes en</span> <span className="font-black">Segovia</span>
                 </h2>
-                <div className="w-24 h-[1px] bg-[#ff0080] mx-auto mb-4 rounded-full"></div>
+                <div className="w-24 h-[2px] bg-[#ff0080] mx-auto mb-4 rounded-full"></div>
                 <p className="text-[10px] sm:text-xs font-black tracking-[0.3em] uppercase italic opacity-90">© 2026 RUTABIA</p>
             </div>
         </div>
       </main>
 
       <footer className="relative bg-[#111827] py-20 px-6 overflow-hidden text-center border-t border-white/5 text-slate-300">
-        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.05] pointer-events-none text-slate-300"></div>
+        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.05] pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto text-balance">
-          <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12 text-slate-300">
-            <div className="flex justify-center mb-8"><RutabiaLogo size={40} /><span className="text-white text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none">Rutabia</span></div>
+          <div className="bg-[#1f2937]/95 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 border border-white/10 shadow-2xl mb-12">
+            <div className="flex justify-center mb-8 text-white">
+              <RutabiaLogo size={40} />
+              <span className="text-[11px] font-black uppercase tracking-[0.25em] ml-5 self-center italic leading-none text-white">Rutabia</span>
+            </div>
+            
             <h3 className="text-3xl md:text-5xl uppercase italic tracking-tighter leading-none mb-5 text-white">
                <span className="font-black">CREA</span> <span className="font-semibold">TU RUTA</span>
             </h3>
+
             <div className="space-y-6">
-              <p className="text-white/40 text-[14px] md:text-[16px] lg:text-[18px] leading-relaxed max-w-lg mx-auto tracking-wide font-light italic text-balance text-white/60">
-                <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black">Segovia</span>
+              <p className="text-[14px] md:text-[16px] lg:text-[18px] leading-relaxed max-w-lg mx-auto tracking-wide font-light italic text-balance text-white/60">
+                <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
               </p>
+
               <div className="border-t border-white/5 pt-8 max-w-xl mx-auto"></div>
-              <div className="text-white/50 text-[12px] md:text-[14px] leading-relaxed max-w-2xl mx-auto space-y-2 text-slate-400">
+
+              <div className="text-[12px] md:text-[14px] leading-relaxed max-w-2xl mx-auto space-y-2 text-slate-400">
                 <p>¿Eres una administración interesada en © RUTABIA?</p>
                 <p>¿Tienes un hotel rural, camping o negocio y quieres contactar con nosotros?</p>
-                <p className="font-bold text-white/70 pt-2 text-balance">Lleva tu oferta al siguiente nivel, ¿hablamos?</p>
-                <div className="pt-4"><a href="mailto:rutabiasegovia@gmail.com" className="text-fuchsia-500 font-bold transition-colors no-underline">Contactar con Rutabia</a></div>
+                <p className="font-bold pt-2 text-balance text-white/70">Lleva tu oferta al siguiente nivel, ¿hablamos?</p>
+                
+                <div className="pt-4">
+                  <a href="mailto:rutabiasegovia@gmail.com" className="text-fuchsia-500 font-bold transition-colors no-underline">
+                    Contactar con Rutabia
+                  </a>
+                </div>
               </div>
+
               <div className="border-t border-white/5 pt-8 max-w-xl mx-auto"></div>
-              <div className="text-white/30 text-[12px] md:text-[14px] flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 font-medium text-slate-400">
+              
+              <div className="text-[12px] md:text-[14px] flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 font-medium text-slate-400">
                 <span className="hover:text-white transition-colors cursor-pointer">Política de Privacidad</span>
                 <span className="hover:text-white transition-colors cursor-pointer">Términos y Condiciones</span>
               </div>
+
               <div className="flex flex-col items-center gap-3 transition-opacity opacity-60 hover:opacity-100 text-slate-400">
                 <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="Google Maps" className="w-8 h-8" />
-                <p className="text-white/40 text-[9px] font-bold uppercase tracking-[0.2em]">Powered By Google Maps</p>
+                <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/40">Powered By Google Maps</p>
               </div>
             </div>
           </div>
-          <div className="text-white/30 text-[14px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic uppercase text-slate-400">© 2026 RUTABIA</div>
+          <div className="text-[14px] uppercase tracking-[0.5em] mt-32 font-bold leading-none italic text-slate-400">© 2026 RUTABIA</div>
         </div>
       </footer>
 
-      {isSideMenuOpen && (
-          <div className="fixed inset-0 z-[2000] bg-black/60 backdrop-blur-md flex justify-end animate-fade-in" onClick={() => setIsSideMenuOpen(false)}>
-              <div className="w-[85%] max-w-[320px] bg-white h-full shadow-2xl flex flex-col p-8 pt-4 slide-in-right text-slate-800" onClick={e => e.stopPropagation()}>
-                  <div className="flex items-center gap-3 mb-6 pb-6 border-b border-slate-100 text-slate-800">
-                      <div className="bg-[#4338ca] p-2 rounded-lg shadow-lg text-white"><RutabiaLogo size={24} /></div>
-                      <h2 className="text-xl font-black tracking-tight text-slate-900 uppercase italic leading-none text-slate-900">Rutabia</h2>
-                  </div>
-                  <div className="flex flex-col gap-3 flex-1 text-slate-800 text-slate-800">
-                      <button onClick={() => { setIsSideMenuOpen(false); setIsHeaderSearchOpen(false); generateItinerary(); }} className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full">
-                          <div className="w-8 flex justify-center flex-shrink-0"><Route className="w-7 h-7" /></div>
-                          <div className="text-left flex-grow"><span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 text-slate-900">Generator</span><span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none text-black">Crea tu ruta al azar</span></div>
-                      </button>
-                      <button onClick={() => { setIsSideMenuOpen(false); setIsHeaderSearchOpen(false); setRandomPlace(allPlaces[Math.floor(Math.random() * allPlaces.length)]); }} className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full">
-                          <div className="w-8 flex justify-center flex-shrink-0"><Shuffle className="w-7 h-7" /></div>
-                          <div className="text-left flex-grow text-slate-800"><span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 text-slate-900">Randomizer</span><span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none text-black text-black">Selección al azar</span></div>
-                      </button>
-                  </div>
-                  <button onClick={() => setIsSideMenuOpen(false)} className="mt-4 flex items-center justify-center gap-2 p-5 border-2 border-rose-100 rounded-[1.5rem] text-slate-800 hover:bg-rose-50 hover:text-rose-600 transition-all font-black uppercase text-xs tracking-[0.2em]"><X size={18} /> Cerrar</button>
+      {showFavsModal && (
+          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setShowFavsModal(false)}>
+              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative" onClick={e => e.stopPropagation()}>
+                <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-fuchsia-50 text-fuchsia-700">
+                    <h4 className="font-black uppercase italic flex items-center gap-2 leading-none lg:text-[22px] lg:text-[26px]"><Heart className="w-5 h-5 fill-current lg:w-7 lg:h-7 lg:w-9 lg:h-9" /> Crear ruta</h4>
+                    <button onClick={() => setShowFavsModal(false)} className="p-2 hover:bg-fuchsia-100 hover:text-fuchsia-600 rounded-full transition-all text-fuchsia-300 lg:w-12 lg:h-12"><X className="w-6 h-6 lg:w-7 lg:h-7" /></button>
+                </div>
+                <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh] text-left text-slate-800">
+                    {favPlacesWithDist.length === 0 ? (
+                        <div className="text-center py-20 text-slate-400">
+                            <Info className="w-12 h-12 text-slate-200 mx-auto mb-4 lg:w-16 lg:h-16" />
+                            <p className="font-bold uppercase tracking-widest text-[10px] lg:text-[14px] lg:text-[18px]">No has guardado parajes aún</p>
+                        </div>
+                    ) : (
+                      <>
+                        {favPlacesWithDist.map((p, idx) => (
+                            <div key={p.id} className="relative">
+                                {p.kmFromPrev && (
+                                    <div className="flex flex-col items-center -mt-4 mb-4">
+                                        <ArrowDown className="w-4 h-4 text-slate-300 mb-1 lg:w-7 lg:h-7" />
+                                        <span className="text-[9px] font-black uppercase bg-slate-50 px-3 py-1 rounded-full border border-slate-100 lg:text-[14px] text-slate-400">A {p.kmFromPrev} km</span>
+                                    </div>
+                                )}
+                                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white transition-all shadow-sm">
+                                    <div className="flex items-center gap-4 flex-1">
+                                        <div className={`w-3 h-10 rounded-full flex-shrink-0 ${categoryColors[p.category]}`}></div>
+                                        <div>
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <h5 className="font-black uppercase text-sm leading-tight lg:text-[18px] lg:text-[22px]">{p.name}</h5>
+                                                <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[7px] font-black uppercase leading-none lg:text-[11px]`}>{p.category}</span>
+                                            </div>
+                                            <p className="text-[9px] font-bold uppercase lg:text-[13px] lg:text-[17px] mb-2 text-slate-400">{p.address}</p>
+                                            <p className="text-[11px] italic leading-relaxed lg:text-[15px] lg:text-[19px] text-slate-500">"{p.note}"</p>
+                                        </div>
+                                    </div>
+                                    <button onClick={() => toggleFavorite(p.id)} className="p-2 hover:bg-rose-50 rounded-lg transition-all font-black ml-4 text-rose-500">
+                                        <X className="w-5 h-5 lg:w-7 lg:h-7 lg:w-9 lg:h-9" />
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                        <div className="pt-6 border-t border-slate-100 mt-8 text-center px-4 flex flex-col gap-3">
+                            <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(favPlacesWithDist[0].coords)}&destination=${encodeURIComponent(favPlacesWithDist[favPlacesWithDist.length-1].coords)}${favPlacesWithDist.length > 2 ? `&waypoints=${favPlacesWithDist.slice(1,-1).map(p => encodeURIComponent(p.coords)).join('|')}` : ''}&travelmode=driving`} 
+                               target="_blank" 
+                               rel="noopener noreferrer" 
+                               className="w-full bg-black text-white py-4 px-10 rounded-2xl font-black text-[14px] uppercase tracking-widest shadow-xl hover:scale-105 transition-all lg:text-[16px] flex items-center justify-center gap-3">
+                              <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />
+                              Ver ruta
+                            </a>
+                        </div>
+                      </>
+                    )}
+                </div>
+                <div className="p-6 bg-slate-50 border-t border-slate-100 text-center text-slate-400">
+                    <p className="text-[9px] uppercase tracking-widest font-bold lg:text-[13px] lg:text-[17px]">{favorites.length} parajes seleccionados</p>
+                </div>
+                <div className="flex justify-center mt-8 pb-12">
+                  <button 
+                    onClick={() => setShowFavsModal(false)}
+                    className="text-[10px] font-bold uppercase tracking-widest hover:text-indigo-600 transition-colors lg:text-[18px] font-black text-slate-800"
+                  >
+                      Cerrar
+                  </button>
+                </div>
               </div>
           </div>
       )}
 
-      {showScrollBtn && <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="fixed bottom-8 right-8 z-[100] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all border border-white/10 text-white"><ArrowUp className="w-6 h-6" /></button>}
+      {randomPlace && (
+          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setRandomPlace(null)}>
+              <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center relative text-slate-800" onClick={e => e.stopPropagation()}>
+                <button 
+                    onClick={() => setRandomPlace(null)} 
+                    className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all z-10 font-black text-slate-400"
+                >
+                    <X className="w-6 h-6 lg:w-8 lg:h-8 lg:w-10 lg:h-10" />
+                </button>
+
+                <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm lg:text-[13px] lg:text-[17px]`}>{randomPlace.category}</span>
+                <h3 className="text-2xl font-black uppercase mb-2 leading-tight lg:text-[28px] lg:text-[32px]">{randomPlace.name}</h3>
+                <p className="text-xs font-bold uppercase mb-6 lg:text-[16px] lg:text-[20px] text-slate-400">{randomPlace.address}</p>
+                <p className="italic text-sm mb-10 leading-relaxed lg:text-[18px] lg:text-[22px] text-slate-500">"{randomPlace.note}"</p>
+                <div className="flex flex-col gap-3">
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       className="bg-black text-white py-4 px-10 rounded-2xl font-black text-[14px] shadow-xl hover:scale-105 transition-all lg:text-[16px] lg:text-[20px] flex items-center justify-center gap-3">
+                      <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />
+                      Ver sitio
+                    </a>
+                    
+                    <button 
+                        onClick={() => setRandomPlace(null)} 
+                        className="text-[10px] font-bold uppercase tracking-widest hover:text-indigo-600 mt-8 transition-colors lg:text-[14px] lg:text-[18px] font-black text-slate-800"
+                    >
+                        Cerrar
+                    </button>
+                </div>
+              </div>
+          </div>
+      )}
+
+      {itinerary && (
+          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setItinerary(null)}>
+              <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative" onClick={e => e.stopPropagation()}>
+                <button 
+                    onClick={() => setItinerary(null)} 
+                    className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all z-10 text-slate-400"
+                >
+                    <X className="w-6 h-6 lg:w-8 lg:h-8" />
+                </button>
+
+                <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50 text-indigo-700">
+                    <h4 className="font-black uppercase italic flex items-center gap-2 leading-none lg:text-[22px]"><Route className="w-5 h-5 lg:w-7 lg:h-7" /> Ruta Zona {itinerary.zone}</h4>
+                </div>
+                <div className="p-8 space-y-6 overflow-y-auto max-h-[65vh] pb-12 text-left text-slate-800">
+                    {itinerary.places.map((p, idx) => (
+                        <div key={p.id} className="relative">
+                            {p.kmFromPrev && (
+                                <div className="flex flex-col items-center -mt-6 mb-4">
+                                    <ArrowDown className="w-5 h-5 mb-1 lg:w-7 lg:h-7 text-black" />
+                                    <span className="text-[9px] font-black uppercase bg-slate-100 px-3 py-1 rounded-full border border-slate-200 lg:text-[13px] text-black">A {p.kmFromPrev} km</span>
+                                </div>
+                            )}
+                            <div className="flex gap-4 items-start p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
+                                <div className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-black flex-shrink-0 text-xs lg:w-10 lg:h-10 lg:text-[14px]">
+                                  {idx + 1}
+                                </div>
+                                <div className="flex-grow">
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <h5 className="font-black uppercase text-sm leading-tight lg:text-[18px] text-slate-800">{p.name}</h5>
+                                        <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[7px] font-black uppercase leading-none lg:text-[11px]`}>{p.category}</span>
+                                    </div>
+                                    <p className="text-[10px] font-bold mb-1 uppercase tracking-tight lg:text-[14px] text-slate-400">{p.address}</p>
+                                    <p className="text-[11px] italic mb-3 leading-relaxed lg:text-[15px] text-slate-500">"{p.note}"</p>
+                                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black uppercase tracking-widest hover:underline leading-none lg:text-[13px] text-indigo-600">Ver punto →</a>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                    <div className="pt-6 border-t border-slate-100 mt-8 pb-10 px-4 text-center">
+                        <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95 mb-10 lg:text-[16px]"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />Ver ruta</a>
+                        
+                        <button 
+                            onClick={() => setItinerary(null)} 
+                            className="mt-6 hover:text-indigo-600 text-[11px] font-black uppercase tracking-widest transition-colors lg:text-[15px] text-slate-400"
+                        >
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+              </div>
+          </div>
+      )}
+
+      {showScrollBtn && <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="fixed bottom-8 right-8 z-[100] w-14 h-14 bg-black text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all border border-white/10"><ArrowUp className="w-6 h-6" /></button>}
       
       <Suspense fallback={null}>
         <Analytics />
