@@ -366,7 +366,7 @@ const App = () => {
     { id: 201, name: "PEGUERAS", category: "Industrial", coords: "41°20'04.5\"N 4°25'36.4\"W", address: "CHAÑE", note: "Antiguos hornos para la obtención de pez." },
     { id: 202, name: "MOLINO DEL BOTILLER", category: "Industrial", coords: "41°23'07.5\"N 4°16'55.2\"W", address: "ESCARABAJOSA", note: "Ingenio hidráulico muy relevante.", image: "https://lh3.googleusercontent.com/d/1GvgsROpFYhcAFvYA7jc2F1nzEI50PU8h" },
     { id: 203, name: "TEJERAS DE LOS SERAFINES", category: "Industrial", coords: "41°18'05.7\"N 4°06'06.4\"W", address: "LASTRAS DE CUÉLLAR", note: "Centenarias instalaciones cerámicas ya en desuso.", image: "https://lh3.googleusercontent.com/d/11jT_F-pcbP3rLk1kf1RzvkbSbuI2eJav" },
-    { id: 204, name: "POCIEGUILLO", category: "Naturaleza", coords: "41°25'49.8\"N 4°15'48.7\"W", address: "LOVINGOS", note: "Lugar de agua y vida en el secano cuellarano.", image: "https://lh3.googleusercontent.com/d/1GBtU8jrJSFG1EMH1JauDrkYAhyghsQl8" },
+    { id: 204, name: "POCIEGUILLO", Natureza: "Naturaleza", coords: "41°25'49.8\"N 4°15'48.7\"W", address: "LOVINGOS", note: "Lugar de agua y vida en el secano cuellarano.", image: "https://lh3.googleusercontent.com/d/1GBtU8jrJSFG1EMH1JauDrkYAhyghsQl8" },
     { id: 205, name: "FÁBRICA DE RESINAS", category: "Industrial", coords: "41°12'50.5\"N 4°14'59.9\"W", address: "NAVALMANZANO", note: "Patrimonio industrial vivo de la Tierra de Pinares.", image: "https://lh3.googleusercontent.com/d/1PRsVsFBDrSd8Cu2NdkyWeT7eWB9J9WrP" },
     { id: 206, name: "FÁBRICA BAUDILIO MESA", category: "Industrial", coords: "41°11'53.0\"N 4°26'09.6\"W", address: "NAVAS DE ORO", note: "Emblemática fábrica de la industria resinera." },
     { id: 207, name: "PALACIO DE BUEN GRADO", category: "Historia", coords: "41°22'51.1\"N 4°09'29.9\"W", address: "PEROSILLO", note: "Antigua residencia señorial de gran importancia.", image: "https://lh3.googleusercontent.com/d/167D1qZIgvIQQ9HW3XMg9aHokKsPlw2qM" },
@@ -509,8 +509,8 @@ const App = () => {
           <RutabiaLogo size={36} />
           <h1 className="text-sm font-black tracking-tight uppercase italic leading-none">Rutabia</h1>
         </div>
-        
-        <div className="flex items-center gap-2 md:gap-3 flex-1 justify-end h-full">
+
+        <div className="flex items-center gap-2 md:gap-3 flex-1 justify-end h-full text-slate-800">
             <button 
               onClick={() => setIsHeaderSearchOpen(!isHeaderSearchOpen)}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all shadow-sm active:scale-90 ${isHeaderSearchOpen ? 'bg-indigo-600 text-white shadow-lg' : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white'}`}
@@ -528,7 +528,7 @@ const App = () => {
       {/* ÁREA DEL BUSCADOR */}
       {isHeaderSearchOpen && (
           <div ref={searchRef} className="relative bg-white z-40 border-b border-slate-100 p-4 animate-fade-in shadow-xl text-slate-800">
-            <div className="max-w-3xl mx-auto relative">
+            <div className="max-w-3xl mx-auto relative text-slate-800">
               <div className="flex items-center gap-3 bg-slate-100 rounded-2xl px-5 py-3 border border-slate-200 focus-within:ring-2 focus-within:ring-[#4338ca] transition-all">
                 <Search className="text-slate-400" size={20} />
                 <input 
@@ -556,7 +556,7 @@ const App = () => {
                     >
                       <div className="flex items-center gap-3">
                         <MapPin size={14} className="text-slate-500" />
-                        <span className="text-[11px] font-black uppercase tracking-tight">{s}</span>
+                        <span className="text-[11px] font-black uppercase tracking-tight text-white">{s}</span>
                       </div>
                       <ChevronRight size={14} className="text-white/20 group-hover:text-white transition-all" />
                     </button>
@@ -564,7 +564,7 @@ const App = () => {
                 </div>
               )}
               {searchTerm && filteredPlaces.length === 0 && (
-                 <p className="mt-8 text-[#be185d] text-[12px] font-black uppercase tracking-widest text-center animate-fade-in">
+                 <p className="mt-8 text-[#be185d] text-[12px] font-black uppercase tracking-widest text-center animate-fade-in text-[#be185d]">
                     No hay disponible paraje en esta localidad
                  </p>
               )}
@@ -574,10 +574,10 @@ const App = () => {
 
       {/* BOTÓN STICKY FAVORITOS */}
       {isStickyFavVisible && !isHeaderSearchOpen && (
-        <div className="fixed top-16 left-0 right-0 z-40 bg-fuchsia-600 shadow-2xl h-14 flex items-center justify-center animate-fade-in lg:hidden">
+        <div className="fixed top-16 left-0 right-0 z-40 bg-fuchsia-600 shadow-2xl h-14 flex items-center justify-center animate-fade-in lg:hidden bg-fuchsia-600">
           <button 
             onClick={() => setShowFavsModal(true)}
-            className="w-full h-full flex items-center justify-center gap-3 text-white font-black text-xs uppercase tracking-[0.2em]"
+            className="w-full h-full flex items-center justify-center gap-3 font-black text-xs uppercase tracking-[0.2em] text-white"
           >
             <Heart size={20} className="fill-current" /> Ver favoritos {favorites.length > 0 ? `(${favorites.length})` : ''}
           </button>
@@ -587,21 +587,21 @@ const App = () => {
       {isSideMenuOpen && (
           <div className="fixed inset-0 z-[2000] bg-black/60 backdrop-blur-md flex justify-end animate-fade-in" onClick={() => setIsSideMenuOpen(false)}>
               <div className="w-[85%] max-w-[320px] bg-white h-full shadow-2xl flex flex-col p-8 pt-4 slide-in-right text-slate-800" onClick={e => e.stopPropagation()}>
-                  <div className="flex items-center gap-1.5 mb-6 pb-6 border-b border-slate-100">
+                  <div className="flex items-center gap-1.5 mb-6 pb-6 border-b border-slate-100 text-slate-800">
                       <RutabiaLogo size={36} />
                       <h2 className="text-xl font-black tracking-tight uppercase italic leading-none">Rutabia</h2>
                   </div>
 
-                  <div className="flex flex-col gap-3 flex-1">
+                  <div className="flex flex-col gap-3 flex-1 text-slate-800">
                       <button 
                         onClick={() => { setIsSideMenuOpen(false); setIsHeaderSearchOpen(false); generateItinerary(); }}
                         className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full"
                       >
                           <div className="w-8 flex justify-center flex-shrink-0 group-hover:text-white transition-colors">
-                            <Route className="w-7 h-7" />
+                            <Route className="w-7 h-7 text-[#4338ca] group-hover:text-white transition-colors" />
                           </div>
                           <div className="text-left flex-grow">
-                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 group-hover:text-white transition-colors">Generator</span>
+                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 group-hover:text-white transition-colors text-[#4338ca]">Generator</span>
                               <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none group-hover:text-white/90 transition-colors">Crea tu ruta al azar</span>
                           </div>
                       </button>
@@ -611,9 +611,9 @@ const App = () => {
                         className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full"
                       >
                           <div className="w-8 flex justify-center flex-shrink-0 group-hover:text-white transition-colors">
-                            <Shuffle className="w-7 h-7" />
+                            <Shuffle className="w-7 h-7 text-[#4338ca] group-hover:text-white transition-colors" />
                           </div>
-                          <div className="text-left flex-grow">
+                          <div className="text-left flex-grow text-slate-800">
                               <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 group-hover:text-white transition-colors text-[#4338ca]">Randomizer</span>
                               <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none group-hover:text-white/90 transition-colors text-[#4338ca]">Selección al azar</span>
                           </div>
@@ -622,7 +622,7 @@ const App = () => {
 
                   <button 
                     onClick={() => setIsSideMenuOpen(false)}
-                    className="mt-4 flex items-center justify-center gap-2 p-5 border-2 border-rose-100 rounded-[1.5rem] text-slate-800 hover:bg-rose-50 hover:text-rose-600 transition-all font-black uppercase text-xs tracking-[0.2em]"
+                    className="mt-4 flex items-center justify-center gap-2 p-5 border-2 border-rose-100 rounded-[1.5rem] hover:bg-rose-50 hover:text-rose-600 transition-all font-black uppercase text-xs tracking-[0.2em] text-slate-800"
                   >
                       <X size={18} /> Cerrar
                   </button>
@@ -632,14 +632,23 @@ const App = () => {
 
       {/* HERO SECTION */}
       <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible px-6 pt-12 pb-8 bg-[#5b21b6]">
-        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none text-white"></div>
+        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay z-0"></div>
+        <div 
+          className="absolute inset-0 z-0 opacity-50 pointer-events-none"
+          style={{ 
+            backgroundImage: `url('https://lh3.googleusercontent.com/d/1v0jAeCoERd8pT_hpRKnMt7nJ3v0xy5CQ')`,
+            backgroundSize: 'auto',
+            backgroundPosition: 'bottom center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none text-white z-0"></div>
         
         <div className="relative z-10 w-full max-w-4xl flex flex-col items-center text-white">
-          <h2 className="text-4xl md:text-6xl uppercase italic tracking-tighter drop-shadow-2xl leading-none mb-2">
-            <span className="font-black">CREA</span> <span className="font-semibold">TU RUTA</span>
+          <h2 className="text-4xl md:text-6xl uppercase italic tracking-tighter drop-shadow-2xl leading-none mb-2 text-white">
+            <span className="font-black text-white">CREA</span> <span className="font-semibold text-white">TU RUTA</span>
           </h2>
-          <p className="text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance">
+          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance">
             <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
           </p>
 
