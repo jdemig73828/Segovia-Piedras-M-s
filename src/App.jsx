@@ -843,16 +843,15 @@ const App = () => {
         <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[320px] flex items-center justify-center overflow-hidden shadow-inner bg-cover bg-center group"
               style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/1GnPS_ujSkGYIUbhO1p2qWdgY-fqR-ok6')`}}>
             <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-black/80 to-transparent pointer-events-none text-white"></div>
-            <div className="relative z-20 bg-[#5b21b6]/50 backdrop-blur-sm p-8 sm:p-12 rounded-[2rem] border border-white/10 text-center max-w-lg mx-4 flex flex-col items-center w-full">
+            <div className="relative z-20 bg-white/10 backdrop-blur-md p-8 rounded-[2.5rem] border border-white/20 shadow-2xl text-center max-w-lg mx-4 flex flex-col items-center w-full">
                 <div className="mb-6 flex justify-center w-full">
                   <RutabiaLogo size={56} />
                 </div>
-                <h2 className="text-xl sm:text-3xl leading-tight mb-4 tracking-tight text-white">
+                <div className="w-24 h-[2px] bg-white mx-auto mb-6 rounded-full"></div>
+                <h2 className="text-xl sm:text-3xl leading-tight mb-0 tracking-tight text-white">
                     <span className="font-black">Descubre</span> <span className="font-light italic text-white">parajes</span><br/>
                     <span className="font-light italic">sorprendentes en</span> <span className="font-black text-white">Segovia</span>
                 </h2>
-                <div className="w-24 h-[2px] bg-[#ff0080] mx-auto mb-4 rounded-full text-white"></div>
-                <p className="text-[10px] sm:text-xs font-black tracking-[0.3em] uppercase italic opacity-90 text-white">© 2026 RUTABIA</p>
             </div>
         </div>
       </main>
