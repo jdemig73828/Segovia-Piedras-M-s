@@ -632,7 +632,6 @@ const App = () => {
 
       {/* HERO SECTION */}
       <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible px-6 pt-12 pb-8 bg-[#5b21b6]">
-        <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay z-0"></div>
         <div 
           className="absolute inset-0 z-0 opacity-100 pointer-events-none"
           style={{ 
