@@ -254,7 +254,7 @@ const App = () => {
     { id: 89, name: "ESQUILEO DE SANTILLANA", category: "Industrial", coords: "40°53'17.2\"N 4°04'04.3\"W", address: "REVENGA", note: "Centro neurálgico de la industria de la industria de la lana en el siglo XVIII.", image: "https://lh3.googleusercontent.com/d/1Ee0njmL4MlvCQoEmNOob7i0Crq3qvIzj" },
     { id: 90, name: "PALACIO DE LOS OSORIO PARADINAS", category: "Historia", coords: "41°00'42.0\"N 4°23'22.7\"W", address: "SANTA MARÍA LA REAL DE NIEVA", note: "Edificación señorial con gran escudo heráldico.", image: "https://lh3.googleusercontent.com/d/1u67w9UuQolSzXSft7Y5ar9eWE334-yqY" },
     { id: 91, name: "FÁBRICA DE PASTA DE PAPEL", category: "Industrial", coords: "40°55'58.0\"N 4°04'19.0\"W", address: "PALAZUELOS DE ERESMA", note: "Complejo industrial movido por las aguas del río Eresma.", image: "https://lh3.googleusercontent.com/d/1EnHXy2niQy1tK6H9iYbrXgBtJhb6SQrH" },
-    { id: 92, name: "ERMITA DE SAN PEDRO DE ACEDOS Y CASERÍO", category: "Ruinas", coords: "40°55'43.9\"N 4°29'30.0\"W", address: "MUÑOPEDRO", note: "Poblado abandonado que conserva la estructura eclesial.", image: "https://lh3.googleusercontent.com/d/1KGOi6_mRZjRvq4hi0-28qrpgCiX6GW7E" },
+    { id: 92, name: "ERMITA DE SAN PEDRO DE ACEDOS Y CASERÍO", category: "Ruinas", coords: "40°55'43.9\"N 4°29'30.0\"W", address: "MUÑOPEDRO", note: "Poblado abandonado que conserva la structure eclesial.", image: "https://lh3.googleusercontent.com/d/1KGOi6_mRZjRvq4hi0-28qrpgCiX6GW7E" },
     { id: 93, name: "ESTACIÓN DE TREN", category: "Industrial", coords: "41°05'04.1\"N 4°23'44.2\"W", address: "ORTIGOSA DE PESTAÑO", note: "Antigua parada ferroviaria de la línea Segovia-Medina.", image: "https://lh3.googleusercontent.com/d/1jy9RMkwCpXqfj8MQ0CezilfH8lVxcBdW" },
     { id: 94, name: "FÁBRICA DE ACHICORIA LA MAESTRA", category: "Industrial", coords: "41°11'13.6\"N 4°26'09.6\"W", address: "NAVAS DE ORO", note: "Emblemática fábrica de la industria resinera." },
     { id: 95, name: "RANCHO DE ESQUILEO Y LAVADERO", category: "Industrial", coords: "40°50'37.7\"N 4°10'25.9\"W", address: "ORTIGOSA DEL MONTE", note: "Importante complejo lanero del patrimonio industrial serrano.", image: "https://lh3.googleusercontent.com/d/1vkaUuqZsa7jwVjZteZFYdSu3pU6IgHfq" },
@@ -366,7 +366,7 @@ const App = () => {
     { id: 201, name: "PEGUERAS", category: "Industrial", coords: "41°20'04.5\"N 4°25'36.4\"W", address: "CHAÑE", note: "Antiguos hornos para la obtención de pez." },
     { id: 202, name: "MOLINO DEL BOTILLER", category: "Industrial", coords: "41°23'07.5\"N 4°16'55.2\"W", address: "ESCARABAJOSA", note: "Ingenio hidráulico muy relevante.", image: "https://lh3.googleusercontent.com/d/1GvgsROpFYhcAFvYA7jc2F1nzEI50PU8h" },
     { id: 203, name: "TEJERAS DE LOS SERAFINES", category: "Industrial", coords: "41°18'05.7\"N 4°06'06.4\"W", address: "LASTRAS DE CUÉLLAR", note: "Centenarias instalaciones cerámicas ya en desuso.", image: "https://lh3.googleusercontent.com/d/11jT_F-pcbP3rLk1kf1RzvkbSbuI2eJav" },
-    { id: 204, name: "POCIEGUILLO", Natureza: "Naturaleza", coords: "41°25'49.8\"N 4°15'48.7\"W", address: "LOVINGOS", note: "Lugar de agua y vida en el secano cuellarano.", image: "https://lh3.googleusercontent.com/d/1GBtU8jrJSFG1EMH1JauDrkYAhyghsQl8" },
+    { id: 204, name: "POCIEGUILLO", category: "Naturaleza", coords: "41°25'49.8\"N 4°15'48.7\"W", address: "LOVINGOS", note: "Lugar de agua y vida en el secano cuellarano.", image: "https://lh3.googleusercontent.com/d/1GBtU8jrJSFG1EMH1JauDrkYAhyghsQl8" },
     { id: 205, name: "FÁBRICA DE RESINAS", category: "Industrial", coords: "41°12'50.5\"N 4°14'59.9\"W", address: "NAVALMANZANO", note: "Patrimonio industrial vivo de la Tierra de Pinares.", image: "https://lh3.googleusercontent.com/d/1PRsVsFBDrSd8Cu2NdkyWeT7eWB9J9WrP" },
     { id: 206, name: "FÁBRICA BAUDILIO MESA", category: "Industrial", coords: "41°11'53.0\"N 4°26'09.6\"W", address: "NAVAS DE ORO", note: "Emblemática fábrica de la industria resinera." },
     { id: 207, name: "PALACIO DE BUEN GRADO", category: "Historia", coords: "41°22'51.1\"N 4°09'29.9\"W", address: "PEROSILLO", note: "Antigua residencia señorial de gran importancia.", image: "https://lh3.googleusercontent.com/d/167D1qZIgvIQQ9HW3XMg9aHokKsPlw2qM" },
@@ -634,10 +634,10 @@ const App = () => {
       <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible px-6 pt-12 pb-8 bg-[#5b21b6]">
         <div className="absolute inset-0 bg-esgrafiado-pattern opacity-[0.30] mix-blend-overlay z-0"></div>
         <div 
-          className="absolute inset-0 z-0 opacity-50 pointer-events-none"
+          className="absolute inset-0 z-0 opacity-100 pointer-events-none"
           style={{ 
-            backgroundImage: `url('https://lh3.googleusercontent.com/d/1v0jAeCoERd8pT_hpRKnMt7nJ3v0xy5CQ')`,
-            backgroundSize: 'auto',
+            backgroundImage: `url('https://lh3.googleusercontent.com/d/1XUZX7F_EwHGoIZFaboHjf70K38NTup3K')`,
+            backgroundSize: 'cover',
             backgroundPosition: 'bottom center',
             backgroundRepeat: 'no-repeat'
           }}
