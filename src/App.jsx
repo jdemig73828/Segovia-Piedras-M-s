@@ -379,7 +379,8 @@ const App = () => {
     { id: 214, name: "MOLINO", category: "Industrial", coords: "41°07'36.7\"N 3°58'33.0\"W", address: "CABALLAR", note: "Ingenio harinero rural situado en un entorno pintoresco." },
     { id: 215, name: "FORTINES DE CABEZA GRANDE", category: "Historia", coords: "40°52'11.2\"N 4°04'47.8\"W", address: "LA GRANJA", note: "Defensas militares místicas del siglo XX.", image: "https://lh3.googleusercontent.com/d/13P-9Wbe59eRc3mxiIXoSF5vYYfCjZAm0" },
     { id: 216, name: "FÁBRICA DE LUZ SANTA ISABEL", category: "Industrial", coords: "40°53'13.9\"N 4°00'49.1\"W", address: "VALSAÍN", note: "Importante patrimonio industrial hidroeléctrico.", image: "https://lh3.googleusercontent.com/d/1c_-Yv_QE70m5_aNK3zVzL5MI4j2-OUPI" },
-    { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos.", image: "https://lh3.googleusercontent.com/d/118JaN1Y3kVnqThIZzmr-Np09dpbSHWIw" }
+    { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos.", image: "https://lh3.googleusercontent.com/d/118JaN1Y3kVnqThIZzmr-Np09dpbSHWIw" },
+    { id: 218, name: "LAGUNAS DE CANTALEJO", category: "Naturaleza", coords: "41°16'32.0\"N 3°55'21.0\"W", address: "CANTALEJO", note: "Humedal de gran interés por su importancia ornitológica", image: "https://lh3.googleusercontent.com/d/1uODRDzelsfascBC9Oj6qmUWwl-m0fnci", mapUrl: "https://maps.app.goo.gl/mNFoKSuRUpNkH8Lm7" }
   ], []);
 
   const suggestions = useMemo(() => {
@@ -428,6 +429,14 @@ const App = () => {
     setCurrentCategory('Todos');
     setCurrentGeoZone('Todos');
     setIsHeaderSearchOpen(false);
+  };
+
+  // Función inteligente para enrutamiento exacto en Google Maps
+  const getRouteQuery = (p) => {
+    if (p.mapUrl || p.id === 218) {
+      return `${p.name}, ${p.address}`;
+    }
+    return p.coords;
   };
 
   const generateItinerary = () => {
@@ -808,7 +817,7 @@ const App = () => {
                       <p className="text-[9px] font-bold uppercase mb-4 flex items-center gap-1.5 leading-none text-slate-400"><MapPin className="w-3 h-3 text-[#4338ca]" /> {p.address}</p>
                       <p className="text-[11px] italic mb-8 leading-relaxed opacity-80 line-clamp-3 text-slate-500">"{p.note}"</p>
                     </div>
-                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[12px] text-center shadow-lg hover:bg-[#4338ca] transition-all block active:scale-95 leading-none">Ver sitio</a>
+                    <a href={p.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="bg-black text-white py-3.5 rounded-2xl font-black text-[12px] text-center shadow-lg hover:bg-[#4338ca] transition-all block active:scale-95 leading-none">Ver sitio</a>
                   </div>
                 </div>
             </div>
@@ -931,12 +940,12 @@ const App = () => {
                                 </div>
                             </div>
                         ))}
-                        <div className="pt-6 border-t border-slate-100 mt-8 text-center px-4 flex flex-col gap-3">
-                            <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(favPlacesWithDist[0].coords)}&destination=${encodeURIComponent(favPlacesWithDist[favPlacesWithDist.length-1].coords)}${favPlacesWithDist.length > 2 ? `&waypoints=${favPlacesWithDist.slice(1,-1).map(p => encodeURIComponent(p.coords)).join('|')}` : ''}&travelmode=driving`} 
+                        <div className="pt-6 border-t border-slate-100 mt-8 text-center px-4 flex flex-col gap-3 text-white text-white">
+                            <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(getRouteQuery(favPlacesWithDist[0]))}&destination=${encodeURIComponent(getRouteQuery(favPlacesWithDist[favPlacesWithDist.length-1]))}${favPlacesWithDist.length > 2 ? `&waypoints=${favPlacesWithDist.slice(1,-1).map(p => encodeURIComponent(getRouteQuery(p))).join('|')}` : ''}&travelmode=driving`} 
                                target="_blank" 
                                rel="noopener noreferrer" 
-                               className="w-full bg-black text-white py-4 px-10 rounded-2xl font-black text-[14px] uppercase tracking-widest shadow-xl hover:scale-105 transition-all lg:text-[16px] flex items-center justify-center gap-3">
-                              <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />
+                               className="w-full bg-black text-white py-4 px-10 rounded-2xl font-black text-[14px] uppercase tracking-widest shadow-xl hover:scale-105 transition-all lg:text-[16px] flex items-center justify-center gap-3 text-white">
+                              <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6 text-white" />
                               Ver ruta
                             </a>
                         </div>
@@ -973,7 +982,7 @@ const App = () => {
                 <p className="text-xs font-bold uppercase mb-6 lg:text-[16px] lg:text-[20px] text-slate-400">{randomPlace.address}</p>
                 <p className="italic text-sm mb-10 leading-relaxed lg:text-[18px] lg:text-[22px] text-slate-500">"{randomPlace.note}"</p>
                 <div className="flex flex-col gap-3">
-                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} 
+                    <a href={randomPlace.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} 
                        target="_blank" 
                        rel="noopener noreferrer" 
                        className="bg-black text-white py-4 px-10 rounded-2xl font-black text-[14px] shadow-xl hover:scale-105 transition-all lg:text-[16px] lg:text-[20px] flex items-center justify-center gap-3">
@@ -1025,13 +1034,13 @@ const App = () => {
                                     </div>
                                     <p className="text-[10px] font-bold mb-1 uppercase tracking-tight lg:text-[14px] text-slate-400">{p.address}</p>
                                     <p className="text-[11px] italic mb-3 leading-relaxed lg:text-[15px] text-slate-500">"{p.note}"</p>
-                                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black uppercase tracking-widest hover:underline leading-none lg:text-[13px] text-indigo-600">Ver punto →</a>
+                                    <a href={p.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.coords)}`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-black uppercase tracking-widest hover:underline leading-none lg:text-[13px] text-indigo-600">Ver punto →</a>
                                 </div>
                             </div>
                         </div>
                     ))}
-                    <div className="pt-6 border-t border-slate-100 mt-8 pb-10 px-4 text-center">
-                        <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(itinerary.places[0].coords)}&destination=${encodeURIComponent(itinerary.places[itinerary.places.length-1].coords)}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(itinerary.places[1].coords)}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95 mb-10 lg:text-[16px]"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />Ver ruta</a>
+                    <div className="pt-6 border-t border-slate-100 mt-8 pb-10 px-4 text-center text-white">
+                        <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(getRouteQuery(itinerary.places[0]))}&destination=${encodeURIComponent(getRouteQuery(itinerary.places[itinerary.places.length-1]))}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(getRouteQuery(itinerary.places[1]))}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95 mb-10 lg:text-[16px] font-black text-white text-white text-white text-white text-white text-white"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />Ver ruta</a>
                         
                         <button 
                             onClick={() => setItinerary(null)} 
