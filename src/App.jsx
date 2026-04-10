@@ -226,14 +226,14 @@ const App = () => {
     { id: 58, name: "CONVENTO DE LA HOZ", category: "Ruinas", coords: "41°18'49.5\"N 3°52'19.5\"W", address: "SEBÚLCOR", note: "Monasterio rupestre místico sobre el Duratón.", image: "https://lh3.googleusercontent.com/d/1Rr0ME-hz616keVgN9J4AFswXxBTLPfCw", history: "Convento de Nuestra Señora de la Hoz, fundado en 1231 en un entorno de sublime belleza y peligrosidad: encajonado en el fondo del cañón del Duratón y accesible sólo en barca o por senderos infernales. Acogió a monjes franciscanos eremitas, e incluso la Reina Isabel la Católica lo visitó, atraída por la venerada Virgen y los milagros documentados allí. Tras la feroz desamortización de 1835, fue abandonado y hoy sus ruinas góticas colgadas en el precipicio ofrecen la imagen más abrumadora y mágica de Segovia." },
     { id: 59, name: "ERMITA DE SANTIAGO DE REBOLLO", category: "Historia", coords: "41°12'30.7\"N 3°48'46.6\"W", address: "SAN PEDRO DE GAÍLLOS", note: "Santuario rural de devoción popular local.", image: "https://lh3.googleusercontent.com/d/187gB6opmiO9vtxvzV8NbCVhT_xoxCVEM", history: "Santuario rural inquebrantablemente enraizado en la más íntima y supersticiosa piedad popular castellana. Su titularidad a Santiago Apóstol sugiere con muchísima fuerza a los arqueólogos que la zona era una transitada ruta secundaria, o ramal olvidado, de antiquísimos y extenuantes peregrinajes peninsulares. Construida en su totalidad con humildísima mampostería local, sigue custodiando la memoria de las viejas y desgarradoras rogativas que clamaban piedad a los cielos por unas buenas cosechas." },
     { id: 60, name: "PALACIO DEL MARQUÉS REVILLA", category: "Historia", coords: "41°24'49.5\"N 3°45'03.6\"W", address: "NAVARES DE LAS CUEVAS", note: "Grandeza señorial en una de las comarcas más auténticas de Segovia.", image: "https://lh3.googleusercontent.com/d/12uKyhI3ErQP10GR2XErSRT_csZReiAPW", history: "Imponente mole señorial y palaciega construida a finales del brillante siglo XVI. El enorme edificio refleja sin pudor la supremacía de los formidables Marqueses de Revilla, que poseían inmensas e inabarcables extensiones de prósperas tierras agrícolas y pastos de la Mesta por todo el norte. Su desmesurado y arrogante escudo heráldico de la fachada, sumado a las gruesas e impenetrables rejas de forja, hablan del despótico e incontestable poder feudal que persistió sin oposición en el agreste nordeste segoviano." },
-    { id: 61, name: "DESPOBLADO DE MATANDRINO", category: "Ruinas", coords: "41°09'00.5\"N 3°42'37.0\"W", address: "PRÁDENA", note: "Pueblo deshabitado místico que conserva el alma medieval.", image: "https://lh3.googleusercontent.com/d/1dpK87mbxGZPVkACJCoicsJCqffWKILpl", history: "Matandrino es uno de los símbolos más sobrecogedores de la despoblación en la provincia. Aunque sus orígenes se remontan a las repoblaciones medievales, fue a mediados del siglo XX cuando sus últimos habitantes, asfixiados por la falta de recursos y el aislamiento, cerraron sus puertas para siempre. Hoy, pasear entre los escombros de sus casas de piedra caliza y sus calles invadidas por la naturaleza es un viaje melancólico al duro pasado rural de Castilla." },
+    { id: 61, name: "DESPOBLADO DE MATANDRINO", category: "Ruinas", coords: "41°09'00.5\"N 3°42'37.0\"W", address: "PRÁDENA", note: "Pueblo deshabitado místico que conserva el alma medieval.", image: "https://lh3.googleusercontent.com/d/1XPVZN6TAuTo--zY4FC2dTCx4Fk7j1TDw", history: "Matandrino es uno de los símbolos más sobrecogedores de la despoblación en la provincia. Aunque sus orígenes se remontan a las repoblaciones medievales, fue a mediados del siglo XX cuando sus últimos habitantes, asfixiados por la falta de recursos y el aislamiento, cerraron sus puertas para siempre. Hoy, pasear entre los escombros de sus casas de piedra caliza y sus calles invadidas por la naturaleza es un viaje melancólico al duro pasado rural de Castilla." },
     { id: 62, name: "IGLESIA DE SAN MIGUEL", category: "Historia", coords: "41°20'37.6\"N 3°51'58.6\"W", address: "FRESNEDA DE SEPÚLVEDA", note: "Parroquia rural de origen medieval en la tierra de Sepúlveda.", image: "https://lh3.googleusercontent.com/d/1Rg7F2ZgWqBPWwi7rTTGljSm2gWI1O9Es", history: "Perteneciente históricamente a la poderosa Comunidad de Villa y Tierra de Sepúlveda, esta iglesia parroquial es un bello ejemplo del románico tardío. Sus muros, levantados con el esfuerzo y las donaciones de humildes agricultores y ganaderos locales, sirvieron no solo como centro de culto sino como núcleo de reunión para el concejo. Su arquitectura austera refleja la sobriedad de las gentes que habitaron este somontano segoviano." },
     { id: 63, name: "DESPOBLADO DE VILLAREJO", category: "Ruinas", coords: "41°17'54.7\"N 3°40'32.6\"W", address: "EL OLMO", note: "Vestigios de un antiguo núcleo de población hoy desaparecido.", image: "https://lh3.googleusercontent.com/d/1xEgzzG9q8rzw0Sn3gZMDgGRd32SvqZtY", history: "Las escasas ruinas del despoblado de Villarejo son el último suspiro de una pequeña comunidad agrícola que no logró sobrevivir a los embates de la historia. Las crisis demográficas del siglo XVII, sumadas a las duras sequías y presiones fiscales, obligaron a sus habitantes a integrarse en núcleos mayores como El Olmo. Apenas quedan montículos de piedras que marcan el lugar donde antaño hubo hogares y corrales familiares." },
     { id: 64, name: "DESPOBLADO DE CORRALEJO", category: "Ruinas", coords: "41°17'46.5\"N 3°38'34.4\"W", address: "EL OLMO", note: "Huellas de la historia rural en el campo segoviano.", image: "https://lh3.googleusercontent.com/d/1MBHc6_84V_F6W7RSM0QxvZZm6gwqP_As", history: "Hermano en infortunio de Villarejo, el despoblado de Corralejo comparte la misma historia de abandono. Sus habitantes, dedicados a una agricultura de pura subsistencia y al pastoreo, dejaron atrás sus tierras, que finalmente fueron absorbidas por terratenientes o pueblos cercanos. Estos vestigios semienterrados nos recuerdan la extrema fragilidad de los asentamientos fronterizos en los ásperos inviernos de la meseta castellana." },
     { id: 65, name: "ERMITA DE SAN LORENZO", category: "Historia", coords: "41°19'25.0\"N 3°42'12.3\"W", address: "EL OLMILLO", note: "Pequeño templo románico de gran sencillez y belleza.", image: "https://lh3.googleusercontent.com/d/1kraCFHblo2uPaOLB7TYKGLwk1V7TKQWJ", history: "Joya escondida del románico rural, la ermita de San Lorenzo destaca por su pureza de líneas y la modestia de sus proporciones. Construida durante los siglos XII-XIII, cuenta con una delicada cabecera semicircular y un sencillo pórtico. En su época dorada, era el lugar donde los campesinos acudían a bendecir los campos cada 10 de agosto, rogando a San Lorenzo protección contra los temidos incendios de la siega." },
     { id: 66, name: "CASA PALACIO DE LOS MARQUESES DE CASTROSERNA", category: "Historia", coords: "41°11'23.5\"N 3°42'54.2\"W", address: "CASTROSERNA DE ARRIBA", note: "Edificio señorial representativo de la nobleza segoviana.", image: "https://lh3.googleusercontent.com/d/1gs6tn-KJmGW0TeHxrecWuuX_24IjrNho", history: "Este imponente edificio palaciego, que domina la plaza del pueblo, atestigua el inmenso poder señorial que la nobleza ostentaba sobre las zonas rurales. Perteneció a los Marqueses de Castroserna, un título concedido en el siglo XVIII que consolidó el dominio aristocrático de estos valles. Su fachada blasonada, amplios patios y gruesos muros de sillería eran el símbolo palpable de la autoridad feudal y la recaudación de rentas a los vasallos." },
     { id: 67, name: "ERMITA DE SAN JULIÁN", category: "Historia", coords: "41°17'51.6\"N 3°47'00.3\"W", address: "CASTRILLO DE SEPÚLVEDA", note: "Lugar de culto tradicional en un entorno paisajístico privilegiado.", image: "https://lh3.googleusercontent.com/d/1ebjt4Y8QadYQK3Yfnx7QSGee9kk1TT7L", history: "Enclavada en un paraje de extraordinaria paz, la ermita de San Julián ha sido secularmente un faro de devoción para los lugareños. Su sencilla estructura de mampostería acoge una profunda espiritualidad rural. A lo largo de la historia, fue meta de romerías donde se entrelazaban ritos cristianos con antiquísimas costumbres agrarias, buscando la intercesión del santo para obtener años de abundantes lluvias y prosperidad." },
-    { id: 68, name: "MOLINO HARINERO", category: "Industrial", coords: "41°21'52.2\"N 3°53'57.7\"W", address: "CARRASCAL DEL RÍO", note: "Ejemplo de la industria molinera fluvial del Duratón.", history: "Construido en las mismas márgenes del emblemático río Duratón, este histórico molino es una obra maestra de ingeniería popular. Durante siglos, sus dueños encauzaron las aguas mediante rudimentarias presas para hacer girar las enormes piedras que molían el grano de toda la comarca. La vida del molinero, a menudo solitaria y dura, era el engranaje fundamental para transformar el cereal castellano en el pan que alimentaba a los campesinos." },
+    { id: 68, name: "MOLINO HARINERO", category: "Industrial", coords: "41°21'52.2\"N 3°53'57.7\"W", address: "CARRASCAL DEL RÍO", note: "Ejemplo de la industria molinera fluvial del Duratón." },
     { id: 69, name: "FÁBRICA DE RESINA", category: "Industrial", coords: "41°14'12.5\"N 3°55'35.4\"W", address: "CABEZUELA", note: "Patrimonio industrial ligado a la explotación de los pinos.", image: "https://lh3.googleusercontent.com/d/12zGLhYL7f6P0DH-ghZypw4T-UbIYw1lm", history: "Monumento vivo al 'oro líquido' de Segovia: la resina. Durante el siglo XIX y gran parte del XX, la extracción y destilación de resina de los infinitos pinares negrales fue el gran motor económico de la región. Esta fábrica industrializaba el proceso, hirviendo y destilando la miera recolectada a mano por los heroicos resineros para obtener colofonia y aguarrás, productos exportados nacional e internacionalmente." },
     { id: 70, name: "MOLINO DE LA CERQUILLA", category: "Industrial", coords: "41°21'48.4\"N 3°49'38.3\"W", address: "BARRIO DE ARRIBA", note: "Ingenio harinero situado en un paraje de gran valor geológico.", image: "https://lh3.googleusercontent.com/d/1n2cZcRTeuiRj4w-iCWD_KbVJfJsgPxXq", history: "Escondido en un tramo espectacularmente encajonado del río, este molino aprovechaba con astucia los desniveles naturales del cauce. Documentado desde la Edad Moderna, su labor incesante fue vital para el suministro de harina en una geografía muy quebrada y difícil. Las piedras de afilar, las compuertas y el azud de madera formaban un complejo sistema donde la fuerza de la naturaleza se domaba al servicio de la subsistencia comunal." },
     { id: 71, name: "DESPOBLADO DE ALDEARRASO", category: "Ruinas", coords: "41°14'06.7\"N 3°48'12.7\"W", address: "SAN PEDRO DE GAÍLLOS", note: "Restos de población en una zona de pastos tradicionales.", image: "https://lh3.googleusercontent.com/d/1K8wtIa_B9tIH1C-7-7V1Ez74y4_nHGuT", history: "Aldearraso es el eco fantasmagórico de un tiempo en que el territorio segoviano estaba salpicado de diminutas aldeas pastoriles. Su propio nombre, que significa 'aldea llana o arrasada', presagiaba su destino. Despoblada probablemente entre los siglos XVI y XVII por pestes y malas cosechas, hoy apenas unos montículos de escombros calizos entre enebros y sabinas nos señalan dónde hubo vida, risas y fuego." },
@@ -434,7 +434,6 @@ const App = () => {
     setIsHeaderSearchOpen(false);
   };
 
-  // Función inteligente para enrutamiento exacto en Google Maps
   const getRouteQuery = (p) => {
     if (p.mapUrl || p.id === 218) {
       return `${p.name}, ${p.address}`;
@@ -796,9 +795,9 @@ const App = () => {
 
         <div id="results-grid" ref={resultsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left text-slate-800">
           {displayedPlaces.map((p) => (
-            <div key={p.id} className={`relative ${categoryBgColors[p.category]} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in flex flex-col h-full overflow-hidden text-slate-800`}>
+            <div key={p.id} className={`relative ${categoryBgColors[p.category] || 'bg-indigo-50/50'} rounded-[2.2rem] p-4 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group animate-fade-in flex flex-col h-full overflow-hidden text-slate-800`}>
                 <div className="relative z-10 flex flex-col h-full text-slate-800">
-                  <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category]} shadow-inner`}
+                  <div className={`relative h-52 w-full rounded-[1.8rem] overflow-hidden mb-6 flex items-center justify-center ${categoryVisualBgs[p.category] || 'bg-indigo-100'} shadow-inner`}
                        style={p.image ? {backgroundImage: `url(${p.image})`, backgroundSize: 'cover', backgroundPosition: 'center'} : {}}>
                     
                     {/* ICONOS EXTRA PARA CATEGORÍAS ALINEADOS AL CORAZON Y BADGE */}
@@ -812,7 +811,7 @@ const App = () => {
                     {p.image && <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 z-0 pointer-events-none"></div>}
 
                     {!p.image && (
-                      <div className={`absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0 ${categoryIconColors[p.category]}`}>
+                      <div className={`absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.15] z-0 ${categoryIconColors[p.category] || 'text-indigo-900'}`}>
                         {p.category === 'Historia' && <Landmark size={140} strokeWidth={1.5} />}
                         {p.category === 'Ruinas' && <Castle size={140} strokeWidth={1.5} />}
                         {p.category === 'Industrial' && <Factory size={140} strokeWidth={1.5} />}
@@ -828,7 +827,7 @@ const App = () => {
                     </button>
 
                     <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2">
-                      <span className={`px-2.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
+                      <span className={`px-2.5 py-0.5 ${categoryColors[p.category] || 'bg-indigo-500'} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
                       <div className="px-2.5 py-1 bg-white/95 rounded-lg border border-white shadow-sm font-bold"><p className="text-[10px] font-mono leading-none text-slate-900">{p.coords}</p></div>
                     </div>
                   </div>
@@ -940,7 +939,7 @@ const App = () => {
             {/* Cabecera del Modal */}
             <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-indigo-50">
               <div>
-                <span className={`inline-block px-2.5 py-0.5 mb-2 ${categoryColors[infoModal.place.category]} text-white rounded text-[8px] font-black uppercase tracking-widest shadow-sm`}>
+                <span className={`inline-block px-2.5 py-0.5 mb-2 ${categoryColors[infoModal.place.category] || 'bg-indigo-500'} text-white rounded text-[8px] font-black uppercase tracking-widest shadow-sm`}>
                   {infoModal.place.category}
                 </span>
                 <h4 className="font-black uppercase tracking-tighter text-xl text-indigo-900 leading-none">
@@ -1017,11 +1016,11 @@ const App = () => {
                                 )}
                                 <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white transition-all shadow-sm">
                                     <div className="flex items-center gap-4 flex-1">
-                                        <div className={`w-3 h-10 rounded-full flex-shrink-0 ${categoryColors[p.category]}`}></div>
+                                        <div className={`w-3 h-10 rounded-full flex-shrink-0 ${categoryColors[p.category] || 'bg-indigo-500'}`}></div>
                                         <div>
                                             <div className="flex items-center gap-2 mb-1">
                                                 <h5 className="font-black uppercase text-sm leading-tight lg:text-[18px] lg:text-[22px]">{p.name}</h5>
-                                                <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[7px] font-black uppercase leading-none lg:text-[11px]`}>{p.category}</span>
+                                                <span className={`px-1.5 py-0.5 ${categoryColors[p.category] || 'bg-indigo-500'} text-white rounded text-[7px] font-black uppercase leading-none lg:text-[11px]`}>{p.category}</span>
                                             </div>
                                             <p className="text-[9px] font-bold uppercase lg:text-[13px] lg:text-[17px] mb-2 text-slate-400">{p.address}</p>
                                             <p className="text-[11px] italic leading-relaxed lg:text-[15px] lg:text-[19px] text-slate-500">"{p.note}"</p>
@@ -1033,7 +1032,7 @@ const App = () => {
                                 </div>
                             </div>
                         ))}
-                        <div className="pt-6 border-t border-slate-100 mt-8 text-center px-4 flex flex-col gap-3 text-white text-white">
+                        <div className="pt-6 border-t border-slate-100 mt-8 text-center px-4 flex flex-col gap-3 text-white">
                             <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(getRouteQuery(favPlacesWithDist[0]))}&destination=${encodeURIComponent(getRouteQuery(favPlacesWithDist[favPlacesWithDist.length-1]))}${favPlacesWithDist.length > 2 ? `&waypoints=${favPlacesWithDist.slice(1,-1).map(p => encodeURIComponent(getRouteQuery(p))).join('|')}` : ''}&travelmode=driving`} 
                                target="_blank" 
                                rel="noopener noreferrer" 
@@ -1060,6 +1059,7 @@ const App = () => {
           </div>
       )}
 
+      {/* MODAL RANDOM PLACE */}
       {randomPlace && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setRandomPlace(null)}>
               <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center relative text-slate-800" onClick={e => e.stopPropagation()}>
@@ -1070,7 +1070,7 @@ const App = () => {
                     <X className="w-6 h-6 lg:w-8 lg:h-8 lg:w-10 lg:h-10" />
                 </button>
 
-                <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category]} text-white text-[9px] font-black uppercase rounded-lg shadow-sm lg:text-[13px] lg:text-[17px]`}>{randomPlace.category}</span>
+                <span className={`inline-block px-3 py-1 mb-4 ${categoryColors[randomPlace.category] || 'bg-indigo-500'} text-white text-[9px] font-black uppercase rounded-lg shadow-sm lg:text-[13px] lg:text-[17px]`}>{randomPlace.category}</span>
                 <h3 className="text-2xl font-black uppercase mb-2 leading-tight lg:text-[28px] lg:text-[32px]">{randomPlace.name}</h3>
                 <p className="text-xs font-bold uppercase mb-6 lg:text-[16px] lg:text-[20px] text-slate-400">{randomPlace.address}</p>
                 <p className="italic text-sm mb-10 leading-relaxed lg:text-[18px] lg:text-[22px] text-slate-500">"{randomPlace.note}"</p>
@@ -1094,6 +1094,7 @@ const App = () => {
           </div>
       )}
 
+      {/* MODAL ITINERARY */}
       {itinerary && (
           <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setItinerary(null)}>
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative" onClick={e => e.stopPropagation()}>
@@ -1123,7 +1124,7 @@ const App = () => {
                                 <div className="flex-grow">
                                     <div className="flex items-center gap-2 mb-1">
                                         <h5 className="font-black uppercase text-sm leading-tight lg:text-[18px] text-slate-800">{p.name}</h5>
-                                        <span className={`px-1.5 py-0.5 ${categoryColors[p.category]} text-white rounded text-[7px] font-black uppercase leading-none lg:text-[11px]`}>{p.category}</span>
+                                        <span className={`px-1.5 py-0.5 ${categoryColors[p.category] || 'bg-indigo-500'} text-white rounded text-[7px] font-black uppercase leading-none lg:text-[11px]`}>{p.category}</span>
                                     </div>
                                     <p className="text-[10px] font-bold mb-1 uppercase tracking-tight lg:text-[14px] text-slate-400">{p.address}</p>
                                     <p className="text-[11px] italic mb-3 leading-relaxed lg:text-[15px] text-slate-500">"{p.note}"</p>
