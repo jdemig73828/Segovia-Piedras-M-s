@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, Suspense, useRef } from 'react';
-import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route, ChevronDown, Heart, ChevronLeft, ChevronRight, Eraser, Menu, CheckCircle2, Percent } from 'lucide-react';
+import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route, ChevronDown, Heart, ChevronLeft, ChevronRight, Eraser, Menu, CheckCircle2, Percent, HelpCircle } from 'lucide-react';
 
 // Cargamos Analytics de forma dinámica
 const Analytics = React.lazy(() => 
@@ -518,6 +518,16 @@ const App = () => {
                 <Search size={18} />
                 <span className="text-[10px] font-bold uppercase tracking-wider">Buscar</span>
             </button>
+
+            <a 
+              href="https://drive.google.com/file/d/10hjQERxUoj1O75czHo-abaEj-Fk7ul_L/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full transition-all shadow-sm active:scale-90 bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white no-underline"
+            >
+                <HelpCircle size={18} />
+                <span className="text-[10px] font-bold uppercase tracking-wider">Ayuda</span>
+            </a>
 
             <button onClick={() => setIsSideMenuOpen(true)} className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-all border border-slate-100 ml-1">
                 <Menu size={22} />
