@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, Suspense, useRef } from 'react';
-import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route, ChevronDown, Heart, ChevronLeft, ChevronRight, Eraser, Menu, CheckCircle2, Percent, HelpCircle, Share2, Copy, Check, MessageCircle, Mail, Twitter } from 'lucide-react';
+import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route, ChevronDown, Heart, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Eraser, Menu, CheckCircle2, Percent, HelpCircle, Share2, Copy, Check, MessageCircle, Mail, Twitter } from 'lucide-react';
 
 // Cargamos Analytics de forma dinámica
 const Analytics = React.lazy(() => 
@@ -495,6 +495,13 @@ const App = () => {
   const PaginationControls = () => (
     <div className="flex items-center gap-2">
         <button 
+            onClick={() => setCurrentPage(1)}
+            disabled={currentPage === 1}
+            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-slate-800"
+        >
+            <ChevronsLeft size={24} />
+        </button>
+        <button 
             onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
             disabled={currentPage === 1}
             className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-slate-800"
@@ -524,6 +531,13 @@ const App = () => {
             className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-slate-800"
         >
             <ChevronRight size={24} />
+        </button>
+        <button 
+            onClick={() => setCurrentPage(totalPages)}
+            disabled={currentPage === totalPages}
+            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-slate-800"
+        >
+            <ChevronsRight size={24} />
         </button>
     </div>
   );
