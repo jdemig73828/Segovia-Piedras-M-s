@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, Suspense, useRef } from 'react';
-import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route, ChevronDown, Heart, ChevronLeft, ChevronRight, Eraser, Menu, CheckCircle2, Percent, HelpCircle } from 'lucide-react';
+import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route, ChevronDown, Heart, ChevronLeft, ChevronRight, Eraser, Menu, CheckCircle2, Percent, HelpCircle, Share2, Copy, Check, MessageCircle, Mail, Twitter } from 'lucide-react';
 
 // Cargamos Analytics de forma dinámica
 const Analytics = React.lazy(() => 
@@ -70,6 +70,12 @@ const App = () => {
   
   // Nuevo estado para el modal de información estática
   const [infoModal, setInfoModal] = useState({ show: false, place: null });
+  
+  // Nuevo estado para la funcionalidad de compartir
+  const [shareExpanded, setShareExpanded] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [shareMessage, setShareMessage] = useState("");
+  const shareIconsRef = useRef(null);
   
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
@@ -432,6 +438,34 @@ const App = () => {
     setCurrentCategory('Todos');
     setCurrentGeoZone('Todos');
     setIsHeaderSearchOpen(false);
+  };
+
+  const handleCopyLink = (url) => {
+    const textArea = document.createElement("textarea");
+    textArea.value = url;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Error al copiar', err);
+    }
+    document.body.removeChild(textArea);
+  };
+
+  const toggleShare = (defaultText) => {
+    if (!shareExpanded) {
+      setShareMessage(defaultText);
+      setShareExpanded(true);
+      // Auto-scroll suave hacia los iconos para que no queden ocultos
+      setTimeout(() => {
+        shareIconsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 150);
+    } else {
+      setShareExpanded(false);
+    }
   };
 
   const getRouteQuery = (p) => {
@@ -992,11 +1026,11 @@ const App = () => {
 
       {/* MODAL FAVORITOS (CREAR RUTA) */}
       {showFavsModal && (
-          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setShowFavsModal(false)}>
+          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => { setShowFavsModal(false); setShareExpanded(false); }}>
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative" onClick={e => e.stopPropagation()}>
                 <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-fuchsia-50 text-fuchsia-700">
                     <h4 className="font-black uppercase italic flex items-center gap-2 leading-none lg:text-[22px] lg:text-[26px]"><Heart className="w-5 h-5 fill-current lg:w-7 lg:h-7 lg:w-9 lg:h-9" /> Crear ruta</h4>
-                    <button onClick={() => setShowFavsModal(false)} className="p-2 hover:bg-fuchsia-100 hover:text-fuchsia-600 rounded-full transition-all text-fuchsia-300 lg:w-12 lg:h-12"><X className="w-6 h-6 lg:w-7 lg:h-7" /></button>
+                    <button onClick={() => { setShowFavsModal(false); setShareExpanded(false); }} className="p-2 hover:bg-fuchsia-100 hover:text-fuchsia-600 rounded-full transition-all text-fuchsia-300 lg:w-12 lg:h-12"><X className="w-6 h-6 lg:w-7 lg:h-7" /></button>
                 </div>
                 <div className="p-8 space-y-4 overflow-y-auto max-h-[60vh] text-left text-slate-800">
                     {favPlacesWithDist.length === 0 ? (
@@ -1033,13 +1067,52 @@ const App = () => {
                             </div>
                         ))}
                         <div className="pt-6 border-t border-slate-100 mt-8 text-center px-4 flex flex-col gap-3 text-white">
-                            <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(getRouteQuery(favPlacesWithDist[0]))}&destination=${encodeURIComponent(getRouteQuery(favPlacesWithDist[favPlacesWithDist.length-1]))}${favPlacesWithDist.length > 2 ? `&waypoints=${favPlacesWithDist.slice(1,-1).map(p => encodeURIComponent(getRouteQuery(p))).join('|')}` : ''}&travelmode=driving`} 
-                               target="_blank" 
-                               rel="noopener noreferrer" 
-                               className="w-full bg-black text-white py-4 px-10 rounded-2xl font-black text-[14px] uppercase tracking-widest shadow-xl hover:scale-105 transition-all lg:text-[16px] flex items-center justify-center gap-3 text-white">
-                              <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6 text-white" />
-                              Ver ruta
-                            </a>
+                            {(() => {
+                              const favsUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(getRouteQuery(favPlacesWithDist[0]))}&destination=${encodeURIComponent(getRouteQuery(favPlacesWithDist[favPlacesWithDist.length-1]))}${favPlacesWithDist.length > 2 ? `&waypoints=${favPlacesWithDist.slice(1,-1).map(p => encodeURIComponent(getRouteQuery(p))).join('|')}` : ''}&travelmode=driving`;
+                              
+                              return (
+                                <>
+                                  <a href={favsUrl} 
+                                     target="_blank" 
+                                     rel="noopener noreferrer" 
+                                     className="w-full bg-black text-white py-4 px-10 rounded-2xl font-black text-[14px] uppercase tracking-widest shadow-xl hover:scale-105 transition-all lg:text-[16px] flex items-center justify-center gap-3 text-white">
+                                    <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6 text-white" />
+                                    Ver ruta
+                                  </a>
+                                  
+                                  <button 
+                                    onClick={() => toggleShare("He generado esta ruta desde rutabia.com ¿La hacemos?")}
+                                    className="w-full bg-indigo-50 text-indigo-700 py-3.5 rounded-2xl font-black text-[12px] uppercase tracking-widest shadow-sm hover:bg-indigo-600 hover:text-white transition-all flex items-center justify-center gap-2 mt-2"
+                                  >
+                                    <Share2 className="w-4 h-4" /> Compartir Ruta
+                                  </button>
+                                  
+                                  {shareExpanded && (
+                                    <div ref={shareIconsRef} className="flex flex-col gap-3 mt-3 p-4 bg-slate-50 rounded-2xl border border-slate-100 animate-fade-in">
+                                      <textarea 
+                                        value={shareMessage}
+                                        onChange={(e) => setShareMessage(e.target.value)}
+                                        className="w-full p-3 text-[12px] lg:text-[14px] font-medium text-slate-700 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none h-20 shadow-inner"
+                                      />
+                                      <div className="flex items-center justify-center gap-3">
+                                        <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareMessage + ' ' + favsUrl)}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-[#25D366] text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                          <MessageCircle className="w-5 h-5" />
+                                        </a>
+                                        <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(favsUrl)}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-black text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                          <Twitter className="w-5 h-5" />
+                                        </a>
+                                        <a href={`mailto:?subject=${encodeURIComponent('Mi ruta por Segovia en Rutabia')}&body=${encodeURIComponent(shareMessage + '\n\n' + favsUrl)}`} className="p-3 bg-rose-500 text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                          <Mail className="w-5 h-5" />
+                                        </a>
+                                        <button onClick={() => handleCopyLink(favsUrl)} className={`p-3 text-white rounded-full hover:scale-110 transition-transform shadow-md ${copied ? 'bg-emerald-500' : 'bg-slate-500'}`}>
+                                          {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
+                                        </button>
+                                      </div>
+                                    </div>
+                                  )}
+                                </>
+                              );
+                            })()}
                         </div>
                       </>
                     )}
@@ -1049,7 +1122,7 @@ const App = () => {
                 </div>
                 <div className="flex justify-center mt-8 pb-12">
                   <button 
-                    onClick={() => setShowFavsModal(false)}
+                    onClick={() => { setShowFavsModal(false); setShareExpanded(false); }}
                     className="text-[10px] font-bold uppercase tracking-widest hover:text-indigo-600 transition-colors lg:text-[18px] font-black text-slate-800"
                   >
                       Cerrar
@@ -1061,10 +1134,10 @@ const App = () => {
 
       {/* MODAL RANDOM PLACE */}
       {randomPlace && (
-          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setRandomPlace(null)}>
+          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => { setRandomPlace(null); setShareExpanded(false); }}>
               <div className="bg-white rounded-[3rem] w-full max-w-lg overflow-hidden shadow-2xl border border-white/20 p-10 text-center relative text-slate-800" onClick={e => e.stopPropagation()}>
                 <button 
-                    onClick={() => setRandomPlace(null)} 
+                    onClick={() => { setRandomPlace(null); setShareExpanded(false); }} 
                     className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all z-10 font-black text-slate-400"
                 >
                     <X className="w-6 h-6 lg:w-8 lg:h-8 lg:w-10 lg:h-10" />
@@ -1075,16 +1148,55 @@ const App = () => {
                 <p className="text-xs font-bold uppercase mb-6 lg:text-[16px] lg:text-[20px] text-slate-400">{randomPlace.address}</p>
                 <p className="italic text-sm mb-10 leading-relaxed lg:text-[18px] lg:text-[22px] text-slate-500">"{randomPlace.note}"</p>
                 <div className="flex flex-col gap-3">
-                    <a href={randomPlace.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`} 
-                       target="_blank" 
-                       rel="noopener noreferrer" 
-                       className="bg-black text-white py-4 px-10 rounded-2xl font-black text-[14px] shadow-xl hover:scale-105 transition-all lg:text-[16px] lg:text-[20px] flex items-center justify-center gap-3">
-                      <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />
-                      Ver sitio
-                    </a>
+                    {(() => {
+                      const randomUrl = randomPlace.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(randomPlace.coords)}`;
+                      
+                      return (
+                        <>
+                          <a href={randomUrl} 
+                             target="_blank" 
+                             rel="noopener noreferrer" 
+                             className="bg-black text-white py-4 px-10 rounded-2xl font-black text-[14px] shadow-xl hover:scale-105 transition-all lg:text-[16px] lg:text-[20px] flex items-center justify-center gap-3">
+                            <img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />
+                            Ver sitio
+                          </a>
+                          
+                          <button 
+                            onClick={() => toggleShare("He visitado esta ubicación en rutabia.com ¿vamos?")}
+                            className="w-full bg-indigo-50 text-indigo-700 py-3.5 rounded-2xl font-black text-[12px] uppercase tracking-widest shadow-sm hover:bg-indigo-600 hover:text-white transition-all flex items-center justify-center gap-2 mt-2"
+                          >
+                            <Share2 className="w-4 h-4" /> Compartir
+                          </button>
+                          
+                          {shareExpanded && (
+                            <div ref={shareIconsRef} className="flex flex-col gap-3 mt-3 p-4 bg-slate-50 rounded-2xl border border-slate-100 animate-fade-in">
+                              <textarea 
+                                value={shareMessage}
+                                onChange={(e) => setShareMessage(e.target.value)}
+                                className="w-full p-3 text-[12px] lg:text-[14px] font-medium text-slate-700 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none h-20 shadow-inner"
+                              />
+                              <div className="flex items-center justify-center gap-3">
+                                <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareMessage + ' ' + randomUrl)}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-[#25D366] text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                  <MessageCircle className="w-5 h-5" />
+                                </a>
+                                <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(randomUrl)}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-black text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                  <Twitter className="w-5 h-5" />
+                                </a>
+                                <a href={`mailto:?subject=${encodeURIComponent('Un paraje de Segovia en Rutabia')}&body=${encodeURIComponent(shareMessage + '\n\n' + randomUrl)}`} className="p-3 bg-rose-500 text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                  <Mail className="w-5 h-5" />
+                                </a>
+                                <button onClick={() => handleCopyLink(randomUrl)} className={`p-3 text-white rounded-full hover:scale-110 transition-transform shadow-md ${copied ? 'bg-emerald-500' : 'bg-slate-500'}`}>
+                                  {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
+                                </button>
+                              </div>
+                            </div>
+                          )}
+                        </>
+                      );
+                    })()}
                     
                     <button 
-                        onClick={() => setRandomPlace(null)} 
+                        onClick={() => { setRandomPlace(null); setShareExpanded(false); }} 
                         className="text-[10px] font-bold uppercase tracking-widest hover:text-indigo-600 mt-8 transition-colors lg:text-[14px] lg:text-[18px] font-black text-slate-800"
                     >
                         Cerrar
@@ -1096,10 +1208,10 @@ const App = () => {
 
       {/* MODAL ITINERARY */}
       {itinerary && (
-          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => setItinerary(null)}>
+          <div className="fixed inset-0 z-[1500] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in text-slate-900" onClick={() => { setItinerary(null); setShareExpanded(false); }}>
               <div className="bg-white rounded-[3rem] w-full max-w-2xl overflow-hidden shadow-2xl border border-white/20 relative" onClick={e => e.stopPropagation()}>
                 <button 
-                    onClick={() => setItinerary(null)} 
+                    onClick={() => { setItinerary(null); setShareExpanded(false); }} 
                     className="absolute top-6 right-6 p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-full transition-all z-10 text-slate-400"
                 >
                     <X className="w-6 h-6 lg:w-8 lg:h-8" />
@@ -1134,10 +1246,49 @@ const App = () => {
                         </div>
                     ))}
                     <div className="pt-6 border-t border-slate-100 mt-8 pb-10 px-4 text-center text-white">
-                        <a href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(getRouteQuery(itinerary.places[0]))}&destination=${encodeURIComponent(getRouteQuery(itinerary.places[itinerary.places.length-1]))}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(getRouteQuery(itinerary.places[1]))}` : ''}&travelmode=driving`} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95 mb-10 lg:text-[16px] font-black text-white text-white text-white text-white text-white text-white"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />Ver ruta</a>
+                        {(() => {
+                            const itUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(getRouteQuery(itinerary.places[0]))}&destination=${encodeURIComponent(getRouteQuery(itinerary.places[itinerary.places.length-1]))}${itinerary.places.length > 2 ? `&waypoints=${encodeURIComponent(getRouteQuery(itinerary.places[1]))}` : ''}&travelmode=driving`;
+                            
+                            return (
+                              <>
+                                <a href={itUrl} target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs text-center uppercase tracking-[0.2em] shadow-xl hover:bg-indigo-900 transition-all flex items-center justify-center gap-3 active:scale-95 mb-4 lg:text-[16px] font-black text-white text-white text-white text-white text-white text-white"><img src="https://www.gstatic.com/images/branding/product/2x/maps_96dp.png" alt="G" className="h-4 w-auto lg:h-6" />Ver ruta</a>
+                                
+                                <button 
+                                  onClick={() => toggleShare("He generado esta ruta desde rutabia.com ¿La hacemos?")}
+                                  className="w-full bg-indigo-50 text-indigo-700 py-3.5 rounded-2xl font-black text-[12px] uppercase tracking-widest shadow-sm hover:bg-indigo-600 hover:text-white transition-all flex items-center justify-center gap-2 mt-2"
+                                >
+                                  <Share2 className="w-4 h-4" /> Compartir Ruta
+                                </button>
+                                
+                                {shareExpanded && (
+                                  <div ref={shareIconsRef} className="flex flex-col gap-3 mt-3 mb-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 animate-fade-in">
+                                    <textarea 
+                                      value={shareMessage}
+                                      onChange={(e) => setShareMessage(e.target.value)}
+                                      className="w-full p-3 text-[12px] lg:text-[14px] font-medium text-slate-700 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none h-20 shadow-inner"
+                                    />
+                                    <div className="flex items-center justify-center gap-3">
+                                      <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareMessage + ' ' + itUrl)}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-[#25D366] text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                        <MessageCircle className="w-5 h-5" />
+                                      </a>
+                                      <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(itUrl)}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-black text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                        <Twitter className="w-5 h-5" />
+                                      </a>
+                                      <a href={`mailto:?subject=${encodeURIComponent('Ruta por Segovia en Rutabia')}&body=${encodeURIComponent(shareMessage + '\n\n' + itUrl)}`} className="p-3 bg-rose-500 text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                        <Mail className="w-5 h-5" />
+                                      </a>
+                                      <button onClick={() => handleCopyLink(itUrl)} className={`p-3 text-white rounded-full hover:scale-110 transition-transform shadow-md ${copied ? 'bg-emerald-500' : 'bg-slate-500'}`}>
+                                        {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
+                                      </button>
+                                    </div>
+                                  </div>
+                                )}
+                              </>
+                            );
+                        })()}
                         
                         <button 
-                            onClick={() => setItinerary(null)} 
+                            onClick={() => { setItinerary(null); setShareExpanded(false); }} 
                             className="mt-6 hover:text-indigo-600 text-[11px] font-black uppercase tracking-widest transition-colors lg:text-[15px] text-slate-400"
                         >
                             Cerrar
