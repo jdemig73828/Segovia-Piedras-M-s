@@ -183,7 +183,6 @@ const App = () => {
   };
 
   // ⚠️ IMPORTANTE: PEGA AQUÍ TU ARRAY allPlaces COMPLETO (Los 218 objetos con su history)
-  // Lo he abreviado aquí para asegurar que el código no se corte por límite de caracteres en la respuesta y se rompa la compilación.
   const allPlaces = useMemo(() => [
      { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1WCfuaYRzGZqH5G7C-ll8qwjD3jJ_3TGU", history: "Enclavada en el solitario Valle de Tabladillo, esta ermita de origen románico (siglos XII-XIII) ha sido históricamente un punto de recogimiento espiritual vital para las pequeñas aldeas de la zona. Se especula con que sus orígenes estuvieron ligados a pequeñas comunidades de eremitas o repobladores cristianos tras el avance de la frontera del Duero. Sus gruesos muros de piedra caliza, la ausencia de grandes ventanales y su sencilla espadaña son testigos silenciosos del paso de pastores trashumantes de la Mesta durante siglos. Aunque su interior es modesto, arquitectónicamente es un bello fósil del románico rural segoviano, conservando la esencia inalterada de la devoción popular." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas.", image: "https://lh3.googleusercontent.com/d/1lvGNMFGnOYRnWIeWAGF1vIpP0rZa6X6I", history: "Fundado en el año 1582 bajo el fervor religioso del reinado de Felipe II, este convento de monjas clarisas fue un importante centro de clausura y poder espiritual en la comarca de El Espinar. Fue auspiciado por nobles locales que buscaban asegurar su descanso eterno. A pesar de los terribles estragos sufridos durante la Guerra de la Independencia por las tropas napoleónicas y las posteriores desamortizaciones del siglo XIX (Mendizábal), que obligaron al abandono del edificio, sus recios restos arquitectónicos aún evocan la sobriedad franciscana. Destacan sus muros de sillería granítica, típicos de las construcciones de la sierra de Guadarrama." },
@@ -442,7 +441,6 @@ const App = () => {
     return filteredPlaces.slice(start, start + itemsPerPage);
   }, [filteredPlaces, currentPage]);
 
-  // Leaflet Map Logic - Arreglado para Visualización
   useEffect(() => {
     let mapInitInterval;
     
@@ -460,7 +458,7 @@ const App = () => {
           mapInstance.current = window.L.map('visualizer-map', { zoomControl: false }).setView([41.15, -4.05], 9);
           window.L.control.zoom({ position: 'bottomright' }).addTo(mapInstance.current);
           window.L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
+            attribution: '© OpenStreetMap contributors'
           }).addTo(mapInstance.current);
         }
 
@@ -504,7 +502,6 @@ const App = () => {
            mapInstance.current.fitBounds(bounds, { padding: [50, 50], maxZoom: 14 });
         }
 
-        // Forzar recalculo para evitar tiles grises al abrir modal
         setTimeout(() => {
             if (mapInstance.current) mapInstance.current.invalidateSize();
         }, 300);
@@ -583,34 +580,37 @@ const App = () => {
   };
 
   const PaginationControls = () => (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-1 sm:gap-2 justify-center max-w-full overflow-hidden">
         <button 
             onClick={() => setCurrentPage(1)}
             disabled={currentPage === 1}
-            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-slate-800"
+            className="p-1 sm:p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center flex-shrink-0 text-slate-800"
         >
-            <ChevronsLeft size={24} />
+            <ChevronsLeft size={16} className="sm:w-6 sm:h-6" />
         </button>
         <button 
             onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
             disabled={currentPage === 1}
-            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-slate-800"
+            className="p-1 sm:p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center flex-shrink-0 text-slate-800"
         >
-            <ChevronLeft size={24} />
+            <ChevronLeft size={16} className="sm:w-6 sm:h-6" />
         </button>
-        <div className="flex items-center gap-1.5 text-slate-800">
+        <div className="flex items-center gap-1 sm:gap-1.5 text-slate-800">
             {[...Array(totalPages)].map((_, i) => {
-                if (totalPages > 5 && Math.abs(currentPage - (i + 1)) > 2) {
-                    if (i === 0 || i === totalPages - 1) return <span key={i} className="px-1 text-slate-300">.</span>;
+                const pageNum = i + 1;
+                const isMobileHidden = Math.abs(currentPage - pageNum) > 1;
+
+                if (totalPages > 5 && Math.abs(currentPage - pageNum) > 2) {
+                    if (i === 0 || i === totalPages - 1) return <span key={i} className={`px-0.5 sm:px-1 text-slate-300 ${isMobileHidden ? 'hidden sm:inline' : ''}`}>.</span>;
                     return null;
                 }
                 return (
                     <button
                         key={i}
-                        onClick={() => setCurrentPage(i + 1)}
-                        className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg text-sm sm:text-base font-black transition-all ${currentPage === i + 1 ? 'bg-[#5b21b6] text-white shadow-md' : 'bg-white text-slate-400 border border-slate-100 hover:border-slate-300'}`}
+                        onClick={() => setCurrentPage(pageNum)}
+                        className={`w-8 h-8 sm:w-12 sm:h-12 rounded-lg text-xs sm:text-base font-black transition-all flex items-center justify-center flex-shrink-0 ${isMobileHidden ? 'hidden sm:flex' : ''} ${currentPage === pageNum ? 'bg-[#5b21b6] text-white shadow-md' : 'bg-white text-slate-400 border border-slate-100 hover:border-slate-300'}`}
                     >
-                        {i + 1}
+                        {pageNum}
                     </button>
                 );
             })}
@@ -618,16 +618,16 @@ const App = () => {
         <button 
             onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
             disabled={currentPage === totalPages}
-            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-slate-800"
+            className="p-1 sm:p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center flex-shrink-0 text-slate-800"
         >
-            <ChevronRight size={24} />
+            <ChevronRight size={16} className="sm:w-6 sm:h-6" />
         </button>
         <button 
             onClick={() => setCurrentPage(totalPages)}
             disabled={currentPage === totalPages}
-            className="p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-slate-800"
+            className="p-1 sm:p-3 rounded-lg bg-white border border-slate-200 text-slate-400 disabled:opacity-30 hover:bg-slate-50 transition-all w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center flex-shrink-0 text-slate-800"
         >
-            <ChevronsRight size={24} />
+            <ChevronsRight size={16} className="sm:w-6 sm:h-6" />
         </button>
     </div>
   );
@@ -1422,7 +1422,7 @@ const App = () => {
     {showVisualizer && (
       <div className="fixed inset-0 z-[3000] bg-white flex flex-col md:flex-row animate-fade-in">
         {/* Sidebar */}
-        <div className="w-full md:w-[350px] lg:w-[400px] bg-white border-r border-slate-100 flex flex-col h-full shadow-2xl z-10 relative">
+        <div className="w-full md:w-[350px] lg:w-[400px] bg-white border-r border-slate-100 flex flex-col h-[50vh] md:h-full shadow-2xl z-10 relative">
            <div className="p-6 md:p-8 border-b border-slate-100 flex items-center justify-between">
               <div>
                  <h2 className="text-2xl font-black uppercase tracking-tighter text-slate-900 leading-none mb-1">Visualizador</h2>
