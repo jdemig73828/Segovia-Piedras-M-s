@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useMemo, Suspense, useRef } from 'react';
 import { Compass, Map as MapIcon, ArrowDown, ArrowUp, MapPin, Search, Shuffle, BarChart2, X, Info, Castle, Landmark, Factory, Trees, Route, ChevronDown, Heart, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Eraser, Menu, CheckCircle2, Percent, HelpCircle, Share2, Copy, Check, MessageCircle, Mail, Twitter, ArrowLeft } from 'lucide-react';
 
-// Cargamos Analytics de forma dinámica
 const Analytics = React.lazy(() => 
   import("@vercel/analytics/react")
     .then(mod => ({ default: mod.Analytics }))
     .catch(() => ({ default: () => null }))
 );
 
-// Componente para el Logotipo de Rutabia
 const RutabiaLogo = ({ size = 24 }) => (
   <img 
     src="https://lh3.googleusercontent.com/d/171x3yTsvbITp5aTQxOhOhgPapHgX2ovN" 
@@ -68,16 +66,13 @@ const App = () => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [isStickyFavVisible, setIsStickyFavVisible] = useState(false);
   
-  // Nuevo estado para el modal de información estática
   const [infoModal, setInfoModal] = useState({ show: false, place: null });
   
-  // Nuevo estado para la funcionalidad de compartir
   const [shareExpanded, setShareExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
   const [shareMessage, setShareMessage] = useState("");
   const shareIconsRef = useRef(null);
   
-  // Estados y Refs para Visualizador de Mapa
   const [showVisualizer, setShowVisualizer] = useState(false);
   const mapInstance = useRef(null);
 
@@ -90,13 +85,11 @@ const App = () => {
   useEffect(() => {
     document.title = "Rutabia - Crea tus rutas y excursiones locales";
     
-    // Inyección dinámica de Favicon
     const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
     link.rel = 'icon';
     link.href = 'https://lh3.googleusercontent.com/d/1Hd6LJDM8QNx4RGv1muTcsJ59EFJQAnhR';
     document.getElementsByTagName('head')[0].appendChild(link);
 
-    // Inyección de Leaflet
     if (!document.getElementById('leaflet-css')) {
       const leafletCss = document.createElement('link');
       leafletCss.id = 'leaflet-css';
@@ -189,9 +182,10 @@ const App = () => {
     }
   };
 
-  // --- BASE DE DATOS INTEGRAL (218 PUNTOS) ---
+  // ⚠️ IMPORTANTE: PEGA AQUÍ TU ARRAY allPlaces COMPLETO (Los 218 objetos con su history)
+  // Lo he abreviado aquí para asegurar que el código no se corte por límite de caracteres en la respuesta y se rompa la compilación.
   const allPlaces = useMemo(() => [
-    { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1WCfuaYRzGZqH5G7C-ll8qwjD3jJ_3TGU", history: "Enclavada en el solitario Valle de Tabladillo, esta ermita de origen románico (siglos XII-XIII) ha sido históricamente un punto de recogimiento espiritual vital para las pequeñas aldeas de la zona. Se especula con que sus orígenes estuvieron ligados a pequeñas comunidades de eremitas o repobladores cristianos tras el avance de la frontera del Duero. Sus gruesos muros de piedra caliza, la ausencia de grandes ventanales y su sencilla espadaña son testigos silenciosos del paso de pastores trashumantes de la Mesta durante siglos. Aunque su interior es modesto, arquitectónicamente es un bello fósil del románico rural segoviano, conservando la esencia inalterada de la devoción popular." },
+     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1WCfuaYRzGZqH5G7C-ll8qwjD3jJ_3TGU", history: "Enclavada en el solitario Valle de Tabladillo, esta ermita de origen románico (siglos XII-XIII) ha sido históricamente un punto de recogimiento espiritual vital para las pequeñas aldeas de la zona. Se especula con que sus orígenes estuvieron ligados a pequeñas comunidades de eremitas o repobladores cristianos tras el avance de la frontera del Duero. Sus gruesos muros de piedra caliza, la ausencia de grandes ventanales y su sencilla espadaña son testigos silenciosos del paso de pastores trashumantes de la Mesta durante siglos. Aunque su interior es modesto, arquitectónicamente es un bello fósil del románico rural segoviano, conservando la esencia inalterada de la devoción popular." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas.", image: "https://lh3.googleusercontent.com/d/1lvGNMFGnOYRnWIeWAGF1vIpP0rZa6X6I", history: "Fundado en el año 1582 bajo el fervor religioso del reinado de Felipe II, este convento de monjas clarisas fue un importante centro de clausura y poder espiritual en la comarca de El Espinar. Fue auspiciado por nobles locales que buscaban asegurar su descanso eterno. A pesar de los terribles estragos sufridos durante la Guerra de la Independencia por las tropas napoleónicas y las posteriores desamortizaciones del siglo XIX (Mendizábal), que obligaron al abandono del edificio, sus recios restos arquitectónicos aún evocan la sobriedad franciscana. Destacan sus muros de sillería granítica, típicos de las construcciones de la sierra de Guadarrama." },
     { id: 3, name: "FORTALEZA CASTILLO", category: "Historia", coords: "41°21'13.6\"N 3°53'15.2\"W", address: "CARRASCAL DEL RÍO", note: "Fortaleza dominante sobre el paisaje de las hoces del río Duratón.", image: "https://lh3.googleusercontent.com/d/1jjPYi12uwmW6lkJ5IRBSs1_4WEexX9Ki", history: "Erigida vertiginosamente en lo alto de los imponentes cortados que dominan las hoces del río Duratón, esta fortaleza fue una pieza clave en la reconquista y repoblación cristiana impulsada por Alfonso VI en el siglo XI. Su posición estratégica, casi inexpugnable, permitía a las milicias concejiles de la Comunidad de Villa y Tierra de Sepúlveda vigilar el angosto paso del cañón y controlar posibles incursiones musulmanas desde el sur. Personajes legendarios como el conde Fernán González están ligados a las batallas de esta frontera. Hoy, sus lienzos de muralla mimetizados con la roca caliza son el hogar del buitre leonado." },
     { id: 4, name: "MOLINO DE LOS MESA", category: "Industrial", coords: "41°12'19.5\"N 3°58'56.7\"W", address: "CABEZUELA", note: "Ingenio harinero tradicional situado en la ribera del río Cega.", image: "https://lh3.googleusercontent.com/d/11jnhbuh5odHT8GhxYXGHBRltUGR2krwY", history: "Este majestuoso ingenio hidráulico es uno de los representantes más valiosos del rico patrimonio preindustrial que jalonaba la ribera del río Cega. Activo desde la Baja Edad Media y modernizado en los siglos XVIII y XIX, el Molino de los Mesa perteneció a linajes hidalgos locales antes de pasar a manos de molineros privados. Durante generaciones, transformó el abundante trigo y centeno de la campiña en harina, utilizando la fuerza motriz del agua que se canalizaba magistralmente a través de sus profundos cárcavos para mover las pesadas muelas de piedra. Hoy es un monumento a la ingeniería rural de la Segovia de antaño." },
@@ -448,6 +442,84 @@ const App = () => {
     return filteredPlaces.slice(start, start + itemsPerPage);
   }, [filteredPlaces, currentPage]);
 
+  // Leaflet Map Logic - Arreglado para Visualización
+  useEffect(() => {
+    let mapInitInterval;
+    
+    if (!showVisualizer) {
+        if (mapInstance.current) {
+            mapInstance.current.remove();
+            mapInstance.current = null;
+        }
+        return;
+    }
+
+    const initMap = () => {
+      if (window.L && document.getElementById('visualizer-map')) {
+        if (!mapInstance.current) {
+          mapInstance.current = window.L.map('visualizer-map', { zoomControl: false }).setView([41.15, -4.05], 9);
+          window.L.control.zoom({ position: 'bottomright' }).addTo(mapInstance.current);
+          window.L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+          }).addTo(mapInstance.current);
+        }
+
+        if (mapInstance.current.markers) {
+          mapInstance.current.markers.forEach(m => m.remove());
+        }
+        mapInstance.current.markers = [];
+        
+        const getIcon = (cat) => {
+          const colors = { 'Historia': '#2563eb', 'Ruinas': '#f97316', 'Industrial': '#64748b', 'Naturaleza': '#059669' };
+          const color = colors[cat] || '#6366f1';
+          return window.L.divIcon({
+            className: 'custom-leaflet-icon',
+            html: `<div style="background-color: ${color}; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.4);"></div>`,
+            iconSize: [14, 14],
+            iconAnchor: [7, 7]
+          });
+        };
+
+        const bounds = window.L.latLngBounds();
+        let hasValidCoords = false;
+
+        const getDecCoords = (str) => {
+            const parts = str.trim().split(/\s+(?=[0-9])/);
+            if (parts.length < 2) return null;
+            return [dmsToDec(parts[0]), dmsToDec(parts[1])];
+        };
+
+        filteredPlaces.forEach(p => {
+           const coords = getDecCoords(p.coords);
+           if (coords && !isNaN(coords[0]) && !isNaN(coords[1])) {
+             const marker = window.L.marker(coords, { icon: getIcon(p.category) }).addTo(mapInstance.current);
+             marker.bindPopup(`<div style="text-align:center;"><b>${p.name}</b><br><span style="font-size:10px;color:gray;">${p.address}</span></div>`);
+             mapInstance.current.markers.push(marker);
+             bounds.extend(coords);
+             hasValidCoords = true;
+           }
+        });
+
+        if (hasValidCoords && filteredPlaces.length > 0) {
+           mapInstance.current.fitBounds(bounds, { padding: [50, 50], maxZoom: 14 });
+        }
+
+        // Forzar recalculo para evitar tiles grises al abrir modal
+        setTimeout(() => {
+            if (mapInstance.current) mapInstance.current.invalidateSize();
+        }, 300);
+
+        clearInterval(mapInitInterval);
+      }
+    };
+
+    mapInitInterval = setInterval(initMap, 200);
+
+    return () => {
+      clearInterval(mapInitInterval);
+    };
+  }, [showVisualizer, filteredPlaces]);
+
   const toggleFavorite = (id) => {
     setFavorites(prev => prev.includes(id) ? prev.filter(fid => fid !== id) : [...prev, id]);
   };
@@ -598,251 +670,251 @@ const App = () => {
             </a>
 
             <button onClick={() => setIsSideMenuOpen(true)} className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-all border border-slate-100 ml-1">
-              <Menu size={22} />
+                <Menu size={22} />
+            </button>
+        </div>
+      </header>
+
+      {/* ÁREA DEL BUSCADOR */}
+      {isHeaderSearchOpen && (
+          <div ref={searchRef} className="relative bg-white z-40 border-b border-slate-100 p-4 animate-fade-in shadow-xl text-slate-800">
+            <div className="max-w-3xl mx-auto relative text-slate-800">
+              <div className="flex items-center gap-3 bg-slate-100 rounded-2xl px-5 py-3 border border-slate-200 focus-within:ring-2 focus-within:ring-[#4338ca] transition-all">
+                <Search className="text-slate-400" size={20} />
+                <input 
+                  type="text" 
+                  placeholder="Buscar parajes o municipios en Segovia ..."
+                  value={searchTerm}
+                  autoFocus
+                  onChange={(e) => {setSearchTerm(e.target.value); setShowPredictive(true);}}
+                  className="bg-transparent border-none outline-none text-sm font-bold flex-1 placeholder:text-slate-400 text-slate-800"
+                />
+                {searchTerm && <button onClick={() => setSearchTerm('')}><X size={18} className="text-slate-400" /></button>}
+              </div>
+              
+              {showPredictive && suggestions.length > 0 && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-800 overflow-hidden z-[1100] max-h-[300px] overflow-y-auto">
+                  {suggestions.map((s, i) => (
+                    <button 
+                      key={i}
+                      onClick={() => {
+                        setSearchTerm(s); 
+                        setShowPredictive(false); 
+                        setIsHeaderSearchOpen(false);
+                      }}
+                      className="w-full px-5 py-4 hover:bg-white/10 flex items-center justify-between group transition-colors border-b border-white/5 last:border-0 text-left text-white"
+                    >
+                      <div className="flex items-center gap-3">
+                        <MapPin size={14} className="text-slate-500" />
+                        <span className="text-[11px] font-black uppercase tracking-tight text-white">{s}</span>
+                      </div>
+                      <ChevronRight size={14} className="text-white/20 group-hover:text-white transition-all" />
+                    </button>
+                  ))}
+                </div>
+              )}
+              {searchTerm && filteredPlaces.length === 0 && (
+                 <p className="mt-8 text-[#be185d] text-[12px] font-black uppercase tracking-widest text-center animate-fade-in text-[#be185d]">
+                    No hay disponible paraje en esta localidad
+                 </p>
+              )}
+            </div>
+          </div>
+      )}
+
+      {/* BOTÓN STICKY FAVORITOS */}
+      {isStickyFavVisible && !isHeaderSearchOpen && (
+        <div className="fixed top-16 left-0 right-0 z-40 bg-fuchsia-600 shadow-2xl h-14 flex items-center justify-center animate-fade-in lg:hidden bg-fuchsia-600">
+          <button 
+            onClick={() => setShowFavsModal(true)}
+            className="w-full h-full flex items-center justify-center gap-3 font-black text-xs uppercase tracking-[0.2em] text-white"
+          >
+            <Heart size={20} className="fill-current" /> Ver favoritos {favorites.length > 0 ? `(${favorites.length})` : ''}
           </button>
-      </div>
-    </header>
+        </div>
+      )}
 
-    {/* ÁREA DEL BUSCADOR */}
-    {isHeaderSearchOpen && (
-        <div ref={searchRef} className="relative bg-white z-40 border-b border-slate-100 p-4 animate-fade-in shadow-xl text-slate-800">
-          <div className="max-w-3xl mx-auto relative text-slate-800">
-            <div className="flex items-center gap-3 bg-slate-100 rounded-2xl px-5 py-3 border border-slate-200 focus-within:ring-2 focus-within:ring-[#4338ca] transition-all">
-              <Search className="text-slate-400" size={20} />
-              <input 
-                type="text" 
-                placeholder="Buscar parajes o municipios en Segovia ..."
-                value={searchTerm}
-                autoFocus
-                onChange={(e) => {setSearchTerm(e.target.value); setShowPredictive(true);}}
-                className="bg-transparent border-none outline-none text-sm font-bold flex-1 placeholder:text-slate-400 text-slate-800"
-              />
-              {searchTerm && <button onClick={() => setSearchTerm('')}><X size={18} className="text-slate-400" /></button>}
-            </div>
+      {isSideMenuOpen && (
+          <div className="fixed inset-0 z-[2000] bg-black/60 backdrop-blur-md flex justify-end animate-fade-in" onClick={() => setIsSideMenuOpen(false)}>
+              <div className="w-[85%] max-w-[320px] bg-white h-full shadow-2xl flex flex-col p-8 pt-4 slide-in-right text-slate-800" onClick={e => e.stopPropagation()}>
+                  <div className="flex items-center gap-1.5 mb-6 pb-6 border-b border-slate-100 text-slate-800">
+                      <RutabiaLogo size={36} />
+                      <h2 className="text-xl font-black tracking-tight uppercase italic leading-none">Rutabia</h2>
+                  </div>
+
+                  <div className="flex flex-col gap-3 flex-1 text-slate-800">
+                      <button 
+                        onClick={() => { setIsSideMenuOpen(false); setIsHeaderSearchOpen(false); generateItinerary(); }}
+                        className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full"
+                      >
+                          <div className="w-8 flex justify-center flex-shrink-0 group-hover:text-white transition-colors">
+                            <Route className="w-7 h-7 text-[#4338ca] group-hover:text-white transition-colors" />
+                          </div>
+                          <div className="text-left flex-grow">
+                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 group-hover:text-white transition-colors text-[#4338ca]">Generator</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none group-hover:text-white/90 transition-colors">Crea tu ruta al azar</span>
+                          </div>
+                      </button>
+
+                      <button 
+                        onClick={() => { setIsSideMenuOpen(false); setIsHeaderSearchOpen(false); setRandomPlace(allPlaces[Math.floor(Math.random() * allPlaces.length)]); }}
+                        className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full"
+                      >
+                          <div className="w-8 flex justify-center flex-shrink-0 group-hover:text-white transition-colors">
+                            <Shuffle className="w-7 h-7 text-[#4338ca] group-hover:text-white transition-colors" />
+                          </div>
+                          <div className="text-left flex-grow text-slate-800">
+                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 group-hover:text-white transition-colors text-[#4338ca]">Randomizer</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none group-hover:text-white/90 transition-colors text-[#4338ca]">Selección al azar</span>
+                          </div>
+                      </button>
+
+                      <button 
+                        onClick={() => { setIsSideMenuOpen(false); setIsHeaderSearchOpen(false); setShowVisualizer(true); }}
+                        className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full"
+                      >
+                          <div className="w-8 flex justify-center flex-shrink-0 group-hover:text-white transition-colors">
+                            <MapIcon className="w-7 h-7 text-[#4338ca] group-hover:text-white transition-colors" />
+                          </div>
+                          <div className="text-left flex-grow text-slate-800">
+                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 group-hover:text-white transition-colors text-[#4338ca]">Visualizador</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none group-hover:text-white/90 transition-colors text-[#4338ca]">Mapa Interactivo</span>
+                          </div>
+                      </button>
+                  </div>
+
+                  <button 
+                    onClick={() => setIsSideMenuOpen(false)}
+                    className="mt-4 flex items-center justify-center gap-2 p-5 border-2 border-rose-100 rounded-[1.5rem] hover:bg-rose-50 hover:text-rose-600 transition-all font-black uppercase text-xs tracking-[0.2em] text-slate-800"
+                  >
+                      <X size={18} /> Cerrar
+                  </button>
+              </div>
+          </div>
+      )}
+
+      {/* HERO SECTION */}
+      <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible px-6 pt-12 pb-8 bg-[#5b21b6]">
+        <div 
+          className="absolute inset-0 z-0 opacity-100 pointer-events-none"
+          style={{ 
+            backgroundImage: `url('https://lh3.googleusercontent.com/d/1XUZX7F_EwHGoIZFaboHjf70K38NTup3K')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'bottom center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none text-white z-0"></div>
+        
+        <div className="relative z-10 w-full max-w-4xl flex flex-col items-center text-white">
+          <h2 className="text-4xl md:text-6xl uppercase italic tracking-tighter drop-shadow-2xl leading-none mb-2 text-white">
+            <span className="font-black text-white">CREA</span> <span className="font-semibold text-white">TU RUTA</span>
+          </h2>
+          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance">
+            <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
+          </p>
+
+          <div className="bg-white/10 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/20 shadow-2xl relative text-slate-800">
+            <h3 className="text-[20px] lg:text-[22px] font-normal tracking-normal mb-6 text-center text-white">Selecciona ubicaciones</h3>
             
-            {showPredictive && suggestions.length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-800 overflow-hidden z-[1100] max-h-[300px] overflow-y-auto">
-                {suggestions.map((s, i) => (
-                  <button 
-                    key={i}
-                    onClick={() => {
-                      setSearchTerm(s); 
-                      setShowPredictive(false); 
-                      setIsHeaderSearchOpen(false);
-                    }}
-                    className="w-full px-5 py-4 hover:bg-white/10 flex items-center justify-between group transition-colors border-b border-white/5 last:border-0 text-left text-white"
-                  >
-                    <div className="flex items-center gap-3">
-                      <MapPin size={14} className="text-slate-500" />
-                      <span className="text-[11px] font-black uppercase tracking-tight text-white">{s}</span>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <div className="relative w-full sm:w-auto text-left">
+                    <button 
+                    onClick={() => { setShowCatMenu(!showCatMenu); setShowZoneMenu(false); setIsHeaderSearchOpen(false); }}
+                    className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
+                    >
+                        <div className="flex items-center gap-3">
+                            {getCategoryIcon(currentCategory)}
+                            <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{currentCategory === 'Todos' ? 'Categorías' : currentCategory}</span>
+                        </div>
+                        <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${showCatMenu ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {showCatMenu && (
+                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
+                        {[
+                          { name: 'Todos', icon: <BarChart2 className="w-4 h-4" /> },
+                          { name: 'Historia', icon: <Landmark className="w-4 h-4" /> },
+                          { name: 'Ruinas', icon: <Castle className="w-4 h-4" /> },
+                          { name: 'Industrial', icon: <Factory className="w-4 h-4" /> },
+                          { name: 'Naturaleza', icon: <Trees className="w-4 h-4" /> }
+                        ].map(cat => (
+                        <button 
+                            key={cat.name} 
+                            onClick={() => { 
+                                setCurrentCategory(cat.name); 
+                                setShowCatMenu(false); 
+                                setSearchTerm('');
+                                setIsHeaderSearchOpen(false);
+                            }}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentCategory === cat.name ? 'bg-indigo-600 text-white border-transparent shadow-lg' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100 text-left'}`}
+                        >
+                            {cat.icon} {cat.name}
+                        </button>
+                        ))}
                     </div>
-                    <ChevronRight size={14} className="text-white/20 group-hover:text-white transition-all" />
-                  </button>
-                ))}
-              </div>
-            )}
-            {searchTerm && filteredPlaces.length === 0 && (
-               <p className="mt-8 text-[#be185d] text-[12px] font-black uppercase tracking-widest text-center animate-fade-in text-[#be185d]">
-                  No hay disponible paraje en esta localidad
-               </p>
-            )}
-          </div>
-        </div>
-    )}
-
-    {/* BOTÓN STICKY FAVORITOS */}
-    {isStickyFavVisible && !isHeaderSearchOpen && (
-      <div className="fixed top-16 left-0 right-0 z-40 bg-fuchsia-600 shadow-2xl h-14 flex items-center justify-center animate-fade-in lg:hidden bg-fuchsia-600">
-        <button 
-          onClick={() => setShowFavsModal(true)}
-          className="w-full h-full flex items-center justify-center gap-3 font-black text-xs uppercase tracking-[0.2em] text-white"
-        >
-          <Heart size={20} className="fill-current" /> Ver favoritos {favorites.length > 0 ? `(${favorites.length})` : ''}
-        </button>
-      </div>
-    )}
-
-    {isSideMenuOpen && (
-        <div className="fixed inset-0 z-[2000] bg-black/60 backdrop-blur-md flex justify-end animate-fade-in" onClick={() => setIsSideMenuOpen(false)}>
-            <div className="w-[85%] max-w-[320px] bg-white h-full shadow-2xl flex flex-col p-8 pt-4 slide-in-right text-slate-800" onClick={e => e.stopPropagation()}>
-                <div className="flex items-center gap-1.5 mb-6 pb-6 border-b border-slate-100 text-slate-800">
-                    <RutabiaLogo size={36} />
-                    <h2 className="text-xl font-black tracking-tight uppercase italic leading-none">Rutabia</h2>
+                    )}
                 </div>
 
-                <div className="flex flex-col gap-3 flex-1 text-slate-800">
+                <div className="relative w-full sm:w-auto text-left">
                     <button 
-                      onClick={() => { setIsSideMenuOpen(false); setIsHeaderSearchOpen(false); generateItinerary(); }}
-                      className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full"
+                    onClick={() => { setShowZoneMenu(!showZoneMenu); setShowCatMenu(false); setIsHeaderSearchOpen(false); }}
+                    className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
                     >
-                        <div className="w-8 flex justify-center flex-shrink-0 group-hover:text-white transition-colors">
-                          <Route className="w-7 h-7 text-[#4338ca] group-hover:text-white transition-colors" />
+                        <div className="flex items-center gap-3">
+                            <Compass className="w-4 h-4 text-[#4338ca]" />
+                            <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{currentGeoZone === 'Todos' ? 'ZONA' : currentGeoZone}</span>
                         </div>
-                        <div className="text-left flex-grow">
-                            <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 group-hover:text-white transition-colors text-[#4338ca]">Generator</span>
-                            <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none group-hover:text-white/90 transition-colors">Crea tu ruta al azar</span>
-                        </div>
+                        <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${showZoneMenu ? 'rotate-180' : ''}`} />
                     </button>
 
-                    <button 
-                      onClick={() => { setIsSideMenuOpen(false); setIsHeaderSearchOpen(false); setRandomPlace(allPlaces[Math.floor(Math.random() * allPlaces.length)]); }}
-                      className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full"
-                    >
-                        <div className="w-8 flex justify-center flex-shrink-0 group-hover:text-white transition-colors">
-                          <Shuffle className="w-7 h-7 text-[#4338ca] group-hover:text-white transition-colors" />
-                        </div>
-                        <div className="text-left flex-grow text-slate-800">
-                            <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 group-hover:text-white transition-colors text-[#4338ca]">Randomizer</span>
-                            <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none group-hover:text-white/90 transition-colors text-[#4338ca]">Selección al azar</span>
-                        </div>
-                    </button>
-
-                    <button 
-                      onClick={() => { setIsSideMenuOpen(false); setIsHeaderSearchOpen(false); setShowVisualizer(true); }}
-                      className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full"
-                    >
-                        <div className="w-8 flex justify-center flex-shrink-0 group-hover:text-white transition-colors">
-                          <MapIcon className="w-7 h-7 text-[#4338ca] group-hover:text-white transition-colors" />
-                        </div>
-                        <div className="text-left flex-grow text-slate-800">
-                            <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 group-hover:text-white transition-colors text-[#4338ca]">Visualizador</span>
-                            <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none group-hover:text-white/90 transition-colors text-[#4338ca]">Mapa Interactivo</span>
-                        </div>
-                    </button>
+                    {showZoneMenu && (
+                    <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
+                        {['Todos', 'Norte', 'Sur', 'Este', 'Oeste'].map(zone => (
+                        <button 
+                            key={zone} 
+                            onClick={() => { 
+                                setCurrentGeoZone(zone); 
+                                setShowZoneMenu(false); 
+                                setSearchTerm(''); 
+                                setIsHeaderSearchOpen(false);
+                            }}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentGeoZone === zone ? 'bg-indigo-600 text-white border-transparent shadow-lg' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100'}`}
+                        >
+                            <MapPin className="w-4 h-4 text-indigo-500" /> {zone === 'Todos' ? 'Toda la provincia' : `Zona ${zone}`}
+                        </button>
+                        ))}
+                    </div>
+                    )}
                 </div>
-
-                <button 
-                  onClick={() => setIsSideMenuOpen(false)}
-                  className="mt-4 flex items-center justify-center gap-2 p-5 border-2 border-rose-100 rounded-[1.5rem] hover:bg-rose-50 hover:text-rose-600 transition-all font-black uppercase text-xs tracking-[0.2em] text-slate-800"
-                >
-                    <X size={18} /> Cerrar
-                </button>
             </div>
-        </div>
-    )}
 
-    {/* HERO SECTION */}
-    <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible px-6 pt-12 pb-8 bg-[#5b21b6]">
-      <div 
-        className="absolute inset-0 z-0 opacity-100 pointer-events-none"
-        style={{ 
-          backgroundImage: `url('https://lh3.googleusercontent.com/d/1XUZX7F_EwHGoIZFaboHjf70K38NTup3K')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'bottom center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      ></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none text-white z-0"></div>
-      
-      <div className="relative z-10 w-full max-w-4xl flex flex-col items-center text-white">
-        <h2 className="text-4xl md:text-6xl uppercase italic tracking-tighter drop-shadow-2xl leading-none mb-2 text-white">
-          <span className="font-black text-white">CREA</span> <span className="font-semibold text-white">TU RUTA</span>
-        </h2>
-        <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance">
-          <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
-        </p>
-
-        <div className="bg-white/10 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/20 shadow-2xl relative text-slate-800">
-          <h3 className="text-[20px] lg:text-[22px] font-normal tracking-normal mb-6 text-center text-white">Selecciona ubicaciones</h3>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <div className="relative w-full sm:w-auto text-left">
-                  <button 
-                  onClick={() => { setShowCatMenu(!showCatMenu); setShowZoneMenu(false); setIsHeaderSearchOpen(false); }}
-                  className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
-                  >
-                      <div className="flex items-center gap-3">
-                          {getCategoryIcon(currentCategory)}
-                          <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{currentCategory === 'Todos' ? 'Categorías' : currentCategory}</span>
-                      </div>
-                      <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${showCatMenu ? 'rotate-180' : ''}`} />
-                  </button>
-
-                  {showCatMenu && (
-                  <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
-                      {[
-                        { name: 'Todos', icon: <BarChart2 className="w-4 h-4" /> },
-                        { name: 'Historia', icon: <Landmark className="w-4 h-4" /> },
-                        { name: 'Ruinas', icon: <Castle className="w-4 h-4" /> },
-                        { name: 'Industrial', icon: <Factory className="w-4 h-4" /> },
-                        { name: 'Naturaleza', icon: <Trees className="w-4 h-4" /> }
-                      ].map(cat => (
-                      <button 
-                          key={cat.name} 
-                          onClick={() => { 
-                              setCurrentCategory(cat.name); 
-                              setShowCatMenu(false); 
-                              setSearchTerm('');
-                              setIsHeaderSearchOpen(false);
-                          }}
-                          className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentCategory === cat.name ? 'bg-indigo-600 text-white border-transparent shadow-lg' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100 text-left'}`}
-                      >
-                          {cat.icon} {cat.name}
-                      </button>
-                      ))}
-                  </div>
-                  )}
-              </div>
-
-              <div className="relative w-full sm:w-auto text-left">
-                  <button 
-                  onClick={() => { setShowZoneMenu(!showZoneMenu); setShowCatMenu(false); setIsHeaderSearchOpen(false); }}
-                  className="w-full sm:w-[220px] flex items-center justify-between gap-6 px-6 py-4 bg-white rounded-2xl shadow-xl hover:scale-105 transition-all group"
-                  >
-                      <div className="flex items-center gap-3">
-                          <Compass className="w-4 h-4 text-[#4338ca]" />
-                          <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{currentGeoZone === 'Todos' ? 'ZONA' : currentGeoZone}</span>
-                      </div>
-                      <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${showZoneMenu ? 'rotate-180' : ''}`} />
-                  </button>
-
-                  {showZoneMenu && (
-                  <div className="absolute top-full left-0 mt-3 w-full sm:w-[240px] p-4 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1005] animate-fade-in flex flex-col gap-2">
-                      {['Todos', 'Norte', 'Sur', 'Este', 'Oeste'].map(zone => (
-                      <button 
-                          key={zone} 
-                          onClick={() => { 
-                              setCurrentGeoZone(zone); 
-                              setShowZoneMenu(false); 
-                              setSearchTerm(''); 
-                              setIsHeaderSearchOpen(false);
-                          }}
-                          className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-[10px] font-black uppercase tracking-widest ${currentGeoZone === zone ? 'bg-indigo-600 text-white border-transparent shadow-lg' : 'bg-white border-slate-50 text-slate-500 hover:bg-slate-100'}`}
-                      >
-                          <MapPin className="w-4 h-4 text-indigo-500" /> {zone === 'Todos' ? 'Toda la provincia' : `Zona ${zone}`}
-                      </button>
-                      ))}
-                  </div>
-                  )}
-              </div>
-          </div>
-
-          <div className="mt-8 flex flex-col items-center gap-4">
-              <div className="flex flex-col items-center gap-2">
-                  {filteredPlaces.length === 0 ? (
-                      <p className="text-[14px] md:text-[16px] tracking-[0.2em] font-black uppercase bg-fuchsia-500 px-6 py-2 rounded-full border-2 border-fuchsia-600 shadow-lg text-white">
-                          NO HAY RESULTADOS
-                      </p>
-                  ) : (
-                      <button 
-                        onClick={scrollToResults}
-                        className="text-[14px] md:text-[16px] tracking-tight font-black bg-black/40 px-6 py-2 rounded-full border border-white/10 shadow-inner hover:scale-105 active:scale-95 transition-all text-fuchsia-400"
-                      >
-                          Ver {filteredPlaces.length} sitios de {allPlaces.length} ...
-                      </button>
-                  )}
-                  
-                  {(currentCategory !== 'Todos' || currentGeoZone !== 'Todos' || searchTerm !== '') && (
-                      <button 
-                          onClick={clearSelection}
-                          className="flex items-center gap-2 hover:text-white transition-all text-[11px] font-bold uppercase tracking-widest mt-6 group text-white/60"
-                      >
-                          <Eraser size={14} className="group-hover:rotate-12 transition-transform text-white" />
-                          Borrar selección
-                      </button>
-                  )}
-              </div>
-          </div>
+            <div className="mt-8 flex flex-col items-center gap-4">
+                <div className="flex flex-col items-center gap-2">
+                    {filteredPlaces.length === 0 ? (
+                        <p className="text-[14px] md:text-[16px] tracking-[0.2em] font-black uppercase bg-fuchsia-500 px-6 py-2 rounded-full border-2 border-fuchsia-600 shadow-lg text-white">
+                            NO HAY RESULTADOS
+                        </p>
+                    ) : (
+                        <button 
+                          onClick={scrollToResults}
+                          className="text-[14px] md:text-[16px] tracking-tight font-black bg-black/40 px-6 py-2 rounded-full border border-white/10 shadow-inner hover:scale-105 active:scale-95 transition-all text-fuchsia-400"
+                        >
+                            Ver {filteredPlaces.length} sitios de {allPlaces.length} ...
+                        </button>
+                    )}
+                    
+                    {(currentCategory !== 'Todos' || currentGeoZone !== 'Todos' || searchTerm !== '') && (
+                        <button 
+                            onClick={clearSelection}
+                            className="flex items-center gap-2 hover:text-white transition-all text-[11px] font-bold uppercase tracking-widest mt-6 group text-white/60"
+                        >
+                            <Eraser size={14} className="group-hover:rotate-12 transition-transform text-white" />
+                            Borrar selección
+                        </button>
+                    )}
+                </div>
+            </div>
         </div>
         
         {/* ÍTEMS DE INFORMACIÓN AL FINAL DEL BANNER MORADO */}
@@ -1447,7 +1519,7 @@ const App = () => {
               </div>
            </div>
 
-           <div id="visualizer-map" className="w-full h-full z-0 outline-none"></div>
+           <div id="visualizer-map" className="absolute inset-0 z-0 outline-none"></div>
         </div>
       </div>
     )}
