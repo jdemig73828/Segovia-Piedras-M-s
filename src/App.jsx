@@ -74,6 +74,7 @@ const App = () => {
   const shareIconsRef = useRef(null);
   
   const [showVisualizer, setShowVisualizer] = useState(false);
+  const [nearbySearch, setNearbySearch] = useState(null);
   const mapInstance = useRef(null);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -155,15 +156,16 @@ const App = () => {
     if (dms.includes('W') || dms.includes('S')) dec = -dec;
     return dec;
   };
+  
+  const parseCoords = (str) => {
+    const parts = str.trim().split(/\s+(?=[0-9])/);
+    if (parts.length < 2) return null;
+    return [dmsToDec(parts[0]), dmsToDec(parts[1])];
+  };
 
   const calculateDistance = (coords1, coords2) => {
-    const getCoords = (str) => {
-        const parts = str.trim().split(/\s+(?=[0-9])/);
-        if (parts.length < 2) return [0, 0];
-        return [dmsToDec(parts[0]), dmsToDec(parts[1])];
-    };
-    const [lat1, lon1] = getCoords(coords1);
-    const [lat2, lon2] = getCoords(coords2);
+    const [lat1, lon1] = parseCoords(coords1) || [0,0];
+    const [lat2, lon2] = parseCoords(coords2) || [0,0];
     const R = 6371; 
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180; 
@@ -195,9 +197,9 @@ const App = () => {
     }
   };
 
-  // ⚠️ IMPORTANTE: PEGA AQUÍ TU ARRAY allPlaces COMPLETO (Los 218 objetos con su history)
+  // ⚠️ IMPORTANTE: PEGA AQUÍ EL RESTO DE TUS LUGARES A CONTINUACIÓN DE ESTOS 5
   const allPlaces = useMemo(() => [
-   { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1WCfuaYRzGZqH5G7C-ll8qwjD3jJ_3TGU", history: "Enclavada en el solitario Valle de Tabladillo, esta ermita de origen románico (siglos XII-XIII) ha sido históricamente un punto de recogimiento espiritual vital para las pequeñas aldeas de la zona. Se especula con que sus orígenes estuvieron ligados a pequeñas comunidades de eremitas o repobladores cristianos tras el avance de la frontera del Duero. Sus gruesos muros de piedra caliza, la ausencia de grandes ventanales y su sencilla espadaña son testigos silenciosos del paso de pastores trashumantes de la Mesta durante siglos. Aunque su interior es modesto, arquitectónicamente es un bello fósil del románico rural segoviano, conservando la esencia inalterada de la devoción popular." },
+    { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1WCfuaYRzGZqH5G7C-ll8qwjD3jJ_3TGU", history: "Enclavada en el solitario Valle de Tabladillo, esta ermita de origen románico (siglos XII-XIII) ha sido históricamente un punto de recogimiento espiritual vital para las pequeñas aldeas de la zona. Se especula con que sus orígenes estuvieron ligados a pequeñas comunidades de eremitas o repobladores cristianos tras el avance de la frontera del Duero. Sus gruesos muros de piedra caliza, la ausencia de grandes ventanales y su sencilla espadaña son testigos silenciosos del paso de pastores trashumantes de la Mesta durante siglos. Aunque su interior es modesto, arquitectónicamente es un bello fósil del románico rural segoviano, conservando la esencia inalterada de la devoción popular." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas.", image: "https://lh3.googleusercontent.com/d/1lvGNMFGnOYRnWIeWAGF1vIpP0rZa6X6I", history: "Fundado en el año 1582 bajo el fervor religioso del reinado de Felipe II, este convento de monjas clarisas fue un importante centro de clausura y poder espiritual en la comarca de El Espinar. Fue auspiciado por nobles locales que buscaban asegurar su descanso eterno. A pesar de los terribles estragos sufridos durante la Guerra de la Independencia por las tropas napoleónicas y las posteriores desamortizaciones del siglo XIX (Mendizábal), que obligaron al abandono del edificio, sus recios restos arquitectónicos aún evocan la sobriedad franciscana. Destacan sus muros de sillería granítica, típicos de las construcciones de la sierra de Guadarrama." },
     { id: 3, name: "FORTALEZA CASTILLO", category: "Historia", coords: "41°21'13.6\"N 3°53'15.2\"W", address: "CARRASCAL DEL RÍO", note: "Fortaleza dominante sobre el paisaje de las hoces del río Duratón.", image: "https://lh3.googleusercontent.com/d/1jjPYi12uwmW6lkJ5IRBSs1_4WEexX9Ki", history: "Erigida vertiginosamente en lo alto de los imponentes cortados que dominan las hoces del río Duratón, esta fortaleza fue una pieza clave en la reconquista y repoblación cristiana impulsada por Alfonso VI en el siglo XI. Su posición estratégica, casi inexpugnable, permitía a las milicias concejiles de la Comunidad de Villa y Tierra de Sepúlveda vigilar el angosto paso del cañón y controlar posibles incursiones musulmanas desde el sur. Personajes legendarios como el conde Fernán González están ligados a las batallas de esta frontera. Hoy, sus lienzos de muralla mimetizados con la roca caliza son el hogar del buitre leonado." },
     { id: 4, name: "MOLINO DE LOS MESA", category: "Industrial", coords: "41°12'19.5\"N 3°58'56.7\"W", address: "CABEZUELA", note: "Ingenio harinero tradicional situado en la ribera del río Cega.", image: "https://lh3.googleusercontent.com/d/11jnhbuh5odHT8GhxYXGHBRltUGR2krwY", history: "Este majestuoso ingenio hidráulico es uno de los representantes más valiosos del rico patrimonio preindustrial que jalonaba la ribera del río Cega. Activo desde la Baja Edad Media y modernizado en los siglos XVIII y XIX, el Molino de los Mesa perteneció a linajes hidalgos locales antes de pasar a manos de molineros privados. Durante generaciones, transformó el abundante trigo y centeno de la campiña en harina, utilizando la fuerza motriz del agua que se canalizaba magistralmente a través de sus profundos cárcavos para mover las pesadas muelas de piedra. Hoy es un monumento a la ingeniería rural de la Segovia de antaño." },
@@ -462,10 +464,11 @@ const App = () => {
             mapInstance.current.remove();
             mapInstance.current = null;
         }
+        setNearbySearch(null); // Limpiar búsqueda al cerrar mapa
         return;
     }
 
-    const initMap = () => {
+    const initMap = async () => {
       if (window.L && document.getElementById('visualizer-map')) {
         if (!mapInstance.current) {
           mapInstance.current = window.L.map('visualizer-map', { zoomControl: false }).setView([41.15, -4.05], 9);
@@ -491,28 +494,67 @@ const App = () => {
           });
         };
 
-        const bounds = window.L.latLngBounds();
-        let hasValidCoords = false;
+        // LÓGICA PARA OVERPASS API (SERVICIOS CERCANOS) O VISTA NORMAL
+        if (nearbySearch && nearbySearch.active) {
+           const [lat, lng] = nearbySearch.center;
+           mapInstance.current.setView([lat, lng], 13); // Zoom cercano
 
-        const getDecCoords = (str) => {
-            const parts = str.trim().split(/\s+(?=[0-9])/);
-            if (parts.length < 2) return null;
-            return [dmsToDec(parts[0]), dmsToDec(parts[1])];
-        };
+           // Pin principal del paraje
+           const mainMarker = window.L.marker([lat, lng], { icon: getIcon('Historia') }).addTo(mapInstance.current);
+           mainMarker.bindPopup(`<div style="text-align:center;"><b>${nearbySearch.placeName}</b></div>`).openPopup();
+           mapInstance.current.markers.push(mainMarker);
 
-        filteredPlaces.forEach(p => {
-           const coords = getDecCoords(p.coords);
-           if (coords && !isNaN(coords[0]) && !isNaN(coords[1])) {
-             const marker = window.L.marker(coords, { icon: getIcon(p.category) }).addTo(mapInstance.current);
-             marker.bindPopup(`<div style="text-align:center;"><b>${p.name}</b><br><span style="font-size:10px;color:gray;">${p.address}</span></div>`);
-             mapInstance.current.markers.push(marker);
-             bounds.extend(coords);
-             hasValidCoords = true;
+           // Consulta a Overpass
+           const radius = 5000; // 5km
+           let query = '';
+           if (nearbySearch.type === 'sleep') {
+               query = `[out:json];node["tourism"~"hotel|guest_house|hostel|chalet|apartment"](around:${radius},${lat},${lng});out;`;
+           } else {
+               query = `[out:json];node["amenity"~"restaurant|bar|cafe"](around:${radius},${lat},${lng});out;`;
            }
-        });
 
-        if (hasValidCoords && filteredPlaces.length > 0) {
-           mapInstance.current.fitBounds(bounds, { padding: [50, 50], maxZoom: 14 });
+           try {
+               const res = await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`);
+               const data = await res.json();
+               
+               const nearbyIcon = window.L.divIcon({
+                  className: 'custom-leaflet-icon',
+                  html: `<div style="background-color: ${nearbySearch.type === 'sleep' ? '#0ea5e9' : '#e11d48'}; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.4);"></div>`,
+                  iconSize: [12, 12],
+                  iconAnchor: [6, 6]
+               });
+
+               data.elements.forEach(el => {
+                   if (el.lat && el.lon) {
+                       const name = el.tags?.name || (nearbySearch.type === 'sleep' ? 'Alojamiento' : 'Restaurante/Bar');
+                       const m = window.L.marker([el.lat, el.lon], { icon: nearbyIcon }).addTo(mapInstance.current);
+                       m.bindPopup(`<div style="text-align:center;font-size:11px;"><b>${name}</b><br/><span style="color:gray;">${nearbySearch.type === 'sleep' ? '🏨 Alojamiento' : '🍽️ Dónde comer'}</span></div>`);
+                       mapInstance.current.markers.push(m);
+                   }
+               });
+           } catch(e) {
+               console.error("Error al obtener datos de Overpass", e);
+           }
+
+        } else {
+           // VISTA NORMAL DE TODOS LOS PARAJE FILTRADOS
+           const bounds = window.L.latLngBounds();
+           let hasValidCoords = false;
+
+           filteredPlaces.forEach(p => {
+              const coords = parseCoords(p.coords);
+              if (coords && !isNaN(coords[0]) && !isNaN(coords[1])) {
+                const marker = window.L.marker(coords, { icon: getIcon(p.category) }).addTo(mapInstance.current);
+                marker.bindPopup(`<div style="text-align:center;"><b>${p.name}</b><br><span style="font-size:10px;color:gray;">${p.address}</span></div>`);
+                mapInstance.current.markers.push(marker);
+                bounds.extend(coords);
+                hasValidCoords = true;
+              }
+           });
+
+           if (hasValidCoords && filteredPlaces.length > 0) {
+              mapInstance.current.fitBounds(bounds, { padding: [50, 50], maxZoom: 14 });
+           }
         }
 
         setTimeout(() => {
@@ -528,7 +570,16 @@ const App = () => {
     return () => {
       clearInterval(mapInitInterval);
     };
-  }, [showVisualizer, filteredPlaces]);
+  }, [showVisualizer, filteredPlaces, nearbySearch]);
+
+  const handleNearbySearch = (place, type) => {
+    const coords = parseCoords(place.coords);
+    if(coords) {
+      setNearbySearch({ active: true, type, center: coords, placeName: place.name });
+      setInfoModal({ show: false, place: null });
+      setShowVisualizer(true);
+    }
+  };
 
   const toggleFavorite = (id) => {
     setFavorites(prev => prev.includes(id) ? prev.filter(fid => fid !== id) : [...prev, id]);
@@ -957,7 +1008,7 @@ const App = () => {
           </div>
       </div>
 
-      <div className="flex justify-end w-full mb-4">
+      <div className="flex justify-end w-full mb-4 px-0">
           <button 
               onClick={() => setShowVisualizer(true)} 
               className="flex items-center gap-1.5 text-[#4338ca] hover:text-indigo-800 font-black text-[10px] uppercase tracking-widest transition-colors active:scale-95 bg-transparent border-none p-0 cursor-pointer"
@@ -1104,7 +1155,7 @@ const App = () => {
       </div>
     </footer>
 
-    {/* MODAL MÁS INFORMACIÓN (ESTÁTICO) */}
+    {/* MODAL MÁS INFORMACIÓN */}
     {infoModal.show && infoModal.place && (
       <div className="fixed inset-0 z-[2000] items-center justify-center p-4 bg-black/70 backdrop-blur-sm flex animate-fade-in" onClick={() => setInfoModal({ show: false, place: null })}>
         <div className="bg-white rounded-[3rem] w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col shadow-2xl relative text-slate-800" onClick={e => e.stopPropagation()}>
@@ -1143,6 +1194,23 @@ const App = () => {
                 {infoModal.place.history || "La información histórica detallada y documentación de este paraje está siendo recopilada actualmente por nuestro equipo de cronistas. Próximamente estará disponible en esta sección."}
               </p>
             </div>
+            
+            {/* NUEVOS BOTONES DE ALOJAMIENTOS/RESTAURANTES DE OVERPASS */}
+            <div className="mt-6 flex flex-wrap gap-3">
+              <button 
+                onClick={() => handleNearbySearch(infoModal.place, 'sleep')} 
+                className="flex items-center gap-2 px-4 py-2 bg-[#0ea5e9]/10 text-[#0ea5e9] hover:bg-[#0ea5e9] hover:text-white rounded-xl transition-all font-bold text-[10px] uppercase tracking-widest border border-[#0ea5e9]/20"
+              >
+                🏠 Alojamientos a 5km
+              </button>
+              <button 
+                onClick={() => handleNearbySearch(infoModal.place, 'eat')} 
+                className="flex items-center gap-2 px-4 py-2 bg-[#e11d48]/10 text-[#e11d48] hover:bg-[#e11d48] hover:text-white rounded-xl transition-all font-bold text-[10px] uppercase tracking-widest border border-[#e11d48]/20"
+              >
+                🍽️ Comer a 5km
+              </button>
+            </div>
+
           </div>
 
           {/* Pie del Modal */}
@@ -1227,7 +1295,7 @@ const App = () => {
                                 </button>
                                 
                                 {shareExpanded && (
-                                  <div ref={shareIconsRef} className="flex flex-col gap-3 mt-3 p-4 bg-slate-50 rounded-2xl border border-slate-100 animate-fade-in">
+                                  <div ref={shareIconsRef} className="flex flex-col gap-3 mt-3 mb-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 animate-fade-in">
                                     <textarea 
                                       value={shareMessage}
                                       onChange={(e) => setShareMessage(e.target.value)}
@@ -1240,7 +1308,7 @@ const App = () => {
                                       <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(favsUrl)}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-black text-white rounded-full hover:scale-110 transition-transform shadow-md">
                                         <Twitter className="w-5 h-5" />
                                       </a>
-                                      <a href={`mailto:?subject=${encodeURIComponent('Mi ruta por Segovia en Rutabia')}&body=${encodeURIComponent(shareMessage + '\n\n' + favsUrl)}`} className="p-3 bg-rose-500 text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                      <a href={`mailto:?subject=${encodeURIComponent('Ruta por Segovia en Rutabia')}&body=${encodeURIComponent(shareMessage + '\n\n' + favsUrl)}`} className="p-3 bg-rose-500 text-white rounded-full hover:scale-110 transition-transform shadow-md">
                                         <Mail className="w-5 h-5" />
                                       </a>
                                       <button onClick={() => handleCopyLink(favsUrl)} className={`p-3 text-white rounded-full hover:scale-110 transition-transform shadow-md ${copied ? 'bg-emerald-500' : 'bg-slate-500'}`}>
@@ -1540,6 +1608,15 @@ const App = () => {
                  </div>
               </div>
            </div>
+
+           {/* OVERPASS API STATUS INFO */}
+           {nearbySearch && nearbySearch.active && (
+              <div className="absolute top-20 left-4 right-4 z-[400] flex justify-center pointer-events-none">
+                  <div className="bg-indigo-600 text-white px-4 py-2 rounded-full text-[10px] uppercase tracking-widest font-bold shadow-lg animate-fade-in text-center border border-indigo-400">
+                      Mostrando {nearbySearch.type === 'sleep' ? 'alojamientos' : 'restaurantes'} a 5km de {nearbySearch.placeName}
+                  </div>
+              </div>
+           )}
 
            <div id="visualizer-map" className="absolute inset-0 z-0 outline-none"></div>
         </div>
