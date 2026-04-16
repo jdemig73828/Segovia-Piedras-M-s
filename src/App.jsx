@@ -140,6 +140,9 @@ const App = () => {
 
   useEffect(() => {
     setCurrentPage(1);
+    // CORRECCIÓN UX: Al cambiar cualquier filtro, reseteamos la búsqueda de alojamientos/restaurantes
+    // para que el mapa muestre inmediatamente los resultados del nuevo filtro.
+    setNearbySearch(null);
   }, [currentCategory, currentGeoZone, searchTerm]);
 
   const normalize = (str) => {
@@ -530,7 +533,6 @@ const App = () => {
               if (coords && !isNaN(coords[0]) && !isNaN(coords[1])) {
                 const marker = window.L.marker(coords, { icon: getIcon(p.category) }).addTo(mapInstance.current);
                 
-                // Implementación del botón en el popup para ir a la tarjeta
                 const popupContent = document.createElement('div');
                 popupContent.style.textAlign = 'center';
                 popupContent.innerHTML = `
