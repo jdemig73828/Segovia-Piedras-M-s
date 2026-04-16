@@ -752,16 +752,6 @@ const App = () => {
                 <span className="text-[10px] font-bold uppercase tracking-wider">Buscar</span>
             </button>
 
-            <a 
-              href="https://drive.google.com/file/d/10hjQERxUoj1O75czHo-abaEj-Fk7ul_L/view?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full transition-all shadow-sm active:scale-90 bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white no-underline"
-            >
-                <HelpCircle size={18} />
-                <span className="text-[10px] font-bold uppercase tracking-wider">Ayuda</span>
-            </a>
-
             <button onClick={() => setIsSideMenuOpen(true)} className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-all border border-slate-100 ml-1">
                 <Menu size={22} />
             </button>
@@ -874,6 +864,22 @@ const App = () => {
                               <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none group-hover:text-white/90 transition-colors text-[#4338ca]">Mapa Interactivo</span>
                           </div>
                       </button>
+
+                      <a 
+                        href="https://drive.google.com/file/d/10hjQERxUoj1O75czHo-abaEj-Fk7ul_L/view?usp=sharing"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setIsSideMenuOpen(false)}
+                        className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full no-underline"
+                      >
+                          <div className="w-8 flex justify-center flex-shrink-0 group-hover:text-white transition-colors">
+                            <HelpCircle className="w-7 h-7 text-[#4338ca] group-hover:text-white transition-colors" />
+                          </div>
+                          <div className="text-left flex-grow text-slate-800">
+                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 group-hover:text-white transition-colors text-[#4338ca]">Ayuda</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none group-hover:text-white/90 transition-colors text-[#4338ca]">Manual de uso</span>
+                          </div>
+                      </a>
                   </div>
 
                   <button 
