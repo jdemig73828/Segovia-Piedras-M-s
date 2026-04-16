@@ -1081,7 +1081,6 @@ const App = () => {
 
                   <div className="absolute bottom-5 left-6 z-20 flex flex-col items-start gap-2">
                     <span className={`px-2.5 py-0.5 ${categoryColors[p.category] || 'bg-indigo-500'} text-white rounded text-[8px] font-black uppercase tracking-widest border border-white/10 shadow-sm`}>{p.category}</span>
-                    <div className="px-2.5 py-1 bg-white/95 rounded-lg border border-white shadow-sm font-bold"><p className="text-[10px] font-mono leading-none text-slate-900">{p.coords}</p></div>
                   </div>
                 </div>
                 <div className="px-3 flex-grow flex flex-col justify-between">
