@@ -199,7 +199,7 @@ const App = () => {
 
   // ⚠️ IMPORTANTE: PEGA AQUÍ EL RESTO DE TUS LUGARES A CONTINUACIÓN DE ESTOS 5
   const allPlaces = useMemo(() => [
-     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1WCfuaYRzGZqH5G7C-ll8qwjD3jJ_3TGU", history: "Enclavada en el solitario Valle de Tabladillo, esta ermita de origen románico (siglos XII-XIII) ha sido históricamente un punto de recogimiento espiritual vital para las pequeñas aldeas de la zona. Se especula con que sus orígenes estuvieron ligados a pequeñas comunidades de eremitas o repobladores cristianos tras el avance de la frontera del Duero. Sus gruesos muros de piedra caliza, la ausencia de grandes ventanales y su sencilla espadaña son testigos silenciosos del paso de pastores trashumantes de la Mesta durante siglos. Aunque su interior es modesto, arquitectónicamente es un bello fósil del románico rural segoviano, conservando la esencia inalterada de la devoción popular." },
+    { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1WCfuaYRzGZqH5G7C-ll8qwjD3jJ_3TGU", history: "Enclavada en el solitario Valle de Tabladillo, esta ermita de origen románico (siglos XII-XIII) ha sido históricamente un punto de recogimiento espiritual vital para las pequeñas aldeas de la zona. Se especula con que sus orígenes estuvieron ligados a pequeñas comunidades de eremitas o repobladores cristianos tras el avance de la frontera del Duero. Sus gruesos muros de piedra caliza, la ausencia de grandes ventanales y su sencilla espadaña son testigos silenciosos del paso de pastores trashumantes de la Mesta durante siglos. Aunque su interior es modesto, arquitectónicamente es un bello fósil del románico rural segoviano, conservando la esencia inalterada de la devoción popular." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas.", image: "https://lh3.googleusercontent.com/d/1lvGNMFGnOYRnWIeWAGF1vIpP0rZa6X6I", history: "Fundado en el año 1582 bajo el fervor religioso del reinado de Felipe II, este convento de monjas clarisas fue un importante centro de clausura y poder espiritual en la comarca de El Espinar. Fue auspiciado por nobles locales que buscaban asegurar su descanso eterno. A pesar de los terribles estragos sufridos durante la Guerra de la Independencia por las tropas napoleónicas y las posteriores desamortizaciones del siglo XIX (Mendizábal), que obligaron al abandono del edificio, sus recios restos arquitectónicos aún evocan la sobriedad franciscana. Destacan sus muros de sillería granítica, típicos de las construcciones de la sierra de Guadarrama." },
     { id: 3, name: "FORTALEZA CASTILLO", category: "Historia", coords: "41°21'13.6\"N 3°53'15.2\"W", address: "CARRASCAL DEL RÍO", note: "Fortaleza dominante sobre el paisaje de las hoces del río Duratón.", image: "https://lh3.googleusercontent.com/d/1jjPYi12uwmW6lkJ5IRBSs1_4WEexX9Ki", history: "Erigida vertiginosamente en lo alto de los imponentes cortados que dominan las hoces del río Duratón, esta fortaleza fue una pieza clave en la reconquista y repoblación cristiana impulsada por Alfonso VI en el siglo XI. Su posición estratégica, casi inexpugnable, permitía a las milicias concejiles de la Comunidad de Villa y Tierra de Sepúlveda vigilar el angosto paso del cañón y controlar posibles incursiones musulmanas desde el sur. Personajes legendarios como el conde Fernán González están ligados a las batallas de esta frontera. Hoy, sus lienzos de muralla mimetizados con la roca caliza son el hogar del buitre leonado." },
     { id: 4, name: "MOLINO DE LOS MESA", category: "Industrial", coords: "41°12'19.5\"N 3°58'56.7\"W", address: "CABEZUELA", note: "Ingenio harinero tradicional situado en la ribera del río Cega.", image: "https://lh3.googleusercontent.com/d/11jnhbuh5odHT8GhxYXGHBRltUGR2krwY", history: "Este majestuoso ingenio hidráulico es uno de los representantes más valiosos del rico patrimonio preindustrial que jalonaba la ribera del río Cega. Activo desde la Baja Edad Media y modernizado en los siglos XVIII y XIX, el Molino de los Mesa perteneció a linajes hidalgos locales antes de pasar a manos de molineros privados. Durante generaciones, transformó el abundante trigo y centeno de la campiña en harina, utilizando la fuerza motriz del agua que se canalizaba magistralmente a través de sus profundos cárcavos para mover las pesadas muelas de piedra. Hoy es un monumento a la ingeniería rural de la Segovia de antaño." },
@@ -497,7 +497,7 @@ const App = () => {
 
         if (nearbySearch && nearbySearch.active) {
            const [lat, lng] = nearbySearch.center;
-           mapInstance.current.setView([lat, lng], 13);
+           mapInstance.current.setView([lat, lng], 12);
 
            const mainMarker = window.L.marker([lat, lng], { icon: getIcon('Historia') }).addTo(mapInstance.current);
            mainMarker.bindPopup(`<div style="text-align:center;"><b>${nearbySearch.placeName}</b></div>`).openPopup();
@@ -515,7 +515,8 @@ const App = () => {
                    if (el.lat && el.lon) {
                        const name = el.tags?.name || (nearbySearch.type === 'sleep' ? 'Alojamiento' : 'Restaurante/Bar');
                        const m = window.L.marker([el.lat, el.lon], { icon: nearbyIcon }).addTo(mapInstance.current);
-                       m.bindPopup(`<div style="text-align:center;font-size:11px;"><b>${name}</b><br/><span style="color:gray;">${nearbySearch.type === 'sleep' ? '🏨 Alojamiento' : '🍽️ Dónde comer'}</span></div>`);
+                       const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${el.lat},${el.lon}`;
+                       m.bindPopup(`<div style="text-align:center;font-size:11px;padding-top:4px;padding-bottom:4px;"><b>${name}</b><br/><span style="color:gray;">${nearbySearch.type === 'sleep' ? '🏨 Alojamiento' : '🍽️ Dónde comer'}</span><br/><a href="${mapsUrl}" target="_blank" style="display:inline-block; margin-top:8px; padding:4px 8px; background-color:#4338ca; color:white; border-radius:6px; text-decoration:none; font-weight:bold;">📍 Cómo llegar</a></div>`);
                        mapInstance.current.markers.push(m);
                    }
                });
@@ -528,7 +529,32 @@ const App = () => {
               const coords = parseCoords(p.coords);
               if (coords && !isNaN(coords[0]) && !isNaN(coords[1])) {
                 const marker = window.L.marker(coords, { icon: getIcon(p.category) }).addTo(mapInstance.current);
-                marker.bindPopup(`<div style="text-align:center;"><b>${p.name}</b><br><span style="font-size:10px;color:gray;">${p.address}</span></div>`);
+                
+                // Implementación del botón en el popup para ir a la tarjeta
+                const popupContent = document.createElement('div');
+                popupContent.style.textAlign = 'center';
+                popupContent.innerHTML = `
+                    <b>${p.name}</b><br>
+                    <span style="font-size:10px;color:gray;">${p.address}</span><br/>
+                    <button id="btn-info-${p.id}" style="margin-top:8px; padding:6px 12px; background-color:#4338ca; color:white; border-radius:6px; border:none; cursor:pointer; font-weight:bold; font-size:10px; width:100%; text-transform:uppercase; letter-spacing:1px;">
+                        Ver más info
+                    </button>
+                `;
+                
+                marker.bindPopup(popupContent);
+                
+                marker.on('popupopen', () => {
+                    const btn = document.getElementById(`btn-info-${p.id}`);
+                    if (btn) {
+                        btn.onclick = () => {
+                            setShowVisualizer(false);
+                            setTimeout(() => {
+                                setInfoModal({ show: true, place: p });
+                            }, 50);
+                        };
+                    }
+                });
+
                 mapInstance.current.markers.push(marker);
                 bounds.extend(coords);
                 hasValidCoords = true;
@@ -563,7 +589,7 @@ const App = () => {
       setShowVisualizer(true);
 
       const [lat, lng] = coords;
-      const radius = 5000;
+      const radius = 10000;
       let query = '';
       if (type === 'sleep') {
           query = `[out:json];node["tourism"~"hotel|guest_house|hostel|chalet|apartment"](around:${radius},${lat},${lng});out;`;
@@ -1206,15 +1232,15 @@ const App = () => {
             <div className="flex w-full sm:w-auto gap-2">
               <button 
                 onClick={() => handleNearbySearch(infoModal.place, 'sleep')} 
-                className="flex items-center justify-center gap-1.5 px-3 py-3 bg-slate-50 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-xl transition-all font-bold text-[9px] sm:text-[10px] uppercase tracking-widest border border-slate-200 shadow-sm flex-1"
+                className="flex items-center justify-center gap-1.5 px-2 sm:px-3 py-3 bg-slate-50 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-xl transition-all font-bold text-[8.5px] sm:text-[10px] uppercase tracking-widest border border-slate-200 shadow-sm flex-1 whitespace-nowrap"
               >
-                <Bed className="w-3.5 h-3.5" /> Alojamientos
+                <Bed className="w-3.5 h-3.5 flex-shrink-0 text-slate-500" /> Alojamientos a 10km
               </button>
               <button 
                 onClick={() => handleNearbySearch(infoModal.place, 'eat')} 
-                className="flex items-center justify-center gap-1.5 px-3 py-3 bg-slate-50 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-xl transition-all font-bold text-[9px] sm:text-[10px] uppercase tracking-widest border border-slate-200 shadow-sm flex-1"
+                className="flex items-center justify-center gap-1.5 px-2 sm:px-3 py-3 bg-slate-50 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-xl transition-all font-bold text-[8.5px] sm:text-[10px] uppercase tracking-widest border border-slate-200 shadow-sm flex-1 whitespace-nowrap"
               >
-                <Utensils className="w-3.5 h-3.5" /> Comer
+                <Utensils className="w-3.5 h-3.5 flex-shrink-0 text-slate-500" /> Comer a 10km
               </button>
             </div>
             <a 
@@ -1614,12 +1640,12 @@ const App = () => {
                   {nearbySearch.loading ? (
                       <div className="bg-indigo-600 text-white px-5 py-2.5 rounded-full text-[10px] uppercase tracking-widest font-bold shadow-lg animate-fade-in flex items-center gap-2 border border-indigo-400">
                           <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                          Buscando {nearbySearch.type === 'sleep' ? 'alojamientos' : 'restaurantes'}...
+                          Buscando {nearbySearch.type === 'sleep' ? 'alojamientos' : 'restaurantes'} a 10km...
                       </div>
                   ) : nearbySearch.elements && nearbySearch.elements.length === 0 ? (
                       <div className="bg-rose-600 text-white px-5 py-2.5 rounded-full text-[10px] uppercase tracking-widest font-bold shadow-lg animate-fade-in flex items-center gap-2 border border-rose-400">
                           <X className="w-3.5 h-3.5" />
-                          No hay {nearbySearch.type === 'sleep' ? 'alojamientos' : 'restaurantes'} a 5km
+                          No hay {nearbySearch.type === 'sleep' ? 'alojamientos' : 'restaurantes'} a 10km
                       </div>
                   ) : (
                       <div className="bg-emerald-600 text-white px-5 py-2.5 rounded-full text-[10px] uppercase tracking-widest font-bold shadow-lg animate-fade-in flex items-center gap-2 border border-emerald-400">
