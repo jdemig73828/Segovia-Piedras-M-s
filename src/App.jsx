@@ -56,30 +56,30 @@ const leastVisitedIds = [145, 61, 112, 100, 106, 130, 142, 166, 171, 29, 43, 45,
 
 // 24 TESTIMONIOS INVENTADOS
 const allReviews = [
-  { id: 1, title: "Ruta al Convento de la Hoz", author: "Alejandro M.", color: "bg-rose-500", rating: 5, date: "7/4/2026", text: "Excelente el paraje en el fondo del cañón. La bajada es un poco vertiginosa, pero ver los restos arqueológicos colgados en la roca no tiene precio. ¡Muy recomendable!" },
-  { id: 2, title: "Paseo por las Pesquerías Reales", author: "Carlos D.", color: "bg-blue-500", rating: 5, date: "15/3/2026", text: "Carmen y yo hemos disfrutado muchísimo este recorrido. Su relato histórico es clave para entender las pesquerías de Carlos III. Muy agradable y cordial el entorno." },
-  { id: 3, title: "Descubriendo Matandrino", author: "Gisela F.", color: "bg-emerald-500", rating: 4, date: "6/4/2026", text: "Bien puntual. Muy clara la explicación sobre la despoblación de esta zona en la app. La soledad del lugar enriquece la información. Muchas gracias." },
-  { id: 4, title: "Visita al Palacio de Valsaín", author: "Elvira R.", color: "bg-amber-500", rating: 5, date: "22/5/2026", text: "¡El sitio es un tipazo! La historia imperial de los Austrias que tiene lo hace único. Me encantaría tomar un tour guiado algún día. ¡Súper recomendado!" },
-  { id: 5, title: "Molino de los Mesa", author: "Jorge Daniel", color: "bg-purple-500", rating: 4, date: "7/4/2026", text: "Muy buena excursión. Lo pasamos muy bien siguiendo el río Cega. Entender cómo funcionaba el molino fue muy explicativo y responsable con el patrimonio. Gracias." },
-  { id: 6, title: "Ermita de San Juan", author: "Sofía T.", color: "bg-cyan-500", rating: 5, date: "12/6/2026", text: "Aunque es un día bastante agotador para llegar al Valle de Tabladillo, cumple con todo lo planeado justamente. Se conoce absolutamente todo el románico rural de buena manera." },
-  { id: 7, title: "Fortaleza de Carrascal", author: "Martín P.", color: "bg-rose-600", rating: 5, date: "2/5/2026", text: "Las vistas sobre el Duratón te quitan el aliento. Encontrar esto gracias a la plataforma ha sido un regalo. Una auténtica joya fronteriza." },
-  { id: 8, title: "Fábrica La Julita", author: "Laura S.", color: "bg-emerald-600", rating: 4, date: "18/4/2026", text: "Interesante arquitectura industrial en Turégano. No me esperaba encontrar maquinaria tan bien conservada en un pueblo tan histórico. Muy ilustrativo." },
-  { id: 9, title: "Convento de Santa Isabel", author: "Andrés V.", color: "bg-blue-600", rating: 5, date: "10/3/2026", text: "El silencio alrededor del monasterio es sobrecogedor. Una parte de la historia de El Espinar que desconocíamos por completo hasta que usamos Rutabia." },
-  { id: 10, title: "Despoblado de Guijasalbas", author: "Marta O.", color: "bg-purple-600", rating: 4, date: "1/6/2026", text: "Llegar es toda una aventura. Estremecedor ver las calles marcadas en el suelo. La app es súper precisa con las coordenadas DMS." },
-  { id: 11, title: "Esquileo de Santillana", author: "Pablo E.", color: "bg-amber-600", rating: 5, date: "14/2/2026", text: "Increíble entender la magnitud del negocio de la Mesta. Las dimensiones del patio de esquileo de Revenga no dejan indiferente a nadie." },
-  { id: 12, title: "Casa del Zorro Klim", author: "Carmen J.", color: "bg-cyan-600", rating: 5, date: "28/5/2026", text: "Un rincón de lo más peculiar frente al Alcázar. Estupenda la anécdota y las vistas. Ideal para hacer fotos impresionantes al atardecer." },
-  { id: 13, title: "Lagunas de Cantalejo", author: "David G.", color: "bg-slate-700", rating: 5, date: "5/6/2026", text: "Un verdadero oasis en la Tierra de Pinares. Perfecto para la observación de aves, las cigüeñas negras estaban ahí. Pura naturaleza segoviana." },
-  { id: 14, title: "Tejar de Ramón Martín", author: "Lucía M.", color: "bg-orange-500", rating: 4, date: "11/4/2026", text: "Una muestra fantástica del trabajo manual del barro. Los hornos morunos impresionan de cerca. Buen sitio para entender la arquitectura local." },
-  { id: 15, title: "Ermita de San Medel", author: "Héctor B.", color: "bg-blue-400", rating: 5, date: "19/5/2026", text: "Aislada en medio del mar de cereales. Nos encantó pasear por allí en primavera, todo verde y lleno de vida." },
-  { id: 16, title: "Puerta de la Fuerza", author: "Elena C.", color: "bg-rose-400", rating: 5, date: "3/3/2026", text: "Sepúlveda es preciosa, pero entrar por este arco defensivo te traslada al siglo XI. La cuesta es dura, pero vale el esfuerzo sin dudarlo." },
-  { id: 17, title: "Molino de Potricos", author: "Raúl R.", color: "bg-emerald-400", rating: 4, date: "8/6/2026", text: "Un remanso de paz junto al río. Es una pena que no se pueda ver por dentro, pero el paraje es simplemente mágico." },
-  { id: 18, title: "Iglesia de la Alameda", author: "Beatriz A.", color: "bg-amber-400", rating: 5, date: "25/4/2026", text: "Ver esta iglesia con su pórtico sola en el despoblado impresiona. Ideal para amantes del románico que busquen tranquilidad absoluta." },
-  { id: 19, title: "Estación de Maderuelo", author: "Víctor F.", color: "bg-cyan-400", rating: 4, date: "17/5/2026", text: "Un escenario melancólico brutal. Las vías oxidadas y el andén vacío son un poema al ferrocarril olvidado. Ruta muy diferente." },
-  { id: 20, title: "Torre de Santa Marina", author: "Nuria S.", color: "bg-purple-400", rating: 5, date: "10/6/2026", text: "El mudéjar de Cuéllar es top, pero esta torre aislada te da una perspectiva diferente de cómo era el barrio antiguo." },
-  { id: 21, title: "Caserío El Salvador", author: "Iván P.", color: "bg-blue-700", rating: 4, date: "21/4/2026", text: "Enorme granja que explica a la perfección el latifundismo. Muy didáctica la explicación de la aplicación. Merece la parada." },
-  { id: 22, title: "Ermita de San Roque", author: "Silvia L.", color: "bg-rose-700", rating: 5, date: "9/5/2026", text: "Rodeada de encinas centenarias espectaculares. El sitio transmite una tranquilidad increíble y su historia ligada a la peste es muy curiosa." },
-  { id: 23, title: "Molino del Ladrón", author: "Tomás N.", color: "bg-emerald-700", rating: 5, date: "30/3/2026", text: "Nos costó un poco encontrarlo en Lastras, ¡pero el entorno del río Cega es brutal! Leyendas de bandoleros e ingeniería popular juntas." },
-  { id: 24, title: "Casa Eraso", author: "Alba H.", color: "bg-amber-700", rating: 4, date: "4/6/2026", text: "Una parada genial para los que hacen la ruta del Puerto de la Fuenfría. Entender que ahí paraba Felipe II impresiona. Buenas vistas." }
+  { id: 1, title: "Ruta al Convento de la Hoz", author: "Alejandro M.", color: "bg-rose-100 text-rose-700", rating: 5, date: "7/4/2026", text: "Excelente el paraje en el fondo del cañón. La bajada es un poco vertiginosa, pero ver los restos arqueológicos colgados en la roca no tiene precio. ¡Muy recomendable!" },
+  { id: 2, title: "Paseo por las Pesquerías Reales", author: "Carlos D.", color: "bg-blue-100 text-blue-700", rating: 5, date: "15/3/2026", text: "Carmen y yo hemos disfrutado muchísimo este recorrido. Su relato histórico es clave para entender las pesquerías de Carlos III. Muy agradable y cordial el entorno." },
+  { id: 3, title: "Descubriendo Matandrino", author: "Gisela F.", color: "bg-emerald-100 text-emerald-700", rating: 4, date: "6/4/2026", text: "Bien puntual. Muy clara la explicación sobre la despoblación de esta zona en la app. La soledad del lugar enriquece la información. Muchas gracias." },
+  { id: 4, title: "Visita al Palacio de Valsaín", author: "Elvira R.", color: "bg-amber-100 text-amber-700", rating: 5, date: "22/5/2026", text: "¡El sitio es un tipazo! La historia imperial de los Austrias que tiene lo hace único. Me encantaría tomar un tour guiado algún día. ¡Súper recomendado!" },
+  { id: 5, title: "Molino de los Mesa", author: "Jorge Daniel", color: "bg-purple-100 text-purple-700", rating: 4, date: "7/4/2026", text: "Muy buena excursión. Lo pasamos muy bien siguiendo el río Cega. Entender cómo funcionaba el molino fue muy explicativo y responsable con el patrimonio. Gracias." },
+  { id: 6, title: "Ermita de San Juan", author: "Sofía T.", color: "bg-cyan-100 text-cyan-700", rating: 5, date: "12/6/2026", text: "Aunque es un día bastante agotador para llegar al Valle de Tabladillo, cumple con todo lo planeado justamente. Se conoce absolutamente todo el románico rural de buena manera." },
+  { id: 7, title: "Fortaleza de Carrascal", author: "Martín P.", color: "bg-rose-100 text-rose-700", rating: 5, date: "2/5/2026", text: "Las vistas sobre el Duratón te quitan el aliento. Encontrar esto gracias a la plataforma ha sido un regalo. Una auténtica joya fronteriza." },
+  { id: 8, title: "Fábrica La Julita", author: "Laura S.", color: "bg-emerald-100 text-emerald-700", rating: 4, date: "18/4/2026", text: "Interesante arquitectura industrial en Turégano. No me esperaba encontrar maquinaria tan bien conservada en un pueblo tan histórico. Muy ilustrativo." },
+  { id: 9, title: "Convento de Santa Isabel", author: "Andrés V.", color: "bg-blue-100 text-blue-700", rating: 5, date: "10/3/2026", text: "El silencio alrededor del monasterio es sobrecogedor. Una parte de la historia de El Espinar que desconocíamos por completo hasta que usamos Rutabia." },
+  { id: 10, title: "Despoblado de Guijasalbas", author: "Marta O.", color: "bg-purple-100 text-purple-700", rating: 4, date: "1/6/2026", text: "Llegar es toda una aventura. Estremecedor ver las calles marcadas en el suelo. La app es súper precisa con las coordenadas DMS." },
+  { id: 11, title: "Esquileo de Santillana", author: "Pablo E.", color: "bg-amber-100 text-amber-700", rating: 5, date: "14/2/2026", text: "Increíble entender la magnitud del negocio de la Mesta. Las dimensiones del patio de esquileo de Revenga no dejan indiferente a nadie." },
+  { id: 12, title: "Casa del Zorro Klim", author: "Carmen J.", color: "bg-cyan-100 text-cyan-700", rating: 5, date: "28/5/2026", text: "Un rincón de lo más peculiar frente al Alcázar. Estupenda la anécdota y las vistas. Ideal para hacer fotos impresionantes al atardecer." },
+  { id: 13, title: "Lagunas de Cantalejo", author: "David G.", color: "bg-slate-100 text-slate-700", rating: 5, date: "5/6/2026", text: "Un verdadero oasis en la Tierra de Pinares. Perfecto para la observación de aves, las cigüeñas negras estaban ahí. Pura naturaleza segoviana." },
+  { id: 14, title: "Tejar de Ramón Martín", author: "Lucía M.", color: "bg-orange-100 text-orange-700", rating: 4, date: "11/4/2026", text: "Una muestra fantástica del trabajo manual del barro. Los hornos morunos impresionan de cerca. Buen sitio para entender la arquitectura local." },
+  { id: 15, title: "Ermita de San Medel", author: "Héctor B.", color: "bg-blue-100 text-blue-700", rating: 5, date: "19/5/2026", text: "Aislada en medio del mar de cereales. Nos encantó pasear por allí en primavera, todo verde y lleno de vida." },
+  { id: 16, title: "Puerta de la Fuerza", author: "Elena C.", color: "bg-rose-100 text-rose-700", rating: 5, date: "3/3/2026", text: "Sepúlveda es preciosa, pero entrar por este arco defensivo te traslada al siglo XI. La cuesta es dura, pero vale el esfuerzo sin dudarlo." },
+  { id: 17, title: "Molino de Potricos", author: "Raúl R.", color: "bg-emerald-100 text-emerald-700", rating: 4, date: "8/6/2026", text: "Un remanso de paz junto al río. Es una pena que no se pueda ver por dentro, pero el paraje es simplemente mágico." },
+  { id: 18, title: "Iglesia de la Alameda", author: "Beatriz A.", color: "bg-amber-100 text-amber-700", rating: 5, date: "25/4/2026", text: "Ver esta iglesia con su pórtico sola en el despoblado impresiona. Ideal para amantes del románico que busquen tranquilidad absoluta." },
+  { id: 19, title: "Estación de Maderuelo", author: "Víctor F.", color: "bg-cyan-100 text-cyan-700", rating: 4, date: "17/5/2026", text: "Un escenario melancólico brutal. Las vías oxidadas y el andén vacío son un poema al ferrocarril olvidado. Ruta muy diferente." },
+  { id: 20, title: "Torre de Santa Marina", author: "Nuria S.", color: "bg-purple-100 text-purple-700", rating: 5, date: "10/6/2026", text: "El mudéjar de Cuéllar es top, pero esta torre aislada te da una perspectiva diferente de cómo era el barrio antiguo." },
+  { id: 21, title: "Caserío El Salvador", author: "Iván P.", color: "bg-blue-100 text-blue-700", rating: 4, date: "21/4/2026", text: "Enorme granja que explica a la perfección el latifundismo. Muy didáctica la explicación de la aplicación. Merece la parada." },
+  { id: 22, title: "Ermita de San Roque", author: "Silvia L.", color: "bg-rose-100 text-rose-700", rating: 5, date: "9/5/2026", text: "Rodeada de encinas centenarias espectaculares. El sitio transmite una tranquilidad increíble y su historia ligada a la peste es muy curiosa." },
+  { id: 23, title: "Molino del Ladrón", author: "Tomás N.", color: "bg-emerald-100 text-emerald-700", rating: 5, date: "30/3/2026", text: "Nos costó un poco encontrarlo en Lastras, ¡pero el entorno del río Cega es brutal! Leyendas de bandoleros e ingeniería popular juntas." },
+  { id: 24, title: "Casa Eraso", author: "Alba H.", color: "bg-amber-100 text-amber-700", rating: 4, date: "4/6/2026", text: "Una parada genial para los que hacen la ruta del Puerto de la Fuenfría. Entender que ahí paraba Felipe II impresiona. Buenas vistas." }
 ];
 
 const App = () => {
@@ -252,7 +252,7 @@ const App = () => {
 
   // ⚠️ IMPORTANTE: PEGA AQUÍ EL RESTO DE TUS LUGARES A CONTINUACIÓN DE ESTOS 5
   const allPlaces = useMemo(() => [
-    { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1WCfuaYRzGZqH5G7C-ll8qwjD3jJ_3TGU", history: "Enclavada en el solitario Valle de Tabladillo, esta ermita de origen románico (siglos XII-XIII) ha sido históricamente un punto de recogimiento espiritual vital para las pequeñas aldeas de la zona. Se especula con que sus orígenes estuvieron ligados a pequeñas comunidades de eremitas o repobladores cristianos tras el avance de la frontera del Duero. Sus gruesos muros de piedra caliza, la ausencia de grandes ventanales y su sencilla espadaña son testigos silenciosos del paso de pastores trashumantes de la Mesta durante siglos. Aunque su interior es modesto, arquitectónicamente es un bello fósil del románico rural segoviano, conservando la esencia inalterada de la devoción popular." },
+     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1WCfuaYRzGZqH5G7C-ll8qwjD3jJ_3TGU", history: "Enclavada en el solitario Valle de Tabladillo, esta ermita de origen románico (siglos XII-XIII) ha sido históricamente un punto de recogimiento espiritual vital para las pequeñas aldeas de la zona. Se especula con que sus orígenes estuvieron ligados a pequeñas comunidades de eremitas o repobladores cristianos tras el avance de la frontera del Duero. Sus gruesos muros de piedra caliza, la ausencia de grandes ventanales y su sencilla espadaña son testigos silenciosos del paso de pastores trashumantes de la Mesta durante siglos. Aunque su interior es modesto, arquitectónicamente es un bello fósil del románico rural segoviano, conservando la esencia inalterada de la devoción popular." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas.", image: "https://lh3.googleusercontent.com/d/1lvGNMFGnOYRnWIeWAGF1vIpP0rZa6X6I", history: "Fundado en el año 1582 bajo el fervor religioso del reinado de Felipe II, este convento de monjas clarisas fue un importante centro de clausura y poder espiritual en la comarca de El Espinar. Fue auspiciado por nobles locales que buscaban asegurar su descanso eterno. A pesar de los terribles estragos sufridos durante la Guerra de la Independencia por las tropas napoleónicas y las posteriores desamortizaciones del siglo XIX (Mendizábal), que obligaron al abandono del edificio, sus recios restos arquitectónicos aún evocan la sobriedad franciscana. Destacan sus muros de sillería granítica, típicos de las construcciones de la sierra de Guadarrama." },
     { id: 3, name: "FORTALEZA CASTILLO", category: "Historia", coords: "41°21'13.6\"N 3°53'15.2\"W", address: "CARRASCAL DEL RÍO", note: "Fortaleza dominante sobre el paisaje de las hoces del río Duratón.", image: "https://lh3.googleusercontent.com/d/1jjPYi12uwmW6lkJ5IRBSs1_4WEexX9Ki", history: "Erigida vertiginosamente en lo alto de los imponentes cortados que dominan las hoces del río Duratón, esta fortaleza fue una pieza clave en la reconquista y repoblación cristiana impulsada por Alfonso VI en el siglo XI. Su posición estratégica, casi inexpugnable, permitía a las milicias concejiles de la Comunidad de Villa y Tierra de Sepúlveda vigilar el angosto paso del cañón y controlar posibles incursiones musulmanas desde el sur. Personajes legendarios como el conde Fernán González están ligados a las batallas de esta frontera. Hoy, sus lienzos de muralla mimetizados con la roca caliza son el hogar del buitre leonado." },
     { id: 4, name: "MOLINO DE LOS MESA", category: "Industrial", coords: "41°12'19.5\"N 3°58'56.7\"W", address: "CABEZUELA", note: "Ingenio harinero tradicional situado en la ribera del río Cega.", image: "https://lh3.googleusercontent.com/d/11jnhbuh5odHT8GhxYXGHBRltUGR2krwY", history: "Este majestuoso ingenio hidráulico es uno de los representantes más valiosos del rico patrimonio preindustrial que jalonaba la ribera del río Cega. Activo desde la Baja Edad Media y modernizado en los siglos XVIII y XIX, el Molino de los Mesa perteneció a linajes hidalgos locales antes de pasar a manos de molineros privados. Durante generaciones, transformó el abundante trigo y centeno de la campiña en harina, utilizando la fuerza motriz del agua que se canalizaba magistralmente a través de sus profundos cárcavos para mover las pesadas muelas de piedra. Hoy es un monumento a la ingeniería rural de la Segovia de antaño." },
@@ -799,9 +799,9 @@ const App = () => {
   return (
     <div className="min-h-screen bg-[#fcfcfd] font-sans selection:bg-indigo-100 text-[24px] sm:text-[26px] lg:text-[24px]">
       <header className="sticky top-0 z-[1000] h-16 bg-white px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm overflow-visible text-slate-800">
-        <div className="flex items-center gap-1">
-          <RutabiaLogo size={36} />
-          <h1 className="text-sm font-black tracking-tight uppercase italic leading-none">Rutabia</h1>
+        <div className="flex items-center gap-2">
+          <RutabiaLogo size={42} />
+          <h1 className="text-lg md:text-xl font-black tracking-tight uppercase italic leading-none">Rutabia</h1>
         </div>
 
         <div className="flex items-center gap-2 md:gap-3 flex-1 justify-end h-full text-slate-800">
@@ -966,10 +966,10 @@ const App = () => {
           </div>
       )}
 
-      {/* HERO SECTION */}
-      <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible px-6 pt-12 pb-8 bg-[#5b21b6]">
+      {/* HERO SECTION MODIFICADA CON DEGRADADO EN ALFA Y COLOR CORPORATIVO */}
+      <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible px-6 pt-12 pb-8 bg-gradient-to-b from-indigo-600 via-purple-700 to-slate-900">
         <div 
-          className="absolute inset-0 z-0 opacity-100 pointer-events-none"
+          className="absolute inset-0 z-0 opacity-40 mix-blend-luminosity grayscale-[30%] pointer-events-none"
           style={{ 
             backgroundImage: `url('https://lh3.googleusercontent.com/d/1XUZX7F_EwHGoIZFaboHjf70K38NTup3K')`,
             backgroundSize: 'cover',
@@ -977,18 +977,18 @@ const App = () => {
             backgroundRepeat: 'no-repeat'
           }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none text-white z-0"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/40 to-slate-900/80 pointer-events-none z-0"></div>
         
         <div className="relative z-10 w-full max-w-4xl flex flex-col items-center text-white">
           <h2 className="text-4xl md:text-6xl uppercase italic tracking-tighter drop-shadow-2xl leading-none mb-2 text-white">
             <span className="font-black text-white">CREA</span> <span className="font-semibold text-white">TU RUTA</span>
           </h2>
-          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance">
+          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance drop-shadow-lg">
             <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
           </p>
 
-          <div className="bg-white/10 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/20 shadow-2xl relative text-slate-800">
-            <h3 className="text-[20px] lg:text-[22px] font-normal tracking-normal mb-6 text-center text-white">Selecciona ubicaciones</h3>
+          <div className="bg-white/10 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/20 shadow-2xl relative text-slate-800 mt-2">
+            <h3 className="text-[20px] lg:text-[22px] font-normal tracking-normal mb-6 text-center text-white drop-shadow-md">Selecciona ubicaciones</h3>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <div className="relative w-full sm:w-auto text-left">
@@ -1120,7 +1120,7 @@ const App = () => {
       <div className="flex justify-end w-full mb-4 px-0">
           <button 
               onClick={() => setShowVisualizer(true)} 
-              className="flex items-center gap-1.5 text-[#4338ca] hover:text-indigo-800 font-bold text-[10px] uppercase tracking-widest transition-colors active:scale-95 bg-transparent border-none p-0 cursor-pointer"
+              className="flex items-center gap-1.5 text-[#4338ca] hover:text-indigo-800 font-bold text-xs uppercase tracking-widest transition-colors active:scale-95 bg-transparent border-none p-0 cursor-pointer"
           >
               <MapIcon className="w-3.5 h-3.5" /> Mapa Interactivo
           </button>
@@ -1253,14 +1253,14 @@ const App = () => {
                  <p className="text-[11px] text-slate-500 font-medium mt-1">(Envía tu reseña a ©Rutabia para su publicación)</p>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 pb-6 -mx-6 px-6 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                   {currentReviewPage.map(r => (
-                      <div key={r.id} className="border border-slate-200 rounded-2xl p-6 bg-white shadow-sm hover:shadow-md transition-all flex flex-col gap-4">
+                      <div key={r.id} className="w-[85vw] sm:w-[320px] md:w-auto flex-none snap-center border border-slate-200 rounded-2xl p-6 bg-white shadow-sm hover:shadow-md transition-all flex flex-col gap-4">
                          <div className="flex flex-col gap-3 border-b border-slate-100 pb-4">
                              <h4 className="font-bold text-sm text-slate-800 line-clamp-2">{r.title}</h4>
                              <RutabiaRating rating={r.rating} />
                              <div className="flex items-center gap-3 mt-1">
-                                 <div className={`w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-xs ${r.color}`}>
+                                 <div className={`w-8 h-8 rounded-full flex items-center justify-center font-black text-xs ${r.color}`}>
                                      {r.author.charAt(0)}
                                  </div>
                                  <div className="flex flex-col">
@@ -1506,16 +1506,16 @@ const App = () => {
                                       className="w-full p-3 text-[12px] lg:text-[14px] font-medium text-slate-700 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none h-20 shadow-inner"
                                     />
                                     <div className="flex items-center justify-center gap-3">
-                                      <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareMessage + ' ' + itUrl)}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-[#25D366] text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                      <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareMessage + ' ' + favsUrl)}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-[#25D366] text-white rounded-full hover:scale-110 transition-transform shadow-md">
                                         <MessageCircle className="w-5 h-5" />
                                       </a>
-                                      <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(itUrl)}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-black text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                      <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(favsUrl)}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-black text-white rounded-full hover:scale-110 transition-transform shadow-md">
                                         <Twitter className="w-5 h-5" />
                                       </a>
-                                      <a href={`mailto:?subject=${encodeURIComponent('Ruta por Segovia en Rutabia')}&body=${encodeURIComponent(shareMessage + '\n\n' + itUrl)}`} className="p-3 bg-rose-500 text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                      <a href={`mailto:?subject=${encodeURIComponent('Mi ruta por Segovia en Rutabia')}&body=${encodeURIComponent(shareMessage + '\n\n' + favsUrl)}`} className="p-3 bg-rose-500 text-white rounded-full hover:scale-110 transition-transform shadow-md">
                                         <Mail className="w-5 h-5" />
                                       </a>
-                                      <button onClick={() => handleCopyLink(itUrl)} className={`p-3 text-white rounded-full hover:scale-110 transition-transform shadow-md ${copied ? 'bg-emerald-500' : 'bg-slate-500'}`}>
+                                      <button onClick={() => handleCopyLink(favsUrl)} className={`p-3 text-white rounded-full hover:scale-110 transition-transform shadow-md ${copied ? 'bg-emerald-500' : 'bg-slate-500'}`}>
                                         {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
                                       </button>
                                     </div>
