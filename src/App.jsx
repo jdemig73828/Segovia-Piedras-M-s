@@ -252,7 +252,7 @@ const App = () => {
 
   // ⚠️ IMPORTANTE: PEGA AQUÍ EL RESTO DE TUS LUGARES A CONTINUACIÓN DE ESTOS 5
   const allPlaces = useMemo(() => [
-    { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1WCfuaYRzGZqH5G7C-ll8qwjD3jJ_3TGU", history: "Enclavada en el solitario Valle de Tabladillo, esta ermita de origen románico (siglos XII-XIII) ha sido históricamente un punto de recogimiento espiritual vital para las pequeñas aldeas de la zona. Se especula con que sus orígenes estuvieron ligados a pequeñas comunidades de eremitas o repobladores cristianos tras el avance de la frontera del Duero. Sus gruesos muros de piedra caliza, la ausencia de grandes ventanales y su sencilla espadaña son testigos silenciosos del paso de pastores trashumantes de la Mesta durante siglos. Aunque su interior es modesto, arquitectónicamente es un bello fósil del románico rural segoviano, conservando la esencia inalterada de la devoción popular." },
+     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1WCfuaYRzGZqH5G7C-ll8qwjD3jJ_3TGU", history: "Enclavada en el solitario Valle de Tabladillo, esta ermita de origen románico (siglos XII-XIII) ha sido históricamente un punto de recogimiento espiritual vital para las pequeñas aldeas de la zona. Se especula con que sus orígenes estuvieron ligados a pequeñas comunidades de eremitas o repobladores cristianos tras el avance de la frontera del Duero. Sus gruesos muros de piedra caliza, la ausencia de grandes ventanales y su sencilla espadaña son testigos silenciosos del paso de pastores trashumantes de la Mesta durante siglos. Aunque su interior es modesto, arquitectónicamente es un bello fósil del románico rural segoviano, conservando la esencia inalterada de la devoción popular." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas.", image: "https://lh3.googleusercontent.com/d/1lvGNMFGnOYRnWIeWAGF1vIpP0rZa6X6I", history: "Fundado en el año 1582 bajo el fervor religioso del reinado de Felipe II, este convento de monjas clarisas fue un importante centro de clausura y poder espiritual en la comarca de El Espinar. Fue auspiciado por nobles locales que buscaban asegurar su descanso eterno. A pesar de los terribles estragos sufridos durante la Guerra de la Independencia por las tropas napoleónicas y las posteriores desamortizaciones del siglo XIX (Mendizábal), que obligaron al abandono del edificio, sus recios restos arquitectónicos aún evocan la sobriedad franciscana. Destacan sus muros de sillería granítica, típicos de las construcciones de la sierra de Guadarrama." },
     { id: 3, name: "FORTALEZA CASTILLO", category: "Historia", coords: "41°21'13.6\"N 3°53'15.2\"W", address: "CARRASCAL DEL RÍO", note: "Fortaleza dominante sobre el paisaje de las hoces del río Duratón.", image: "https://lh3.googleusercontent.com/d/1jjPYi12uwmW6lkJ5IRBSs1_4WEexX9Ki", history: "Erigida vertiginosamente en lo alto de los imponentes cortados que dominan las hoces del río Duratón, esta fortaleza fue una pieza clave en la reconquista y repoblación cristiana impulsada por Alfonso VI en el siglo XI. Su posición estratégica, casi inexpugnable, permitía a las milicias concejiles de la Comunidad de Villa y Tierra de Sepúlveda vigilar el angosto paso del cañón y controlar posibles incursiones musulmanas desde el sur. Personajes legendarios como el conde Fernán González están ligados a las batallas de esta frontera. Hoy, sus lienzos de muralla mimetizados con la roca caliza son el hogar del buitre leonado." },
     { id: 4, name: "MOLINO DE LOS MESA", category: "Industrial", coords: "41°12'19.5\"N 3°58'56.7\"W", address: "CABEZUELA", note: "Ingenio harinero tradicional situado en la ribera del río Cega.", image: "https://lh3.googleusercontent.com/d/11jnhbuh5odHT8GhxYXGHBRltUGR2krwY", history: "Este majestuoso ingenio hidráulico es uno de los representantes más valiosos del rico patrimonio preindustrial que jalonaba la ribera del río Cega. Activo desde la Baja Edad Media y modernizado en los siglos XVIII y XIX, el Molino de los Mesa perteneció a linajes hidalgos locales antes de pasar a manos de molineros privados. Durante generaciones, transformó el abundante trigo y centeno de la campiña en harina, utilizando la fuerza motriz del agua que se canalizaba magistralmente a través de sus profundos cárcavos para mover las pesadas muelas de piedra. Hoy es un monumento a la ingeniería rural de la Segovia de antaño." },
@@ -1122,7 +1122,7 @@ const App = () => {
               onClick={() => setShowVisualizer(true)} 
               className="flex items-center gap-1.5 text-[#4338ca] hover:text-indigo-800 font-bold text-xs uppercase tracking-widest transition-colors active:scale-95 bg-transparent border-none p-0 cursor-pointer"
           >
-              <MapIcon className="w-4 h-4" /> Mapa Interactivo
+              <MapIcon className="w-3.5 h-3.5" /> Mapa Interactivo
           </button>
       </div>
 
@@ -1201,7 +1201,7 @@ const App = () => {
       <section id="ranking-section" className="w-screen relative -ml-[50vw] left-1/2 bg-slate-100 py-16 mb-12">
           <div className="max-w-7xl mx-auto px-6 md:px-12 text-left">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-                  <h3 className="text-xl md:text-2xl font-black text-slate-800 tracking-tight uppercase">
+                  <h3 className="text-xl md:text-3xl font-black text-slate-800 tracking-tight">
                       {showTopVisited ? 'Ubicaciones más visitadas' : 'Ubicaciones menos visitadas'}
                   </h3>
                   <button 
@@ -1399,13 +1399,13 @@ const App = () => {
             <div className="flex w-full sm:w-auto gap-2">
               <button 
                 onClick={() => handleNearbySearch(infoModal.place, 'sleep')} 
-                className="flex items-center justify-center gap-1.5 px-3 py-3 bg-slate-50 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-xl transition-all font-bold text-[9.5px] uppercase tracking-widest border border-slate-200 shadow-sm flex-1 whitespace-nowrap"
+                className="flex items-center justify-center gap-1.5 px-2 sm:px-3 py-3 bg-slate-50 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-xl transition-all font-bold text-[8.5px] sm:text-[10px] uppercase tracking-widest border border-slate-200 shadow-sm flex-1 whitespace-nowrap"
               >
                 <Bed className="w-3.5 h-3.5 flex-shrink-0 text-slate-500" /> Alojamientos a 10km
               </button>
               <button 
                 onClick={() => handleNearbySearch(infoModal.place, 'eat')} 
-                className="flex items-center justify-center gap-1.5 px-3 py-3 bg-slate-50 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-xl transition-all font-bold text-[9.5px] uppercase tracking-widest border border-slate-200 shadow-sm flex-1 whitespace-nowrap"
+                className="flex items-center justify-center gap-1.5 px-2 sm:px-3 py-3 bg-slate-50 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-xl transition-all font-bold text-[8.5px] sm:text-[10px] uppercase tracking-widest border border-slate-200 shadow-sm flex-1 whitespace-nowrap"
               >
                 <Utensils className="w-3.5 h-3.5 flex-shrink-0 text-slate-500" /> Comer a 10km
               </button>
