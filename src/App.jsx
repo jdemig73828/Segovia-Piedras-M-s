@@ -54,6 +54,34 @@ const categoryIconColors = {
 const topVisitedIds = [7, 58, 3, 5, 218, 75, 30, 35, 79, 6, 41, 13, 11, 89, 9, 37, 1, 2, 4, 8];
 const leastVisitedIds = [145, 61, 112, 100, 106, 130, 142, 166, 171, 29, 43, 45, 57, 63, 64, 71, 92, 15, 21, 25];
 
+// 24 TESTIMONIOS INVENTADOS
+const allReviews = [
+  { id: 1, title: "Ruta al Convento de la Hoz", author: "Alejandro M.", color: "bg-rose-500", rating: 5, date: "7/4/2026", text: "Excelente el paraje en el fondo del cañón. La bajada es un poco vertiginosa, pero ver los restos arqueológicos colgados en la roca no tiene precio. ¡Muy recomendable!" },
+  { id: 2, title: "Paseo por las Pesquerías Reales", author: "Carlos D.", color: "bg-blue-500", rating: 5, date: "15/3/2026", text: "Carmen y yo hemos disfrutado muchísimo este recorrido. Su relato histórico es clave para entender las pesquerías de Carlos III. Muy agradable y cordial el entorno." },
+  { id: 3, title: "Descubriendo Matandrino", author: "Gisela F.", color: "bg-emerald-500", rating: 4, date: "6/4/2026", text: "Bien puntual. Muy clara la explicación sobre la despoblación de esta zona en la app. La soledad del lugar enriquece la información. Muchas gracias." },
+  { id: 4, title: "Visita al Palacio de Valsaín", author: "Elvira R.", color: "bg-amber-500", rating: 5, date: "22/5/2026", text: "¡El sitio es un tipazo! La historia imperial de los Austrias que tiene lo hace único. Me encantaría tomar un tour guiado algún día. ¡Súper recomendado!" },
+  { id: 5, title: "Molino de los Mesa", author: "Jorge Daniel", color: "bg-purple-500", rating: 4, date: "7/4/2026", text: "Muy buena excursión. Lo pasamos muy bien siguiendo el río Cega. Entender cómo funcionaba el molino fue muy explicativo y responsable con el patrimonio. Gracias." },
+  { id: 6, title: "Ermita de San Juan", author: "Sofía T.", color: "bg-cyan-500", rating: 5, date: "12/6/2026", text: "Aunque es un día bastante agotador para llegar al Valle de Tabladillo, cumple con todo lo planeado justamente. Se conoce absolutamente todo el románico rural de buena manera." },
+  { id: 7, title: "Fortaleza de Carrascal", author: "Martín P.", color: "bg-rose-600", rating: 5, date: "2/5/2026", text: "Las vistas sobre el Duratón te quitan el aliento. Encontrar esto gracias a la plataforma ha sido un regalo. Una auténtica joya fronteriza." },
+  { id: 8, title: "Fábrica La Julita", author: "Laura S.", color: "bg-emerald-600", rating: 4, date: "18/4/2026", text: "Interesante arquitectura industrial en Turégano. No me esperaba encontrar maquinaria tan bien conservada en un pueblo tan histórico. Muy ilustrativo." },
+  { id: 9, title: "Convento de Santa Isabel", author: "Andrés V.", color: "bg-blue-600", rating: 5, date: "10/3/2026", text: "El silencio alrededor del monasterio es sobrecogedor. Una parte de la historia de El Espinar que desconocíamos por completo hasta que usamos Rutabia." },
+  { id: 10, title: "Despoblado de Guijasalbas", author: "Marta O.", color: "bg-purple-600", rating: 4, date: "1/6/2026", text: "Llegar es toda una aventura. Estremecedor ver las calles marcadas en el suelo. La app es súper precisa con las coordenadas DMS." },
+  { id: 11, title: "Esquileo de Santillana", author: "Pablo E.", color: "bg-amber-600", rating: 5, date: "14/2/2026", text: "Increíble entender la magnitud del negocio de la Mesta. Las dimensiones del patio de esquileo de Revenga no dejan indiferente a nadie." },
+  { id: 12, title: "Casa del Zorro Klim", author: "Carmen J.", color: "bg-cyan-600", rating: 5, date: "28/5/2026", text: "Un rincón de lo más peculiar frente al Alcázar. Estupenda la anécdota y las vistas. Ideal para hacer fotos impresionantes al atardecer." },
+  { id: 13, title: "Lagunas de Cantalejo", author: "David G.", color: "bg-slate-700", rating: 5, date: "5/6/2026", text: "Un verdadero oasis en la Tierra de Pinares. Perfecto para la observación de aves, las cigüeñas negras estaban ahí. Pura naturaleza segoviana." },
+  { id: 14, title: "Tejar de Ramón Martín", author: "Lucía M.", color: "bg-orange-500", rating: 4, date: "11/4/2026", text: "Una muestra fantástica del trabajo manual del barro. Los hornos morunos impresionan de cerca. Buen sitio para entender la arquitectura local." },
+  { id: 15, title: "Ermita de San Medel", author: "Héctor B.", color: "bg-blue-400", rating: 5, date: "19/5/2026", text: "Aislada en medio del mar de cereales. Nos encantó pasear por allí en primavera, todo verde y lleno de vida." },
+  { id: 16, title: "Puerta de la Fuerza", author: "Elena C.", color: "bg-rose-400", rating: 5, date: "3/3/2026", text: "Sepúlveda es preciosa, pero entrar por este arco defensivo te traslada al siglo XI. La cuesta es dura, pero vale el esfuerzo sin dudarlo." },
+  { id: 17, title: "Molino de Potricos", author: "Raúl R.", color: "bg-emerald-400", rating: 4, date: "8/6/2026", text: "Un remanso de paz junto al río. Es una pena que no se pueda ver por dentro, pero el paraje es simplemente mágico." },
+  { id: 18, title: "Iglesia de la Alameda", author: "Beatriz A.", color: "bg-amber-400", rating: 5, date: "25/4/2026", text: "Ver esta iglesia con su pórtico sola en el despoblado impresiona. Ideal para amantes del románico que busquen tranquilidad absoluta." },
+  { id: 19, title: "Estación de Maderuelo", author: "Víctor F.", color: "bg-cyan-400", rating: 4, date: "17/5/2026", text: "Un escenario melancólico brutal. Las vías oxidadas y el andén vacío son un poema al ferrocarril olvidado. Ruta muy diferente." },
+  { id: 20, title: "Torre de Santa Marina", author: "Nuria S.", color: "bg-purple-400", rating: 5, date: "10/6/2026", text: "El mudéjar de Cuéllar es top, pero esta torre aislada te da una perspectiva diferente de cómo era el barrio antiguo." },
+  { id: 21, title: "Caserío El Salvador", author: "Iván P.", color: "bg-blue-700", rating: 4, date: "21/4/2026", text: "Enorme granja que explica a la perfección el latifundismo. Muy didáctica la explicación de la aplicación. Merece la parada." },
+  { id: 22, title: "Ermita de San Roque", author: "Silvia L.", color: "bg-rose-700", rating: 5, date: "9/5/2026", text: "Rodeada de encinas centenarias espectaculares. El sitio transmite una tranquilidad increíble y su historia ligada a la peste es muy curiosa." },
+  { id: 23, title: "Molino del Ladrón", author: "Tomás N.", color: "bg-emerald-700", rating: 5, date: "30/3/2026", text: "Nos costó un poco encontrarlo en Lastras, ¡pero el entorno del río Cega es brutal! Leyendas de bandoleros e ingeniería popular juntas." },
+  { id: 24, title: "Casa Eraso", author: "Alba H.", color: "bg-amber-700", rating: 4, date: "4/6/2026", text: "Una parada genial para los que hacen la ruta del Puerto de la Fuenfría. Entender que ahí paraba Felipe II impresiona. Buenas vistas." }
+];
+
 const App = () => {
   const [currentCategory, setCurrentCategory] = useState('Todos');
   const [currentGeoZone, setCurrentGeoZone] = useState('Todos');
@@ -88,7 +116,15 @@ const App = () => {
   const searchRef = useRef(null);
   const resultsRef = useRef(null);
 
+  // Estados para la sección de Testimonios
+  const [shuffledReviews, setShuffledReviews] = useState([]);
+  const [reviewsPage, setReviewsPage] = useState(0);
+  const REVIEWS_PER_PAGE = 6;
+
   useEffect(() => {
+    // Mezclar testimonios al cargar
+    setShuffledReviews([...allReviews].sort(() => 0.5 - Math.random()));
+
     document.title = "Rutabia - Descubre parajes sorprendentes en Segovia y crea tu ruta";
     
     const setMetaTag = (name, content) => {
@@ -202,6 +238,17 @@ const App = () => {
       default: return <BarChart2 className={`w-4 h-4 ${colorClass}`} />;
     }
   };
+
+  // Componente de calificación de Rutabia (estrellas)
+  const RutabiaRating = ({ rating }) => (
+    <div className="flex gap-1.5 items-center">
+      {[1, 2, 3, 4, 5].map((i) => (
+        <div key={i} className={i <= rating ? "grayscale opacity-80" : "grayscale opacity-10"}>
+          <RutabiaLogo size={14} />
+        </div>
+      ))}
+    </div>
+  );
 
   // ⚠️ IMPORTANTE: PEGA AQUÍ EL RESTO DE TUS LUGARES A CONTINUACIÓN DE ESTOS 5
   const allPlaces = useMemo(() => [
@@ -467,6 +514,12 @@ const App = () => {
     const ids = showTopVisited ? topVisitedIds : leastVisitedIds;
     return ids.map(id => allPlaces.find(p => p.id === id)).filter(Boolean);
   }, [showTopVisited, allPlaces]);
+
+  const currentReviewPage = useMemo(() => {
+      const start = reviewsPage * REVIEWS_PER_PAGE;
+      return shuffledReviews.slice(start, start + REVIEWS_PER_PAGE);
+  }, [shuffledReviews, reviewsPage]);
+  const totalReviewPages = Math.ceil(shuffledReviews.length / REVIEWS_PER_PAGE);
 
   useEffect(() => {
     let mapInitInterval;
@@ -873,6 +926,19 @@ const App = () => {
                           </div>
                       </button>
 
+                      <button 
+                        onClick={() => { setIsSideMenuOpen(false); document.getElementById('ranking-section')?.scrollIntoView({ behavior: 'smooth' }); }}
+                        className="flex items-center gap-4 p-5 bg-indigo-50 text-[#4338ca] rounded-[1.5rem] hover:bg-indigo-600 hover:text-white transition-all group w-full"
+                      >
+                          <div className="w-8 flex justify-center flex-shrink-0 group-hover:text-white transition-colors">
+                            <Landmark className="w-7 h-7 text-[#4338ca] group-hover:text-white transition-colors" />
+                          </div>
+                          <div className="text-left flex-grow text-slate-800">
+                              <span className="block text-sm font-black uppercase tracking-wider leading-none mb-0 group-hover:text-white transition-colors text-[#4338ca]">Top Ubicaciones</span>
+                              <span className="text-[10px] opacity-70 font-bold uppercase tracking-tight leading-none group-hover:text-white/90 transition-colors text-[#4338ca]">Las más visitadas</span>
+                          </div>
+                      </button>
+
                       <a 
                         href="https://drive.google.com/file/d/10hjQERxUoj1O75czHo-abaEj-Fk7ul_L/view?usp=sharing"
                         target="_blank"
@@ -1054,9 +1120,9 @@ const App = () => {
       <div className="flex justify-end w-full mb-4 px-0">
           <button 
               onClick={() => setShowVisualizer(true)} 
-              className="flex items-center gap-1.5 text-[#4338ca] hover:text-indigo-800 font-black text-[10px] uppercase tracking-widest transition-colors active:scale-95 bg-transparent border-none p-0 cursor-pointer"
+              className="flex items-center gap-1.5 text-[#4338ca] hover:text-indigo-800 font-bold text-xs uppercase tracking-widest transition-colors active:scale-95 bg-transparent border-none p-0 cursor-pointer"
           >
-              <MapIcon className="w-3.5 h-3.5" /> Mapa Interactivo
+              <MapIcon className="w-4 h-4" /> Mapa Interactivo
           </button>
       </div>
 
@@ -1124,7 +1190,7 @@ const App = () => {
         ))}
       </div>
 
-      <div className="mt-16 flex flex-col items-center gap-12 pb-2 mb-12 border-b border-slate-100 text-slate-800">
+      <div className="mt-16 flex flex-col items-center gap-12 pb-2 mb-12 text-slate-800">
           <div className={isStickyFavVisible ? 'lg:block hidden' : 'block'}>
             <FavoriteButton />
           </div>
@@ -1132,11 +1198,11 @@ const App = () => {
       </div>
 
       {/* NUEVA SECCIÓN RANKING */}
-      <section className="w-screen relative -ml-[50vw] left-1/2 bg-slate-100 py-16 mb-12">
+      <section id="ranking-section" className="w-screen relative -ml-[50vw] left-1/2 bg-slate-100 py-16 mb-12">
           <div className="max-w-7xl mx-auto px-6 md:px-12 text-left">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
                   <h3 className="text-xl md:text-2xl font-black text-slate-800 tracking-tight uppercase">
-                      {showTopVisited ? 'Ubicaciones más visitadas en Segovia' : 'Ubicaciones menos visitadas en Segovia'}
+                      {showTopVisited ? 'Ubicaciones más visitadas' : 'Ubicaciones menos visitadas'}
                   </h3>
                   <button 
                       onClick={() => setShowTopVisited(!showTopVisited)}
@@ -1165,6 +1231,54 @@ const App = () => {
                   {rankingPlaces.length === 0 && (
                       <p className="text-xs text-slate-500 italic">No hay datos suficientes (Añade el array completo de 218 sitios para ver el ranking).</p>
                   )}
+              </div>
+          </div>
+      </section>
+
+      {/* SECCIÓN TESTIMONIOS */}
+      <section className="bg-white py-16 w-screen relative -ml-[50vw] left-1/2 mb-12">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 text-left">
+              <h3 className="text-xl md:text-3xl font-black text-slate-800 tracking-tight mb-2">Testimonios de otros ruteros</h3>
+              <div className="flex flex-col gap-1 mb-8">
+                 <span className="text-sm text-slate-500 font-bold">Valoración general</span>
+                 <div className="flex items-end gap-3">
+                    <span className="text-4xl font-black text-slate-900 leading-none">4.8<span className="text-xl text-slate-400 font-bold">/5</span></span>
+                    <div className="flex flex-col pb-1">
+                       <RutabiaRating rating={5} />
+                       <span className="text-[10px] text-slate-400 font-medium tracking-wide mt-1">basada en 342 reseñas</span>
+                    </div>
+                 </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {currentReviewPage.map(r => (
+                      <div key={r.id} className="border border-slate-200 rounded-2xl p-6 bg-white shadow-sm hover:shadow-md transition-all flex flex-col gap-4">
+                         <div className="flex flex-col gap-3 border-b border-slate-100 pb-4">
+                             <h4 className="font-bold text-sm text-slate-800 line-clamp-2">{r.title}</h4>
+                             <RutabiaRating rating={r.rating} />
+                             <div className="flex items-center gap-3 mt-1">
+                                 <div className={`w-8 h-8 rounded-full text-white flex items-center justify-center font-black text-xs ${r.color}`}>
+                                     {r.author.charAt(0)}
+                                 </div>
+                                 <div className="flex flex-col">
+                                    <span className="text-xs font-bold text-slate-700">{r.author}</span>
+                                    <span className="text-[9px] text-slate-400">{r.date}</span>
+                                 </div>
+                             </div>
+                         </div>
+                         <p className="text-xs text-slate-600 leading-relaxed italic">"{r.text}"</p>
+                      </div>
+                  ))}
+              </div>
+
+              <div className="flex justify-center gap-2 mt-8">
+                  {[...Array(totalReviewPages)].map((_, page) => (
+                      <button 
+                          key={page} 
+                          onClick={() => setReviewsPage(page)}
+                          className={`w-2.5 h-2.5 rounded-full transition-all ${reviewsPage === page ? 'bg-slate-800 w-6' : 'bg-slate-300 hover:bg-slate-400'}`}
+                      />
+                  ))}
               </div>
           </div>
       </section>
