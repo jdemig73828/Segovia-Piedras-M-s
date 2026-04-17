@@ -966,10 +966,10 @@ const App = () => {
           </div>
       )}
 
-      {/* HERO SECTION */}
-      <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible px-6 pt-12 pb-8 bg-[#5b21b6]">
+      {/* HERO SECTION MODIFICADA CON DEGRADADO EN ALFA Y COLOR CORPORATIVO */}
+      <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible px-6 pt-12 pb-8 bg-gradient-to-b from-indigo-600 via-purple-700 to-slate-900">
         <div 
-          className="absolute inset-0 z-0 opacity-100 pointer-events-none"
+          className="absolute inset-0 z-0 opacity-40 mix-blend-luminosity grayscale-[30%] pointer-events-none"
           style={{ 
             backgroundImage: `url('https://lh3.googleusercontent.com/d/1XUZX7F_EwHGoIZFaboHjf70K38NTup3K')`,
             backgroundSize: 'cover',
@@ -977,18 +977,18 @@ const App = () => {
             backgroundRepeat: 'no-repeat'
           }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none text-white z-0"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/40 to-slate-900/80 pointer-events-none z-0"></div>
         
         <div className="relative z-10 w-full max-w-4xl flex flex-col items-center text-white">
           <h2 className="text-4xl md:text-6xl uppercase italic tracking-tighter drop-shadow-2xl leading-none mb-2 text-white">
             <span className="font-black text-white">CREA</span> <span className="font-semibold text-white">TU RUTA</span>
           </h2>
-          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance">
+          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance drop-shadow-lg">
             <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
           </p>
 
-          <div className="bg-white/10 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/20 shadow-2xl relative text-slate-800">
-            <h3 className="text-[20px] lg:text-[22px] font-normal tracking-normal mb-6 text-center text-white">Selecciona ubicaciones</h3>
+          <div className="bg-white/10 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/20 shadow-2xl relative text-slate-800 mt-2">
+            <h3 className="text-[20px] lg:text-[22px] font-normal tracking-normal mb-6 text-center text-white drop-shadow-md">Selecciona ubicaciones</h3>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <div className="relative w-full sm:w-auto text-left">
@@ -1198,7 +1198,7 @@ const App = () => {
       </div>
 
       {/* NUEVA SECCIÓN RANKING */}
-      <section id="ranking-section" className="w-screen relative -ml-[50vw] left-1/2 bg-slate-100 py-16 mb-12">
+      <section id="ranking-section" className="w-screen relative -ml-[50vw] left-1/2 bg-slate-100 py-16">
           <div className="max-w-7xl mx-auto px-6 md:px-12 text-left">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
                   <h3 className="text-xl md:text-3xl font-black text-slate-800 tracking-tight">
@@ -1236,18 +1236,21 @@ const App = () => {
       </section>
 
       {/* SECCIÓN TESTIMONIOS */}
-      <section className="bg-white py-16 w-screen relative -ml-[50vw] left-1/2 mb-12">
+      <section className="bg-white py-16 w-screen relative -ml-[50vw] left-1/2">
           <div className="max-w-7xl mx-auto px-6 md:px-12 text-left">
               <h3 className="text-xl md:text-3xl font-black text-slate-800 tracking-tight mb-2">Testimonios de otros ruteros</h3>
               <div className="flex flex-col gap-1 mb-8">
                  <span className="text-sm text-slate-500 font-bold">Valoración general</span>
-                 <div className="flex items-end gap-3">
-                    <span className="text-4xl font-black text-slate-900 leading-none">4.8<span className="text-xl text-slate-400 font-bold">/5</span></span>
-                    <div className="flex flex-col pb-1">
-                       <RutabiaRating rating={5} />
-                       <span className="text-[10px] text-slate-400 font-medium tracking-wide mt-1">basada en 342 reseñas</span>
+                 <div className="flex flex-col sm:flex-row sm:items-end gap-3">
+                    <div className="flex items-end gap-3">
+                        <span className="text-4xl font-black text-slate-900 leading-none">4.8<span className="text-xl text-slate-400 font-bold">/5</span></span>
+                        <div className="flex flex-col pb-1">
+                           <RutabiaRating rating={5} />
+                           <span className="text-[10px] text-slate-400 font-medium tracking-wide mt-1">basada en 342 reseñas</span>
+                        </div>
                     </div>
                  </div>
+                 <p className="text-[11px] text-slate-500 font-medium mt-1">(Envía tu reseña a ©Rutabia para su publicación)</p>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
