@@ -252,7 +252,7 @@ const App = () => {
 
   // ⚠️ IMPORTANTE: PEGA AQUÍ EL RESTO DE TUS LUGARES A CONTINUACIÓN DE ESTOS 5
   const allPlaces = useMemo(() => [
-     { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1WCfuaYRzGZqH5G7C-ll8qwjD3jJ_3TGU", history: "Enclavada en el solitario Valle de Tabladillo, esta ermita de origen románico (siglos XII-XIII) ha sido históricamente un punto de recogimiento espiritual vital para las pequeñas aldeas de la zona. Se especula con que sus orígenes estuvieron ligados a pequeñas comunidades de eremitas o repobladores cristianos tras el avance de la frontera del Duero. Sus gruesos muros de piedra caliza, la ausencia de grandes ventanales y su sencilla espadaña son testigos silenciosos del paso de pastores trashumantes de la Mesta durante siglos. Aunque su interior es modesto, arquitectónicamente es un bello fósil del románico rural segoviano, conservando la esencia inalterada de la devoción popular." },
+    { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1WCfuaYRzGZqH5G7C-ll8qwjD3jJ_3TGU", history: "Enclavada en el solitario Valle de Tabladillo, esta ermita de origen románico (siglos XII-XIII) ha sido históricamente un punto de recogimiento espiritual vital para las pequeñas aldeas de la zona. Se especula con que sus orígenes estuvieron ligados a pequeñas comunidades de eremitas o repobladores cristianos tras el avance de la frontera del Duero. Sus gruesos muros de piedra caliza, la ausencia de grandes ventanales y su sencilla espadaña son testigos silenciosos del paso de pastores trashumantes de la Mesta durante siglos. Aunque su interior es modesto, arquitectónicamente es un bello fósil del románico rural segoviano, conservando la esencia inalterada de la devoción popular." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas.", image: "https://lh3.googleusercontent.com/d/1lvGNMFGnOYRnWIeWAGF1vIpP0rZa6X6I", history: "Fundado en el año 1582 bajo el fervor religioso del reinado de Felipe II, este convento de monjas clarisas fue un importante centro de clausura y poder espiritual en la comarca de El Espinar. Fue auspiciado por nobles locales que buscaban asegurar su descanso eterno. A pesar de los terribles estragos sufridos durante la Guerra de la Independencia por las tropas napoleónicas y las posteriores desamortizaciones del siglo XIX (Mendizábal), que obligaron al abandono del edificio, sus recios restos arquitectónicos aún evocan la sobriedad franciscana. Destacan sus muros de sillería granítica, típicos de las construcciones de la sierra de Guadarrama." },
     { id: 3, name: "FORTALEZA CASTILLO", category: "Historia", coords: "41°21'13.6\"N 3°53'15.2\"W", address: "CARRASCAL DEL RÍO", note: "Fortaleza dominante sobre el paisaje de las hoces del río Duratón.", image: "https://lh3.googleusercontent.com/d/1jjPYi12uwmW6lkJ5IRBSs1_4WEexX9Ki", history: "Erigida vertiginosamente en lo alto de los imponentes cortados que dominan las hoces del río Duratón, esta fortaleza fue una pieza clave en la reconquista y repoblación cristiana impulsada por Alfonso VI en el siglo XI. Su posición estratégica, casi inexpugnable, permitía a las milicias concejiles de la Comunidad de Villa y Tierra de Sepúlveda vigilar el angosto paso del cañón y controlar posibles incursiones musulmanas desde el sur. Personajes legendarios como el conde Fernán González están ligados a las batallas de esta frontera. Hoy, sus lienzos de muralla mimetizados con la roca caliza son el hogar del buitre leonado." },
     { id: 4, name: "MOLINO DE LOS MESA", category: "Industrial", coords: "41°12'19.5\"N 3°58'56.7\"W", address: "CABEZUELA", note: "Ingenio harinero tradicional situado en la ribera del río Cega.", image: "https://lh3.googleusercontent.com/d/11jnhbuh5odHT8GhxYXGHBRltUGR2krwY", history: "Este majestuoso ingenio hidráulico es uno de los representantes más valiosos del rico patrimonio preindustrial que jalonaba la ribera del río Cega. Activo desde la Baja Edad Media y modernizado en los siglos XVIII y XIX, el Molino de los Mesa perteneció a linajes hidalgos locales antes de pasar a manos de molineros privados. Durante generaciones, transformó el abundante trigo y centeno de la campiña en harina, utilizando la fuerza motriz del agua que se canalizaba magistralmente a través de sus profundos cárcavos para mover las pesadas muelas de piedra. Hoy es un monumento a la ingeniería rural de la Segovia de antaño." },
@@ -966,10 +966,10 @@ const App = () => {
           </div>
       )}
 
-      {/* HERO SECTION MODIFICADA CON DEGRADADO EN ALFA Y COLOR CORPORATIVO */}
-      <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible px-6 pt-12 pb-8 bg-gradient-to-b from-indigo-600 via-purple-700 to-slate-900">
+      {/* HERO SECTION */}
+      <section className="relative min-h-[340px] flex flex-col items-center justify-center text-center overflow-visible px-6 pt-12 pb-8 bg-[#5b21b6]">
         <div 
-          className="absolute inset-0 z-0 opacity-40 mix-blend-luminosity grayscale-[30%] pointer-events-none"
+          className="absolute inset-0 z-0 opacity-100 pointer-events-none"
           style={{ 
             backgroundImage: `url('https://lh3.googleusercontent.com/d/1XUZX7F_EwHGoIZFaboHjf70K38NTup3K')`,
             backgroundSize: 'cover',
@@ -977,18 +977,18 @@ const App = () => {
             backgroundRepeat: 'no-repeat'
           }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/40 to-slate-900/80 pointer-events-none z-0"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none text-white z-0"></div>
         
         <div className="relative z-10 w-full max-w-4xl flex flex-col items-center text-white">
           <h2 className="text-4xl md:text-6xl uppercase italic tracking-tighter drop-shadow-2xl leading-none mb-2 text-white">
             <span className="font-black text-white">CREA</span> <span className="font-semibold text-white">TU RUTA</span>
           </h2>
-          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance drop-shadow-lg">
+          <p className="text-white text-[14px] md:text-[16px] lg:text-[18px] mb-10 opacity-90 tracking-wide font-light max-w-2xl mx-auto text-balance">
             <span className="font-black text-white">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
           </p>
 
-          <div className="bg-white/10 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/20 shadow-2xl relative text-slate-800 mt-2">
-            <h3 className="text-[20px] lg:text-[22px] font-normal tracking-normal mb-6 text-center text-white drop-shadow-md">Selecciona ubicaciones</h3>
+          <div className="bg-white/10 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/20 shadow-2xl relative text-slate-800">
+            <h3 className="text-[20px] lg:text-[22px] font-normal tracking-normal mb-6 text-center text-white">Selecciona ubicaciones</h3>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <div className="relative w-full sm:w-auto text-left">
@@ -1120,7 +1120,7 @@ const App = () => {
       <div className="flex justify-end w-full mb-4 px-0">
           <button 
               onClick={() => setShowVisualizer(true)} 
-              className="flex items-center gap-1.5 text-[#4338ca] hover:text-indigo-800 font-bold text-xs uppercase tracking-widest transition-colors active:scale-95 bg-transparent border-none p-0 cursor-pointer"
+              className="flex items-center gap-1.5 text-[#4338ca] hover:text-indigo-800 font-bold text-[10px] uppercase tracking-widest transition-colors active:scale-95 bg-transparent border-none p-0 cursor-pointer"
           >
               <MapIcon className="w-3.5 h-3.5" /> Mapa Interactivo
           </button>
@@ -1287,15 +1287,24 @@ const App = () => {
       </section>
 
       {/* BANNER PRE-FOOTER ACTUALIZADO Y LOGO CENTRADO */}
-      <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[320px] flex items-center justify-center overflow-hidden shadow-inner bg-cover bg-center group"
-            style={{backgroundImage: `url('https://lh3.googleusercontent.com/d/1GnPS_ujSkGYIUbhO1p2qWdgY-fqR-ok6')`}}>
-          <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-black/80 to-transparent pointer-events-none text-white"></div>
+      <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[320px] flex items-center justify-center overflow-hidden bg-gradient-to-b from-indigo-600 via-purple-700 to-[#111827] group">
+          <div 
+            className="absolute inset-0 z-0 opacity-40 mix-blend-luminosity grayscale-[30%] pointer-events-none"
+            style={{ 
+              backgroundImage: `url('https://lh3.googleusercontent.com/d/1GnPS_ujSkGYIUbhO1p2qWdgY-fqR-ok6')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          ></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#111827]/40 to-[#111827] pointer-events-none z-0"></div>
+          
           <div className="relative z-20 bg-white/10 backdrop-blur-md p-8 rounded-[2.5rem] border border-white/20 shadow-2xl text-center max-w-lg mx-4 flex flex-col items-center w-full">
               <div className="mb-6 flex justify-center w-full">
                 <RutabiaLogo size={56} />
               </div>
-              <div className="w-24 h-[2px] bg-white mx-auto mb-6 rounded-full"></div>
-              <h2 className="text-xl sm:text-3xl leading-tight mb-0 tracking-tight text-white">
+              <div className="w-24 h-[2px] bg-white mx-auto mb-6 rounded-full opacity-80"></div>
+              <h2 className="text-xl sm:text-3xl leading-tight mb-0 tracking-tight text-white drop-shadow-md">
                   <span className="font-black">Descubre</span> <span className="font-light italic text-white">parajes</span><br/>
                   <span className="font-light italic">sorprendentes en</span> <span className="font-black text-white">Segovia</span>
               </h2>
@@ -1490,23 +1499,23 @@ const App = () => {
                                 </button>
                                 
                                 {shareExpanded && (
-                                  <div ref={shareIconsRef} className="flex flex-col gap-3 mt-3 p-4 bg-slate-50 rounded-2xl border border-slate-100 animate-fade-in">
+                                  <div ref={shareIconsRef} className="flex flex-col gap-3 mt-3 mb-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 animate-fade-in">
                                     <textarea 
                                       value={shareMessage}
                                       onChange={(e) => setShareMessage(e.target.value)}
                                       className="w-full p-3 text-[12px] lg:text-[14px] font-medium text-slate-700 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none h-20 shadow-inner"
                                     />
                                     <div className="flex items-center justify-center gap-3">
-                                      <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareMessage + ' ' + favsUrl)}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-[#25D366] text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                      <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareMessage + ' ' + itUrl)}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-[#25D366] text-white rounded-full hover:scale-110 transition-transform shadow-md">
                                         <MessageCircle className="w-5 h-5" />
                                       </a>
-                                      <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(favsUrl)}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-black text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                      <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(itUrl)}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-black text-white rounded-full hover:scale-110 transition-transform shadow-md">
                                         <Twitter className="w-5 h-5" />
                                       </a>
-                                      <a href={`mailto:?subject=${encodeURIComponent('Mi ruta por Segovia en Rutabia')}&body=${encodeURIComponent(shareMessage + '\n\n' + favsUrl)}`} className="p-3 bg-rose-500 text-white rounded-full hover:scale-110 transition-transform shadow-md">
+                                      <a href={`mailto:?subject=${encodeURIComponent('Ruta por Segovia en Rutabia')}&body=${encodeURIComponent(shareMessage + '\n\n' + itUrl)}`} className="p-3 bg-rose-500 text-white rounded-full hover:scale-110 transition-transform shadow-md">
                                         <Mail className="w-5 h-5" />
                                       </a>
-                                      <button onClick={() => handleCopyLink(favsUrl)} className={`p-3 text-white rounded-full hover:scale-110 transition-transform shadow-md ${copied ? 'bg-emerald-500' : 'bg-slate-500'}`}>
+                                      <button onClick={() => handleCopyLink(itUrl)} className={`p-3 text-white rounded-full hover:scale-110 transition-transform shadow-md ${copied ? 'bg-emerald-500' : 'bg-slate-500'}`}>
                                         {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
                                       </button>
                                     </div>
