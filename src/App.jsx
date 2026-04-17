@@ -50,6 +50,10 @@ const categoryIconColors = {
   'default': 'text-indigo-900'
 };
 
+// RANKING IMAGINARIO: TOP 20 y BOTTOM 20
+const topVisitedIds = [7, 58, 3, 5, 218, 75, 30, 35, 79, 6, 41, 13, 11, 89, 9, 37, 1, 2, 4, 8];
+const leastVisitedIds = [145, 61, 112, 100, 106, 130, 142, 166, 171, 29, 43, 45, 57, 63, 64, 71, 92, 15, 21, 25];
+
 const App = () => {
   const [currentCategory, setCurrentCategory] = useState('Todos');
   const [currentGeoZone, setCurrentGeoZone] = useState('Todos');
@@ -65,6 +69,7 @@ const App = () => {
   const [isHeaderSearchOpen, setIsHeaderSearchOpen] = useState(false);
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [isStickyFavVisible, setIsStickyFavVisible] = useState(false);
+  const [showTopVisited, setShowTopVisited] = useState(true);
   
   const [infoModal, setInfoModal] = useState({ show: false, place: null });
   
@@ -140,8 +145,6 @@ const App = () => {
 
   useEffect(() => {
     setCurrentPage(1);
-    // CORRECCIÓN UX: Al cambiar cualquier filtro, reseteamos la búsqueda de alojamientos/restaurantes
-    // para que el mapa muestre inmediatamente los resultados del nuevo filtro.
     setNearbySearch(null);
   }, [currentCategory, currentGeoZone, searchTerm]);
 
@@ -459,6 +462,11 @@ const App = () => {
     const start = (currentPage - 1) * itemsPerPage;
     return filteredPlaces.slice(start, start + itemsPerPage);
   }, [filteredPlaces, currentPage]);
+
+  const rankingPlaces = useMemo(() => {
+    const ids = showTopVisited ? topVisitedIds : leastVisitedIds;
+    return ids.map(id => allPlaces.find(p => p.id === id)).filter(Boolean);
+  }, [showTopVisited, allPlaces]);
 
   useEffect(() => {
     let mapInitInterval;
@@ -1116,12 +1124,50 @@ const App = () => {
         ))}
       </div>
 
-      <div className="mt-16 flex flex-col items-center gap-12 pb-2 mb-[72px] border-b border-slate-100 text-slate-800">
+      <div className="mt-16 flex flex-col items-center gap-12 pb-2 mb-12 border-b border-slate-100 text-slate-800">
           <div className={isStickyFavVisible ? 'lg:block hidden' : 'block'}>
             <FavoriteButton />
           </div>
           {totalPages > 1 && <PaginationControls />}
       </div>
+
+      {/* NUEVA SECCIÓN RANKING */}
+      <section className="w-screen relative -ml-[50vw] left-1/2 bg-slate-100 py-16 mb-12">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 text-left">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+                  <h3 className="text-xl md:text-2xl font-black text-slate-800 tracking-tight uppercase">
+                      {showTopVisited ? 'Ubicaciones más visitadas en Segovia' : 'Ubicaciones menos visitadas en Segovia'}
+                  </h3>
+                  <button 
+                      onClick={() => setShowTopVisited(!showTopVisited)}
+                      className="flex items-center gap-1.5 text-indigo-600 font-bold text-xs uppercase tracking-widest hover:text-indigo-800 transition-colors"
+                  >
+                      {showTopVisited ? <ArrowDown className="w-4 h-4" /> : <ArrowUp className="w-4 h-4" />}
+                      {showTopVisited ? 'Ver menos visitadas' : 'Ver más visitadas'}
+                  </button>
+              </div>
+              
+              <div className="flex flex-wrap gap-3">
+                  {rankingPlaces.map((p, index) => (
+                      <button 
+                          key={p.id}
+                          onClick={() => setInfoModal({ show: true, place: p })}
+                          className="flex items-stretch border border-slate-200 bg-white hover:border-slate-300 hover:shadow-md transition-all rounded-md overflow-hidden text-left"
+                      >
+                          <div className={`px-4 flex items-center justify-center font-black text-white text-xs ${categoryColors[p.category] || 'bg-indigo-500'}`}>
+                              {index + 1}
+                          </div>
+                          <div className="px-4 py-2.5 flex items-center text-xs font-bold text-slate-700">
+                              {p.name}
+                          </div>
+                      </button>
+                  ))}
+                  {rankingPlaces.length === 0 && (
+                      <p className="text-xs text-slate-500 italic">No hay datos suficientes (Añade el array completo de 218 sitios para ver el ranking).</p>
+                  )}
+              </div>
+          </div>
+      </section>
 
       {/* BANNER PRE-FOOTER ACTUALIZADO Y LOGO CENTRADO */}
       <div className="col-span-full w-screen relative -ml-[50vw] left-1/2 h-[320px] flex items-center justify-center overflow-hidden shadow-inner bg-cover bg-center group"
@@ -1239,13 +1285,13 @@ const App = () => {
             <div className="flex w-full sm:w-auto gap-2">
               <button 
                 onClick={() => handleNearbySearch(infoModal.place, 'sleep')} 
-                className="flex items-center justify-center gap-1.5 px-2 sm:px-3 py-3 bg-slate-50 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-xl transition-all font-bold text-[8.5px] sm:text-[10px] uppercase tracking-widest border border-slate-200 shadow-sm flex-1 whitespace-nowrap"
+                className="flex items-center justify-center gap-1.5 px-3 py-3 bg-slate-50 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-xl transition-all font-bold text-[9.5px] uppercase tracking-widest border border-slate-200 shadow-sm flex-1 whitespace-nowrap"
               >
                 <Bed className="w-3.5 h-3.5 flex-shrink-0 text-slate-500" /> Alojamientos a 10km
               </button>
               <button 
                 onClick={() => handleNearbySearch(infoModal.place, 'eat')} 
-                className="flex items-center justify-center gap-1.5 px-2 sm:px-3 py-3 bg-slate-50 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-xl transition-all font-bold text-[8.5px] sm:text-[10px] uppercase tracking-widest border border-slate-200 shadow-sm flex-1 whitespace-nowrap"
+                className="flex items-center justify-center gap-1.5 px-3 py-3 bg-slate-50 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-xl transition-all font-bold text-[9.5px] uppercase tracking-widest border border-slate-200 shadow-sm flex-1 whitespace-nowrap"
               >
                 <Utensils className="w-3.5 h-3.5 flex-shrink-0 text-slate-500" /> Comer a 10km
               </button>
