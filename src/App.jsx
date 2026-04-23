@@ -88,11 +88,11 @@ const ecosystemPolygons = {
   ]
 };
 
-// DATOS DE ECOSISTEMAS SEGOVIANOS (INTRODUCCIÓN ETNOBOTÁNICA)
+// DATOS DE ECOSISTEMAS SEGOVIANOS (INTRODUCCIÓN ETNOBOTÁNICA) METER EL RESTO DE LOS 7 JAVIER
 const ecosystemsIntro = "Puede ocurrir que algunos de nuestros lectores desconozcan el significado de la palabra ecosistema, un cultismo que sólo ahora se está introduciendo en el castellano coloquial. Lo definiremos, de una forma muy sencilla, como el conjunto de factores físicos -clima, suelo y relieve- que se dan en un espacio concreto, haciendo posible la existencia de unos determinados seres vivos -plantas y animales-, que mantienen entre sí relaciones de dependencia. Para mejor entender los principales ecosistemas de la provincia de Segovia hemos de saber que en ésta hay tres formas de relieve, sierras, planicies y valles... Juntos clima, suelo y relieve influyen de forma decisiva en el desarrollo de la vegetación espontánea o natural, ya que determinan la existencia de las diferentes comunidades y especies, obligándolas a veces a recurrir a distintos tipos de adaptación para poder superar las condiciones adversas. No podemos olvidar la acción del hombre, causante de fuertes alteraciones en el medio, talando bosques, o el trazado de vías de comunicación. Si nos atenemos a la localización de las diferentes especies medicinales que, desde el punto de vista etnobotánico, se van a describir, los ecosistemas más representativos de la provincia de Segovia son los siguientes:";
 
 const ecosystemsData = [
-  {
+   {
     title: "Sierra de Guadarrama",
     desc: "Se extiende por la mayor parte del borde sudoriental de la provincia, entre el pico de Colgadizos y la sierra de Malagón, formando alineaciones y macizos como los Montes Carpetanos, Peñalara, Siete Picos y Mujer Muerta, y con zonas bien diferenciadas: la alpina, por alturas superiores a los 1.800 metros, y la subalpina, entre los 1.300 y los 1.800 metros. En la primera, al fundirse las nieves, aparecen los cervunales, praderas de fino césped sobre el que brillan los vivos colores de narcisos, digitales y gencianas y por el que se desparrama un apretado matorral de piornos y jabinos rastreros. En la zona subalpina, bien regada por numerosos regatos, crece el pino silvestre en masas tan apretadas y densas que sólo en los claros del bosque permite el desarrollo de especies arbustivas como el bellísimo acebo, el cerezo silvestre, el serbal, el avellano, el arraclán, la genista y el cambroño."
   },
@@ -124,6 +124,7 @@ const ecosystemsData = [
     title: "Jardines, cunetas y escombreras",
     desc: "Forman los que podemos llamar ecosistemas urbanos, muy influidos por la acción del hombre que ha transformado enteramente el paisaje mediante movimientos de tierras. El diseño de jardines siempre va acompañado de la construcción de sistemas de riego artificial; épocas hubo en que estaban dirigidos a la obtención de plantas medicinales (\"jardín de la botica\"). En las cunetas hallan refugio especies autóctonas desplazadas de los campos de cultivo colindantes. Las escombreras, por último, cada día más controladas, son el hábitat más apropiado para otras especies interesantes desde el punto de vista medicinal, como los cardos y la ortiga."
   }
+  
 ];
 
 // GUÍA DE FUNDAMENTOS ETNOBOTÁNICOS (NUEVA INFORMACIÓN)
@@ -154,7 +155,7 @@ const ethnobotanyGuide = {
   }
 };
 
-// 24 TESTIMONIOS INVENTADOS
+// 24 TESTIMONIOS INVENTADOS METER DEL 7 AL 24 JAVIER
 const allReviews = [
   { id: 1, title: "Ruta al Convento de la Hoz", author: "Alejandro M.", color: "bg-rose-100 text-rose-700", rating: 5, date: "7/4/2026", text: "Excelente el paraje en el fondo del cañón. La bajada es un poco vertiginosa, pero ver los restos arqueológicos colgados en la roca no tiene precio. ¡Muy recomendable!" },
   { id: 2, title: "Paseo por las Pesquerías Reales", author: "Carlos D.", color: "bg-blue-100 text-blue-700", rating: 5, date: "15/3/2026", text: "Carmen y yo hemos disfrutado muchísimo este recorrido. Su relato histórico es clave para entender las pesquerías de Carlos III. Muy agradable y cordial el entorno." },
@@ -182,9 +183,9 @@ const allReviews = [
   { id: 24, title: "Casa Eraso", author: "Alba H.", color: "bg-amber-100 text-amber-700", rating: 4, date: "4/6/2026", text: "Una parada genial para los que hacen la ruta del Puerto de la Fuenfría. Entender que ahí paraba Felipe II impresiona. Buenas vistas." }
 ];
 
-// BASE DE DATOS ETNOBOTÁNICA SEGOVIANA
+// BASE DE DATOS ETNOBOTÁNICA SEGOVIANA METER EL RESTO JAVIER
 const ethnobotanyPlants = [
-  {
+   {
     name: "Acedera",
     scientificName: "Rumex acetosa L (Poligonaceae)",
     commonNames: "Acedilla, vinagrera, agrilla",
@@ -1080,9 +1081,10 @@ const ethnobotanyPlants = [
     contraindications: "No debe tomarse durante el embarazo ya que estimula las contracciones del útero.",
     curiosities: "Esta planta se ha considerado mágica y sagrada desde tiempos de Dioscórides que ya la citaba como planta de increíbles propiedades. También llamada hierba de los hechizos, se empleaba antiguamente para realizar conjuros de amor y era conveniente recolectarla la noche de San Juan antes de la salida del sol."
   }
+  
 ];
 
-// GLOSARIO ETNOBOTÁNICO
+// GLOSARIO ETNOBOTÁNICO METER EL RESTO JAVIER
 const ethnobotanyGlossary = [
   { term: "ABORTIVO", definition: "Propiedad que hace referencia a la interrupción del embarazo." },
   { term: "ACEITE ESENCIAL", definition: "Sustancias volátiles de carácter aromático que se extraen de las plantas, principalmente por destilación." },
@@ -1238,6 +1240,7 @@ const ethnobotanyGlossary = [
   { term: "VITÍLIGO", definition: "Alteración de origen desconocido que se caracteriza por la destrucción de los melanocitos en áreas dérmicas circunscritas." },
   { term: "VIVAZ", definition: "Se dice de la planta perenne cuyos órganos aéreos desaparecen en la época desfavorable." },
   { term: "VULNERARIO", definition: "Que cura llagas y heridas." }
+  
 ];
 
 const App = () => {
@@ -1631,6 +1634,7 @@ const App = () => {
     { id: 216, name: "FÁBRICA DE LUZ SANTA ISABEL", category: "Industrial", coords: "40°53'13.9\"N 4°00'49.1\"W", address: "VALSAÍN", note: "Importante patrimonio industrial hidroeléctrico.", image: "https://lh3.googleusercontent.com/d/1c_-Yv_QE70m5_aNK3zVzL5MI4j2-OUPI", history: "Un prodigio pionero de la ingeniería hidroeléctrica en pleno bosque real. Acondicionando las vigorosas corrientes del río Eresma mediante presas y largos canales, esta ruidosa y fundamental fábrica de turbinas generó la milagrosa electricidad necesaria no solo para el aserradero de Valsaín, sino para dotar de lujosa luz a las propias fuentes, jardines y dependencias del Palacio de La Granja de San Ildefonso." },
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos.", image: "https://lh3.googleusercontent.com/d/118JaN1Y3kVnqThIZzmr-Np09dpbSHWIw", history: "Oculto bajo la umbría de los esbeltos y oscuros pinos de Valsaín, este extenso y laberíntico complejo de búnkeres de grueso hormigón, parapetos y estrechas trincheras excavadas en granito, fue el dramático epicentro de la cruenta ofensiva republicana sobre Segovia. Conservados en un estado sorprendentemente íntegro, son un escalofriante museo al aire libre que rinde tributo a la desolación de la guerra contemporánea en España." },
     { id: 218, name: "LAGUNAS DE CANTALEJO", category: "Naturaleza", coords: "41°16'32.0\"N 3°55'21.0\"W", address: "CANTALEJO", note: "Humedal de gran interés por su importancia ornitológica", image: "https://lh3.googleusercontent.com/d/1uODRDzelsfascBC9Oj6qmUWwl-m0fnci", mapUrl: "https://maps.app.goo.gl/mNFoKSuRUpNkH8Lm7", history: "Un verdadero y exótico milagro acuático en mitad del interminable páramo arenoso de la Tierra de Pinares. Este valiosísimo sistema de humedales dunares (navajos) se originó durante el Cuaternario. Es un paraíso biológico y ornitológico de primer nivel, cobijando de forma vital el paso y la nidificación de miles de aves migratorias, cigüeñas negras y anfibios amenazados. Un ecosistema puro e intocable, joya absoluta del patrimonio natural de toda Segovia." }
+    
   ], []);
 
   const suggestions = useMemo(() => {
