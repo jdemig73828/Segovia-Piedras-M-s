@@ -182,7 +182,6 @@ const allReviews = [
   { id: 23, title: "Molino del Ladrón", author: "Tomás N.", color: "bg-emerald-100 text-emerald-700", rating: 5, date: "30/3/2026", text: "Nos costó un poco encontrarlo en Lastras, ¡pero el entorno del río Cega es brutal! Leyendas de bandoleros e ingeniería popular juntas." },
   { id: 24, title: "Casa Eraso", author: "Alba H.", color: "bg-amber-100 text-amber-700", rating: 4, date: "4/6/2026", text: "Una parada genial para los que hacen la ruta del Puerto de la Fuenfría. Entender que ahí paraba Felipe II impresiona. Buenas vistas." }
 ];
-];
 
 // BASE DE DATOS ETNOBOTÁNICA SEGOVIANA METER EL RESTO JAVIER
 const ethnobotanyPlants = [
