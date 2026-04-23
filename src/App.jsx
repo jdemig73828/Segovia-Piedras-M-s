@@ -1085,7 +1085,7 @@ const ethnobotanyPlants = [
   
 ];
 
-// GLOSARIO ETNOBOTÁNICO METER EL RESTO JAVIER
+// GLOSARIO ETNOBOTÁNICO METER EL RESTO JAVIER de miguel
 const ethnobotanyGlossary = [
    { term: "ABORTIVO", definition: "Propiedad que hace referencia a la interrupción del embarazo." },
   { term: "ACEITE ESENCIAL", definition: "Sustancias volátiles de carácter aromático que se extraen de las plantas, principalmente por destilación." },
