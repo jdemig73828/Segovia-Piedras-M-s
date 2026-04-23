@@ -1234,11 +1234,9 @@ const App = () => {
               <span className="font-black">Descubre</span> parajes sorprendentes en <span className="font-black text-white">Segovia</span>
             </p>
 
-            <div className="border-t border-white/5 pt-8 max-w-xl mx-auto"></div>
-
-            {/* SECCIÓN DE CONTACTO ACTUALIZADA */}
-            <div className="pt-4 flex justify-center">
-              <a href="mailto:rutabiasegovia@gmail.com" className="text-fuchsia-500 font-bold transition-colors no-underline flex items-center gap-2 hover:text-fuchsia-400">
+            {/* SECCIÓN DE CONTACTO ACTUALIZADA: ESPACIO EQUILIBRADO Y TAMAÑO IGUAL AL TEXTO SUPERIOR */}
+            <div className="py-4 flex justify-center border-t border-white/5 pt-8">
+              <a href="mailto:rutabiasegovia@gmail.com" className="text-fuchsia-500 font-bold transition-colors no-underline flex items-center gap-2 hover:text-fuchsia-400 text-[14px] md:text-[16px] lg:text-[18px]">
                 <Mail size={20} />
                 Contactar con Rutabia
               </a>
@@ -1523,7 +1521,7 @@ const App = () => {
           
         </div>
 
-        {/* BOTÓN VOLVER ARRIBA DEL MODAL ACTUALIZADO: SIEMPRE VISIBLE AL HACER SCROLL */}
+        {/* BOTÓN VOLVER ARRIBA DEL MODAL ACTUALIZADO: FIXED ABAJO CON ALTO Z-INDEX */}
         {showEthnoScrollBtn && (
             <button 
               onClick={() => document.getElementById('ethno-modal').scrollTo({top: 0, behavior: 'smooth'})} 
