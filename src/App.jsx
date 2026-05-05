@@ -183,7 +183,7 @@ const allReviews = [
   { id: 24, title: "Casa Eraso", author: "Alba H.", color: "bg-amber-100 text-amber-700", rating: 4, date: "4/6/2026", text: "Una parada genial para los que hacen la ruta del Puerto de la Fuenfría. Entender que ahí paraba Felipe II impresiona. Buenas vistas." }
 ];
 
-// BASE DE DATOS ETNOBOTÁNICA SEGOVIANA METER EL RESTO JAVIER
+// BASE DE DATOS ETNOBOTÁNICA SEGOVIANA METER EL RESTO JAVIER  con fotos actualizadas
 const ethnobotanyPlants = [
   {
     name: "Acedera",
