@@ -51,8 +51,8 @@ const categoryIconColors = {
 };
 
 // RANKING IMAGINARIO: TOP 20 y BOTTOM 20
-const topVisitedIds = [7, 58, 3, 5, 218, 75, 30, 35, 79, 6, 41, 13, 11, 89, 9, 37, 1, 2, 4, 8];
-const leastVisitedIds = [145, 61, 112, 100, 106, 130, 142, 166, 171, 29, 43, 45, 57, 63, 64, 71, 92, 15, 21, 25];
+const topVisitedIds = [7, 218, 5, 58, 3, 75, 30, 13, 79, 6, 41, 35, 11, 89, 9, 2, 1, 37, 4, 8];
+const leastVisitedIds = [106, 61, 112, 100, 145, 130, 43, 166, 171, 29, 142, 45, 57, 63, 64, 71, 92, 15, 21, 25];
 
 // COORDENADAS APROXIMADAS DE ECOSISTEMAS SEGOVIANOS PARA EL MAPA
 const ecosystemPolygons = {
@@ -92,7 +92,7 @@ const ecosystemPolygons = {
 const ecosystemsIntro = "Puede ocurrir que algunos de nuestros lectores desconozcan el significado de la palabra ecosistema, un cultismo que sólo ahora se está introduciendo en el castellano coloquial. Lo definiremos, de una forma muy sencilla, como el conjunto de factores físicos -clima, suelo y relieve- que se dan en un espacio concreto, haciendo posible la existencia de unos determinados seres vivos -plantas y animales-, que mantienen entre sí relaciones de dependencia. Para mejor entender los principales ecosistemas de la provincia de Segovia hemos de saber que en ésta hay tres formas de relieve, sierras, planicies y valles... Juntos clima, suelo y relieve influyen de forma decisiva en el desarrollo de la vegetación espontánea o natural, ya que determinan la existencia de las diferentes comunidades y especies, obligándolas a veces a recurrir a distintos tipos de adaptación para poder superar las condiciones adversas. No podemos olvidar la acción del hombre, causante de fuertes alteraciones en el medio, talando bosques, o el trazado de vías de comunicación. Si nos atenemos a la localización de las diferentes especies medicinales que, desde el punto de vista etnobotánico, se van a describir, los ecosistemas más representativos de la provincia de Segovia son los siguientes:";
 
 const ecosystemsData = [
- {
+   {
     title: "Sierra de Guadarrama",
     desc: "Se extiende por la mayor parte del borde sudoriental de la provincia, entre el pico de Colgadizos y la sierra de Malagón, formando alineaciones y macizos como los Montes Carpetanos, Peñalara, Siete Picos y Mujer Muerta, y con zonas bien diferenciadas: la alpina, por alturas superiores a los 1.800 metros, y la subalpina, entre los 1.300 y los 1.800 metros. En la primera, al fundirse las nieves, aparecen los cervunales, praderas de fino césped sobre el que brillan los vivos colores de narcisos, digitales y gencianas y por el que se desparrama un apretado matorral de piornos y jabinos rastreros. En la zona subalpina, bien regada por numerosos regatos, crece el pino silvestre en masas tan apretadas y densas que sólo en los claros del bosque permite el desarrollo de especies arbustivas como el bellísimo acebo, el cerezo silvestre, el serbal, el avellano, el arraclán, la genista y el cambroño."
   },
@@ -157,7 +157,7 @@ const ethnobotanyGuide = {
 
 // 24 TESTIMONIOS INVENTADOS METER DEL 7 AL 24 JAVIER
 const allReviews = [
-   { id: 1, title: "Ruta al Convento de la Hoz", author: "Alejandro M.", color: "bg-rose-100 text-rose-700", rating: 5, date: "7/4/2026", text: "Excelente el paraje en el fondo del cañón. La bajada es un poco vertiginosa, pero ver los restos arqueológicos colgados en la roca no tiene precio. ¡Muy recomendable!" },
+  { id: 1, title: "Ruta al Convento de la Hoz", author: "Alejandro M.", color: "bg-rose-100 text-rose-700", rating: 5, date: "7/4/2026", text: "Excelente el paraje en el fondo del cañón. La bajada es un poco vertiginosa, pero ver los restos arqueológicos colgados en la roca no tiene precio. ¡Muy recomendable!" },
   { id: 2, title: "Paseo por las Pesquerías Reales", author: "Carlos D.", color: "bg-blue-100 text-blue-700", rating: 5, date: "15/3/2026", text: "Carmen y yo hemos disfrutado muchísimo este recorrido. Su relato histórico es clave para entender las pesquerías de Carlos III. Muy agradable y cordial el entorno." },
   { id: 3, title: "Descubriendo Matandrino", author: "Gisela F.", color: "bg-emerald-100 text-emerald-700", rating: 4, date: "6/4/2026", text: "Bien puntual. Muy clara la explicación sobre la despoblación de esta zona en la app. La soledad del lugar enriquece la información. Muchas gracias." },
   { id: 4, title: "Visita al Palacio de Valsaín", author: "Elvira R.", color: "bg-amber-100 text-amber-700", rating: 5, date: "22/5/2026", text: "¡El sitio es un tipazo! La historia imperial de los Austrias que tiene lo hace único. Me encantaría tomar un tour guiado algún día. ¡Súper recomendado!" },
@@ -189,6 +189,7 @@ const ethnobotanyPlants = [
     name: "Acedera",
     scientificName: "Rumex acetosa L (Poligonaceae)",
     commonNames: "Acedilla, vinagrera, agrilla",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Planta vivaz de raíz tuberosa de la que arrancan numerosas raicillas. El tallo puede alcanzar un metro de altura, presenta estrías y toma un color vinoso en la base. Las hojas inferiores tienen un largo pedúnculo que es más corto en las hojas superiores, las hojas son alargadas con dos orejuelas en la base, carnosas y de borde entero. Es una planta dioica, pero tanto las flores masculinas como las femeninas forman un gran ramillete al final del tallo. Los frutos son pequeños, redondos aplanados y presentan tres cantos. Florece en primavera y verano, el fruto madura a final del verano.",
     usefulPart: "Hojas y frutos.",
     habitat: "Esta planta crece en praderas, pastizales y orillas de cauces de agua.",
@@ -203,6 +204,7 @@ const ethnobotanyPlants = [
     name: "Achicoria",
     scientificName: "Cichorium intybus L. (Compositae)",
     commonNames: "Almirón, amargón",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta vivaz, que puede alcanzar 1,50 m de altura. Su raíz es cilíndrica o cónica, larga y ramificada. Cuando se rompe, derrama un látex blanco de sabor amargo. Se observa una roseta basal de hojas provistas de un pecíolo alado, con tallos ramificados. Las hojas son alternas y sésiles y en las axilas de las hojas se desarrollan numerosas flores compuestas de color azul, raramente rosas o blancas. Los frutos son unos aquenios con 5 costillas. Florece de julio a septiembre.",
     usefulPart: "Hojas y raíces.",
     habitat: "Se extiende por pastos, praderas, cunetas, terraplenes, barbechos y terrenos baldíos, situados a baja altitud.",
@@ -217,6 +219,7 @@ const ethnobotanyPlants = [
     name: "Aciano",
     scientificName: "Centaurea cyanus L. (Compositae)",
     commonNames: "Azulejo, clavelina, peranzul",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta anual. La raíz, de forma ahusada, origina un tallo erecto. Las hojas son alternas, cuando son jóvenes tienen un aspecto ligeramente lanoso pero luego se vuelven lampiñas. Las hojas radicales son lanceoladas, las hojas caulinares son sésiles y lanceoladas. En el extremo de las ramas se encuentran las flores de color azul, raramente blancas, rosas o malvas. Los frutos son unos aquenios de aspecto sedoso, de color azul con acanaladuras blancas, provistos de un vilano amarillento. Florece de mayo a agosto.",
     usefulPart: "Capítulos florales.",
     habitat: "Es originaria de la región mediterránea septentrional. Se trata de una mala hierba que crece en cultivos de cereales, a orillas de carreteras y vertientes rocosas.",
@@ -231,6 +234,7 @@ const ethnobotanyPlants = [
     name: "Agrimonia",
     scientificName: "Agrimonia eupatoria L. (Rosaceae)",
     commonNames: "Hierba de San Guillermo",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta vivaz de 50 a 80 cm de altura, provista de un vigoroso rizoma, simple o ramificado. El primer año, origina una roseta basal de hojas, después aparece un tallo erecto, ramificado y muy velloso. Las hojas son alternas y compuestas, sólo crecen en la parte inferior del tallo. Los folíolos son ovales y dentados. El haz del limbo es verde y tomentoso, mientras que el envés es velloso y de color gris. Las flores, situadas en el extremo de cortos pedúnculos, se agrupan en finas espigas. En la base, poseen una cúpula verde, con 5 pétalos amarillos, 10 estambres y un pistilo con dos estilos. Los frutos son unos pequeños aquenios. Florece de marzo a septiembre.",
     usefulPart: "Las hojas y la sumidad florida.",
     habitat: "Se extiende por praderas secas y pastos, orillas de caminos, matorrales y claros de los bosques caducifolios, prefiere sustratos ligeros y arcillosos.",
@@ -245,6 +249,7 @@ const ethnobotanyPlants = [
     name: "Ajenjo",
     scientificName: "Artemisia absinthium L. (Compositae)",
     commonNames: "Asenjo, absintio",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta vivaz aromática y amarga. Mide de 60 a 100 cm de altura. Se observan rosetas de hojas que nacen de varias yemas del rizoma y uno o varios tallos de base leñosa. Las hojas radicales tienen largos pecíolos, son ovales, de color gris plata y están cubiertas de pelos y glándulas. Los tallos son tomentosos, de color gris claro y muy ramificados, en su extremo nacen unas panículas compuestas por gran número de pequeñas flores colgantes, de forma esférica, que están situadas en el extremo de cortos pedúnculos; son de color amarillo. Los frutos son unos aquenios ovales, de color pardo y finamente acanalados. Florece de junio a agosto.",
     usefulPart: "Hojas y sumidades floridas.",
     habitat: "Crece sobre peñascos en regiones secas, colinas cubiertas de maleza y terraplenes de carreteras y vías férreas. Prefiere los suelos ricos en calcio y nitrógeno.",
@@ -259,6 +264,7 @@ const ethnobotanyPlants = [
     name: "Amapola",
     scientificName: "Papaver rhoeas L. (Papaveraceae)",
     commonNames: "Ababol, maripola",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "La amapola es una planta anual que puede alcanzar los 90 cm de altura. Presenta raíz fina y fusiforme, el tallo es simple o poco ramificado, erecto y velloso. Las hojas, a veces cortadas en gajos profundos, son alternas y punzantes, las inferiores están provistas de pecíolo, y las superiores son sésiles. Las flores se desarrollan en las axilas de las hojas, sobre largos pedúnculos erizados de cerdas rígidas. Las flores, de 10 cm de diámetro aproximadamente, son solitarias, colgantes cuando son jóvenes y erectas después. El cáliz es verde, compuesto por dos sépalos; los pétalos son delgados, enteros, de color rojo vivo y suelen presentar una mancha negra en la base. Se observa un gran número de estambres, casi negros, provistos de filamentos finos y planos. El ovario se transforma, una vez maduro, en una cápsula redonda y lampiña, que contiene unas semillas reniformes. Florece de mayo a julio.",
     usefulPart: "Los pétalos de las flores.",
     habitat: "La amapola es una de las consideradas malas hierbas que crece en sembrados y tierras incultas, prefiere regiones templadas de poca altitud.",
@@ -273,6 +279,7 @@ const ethnobotanyPlants = [
     name: "Arándano",
     scientificName: "Vaccinium myrtillus L. (Ericaceae)",
     commonNames: "Mirtilo, navia",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "El arándano es un arbusto de hoja caduca, de 30 a 50 cm de altura, provisto de tallos rectos, cuadrangulares, muy ramificados y cubiertos por una fina corteza gris. Las hojas son alternas con pecíolos cortos y el borde ligeramente dentado, de forma oval o de corazón. Son suaves y de color verde claro volviéndose violáceas con el tiempo. Las flores son colgantes, solitarias y pedunculadas, presentan forma de cascabel y un color verde-rosa. Los frutos son unas bayas esféricas, negruzcas o azuladas, de carne jugosa. Florece de abril a junio, los frutos maduran a partir de julio.",
     usefulPart: "Los frutos y las hojas.",
     habitat: "Vive en bosques húmedos como hayedos o brezales húmedos, junto a los arroyos.",
@@ -287,6 +294,7 @@ const ethnobotanyPlants = [
     name: "Avena",
     scientificName: "Avena sativa L. (Graminaceae)",
     commonNames: "Avea",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta anual que en buenas condiciones de crecimiento puede alcanzar más de 1 m de altura. Tiene las hojas planas, ligeramente ásperas de hasta 45 cm de largo por 2 cm de ancho y la lígula corta. Las flores se agrupan de dos en dos en espiguillas colgantes de 17 a 30 cm de longitud, con dos o tres flores fértiles no articuladas. Florece a finales de la primavera o principios del verano.",
     usefulPart: "Partes aéreas de la planta verde y las semillas.",
     habitat: "Se cultiva para su consumo como cereal en tierras de labranza, se puede encontrar asilvestrada en baldíos, siendo entonces conocida como avena loca.",
@@ -301,6 +309,7 @@ const ethnobotanyPlants = [
     name: "Bardana",
     scientificName: "Arctium lappa L. (Compuestas)",
     commonNames: "Lampazo, bardo, planta de los pegotes",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "La bardana es una planta bienal, el primer año forma la roseta basal de hojas muy anchas, y el segundo año aparece el tallo robusto, que puede alcanzar hasta 1 o 2 m. de altura y de 2 a 3 cm. de grosor. El tallo es ramificado con hojas de gran tamaño, de forma acorazonada u oval, pecioladas, con el borde casi entero. Presentan el haz de color verde intenso mientras que el envés es blanquecino debido a los pequeños pelillos que presenta (tomento). Las flores se reúnen en capítulos globosos, rodeados de púas, en algunos casos punzantes. Son de pequeño tamaño y de color rojo púrpura. El fruto es un aquenio con vilano. Florece en primavera.",
     usefulPart: "Raíz.",
     habitat: "Esta planta vive en las orillas de los caminos, en las proximidades de los cercados, en terrenos baldíos, terraplenes, matorrales y lugares abandonados.",
@@ -315,6 +324,7 @@ const ethnobotanyPlants = [
     name: "Bolsa de pastor",
     scientificName: "Capsella bursa-pastoris (L.) MEDIK. (Cruciferae)",
     commonNames: "Zurrón de pastor, pan y quesillo",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Se trata de una planta anual o bienal de 60 cm de altura. Presenta raíz simple o poco ramificada, de color marrón amarillento y a veces ligeramente leñosa, puede originar una roseta de hojas y algunos tallos el primer año. Las hojas radicales son largas y lanceoladas, las hojas del tallo son sésiles, envainantes, lampiñas, pero cubiertas de pelos a lo largo de los nervios. El tallo principal es erecto y en su extremo crecen racimos de flores pequeñas, regulares y hermafroditas de color blanco. El fruto es una silicua aplanada de forma triangular y color verde a amarillo claro, pedunculada. Florece de marzo a noviembre.",
     usefulPart: "Se emplea todo el tallo con flores, frutos y hojas.",
     habitat: "Crece en jardines, tierras de cultivo y viñedos, bordes de caminos, terrenos baldíos y a lo largo de las carreteras.",
@@ -329,6 +339,7 @@ const ethnobotanyPlants = [
     name: "Brecina",
     scientificName: "Calluna vulgaris L. (Ericaceae)",
     commonNames: "Brezo común, bruga, bercol, biercol, sardino",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "La brecina es un arbusto que puede medir desde 15 cm hasta más de 1 m de altura. Se mantiene verde todo el año y presenta una cepa leñosa y tortuosa que se ramifica profusamente. Las ramas inferiores son rastreras, las hojas son alternas, densas y coriáceas, similares a agujas y presentan el borde enrollado. Están dispuestas en 4 filas, formando una cubierta densa sobre las ramas laterales. Las ramas están rematadas por flores dispuestas en racimos, son de color rosa púrpura, raramente blancas y nacen en el extremo de cortos pedicelos. El fruto es una cápsula que contiene numerosas semillas de color marrón. Florece en verano y otoño, desde junio hasta octubre según la localidad y a veces casi todo el año.",
     usefulPart: "Sumidades floridas.",
     habitat: "Crece en suelos ricos en sílice, peñascos, bosques claros, terrenos de pastos pobres, bosques en decadencia y forma a menudo extensos manchones en los suelos muy lavados y empobrecidos.",
@@ -343,6 +354,7 @@ const ethnobotanyPlants = [
     name: "Caléndula",
     scientificName: "Calendula officinalis L. (Compositae)",
     commonNames: "Maravilla",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "La caléndula es una planta anual, aunque puede ser vivaz en las regiones cálidas. La raíz es de forma ahusada. El tallo puede ser erecto o trepador, tiene de 30 a 50 cm de altura, siendo generalmente ramificado en la parte inferior, anguloso y velloso. Las hojas son alternas y sésiles; por su forma son oblongas y espatuladas, enteras o ligeramente dentadas y vellosas. Las flores son de color amarillento o naranja. Los frutos son unos aquenios cóncavos y acanalados. Florece de julio a septiembre.",
     usefulPart: "Flores enteras.",
     habitat: "Crece espontáneamente en zonas incultas, se cultiva como ornamental en jardines.",
@@ -357,6 +369,7 @@ const ethnobotanyPlants = [
     name: "Cantueso",
     scientificName: "Lavandula stoechas L. (Labiatae)",
     commonNames: "Tomillo borriquero, tomani",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "El cantueso es un arbusto ramoso que puede llegar a medir 1 m de altura. Sus ramas jóvenes son de color verde o rojizo con pelos blanquecinos. Las hojas nacen enfrentadas, formando a menudo fascículos; son largas y estrechas, de borde entero y forma lineal; tienen un color blanquecino o ceniciento. Las flores están apiñadas en densas espigas terminales de sección cuadrangular. La espiga está formada por entre 6 y 10 flores de color morado oscuro que se superponen de forma que resultan alineadas. El fruto está compuesto por 4 nuececillas alargadas. Florece en primavera a partir del mes de marzo.",
     usefulPart: "Flor.",
     habitat: "Es típica de la región mediterránea, crece en los matorrales abiertos, asociada a la jara común, jara con hoja de laurel y tomillo blanco.",
@@ -371,6 +384,7 @@ const ethnobotanyPlants = [
     name: "Castaño de indias",
     scientificName: "Aesculus hippocastanum L. (Hipoocastanaceae)",
     commonNames: "Castaño",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "El castaño de indias es un árbol de hoja caduca, de 30 m de altura, muy frondoso. La corteza se desprende en forma de pequeñas placas. Las hojas son opuestas y palmeadas y están constituidas por folíolos oblongos en número de 5 a 7, redondeados en la parte superior y finos en la base. Los folíolos miden 20 cm y son dentados irregularmente. Las flores son unisexuales, forman unas magníficas panículas cónicas. Son de color blanco con manchas rojas o amarillentas, dispuestas en forma simétrica, tienen 4 ó 5 pétalos y 7 estambres y una vez maduras se transforman en una cápsula de gran tamaño, esférica y espinosa, que encierra de una a tres semillas pardas. Florece en abril y mayo, los frutos maduran al final del verano y se mantienen largo tiempo en la planta.",
     usefulPart: "La corteza de las ramas, las hojas y las semillas.",
     habitat: "Es un árbol originario de Grecia que crece en suelos frescos y profundos de las laderas de valles de montaña, sin constituir nunca formaciones densas. En Segovia suele encontrarse como planta ornamental.",
@@ -385,6 +399,7 @@ const ethnobotanyPlants = [
     name: "Celidonia",
     scientificName: "Chelidonium majus L. (Papaveraceae)",
     commonNames: "Hierba de las golondrinas, planta del yodo",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "La celidonia es una planta vivaz, ruderal que puede alcanzar un metro de altura. Presenta una raíz cilíndrica y ramificada, impregnada de un látex naranja, alrededor de la cual crece una roseta de hojas lobuladas. Los tallos son muy ramificados, angulosos, huecos y lanosos, de los que nacen hojas alternas, bi o trilobuladas, de borde dentado. En las axilas de las hojas nacen las flores en umbelas poco densas, formadas por flores de largos pedúnculos, amarillas y regulares. El fruto es una cápsula larga y de color verde que se abre por dos valvas a partir de la base. Florece de mayo a septiembre.",
     usefulPart: "Sumidades floridas, látex fresco.",
     habitat: "Crece en terrenos baldíos, sombríos y frescos, bordes de caminos y escombreras. Le gusta arrimarse a muros, piedras y peñascos.",
@@ -399,6 +414,7 @@ const ethnobotanyPlants = [
     name: "Cola de caballo",
     scientificName: "Equisetum arvense L. (Equisetaceae)",
     commonNames: "Equiseto menor",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Se trata de una planta criptógama (no tiene hojas ni flores) y perenne. Es una planta vivaz de 10 a 60 cm de altura que constituye una mala hierba abundante. Presenta dos tipos de tallos, los que salen al principio de la primavera son tallos fértiles, que se diferencian de los tallos estériles en que son de color amarillo pardo, erectos, ovales y anillados, y alcanzan una altura aproximada de 20 a 50 cm. Al final de estos tallos fértiles se desarrolla una espiga cilíndrica con numerosos esporangios dispuestos en anillo. Cuando maduran las esporas, nacen los tallos estériles, que son estriados y huecos, con ramificaciones a modo de la cola de un caballo. La planta es fértil entre marzo y abril.",
     usefulPart: "Tallos estériles.",
     habitat: "Se cría en terrenos arenosos y arcillosos en los que exista humedad.",
@@ -413,6 +429,7 @@ const ethnobotanyPlants = [
     name: "Diente de león",
     scientificName: "Taraxacum officinale WEBER. (Compuestas)",
     commonNames: "Taraxacón, achicoria amarga, amargón",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "El diente de león es una planta vivaz muy extendida. Presenta una raíz de tipo ahusada, marrón y poco ramificada, que deja escapar un látex blanco y amargo. La planta tiene una roseta radical de hojas simples, lobuladas y con dientes irregulares. La roseta basal produce varios tallos huecos y cilíndricos, coronados por grandes flores amarillas solitarias que se cierran al anochecer y cuando se avecina lluvia. Los frutos son unos aquenios ahusados, de color pardo-grisáceo y provistos de un pico y un vilano blanco en forma de paraguas. Florece abundantemente a principios de mayo, luego vuelve a florecer con menor intensidad en verano y otoño.",
     usefulPart: "Hojas y raíces.",
     habitat: "Crece en todas partes, en prados, pastos, jardines, tierras incultas y márgenes de caminos.",
@@ -427,6 +444,7 @@ const ethnobotanyPlants = [
     name: "Digital",
     scientificName: "Digitalis purpurea L., Digitalis thapsi (Escrofulariaceae)",
     commonNames: "Dedalera",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "La digital es una planta bienal tóxica, provista de largos tallos. La raíz es fusiforme y el primer año desarrolla una roseta de hojas radicales, ovales u oblongas. Las hojas son pubescentes por el envés, de bordes irregularmente dentados y tienen una densa y prominente nervadura. El segundo año se desarrolla un tallo erecto y no ramificado, cubierto de hojas y rematado por una densa inflorescencia. Las flores son colgantes y están situadas únicamente en un lado; están dotadas de un corto peciolo y son de color rosa, roja o blanca y con unas manchas de color ocre. El fruto es una cápsula vellosa que encierra numerosas semillas en sus dos celdas. Florece de junio a agosto.",
     usefulPart: "Hojas de la roseta basal del primer año.",
     habitat: "La Digitalis purpurea puebla los bosques y laderas cubiertas de maleza. Prefiere los suelos no calizos de las regiones alpinas y subalpinas. La Digitalis thapsi crece en terreno calizo, soleado y árido.",
@@ -441,6 +459,7 @@ const ethnobotanyPlants = [
     name: "Drosera",
     scientificName: "Drosera rotundifolia L. (Droseraceae)",
     commonNames: "Rocío de sol, hierba de la gota",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Pequeña planta vivaz y carnívora de corto rizoma provisto de raíces fibrosas de las que nace una roseta de hojas con largos pecíolos. Las hojas presentan forma de cuchara, lampiñas por el envés y cubiertas en los bordes de largos pelos glandulares rojos, que segregan un líquido pegajoso al que se quedan adheridos pequeños insectos. La planta descompone los insectos utilizando esta sustancia y más tarde reabsorbe los productos de la descomposición. A partir de la roseta se origina un tallo fino, brillante y sin hojas que se encuentra rematado por pequeñas flores blancas que se abren progresivamente a partir de la base. Los frutos contienen semillas pequeñas de color marrón. Florece en junio y julio.",
     usefulPart: "Toda la planta.",
     habitat: "Se trata de una planta protegida que crece en turberas y en las inmediaciones de praderas de suelos ácidos y húmedos.",
@@ -455,6 +474,7 @@ const ethnobotanyPlants = [
     name: "Endrino",
     scientificName: "Prunus spinosa L. (Rosaceae)",
     commonNames: "Endrina, andrina, espino",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Arbusto o pequeño árbol espinoso de 1 a 5 m de altura, que forma grandes macizos. Las ramas son tomentosas y de color pardo grisáceo. Las ramas más viejas son de color gris oscuro y las laterales se transforman en espinas. Las hojas son alternas, oblongas, dentadas y vellosas. Las flores, regulares y hermafroditas, son aisladas o se agrupan en pequeños ramilletes. Se abren antes de que nazcan las hojas. El cáliz es entero y lanceolado; los pétalos son blancos y ligeramente ovales. Los pedúnculos de las flores son lampiños y relativamente cortos, tienen muchos estambres con filamentos largos y anteras amarillas. El fruto es una drupa esférica o ligeramente ovalada, recubierta por una piel negra o azulada, con reflejos grisáceos. Florece en marzo y abril. El fruto madura en septiembre u octubre.",
     usefulPart: "Flores y frutos.",
     habitat: "Vive en monte bajo, bosques, sotos y setos, se encuentra principalmente en llanuras y en las regiones subalpinas templadas.",
@@ -469,6 +489,7 @@ const ethnobotanyPlants = [
     name: "Enebro",
     scientificName: "Juniperus communis (Cupressaceae)",
     commonNames: "Jabino, sabina, junipero, chaparro",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "El enebro común es un arbusto que mantiene la hoja todo el año, dioico, y que no suele pasar de los 2-4 m de altura. Su porte es muy variable ya que las ramas pueden ser erguidas o casi colgantes. El tronco tiene la corteza de color pardo-rojizo. Las ramillas son angulosas y llevan las hojas agrupadas de tres en tres, son aciculares, rígidas y punzantes, casi planas y con una ancha banda blanquecina por el haz. Los enebros hembra producen conos globosos u ovoides con escamas carnosas soldadas entre sí, solitarios en la axila de las hojas, este cono pasa de un color verde claro a negro-azulado cuando está maduro. Florece en primavera, madurando los frutos en el otoño del segundo o tercer año.",
     usefulPart: "Fruto.",
     habitat: "Crece en todo tipo de terrenos, convive con los pinos negral, salgareño y silvestre, con la sabina albar, encinas, quejigos y hayas.",
@@ -483,6 +504,7 @@ const ethnobotanyPlants = [
     name: "Espino blanco",
     scientificName: "Crataegus monogyna, o C. oxycantha (Rosaceae)",
     commonNames: "Majuelo, espinalbo, majoleto",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "El espino albar es un arbusto o arbolillo de hasta 8 ó 10 m de altura, de hoja caduca, que se ramifica profusamente. Tiene el tronco pardo-grisáceo o ceniciento y las ramillas grisáceas, armadas de espinas cortas y fuertes. Presenta hojas simples, alternas, con pecíolo desarrollado y lámina obovada, hendida más o menos profundamente de tres a siete lóbulos desiguales y estrechada en forma de cuña en la base. Echa las flores con largos rabillos en inflorescencia tipo corimbo, de color blanco o blanco-rosadas, formando ramilletes olorosos. Los frutos o majoletas, son globosos u ovoides, de color rojo, del tamaño de un guisante, tienen un solo huesecillo y una carne harinosa de sabor dulce. Florece en abril o mayo y los frutos maduran en septiembre u octubre.",
     usefulPart: "Sumidad florida y fruto. Pocas veces se comercializan las flores solas, suelen ir acompañadas de las hojas, o incluso de los frutos.",
     habitat: "Crece sobre todo tipo de terrenos, en climas fríos y cálidos, en zarzales o bosques caducifolios claros, en torrentes y laderas de montañas.",
@@ -497,6 +519,7 @@ const ethnobotanyPlants = [
     name: "Espliego",
     scientificName: "Lavandula angustifolia MILL.",
     commonNames: "Lavanda, jalveo",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Se trata de un arbusto de 60 cm de altura que forma matas muy ramificadas, de ramas erectas y tallos cuadrangulares. Las hojas son opuestas, lineales, enteras, puntiagudas y enrolladas en los bordes, grises cuando son jóvenes y verde-grisáceas después. Las flores nacen en el extremo de los tallos, en forma de inflorescencias en espiga, más densa en el extremo que en la base. Presentan la forma típica de las labiadas y son de color gris azulado. Los frutos son unos aquenios brillantes. Florece a partir de julio.",
     usefulPart: "Sumidades floridas.",
     habitat: "Procede de la región mediterránea y crece en suelos calizos, pedregosos, situados en lugares protegidos y soleados.",
@@ -511,6 +534,7 @@ const ethnobotanyPlants = [
     name: "Frángula",
     scientificName: "Rhamnus frangula L. o Frangula alnus Mil. (Rhamnaceae)",
     commonNames: "Arraclán, sanguiño",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "El arraclán es un arbusto o pequeño arbolillo que puede alcanzar hasta 4-5 m de altura. Sus ramas y a veces las hojas, suelen tomar un color rojizo. Las hojas caducas, son de color verde lustroso, de contorno ovalado, se presentan de forma alterna a lo largo de la rama y tienen un pecíolo bien desarrollado. Las flores son muy pequeñas, hermafroditas y nacen en grupitos poco numerosos de la axila de las hojas. El fruto es globoso, del tamaño de un guisante, al principio verdoso, después rojizo y finalmente negro, tiene poca carne y dos o tres huesecillos. Florece de abril a julio, los frutos maduran a partir de agosto.",
     usefulPart: "Corteza.",
     habitat: "Crece en suelos frescos y húmedos, principalmente silíceos, en bosques húmedos, orillas de arroyos y barrancos umbrosos.",
@@ -525,6 +549,7 @@ const ethnobotanyPlants = [
     name: "Fresno",
     scientificName: "Fraxinus excelsior L. (Oleaceae)",
     commonNames: "Freix, fleja",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Árbol perteneciente a la familia del olivo y el jazmín, que puede alcanzar unos 40 m de altura y cuyo tronco puede sobrepasar 1 m de diámetro. La copa es ancha y de forma oval. Las ramas son gruesas, erectas, cilíndricas, de color gris y aplastadas a la altura de las yemas. Las hojas son opuestas y compuestas, tienen entre 9 y 13 folíolos puntiagudos, lanceolados y dentados. Las flores se desarrollan antes de la aparición de las hojas, en unas panículas, erectas en principio, pero colgantes más tarde, son hermafroditas o unisexuales. Los frutos son unos aquenios de color marrón, ovales y alados. Florece en abril y mayo, los frutos maduran en octubre.",
     usefulPart: "Hojas.",
     habitat: "Crece en los bordes de los cursos de agua y los fondos de los valles con suelos frescos. Puede encontrarse hasta altitudes superiores a 1000 m.",
@@ -539,6 +564,7 @@ const ethnobotanyPlants = [
     name: "Fumaria",
     scientificName: "Fumaria officinalis L. (Papaveraceae)",
     commonNames: "Palomilla, gitanilla",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta anual de tallo ramificado. Mide entre 10 y 30 cm de altura. El tallo es erecto o ascendente, cubierto de hojas, anguloso, acanalado y hueco. Las hojas son pecioladas, alternas y profundamente divididas de color blanquecino. Las flores son simétricas y hermafroditas; están agrupadas en racimos dispuestos junto a las hojas del tallo. Los 2 pétalos externos son de color rojo púrpura y están encorvados hacia la parte anterior; los dos pétalos internos son oblongos y aparecen soldados en el extremo superior. El fruto es un aquenio en forma de riñón. Florece de mayo a agosto.",
     usefulPart: "Sumidad florida.",
     habitat: "La fumaria es una mala hierba que crece en jardines y campos de cultivo, también vive en solares, tierras de barbecho, márgenes de carreteras y cercados, e incluso en viñedos.",
@@ -553,6 +579,7 @@ const ethnobotanyPlants = [
     name: "Galio",
     scientificName: "Galium verum L. (Rubiaceae)",
     commonNames: "Galio amarillo",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Planta vivaz de 20 a 100 cm de altura con rizoma rastrero. Los tallos son erectos y ascendentes, prácticamente lampiños, anillados y con cuatro finos abultamientos suberosos. Las hojas están agrupadas en verticilos alrededor del tallo, son estrechas, lineales y puntiagudas, de color verde oscuro y dotadas de una nervadura prominente. Los tallos terminan en densas panículas rematadas por flores pequeñas de cortos pedúnculos y de color amarillo. El fruto es un aquenio lampiño, liso y pardusco. Florece a partir de mayo.",
     usefulPart: "Sumidad florida.",
     habitat: "Esta planta crece en praderas, pastizales, bosques claros y peñascos.",
@@ -567,6 +594,7 @@ const ethnobotanyPlants = [
     name: "Gayuba",
     scientificName: "Arctostaphylos uva-ursi (L.) SPRENG. (Ericaceae)",
     commonNames: "Gayuvera, gayuvilla, uva de oso",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "La gayuba es un arbusto de 15 a 20 cm de altura, de ramas postradas de 20 a 30 cm que salen de una raíz ramificada. Las ramas suelen ser radicantes y ascendentes en el extremo, son de consistencia dura, forma cilíndrica y color marrón rojizo. En el extremo de las ramas hay unos brotes verdes y ligeramente vellosos. El follaje es persistente. Las hojas son alternas y pecioladas, de color verde, oblongas y duras. El limbo es entero, verde oscuro y brillante por el haz, más claro y con una nervadura reticular prominente por el envés. En el extremo superior de las ramas se desarrollan las flores reunidas en grupos de 3 a 10, que forman pequeños racimos colgantes. Las flores son regulares y hermafroditas. El cáliz está profundamente dividido en 5 puntas obtusas. La corola está abombada y se encuentra dividida en 5 puntas vueltas hacia el interior. El fruto es una baya roja. Florece de abril a junio.",
     usefulPart: "Las hojas.",
     habitat: "Se extiende por los bosques de pinos, en los pastos mezclados con enebros y sobre las colinas rocosas. Es una especie protegida.",
@@ -581,6 +609,7 @@ const ethnobotanyPlants = [
     name: "Genciana",
     scientificName: "Gentiana lutea L. (Gencianáceas)",
     commonNames: "Gengiba",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Planta herbácea, vivaz, que presenta una raíz larga, ramificada y gruesa, de color parduzco externamente y amarillento en su interior. El tallo de 1 metro de altura es erecto, no ramificado, redondo y hueco. Las hojas son abrazadoras, opuestas, elípticas y con nervios muy marcados. Las flores nacen en las axilas de las hojas, en grupos de 14 a 16 flores. Son pedunculadas y de color amarillo oro. El fruto es una cápsula ovoide y contiene numerosas semillas. Florece en julio.",
     usefulPart: "Raíz.",
     habitat: "Es una planta de montaña, crece en pastizales y laderas desde 1.500 a 2.500 m de altitud.",
@@ -595,6 +624,7 @@ const ethnobotanyPlants = [
     name: "Gordolobo",
     scientificName: "Verbascum thapsus L. (Escrofulariaceae)",
     commonNames: "Verbasco",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Se trata de una planta bienal de hasta 2 m de altura. Su raíz ahusada y cilíndrica produce durante el primer año una roseta de hojas ovales. La roseta de hojas persiste durante el invierno y produce al segundo año un tallo erecto, simple y poco ramificado, tomentoso y de color blanco amarillento. Las hojas del tallo son alternas, sésiles, de forma oblonga o lanceolada y terminadas en punta. Los tallos y las ramas erguidas rematan en una larga espiga divida en ramilletes de 2 a 7 flores, sustentadas por cortos pedúnculos. Las flores son regulares y hermafroditas de color amarillo. El fruto es una cápsula marrón con dos celdas en las que se encuentran las semillas. Florece en junio.",
     usefulPart: "Flores y hojas del tallo.",
     habitat: "Crece es setos secos, tierras baldías, terrenos soleados y desérticos, aparece en bordes de carreteras y escombreras.",
@@ -609,6 +639,7 @@ const ethnobotanyPlants = [
     name: "Hiedra",
     scientificName: "Hedera helix L. (Araliaceae)",
     commonNames: "Hédera",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una liana trepadora y rastrera que puede alcanzar 20 m de longitud. El tallo se sujeta gracias a unos zarcillos que permiten que la planta trepe por los troncos de los árboles, las tapias o se arrastre por el suelo. Las hojas son simples, perennes y opuestas, coriáceas y de color verde oscuro y brillante, más claro por el envés y con una nervadura prominente. La hiedra posee dos tipos de hojas: las situadas sobre ramas floridas son de forma oval-lanceolada y puntiagudas, el resto de las hojas tiene de 3 a 5 lóbulos. Las flores nacen sobre ramas viejas expuestas al sol. Están agrupadas en umbelas esféricas. Las flores son regulares y hermafroditas. Cuando la flor madura se transforma en una baya negra de aspecto escarchado, que contiene de 3 a 5 semillas en forma de riñón. Florece de agosto a octubre.",
     usefulPart: "Hojas.",
     habitat: "Vive en bosques, peñascos y zonas de matorrales, le gustan los lugares rocosos y pedregosos, preferentemente sombríos y puede crecer sobre las tapias. También se cultiva como planta ornamental para formar setos.",
@@ -623,6 +654,7 @@ const ethnobotanyPlants = [
     name: "Hinojo",
     scientificName: "Foeniculum vulgare L. (Umbeliferae)",
     commonNames: "Linojo, fiollo",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta herbácea bianual que presenta una raíz muy grande y bífida. Los tallos son ramosos, compactos y estriados y pueden alcanzar hasta 2 m de altura. Del tallo salen hojas envainantes en forma de finos hilos o en lacinias (finamente cortadas en tiras), de color verde claro. La flor se reúne en inflorescencias tipo umbela compuesta, es de pequeño tamaño y presenta 5 pétalos amarillos. El fruto es un diaquenio de forma ovoidal, con unas costillas aparentes por todo él. Florece a finales de julio, el fruto madura a finales del verano.",
     usefulPart: "Frutos y hojas.",
     habitat: "Crece en climas templados y en todo tipo de suelos, excepto los muy alcalinos o los demasiado secos.",
@@ -637,6 +669,7 @@ const ethnobotanyPlants = [
     name: "Hipérico",
     scientificName: "Hypericum perforatum L. (Hipericaceas o Guttiferas)",
     commonNames: "Hipericón, corazoncillo, hierba de San Juan, perforata",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "El hipérico es una planta perenne, herbácea, de 25 a 90 cm de altura, que se caracteriza por presentar un tallo ramificado, rojizo, rígido, recorrido por dos líneas prominentes. Las hojas se dirigen siempre hacia la luz y son opuestas, pequeñas, enteras, con pequeñas glándulas o bolas secretoras resino-oleaginosas muy numerosas, translúcidas y visibles a contra luz. Las flores son vistosas, amarillas, reunidas en densas panículas terminales con pétalos de color amarillo dorado con puntos negros en los bordes. Se caracteriza porque las flores amarillas se tiñen de color rojo cuando se aplastan entre los dedos. El fruto es una cápsula ovoide con tres valvas. Florece en junio.",
     usefulPart: "Sumidad florida.",
     habitat: "Se cría en cualquier suelo, crece en linderos de caminos, setos, bosques, declives herbosos, campos secos, pastizales, terraplenes y collados.",
@@ -651,6 +684,7 @@ const ethnobotanyPlants = [
     name: "Llantén",
     scientificName: "Plantago lanceolata L. (Plantaginaceae)",
     commonNames: "Plantago, arta de monte",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta vivaz de pequeño tamaño. Tiene un corto rizoma vertical que origina una roseta basal de hojas largas y lanceoladas provistas de nervios paralelos y más estrechas en la base. En las axilas de las hojas radicales nacen unos tallos de 50 cm de altura, con 5 acanaladuras longitudinales y cubiertos de pelos cortos rematados por una espiga cónica, que se alarga posteriormente, adquiriendo una forma cilíndrica. Las flores se desarrollan en las axilas de unas brácteas membranosas y pardas, son de color pardo. El fruto es una cápsula oval. Florece de mayo a septiembre.",
     usefulPart: "Se emplea la planta entera, especialmente las hojas.",
     habitat: "Puebla las praderas, caminos, jardines y bosques claros. Constituye una mala hierba en los sembrados y crece en terrenos baldíos y terraplenes de carreteras.",
@@ -665,6 +699,7 @@ const ethnobotanyPlants = [
     name: "Lúpulo",
     scientificName: "Humulus lupulus L. (Cannabaceae)",
     commonNames: "Betiguera, cervecera",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta vivaz, trepadora, que puede alcanzar 6 m de longitud. El rizoma es rastrero, muy ramificado y origina numerosas raíces. En primavera nacen unos tallos de tacto áspero, angulosos, erizados de pelos duros y de extremo ganchudo. Las hojas son opuestas y de largos pecíolos. La forma del limbo es muy variada: puede ser entero, cordiforme o lobulado, trímero o pentámero, es aserrado, glandular y rugoso por el envés. Las flores son unisexuales, la planta es dioica, las flores masculinas están dispuestas en unas panículas axilares o apicales y las flores femeninas se agrupan en cortas espigas en las axilas de las hojas. Las infrutescencias son unos conos colgantes, glandulares, de color entre verde claro y rojizo. Florece de mayo a julio y es fértil a finales de agosto y septiembre.",
     usefulPart: "Conos o piñas de la planta femenina y el lupulino, que se obtiene sacudiendo estos conos.",
     habitat: "Crece en zonas de matorrales de las riberas y en los bosques húmedos. Se cultiva extensamente con fines medicinales e industriales.",
@@ -679,6 +714,7 @@ const ethnobotanyPlants = [
     name: "Malva",
     scientificName: "Malva sylvestris L. (Malvaceae)",
     commonNames: "Malva",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta bienal o vivaz, dotada de tallos que alcanzan entre 1,20 y 1,50 m de altura. La raíz es gruesa, fusiforme y está cubierta de numerosas raicillas laterales. El primer año, se origina una roseta basal con hojas pecioladas, palmadolobuladas (de 3 a 7 lóbulos) y redondeadas. El limbo es poco velloso, sin embargo los pelos son abundantes a lo largo de los nervios y en el pecíolo, donde se agrupan en manojos. El tallo es erecto o ascendente. En las axilas de las hojas del tallo nacen las flores, reunidas en grupos de 2 a 6 y provistas de pedúnculos relativamente largos, presentan un color entre rosa claro y púrpura y están recorridas por nervios de color violeta. Los frutos son planos en forma de panecillo y contienen de 15 a 18 semillas. Florece de junio a septiembre.",
     usefulPart: "Flores y hojas.",
     habitat: "Crece de forma espontánea en terrenos nitrogenados, próximos a los asentamientos humanos o cerca de los animales.",
@@ -693,6 +729,7 @@ const ethnobotanyPlants = [
     name: "Malvavisco",
     scientificName: "Althaea officinalis L. (Malvaceae)",
     commonNames: "Malvarisco, malvarizco",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "El malvavisco es una planta vivaz, robusta, de 60 a 150 cm de altura, que posee una raíz carnosa, simple o ramificada, de color entre amarillento y marrón. El primer año sólo origina un tallo sin flores pero con hojas sustentadas sobre cortos pecíolos. Al segundo año surge un tallo erecto, simple o poco ramificado, cubierto de pelos estrellados y rematados por un racimo poco denso de flores. Las hojas inferiores son lobuladas (de 3 a 5 lóbulos), pero las superiores son ovales y puntiagudas, cordiformes e irregularmente dentadas. El limbo es tomentoso por las dos caras. Las flores aparecen en el extremo de cortos pedúnculos, son de color blanco o rosa claro, brillantes como la seda. El fruto, de forma discoidal, comprende entre 10 y 18 segmentos de color gris, reniformes, con una sola semilla. Florece de julio a septiembre.",
     usefulPart: "Se emplea sobre todo la raíz pero también las hojas.",
     habitat: "Se trata de una planta originaria de la región mediterránea, que crece frecuentemente entre las malezas de las orillas de los ríos o en las praderas húmedas y los pastos.",
@@ -707,6 +744,7 @@ const ethnobotanyPlants = [
     name: "Manzanilla amarga",
     scientificName: "Chamaemelum nobile (L.) ALL. (Compositae)",
     commonNames: "Manzanilla romana, manzanilla fina",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Planta herbácea, vivaz, que puede alcanzar los 50 cm de altura, muy aromática y cubierta de pequeños pelos, de color verde claro. El rizoma profundo presenta numerosas ramificaciones y origina raíces rastreras y tallos aéreos. Los tallos que llevan las flores son extendidos y erectos. Las hojas son alternas, de color verde claro, bipinnadas, las inferiores con pedicelo y las superiores sésiles. Los tallos están rematados por unas cabezuelas solitarias, que presentan flores liguladas, periféricas, de lígulas blancas y flores centrales tubulosas amarillas. El fruto es un aquenio casi triangular, lampiño y brillante. Florece en el mes de julio.",
     usefulPart: "Capítulos florales.",
     habitat: "Crece en terrenos de pastos y terraplenes pedregosos o arenosos.",
@@ -721,6 +759,7 @@ const ethnobotanyPlants = [
     name: "Marrubio",
     scientificName: "Marrubium vulgare L. (Labiatae)",
     commonNames: "Manrubio, meaperros",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta vivaz. El rizoma origina unos tallos ascendentes o erectos, de 30-50 cm de longitud, angulosos, huecos y tomentosos. Las hojas son opuestas, pecioladas y ovales, el limbo es tomentoso por las dos caras, blanco o gris por el envés, arrugado y de borde irregularmente dentado. Las hojas inferiores tienen un pecíolo largo, siendo el de las superiores de menor longitud. Las flores forman racimos densos y semiesféricos en las axilas de las hojas y son de color blanco. Los frutos son 4 aquenios oblongos y lisos, que permanecen encerrados en el cáliz hasta la madurez. Florece de junio a septiembre.",
     usefulPart: "Sumidad florida.",
     habitat: "Crece en zonas de maleza, pastizales y baldíos.",
@@ -735,6 +774,7 @@ const ethnobotanyPlants = [
     name: "Meliloto",
     scientificName: "Melilotus officinalis L. (Fabaceae)",
     commonNames: "Trébol de olor, trébol de San Juan",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta bienal, dotada de tallos ascendentes de 50 a 150 cm, que nacen de una raíz fusiforme. Los tallos son angulosos, lampiños o ligeramente vellosos en el ápice, ramificados y huecos. Las hojas son alternas, pecioladas y trifoliadas. Los folíolos son oblongos, ovales, puntiagudos, dentados, lampiños y con 6-13 pares de nervios laterales. En las axilas de las hojas superiores nacen unos racimos compuestos por 30-70 flores dispuestas en uno de los lados. Las flores son simétricas, colgantes, pedunculadas y de color amarillo. El fruto es una vaina oval, lampiña, arrugada, de color gris oscuro o negro en la madurez, que contienen una o dos semillas. Florece de mayo a septiembre.",
     usefulPart: "Sumidad florida.",
     habitat: "Vive en pastizales, laderas rocosas, barbechos, terraplenes de carreteras o de vías férreas y baldíos.",
@@ -749,6 +789,7 @@ const ethnobotanyPlants = [
     name: "Melisa",
     scientificName: "Melissa officinalis L. (Labiatae)",
     commonNames: "Toronjil",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta herbácea y vivaz, que alcanza una altura de 30 a 90 cm. Los tallos son cuadrangulares, ramificados, erectos, con hojas opuestas, ovales, pecioladas y ligeramente dentadas, de color verde claro en el haz y más claro en el envés, son hojas tomentosas. Las flores nacen en las axilas de las hojas superiores, en verticilos de 6 a 12. Son de tonalidades claras, con la corola típica de las labiadas, cáliz bilabiado, asimétrico y tomentoso, de color blanco. El fruto es un tetraquenio de pequeño tamaño. Florece en junio-julio.",
     usefulPart: "Hojas.",
     habitat: "Es originaria de la región mediterránea. Crece en lugares frescos entre 0 y 1.000 metros de altitud. Prefiere un clima templado o templado-cálido y suelos de consistencia media.",
@@ -763,6 +804,7 @@ const ethnobotanyPlants = [
     name: "Milenrama",
     scientificName: "Achillea millefolium L. (Compositae)",
     commonNames: "Cientoenrama, hierba del golpe, triaca",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta vivaz, de 20 a 80 cm de altura. Su rizoma rastrero da lugar a unos tallos frondosos, simples, algunas veces lanosos y otras casi lampiños. Estos tallos están coronados por ricas panículas, compuestas por finas cabezuelas. Las hojas son alternas, lanosas en un principio, pero después vellosas, bi o tripinnadas y divididas en pequeñas puntas lanceoladas curvadas en el extremo. El limbo presenta forma lanceolada, las cabezuelas están provistas de involucros ovalados de color verde amarillento, bordeados de claro o de marrón oscuro. Las florecillas presentan pétalos blancos o rosas. Los frutos son unos aquenios de color gris plata, oblongos y aplanados, son lisos y alados en los bordes. Florece de junio a septiembre.",
     usefulPart: "Partes aéreas, en concreto las inflorescencias.",
     habitat: "Es una planta común en las praderas secas, pastos, orillas de caminos y bosques caducifolios. En sustratos calizos, presenta únicamente flores blancas, en suelos ácidos presenta también flores rosas.",
@@ -777,6 +819,7 @@ const ethnobotanyPlants = [
     name: "Muérdago",
     scientificName: "Viscum album L. (Loranthaceae)",
     commonNames: "Almuérzago",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Arbusto semiparásito dioico, siempre verde, de 60 cm de altura, que vive sobre los troncos y ramas de los árboles. Los tallos se dividen desde la base en varios ramos desparramados, ahorquillados, cilíndricos, divididos por nudos y armados de púas pequeñas. Las hojas son opuestas, coriáceas, gruesas, carnosas, lanceoladas y de color verde amarillento, presentando nervios paralelos. Las flores son unisexuales y están reunidas en grupos de 3 a 5 en las axilas de las hojas en el extremo de los ramos, son muy pequeñas y poco visibles. Las flores se transforman en unas bayas pequeñas, translúcidas, de color blanco rosado, en cuyo interior se encuentra una sustancia viscosa. Florece en marzo y abril. Los frutos maduran en noviembre y diciembre.",
     usefulPart: "Se emplean las ramillas y las hojas.",
     habitat: "Es una planta parásita de distintos árboles, sobre todo del pino.",
@@ -791,6 +834,7 @@ const ethnobotanyPlants = [
     name: "Nogal",
     scientificName: "Juglans regia L. (Juglandaceae)",
     commonNames: "Nogueira",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Árbol de hoja caduca que puede alcanzar hasta más de 20 m de altura con corteza lisa y gris. La copa es amplia y redondeada, con ramas gruesas y abiertas, las hojas son compuestas, imparipinnadas con 5 a 9 foliolos de contorno oval o lanceolado. Las flores masculinas nacen en las ramas del año anterior en inflorescencias cilíndricas colgantes. Las flores femeninas nacen en la terminación de las ramillas formadas ese mismo año en corto número. El fruto es una drupa subglobosa de unos 4 a 5 cm, con la piel verde, la cubierta externa termina secándose y tomando color negro, en su interior se encuentra el hueso leñoso que contiene en su interior una sola semilla en forma de cerebro, popularmente conocida como nuez. Florece en abril o mayo y los frutos maduran en otoño.",
     usefulPart: "Se emplean las hojas y el aceite extraído de la semilla.",
     habitat: "Crece en las huertas, márgenes de las tierras de labor y bosques húmedos.",
@@ -805,6 +849,7 @@ const ethnobotanyPlants = [
     name: "Orégano",
     scientificName: "Origanum vulgare L. (Labiatae)",
     commonNames: "Oregaño",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta vivaz, parecida a la mejorana. La raíz es fina, ramificada y leñosa. Los tallos son erectos o ascendentes, de 20 a 50 cm de altura, angulosos, vellosos, rojizos y ramificados en el ápice. Las hojas son opuestas, de cortos peciolos, anchas y ovales, de extremo puntiagudo o redondeado, enteras, vellosas y de borde ciliado, más claras y salpicadas de glándulas transparentes en el envés. Las flores están sustentadas por cortos pedúnculos y se hallan reunidas en grupos de 3, como máximo. La inflorescencia, una panícula, es de forma oval y presenta flores bilabiadas de color rosa o blanco. Los frutos son aquenios. Florece de julio a septiembre.",
     usefulPart: "Sumidades floridas.",
     habitat: "Puebla los bosques claros, zonas de maleza y laderas herbáceas soleadas y rocosas, se extiende sobre todo en las regiones templadas.",
@@ -819,6 +864,7 @@ const ethnobotanyPlants = [
     name: "Perpetua amarilla",
     scientificName: "Helichrysum stoechas L. (Compositae)",
     commonNames: "Siempreviva, helicriso, manzanilla de pastor",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Planta perenne de 5 a 50 cm de altura, con tallos erectos de base leñosa muy ramificada y con tomento blanco. Presenta hojas lineares, con los bordes enrollados hacia abajo, tomentosos en el envés y verdes con pilosidad más o menos densa y caediza en el haz que desprende un olor característico al frotarlas. Las flores son amarillas y crecen en capítulos de 4 a 6 mm, globulares, normalmente más anchas que largas y reunidas en corimbos al final de tallo. Los frutos son de color pardo y están cubiertos de pequeñas glándulas blancas. Florece de julio a septiembre.",
     usefulPart: "Se emplean las sumidades floridas de la siempreviva mediterránea (Helichrysum stoechas) o de la variedad europea (Helichrysum arenaria).",
     habitat: "Crece en lugares secos de terrenos arenosos, generalmente en pinares de pino resinero.",
@@ -833,6 +879,7 @@ const ethnobotanyPlants = [
     name: "Pino de Valsaín",
     scientificName: "Pinus sylvestris L. (Pinaceae)",
     commonNames: "Pino silvestre, pino albar",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es un árbol monoico de 30 a 45 m de altura, de copa desplegada y tronco de hasta 1 m de diámetro. Su corteza es lisa y parda en un principio, escamosa después. Las ramas son lampiñas, de color verde amarillento con las yemas rojizas y un poco resinosas. Las ramas son verticiladas. Las hojas en forma de agujas se agrupan en haces de dos unidades; son de color gris verdoso, duras, rugosas y ligeramente punzantes con sección semiesférica o falciforme. Las flores (amentos) son unisexuales, los amentos masculinos contienen racimos de estambres llenos de un polen de color amarillo vivo y los amentos femeninos son de color rojo; aparecen aislados o reunidos en grupo de dos o tres en el extremo de las ramas formando unas piñas pardo grisáceas que maduran al cabo de dos años. Florece en mayo.",
     usefulPart: "Agujas, yemas y esencia de las hojas y ramas jóvenes y a veces su alquitrán.",
     habitat: "El pino albar vive en sustratos arenosos, laderas rocosas y turberas, forma bosques extensos en el sistema central. Además con esta especie se realizan cultivos extensivos para la obtención de su preciada madera.",
@@ -847,6 +894,7 @@ const ethnobotanyPlants = [
     name: "Poleo",
     scientificName: "Mentha pulegium L. (Labiatae)",
     commonNames: "Menta-poleo, poliol",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta herbácea, vivaz, de 10 a 50 cm de altura, de tallos erguidos. Las hojas son pequeñas, opuestas, oval-lanceoladas, con algunos dientes en la base. Las flores se agrupan en las axilas de las hojas superiores del tallo y de las ramas; son pequeñas y de color lila o rosa pálido, a veces blancas. Florece de julio hasta septiembre.",
     usefulPart: "Hojas y sumidades floridas.",
     habitat: "Crece en zonas cercanas a cauces de ríos y terrenos húmedos, hasta los 1.500 m de altitud, en clima templado y templado-cálido, aunque resiste las heladas y fríos.",
@@ -861,6 +909,7 @@ const ethnobotanyPlants = [
     name: "Romero",
     scientificName: "Rosmarinus officinalis L. (Labiatae)",
     commonNames: "Romaní, alecrim, erromero",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Arbusto que permanece verde todo el año y presenta ramas leñosas de color parduzco. Suele alcanzar un metro y medio de altura, se ramifica profusamente y sus ramas son cuadrangulares y están cubiertas de pelillos blanquecinos. Las hojas son estrechas, casi cilíndricas, coriáceas y de color verde, lustroso por el haz y blanquecinas por el envés, nacen enfrentadas, son lineares y presentan el borde entero. Las flores nacen en cortos ramilletes axilares, y son de color azul claro, rosa o blanquecinas. El fruto está formado por cuatro nuececillas de color parduzco. Florece a principios de primavera y a finales de verano.",
     usefulPart: "Hojas.",
     habitat: "Crece en todo tipo de suelos aunque prefiere los calcáreos, forma parte de matorrales que se desarrollan en sitios secos y soleados, principalmente en encinares. En la provincia sólo la encontramos cultivada.",
@@ -875,6 +924,7 @@ const ethnobotanyPlants = [
     name: "Rosal silvestre",
     scientificName: "Rosa canina L. (Rosaceae)",
     commonNames: "Escaramujo, tapaculos",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Arbusto enmarañado, de hoja caduca que mide de 1 a 3 m de altura, con los tallos provistos de aguijones curvados en forma de garfio. Las hojas son compuestas, imparipinnadas, de 5 a 7 folíolos de forma aovada o elíptica, sin pelos y de margen aserrado y color verde intenso. Las flores nacen solitarias, con sépalos desiguales y 5 pétalos de color blanco o rosado. El fruto llamado escaramujo o tapaculo es carnoso y presenta en su interior numerosos huesecillos o semillas. Florece de mayo a julio y los frutos maduran al final del verano.",
     usefulPart: "Se emplean los escaramujos y eventualmente las hojas y las flores.",
     habitat: "Crece en espinares, setos, linderos de bosques y orillas de ríos.",
@@ -889,6 +939,7 @@ const ethnobotanyPlants = [
     name: "Ruda",
     scientificName: "Ruta montana L. (Rutaceae)",
     commonNames: "Ruda montesina",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Planta vivaz de 20 a 80 cm de altura, con rizoma ramificado y raíces leñosas. El tallo liso y lampiño es de color verde y presenta muchas ramificaciones que se vuelven leñosas en la base. Las hojas son alternas divididas en segmentos angostos y finos donde aparecen pequeñas glándulas secretoras cargadas de esencia. Las flores se agrupan en corimbos en las axilas de unas brácteas, son de color amarillo, hermafroditas y uniformes. El fruto es globoso dividido en cuatro lóbulos redondeados. Florece de junio a agosto.",
     usefulPart: "Sumidades floridas.",
     habitat: "Crece sobre peñascos de regiones secas, en laderas soleadas entre matorrales y junto a otras aromáticas como el espliego o el té de roca.",
@@ -903,6 +954,7 @@ const ethnobotanyPlants = [
     name: "Salvia",
     scientificName: "Salvia lavandulifolia L. (Labiatae)",
     commonNames: "Salima, selima fina",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "La salvia es un subarbusto de unos 70 cm de altura. Los tallos son erectos y ascendentes, leñosos en la base y muy ramificados. Los extremos de los tallos son herbáceos, tomentosos, ondulados, bastante redondeados y de color violeta. Las hojas son opuestas, muy pecioladas, de forma oval o lanceolada, finamente dentadas. Su color varía entre el verde mate y el gris plateado. Las flores, dispuestas en racimo, sólo aparecen en los brotes de dos años, son de color azul violáceo, aunque en ocasiones pueden ser blancas. El ovario da lugar a un tetraquenio negro. Florece en junio y julio.",
     usefulPart: "Hojas.",
     habitat: "Crece en suelos calizos y emplazamientos bien resguardados, se desarrolla igual de bien a pleno sol que en la sombra.",
@@ -917,6 +969,7 @@ const ethnobotanyPlants = [
     name: "Sanguinaria",
     scientificName: "Paronychia argentea (Hacq.) Kerner. (Cariofilaceae)",
     commonNames: "Nevadilla",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Planta perenne, con tallos tumbados que crecen a ras del suelo, de 5 a 30 cm de longitud y muy ramificados. Presenta hojas oval-lanceoladas, de 4 a 8 mm. Las flores se agrupan en forma de inflorescencias densas de 8 mm de diámetro, que se hacen visibles cuando les da el sol. Florece de abril a julio.",
     usefulPart: "Se emplean las sumidades aéreas.",
     habitat: "Vive en suelos de gran pobreza, se encuentra sobre rocas y en terrenos áridos.",
@@ -931,6 +984,7 @@ const ethnobotanyPlants = [
     name: "Santolina",
     scientificName: "Santolina chamaecyparissus (DC) Nyman",
     commonNames: "Hierba botonera, abrótano hembra",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Planta subarbustiva, vivaz, de vistoso follaje, que alcanza los 60 cm de altura y crece en grandes matas agrupadas. El tallo, leñoso en su base está recubierto por pequeñas hojas rugosas que presentan pubescencia plateada. Las inflorescencias en capítulos crecen al final de los tallos, son pequeñas florecillas de color amarillento que florecen en el verano.",
     usefulPart: "Capítulos florales.",
     habitat: "Originaria de la zona central y occidental de la cuenca mediterránea, crece en terrenos pedregosos y soleados, junto al cantueso.",
@@ -945,6 +999,7 @@ const ethnobotanyPlants = [
     name: "Saponaria",
     scientificName: "Saponaria officinalis L. (Cariophyllaceae)",
     commonNames: "Hierba jabonera",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Planta vivaz de 50 a 80 cm de altura, con rizoma rastrero, cilíndrico, ramificado y muy desplegado, que sustenta numerosos tallos lampiños. Presenta tallos estériles, con hojas opuestas y curvas y tallos florales, frondosos por abajo y poco ramificados que rematan en una inflorescencia tipo panoja. Las flores son regulares y hermafroditas, de color blanco o rosado. El fruto es una cápsula oval. Florece a partir de mayo.",
     usefulPart: "El rizoma y las raíces.",
     habitat: "Crece en terrenos húmedos, orillas de ríos, cunetas, terraplenes y baldíos.",
@@ -959,6 +1014,7 @@ const ethnobotanyPlants = [
     name: "Sauce",
     scientificName: "Salix alba L. (Salicaceae)",
     commonNames: "Sauce blanco, salze, salgueiro blanco",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "El sauce blanco es un árbol dioico, de tamaño medio, que puede medir de 15 a 20 m de altura. Tiene un tronco robusto, derecho, con la corteza de color pardo-grisácea. Presenta la copa alargada, algo irregular, con ramas largas y flexibles. Las hojas son simples, alternas, caducas y presentan forma oblongo-lanceolada, con el margen finamente aserrado. Las flores que son unisexuales, están dispuestas en finos amentos colgantes. Los amentos masculinos tienen 2 ó 3 estambres, los amentos femeninos poseen un estilo corto y 2 estigmas divididos. El fruto es una cápsula. Florece en primavera, a partir de marzo.",
     usefulPart: "Corteza de las ramas.",
     habitat: "Crece en las riberas de los ríos, ascendiendo hasta una altura de 1.300 m. Habita en la mayor parte de Europa, Asia y norte de África y en la península por casi todas las regiones y provincias.",
@@ -973,6 +1029,7 @@ const ethnobotanyPlants = [
     name: "Saúco",
     scientificName: "Sambucus nigra L. (Caprifoliaceae)",
     commonNames: "Sabugo, canillero, sayugo, sabuco",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "El saúco es un arbusto de hoja caduca, muy ramoso o un pequeño arbolillo que alcanza 5 m de altura, con la copa redondeada y muy densa. El tronco presenta la corteza corchosa, agrietada y de color pardo grisáceo. Las hojas son compuestas, de gran tamaño, formadas por 5 ó 7 hojuelas dispuestas por parejas, con una impar en la terminación, presentan forma aovada o aovada-lanceolada, con el borde regularmente aserrado. Las flores son de color blanco, muy menudas, dispuestas en gran número de inflorescencias terminales aplanadas, con todas las flores a la misma altura. El fruto es una baya negruzca y globosa que encierra de 3 a 5 huesecillos. Florece de abril a junio, los frutos maduran en agosto y septiembre.",
     usefulPart: "Flores y frutos.",
     habitat: "Crece en suelos frescos con cierta humedad, principalmente en sotos y riberas de arroyos o riachuelos.",
@@ -987,6 +1044,7 @@ const ethnobotanyPlants = [
     name: "Té de roca",
     scientificName: "Jasonia glutinosa L. (Compositae)",
     commonNames: "Té de Aragón",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Planta perenne de 10 a 45 cm de altura, toda ella glandulosa, viscosa y con pelos. Presenta rizoma subterráneo leñoso y tallos erectos numerosos. Las hojas son oblongo lanceoladas, enteras, agudas, sentadas y de 1,5 a 3 cm de longitud. Las flores son amarillas, tubulares, reunidas en pocos capítulos. Los frutos son vilanos amarillentos o blanquecinos con pelos pardo rojizos y glandulares en el extremo. Florece en julio y agosto.",
     usefulPart: "Sumidades floridas.",
     habitat: "Crece en roquedos, laderas pedregosas y soleadas y lugares áridos.",
@@ -1001,6 +1059,7 @@ const ethnobotanyPlants = [
     name: "Tilo",
     scientificName: "Tilia platyphyllos SCOP. (Tiliaceae)",
     commonNames: "Tilo común, flor de tila, tila de árbol",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Este árbol alcanza una altura de 25 a 30 m. Su corteza es lisa y marrón grisácea, agrietada ligeramente a lo largo del tronco. Los ramos, curvados y lampiños son de color marrón verdoso, a menudo con un lado rojizo. Las yemas son alternas, ovales y romas y están cubiertas de escamas de color rojo o verde aceituna. Las hojas son alternas y tienen los bordes dentados. El limbo es de color azul verdoso por el envés, con matas de pequeños pelos rojos en las bifurcaciones de los nervios. Las flores son hermafroditas y están agrupadas en cimas pentámeras o heptámeras, erguidas o ligeramente inclinadas y provistas de una bráctea ligulada, membranosa y lampiña. Las flores son esféricas, de color amarillo verdoso. Los frutos son unos aquenios ovales o esféricos, lisos, desmenuzables y de color marrón oscuro. Florece en junio.",
     usefulPart: "Flores y brácteas.",
     habitat: "Se extiende desde las tierras bajas hasta los 500 ó 600 m de altitud, abunda en bosques húmedos, terrenos ondulados y encinares, es típico como planta ornamental en alamedas y parques.",
@@ -1015,6 +1074,7 @@ const ethnobotanyPlants = [
     name: "Tomillo salsero",
     scientificName: "Thymus vulgaris L., Thymus zygis L. (Lamiaceae)",
     commonNames: "Tomillo salsero",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Semiarbusto de 20 a 30 cm de altura, que forma una mata muy tupida. Los tallos son leñosos en la base y sostienen ramas herbáceas de sección cuadrangular. Las hojas son opuestas, de pecíolo corto y ovaladas o lineares, lampiñas y cubiertas de glándulas por el haz y vellosas y grisáceas por el envés. En la extremidad de los tallos se forman las inflorescencias de 3 a 6 flores en espiga. Las flores son pequeñas y de color rosa o violeta. El fruto es un aquenio. Florece en mayo y junio.",
     usefulPart: "Sumidades floridas.",
     habitat: "Es originario de la región mediterránea, crece en regiones cálidas, en terrenos calizos y en zonas expuestas al sol.",
@@ -1029,6 +1089,7 @@ const ethnobotanyPlants = [
     name: "Tomillo serpol",
     scientificName: "Thymus pulegioides L. (Lamiaceae)",
     commonNames: "Serpol, hierba luna, salsa de pastor",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Planta aromática vivaz que tiene aspecto de semiarbusto de 3 a 30 cm de altura. Presenta la raíz ahusada con numerosos tallos radicantes, tumbados y leñosos en la base. Los tallos ascendentes o erguidos pueden ser cortos con muchas hojas y sin flores, o largos muy ramificados y rematados con una inflorescencia. Los tallos y ramas son cuadrangulares y con pelos largos. Las hojas son uniformes ovado-elípticas, ligeramente plegadas hacia arriba y lampiñas. Las flores se disponen en espigas poco densas en la base, son de cáliz tubuloso y acampanado y de color púrpura o rosa. Los frutos son unos aquenios duros. Florece de junio a agosto.",
     usefulPart: "Tallos floridos y hojas.",
     habitat: "Crece en praderas y bosques claros. Como planta ornamental se cultivan distintas variedades de serpol de flores blancas, rosas o rojas.",
@@ -1043,6 +1104,7 @@ const ethnobotanyPlants = [
     name: "Trébol",
     scientificName: "Trifolium pratense L. (Fabaceae)",
     commonNames: "Trébol de prado, trébol de la luna",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Planta vivaz, cuyo rizoma da lugar a una roseta de hojas trímeras con largos peciolos. Los tallos son simples, rectos y ascendentes de 20 a 50 cm de altura y ligeramente vellosos. Los folíolos son sésiles, ovales y enteros, con el borde ciliado, prácticamente lampiñas por el haz y vellosas y verdes por el envés. En las axilas de las hojas laterales y superiores nacen las cabezuelas esféricas de flores rosadas. El fruto es una vaina. Florece en primavera.",
     usefulPart: "Las cabezuelas.",
     habitat: "Esta planta es típica de praderas, bosques claros y taludes, también se cultiva abundantemente como planta forrajera o en jardines.",
@@ -1057,6 +1119,7 @@ const ethnobotanyPlants = [
     name: "Ulmaria",
     scientificName: "Filipendula ulmaria (L.) MAXIM.",
     commonNames: "Reina de los prados, spirea",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Es una planta vivaz de 1,5 m de altura, con rizoma rastrero y un tallo anguloso, erecto, ramificado y rígido. Presenta pocas hojas, estas son alternas, compuestas de 1 a 5 folíolos ovales o lanceolados, aserrados y puntiagudos. El folíolo terminal está dividido en 3 ó 5 lóbulos. En el extremo superior del tallo se desarrolla una densa inflorescencia formada por pequeñas flores de color amarillo pálido. Florece de julio a agosto.",
     usefulPart: "Flores.",
     habitat: "Crece en praderas húmedas, barrancos, zonas pantanosas, al lado de cursos de agua y en bosques claros y húmedos.",
@@ -1071,6 +1134,7 @@ const ethnobotanyPlants = [
     name: "Verbena",
     scientificName: "Verbena officinalis L. (Verbenaceae)",
     commonNames: "Verbena mayor, berbera, verbena macho",
+    image: "https://lh3.googleusercontent.com/d/18bdjJ0IZaiJf0KQlXOphqtk5oIGQKHgD",
     botanicalDescription: "Planta vivaz de 20 a 70 cm de altura. Su raíz, ramificada y poco profunda, da lugar a un tallo erecto, duro y cuadrado. Las hojas son opuestas, oblongas y dentadas o lobuladas, que se estrechan en un corto peciolo. Las hojas del medio son más grandes y están divididas en 3 segmentos. Las hojas superiores son sésiles, oblongas o lanceoladas y dentadas o prácticamente enteras. Todas las hojas son coriáceas, vellosas, rugosas y de color verde grisáceo. Las flores están agrupadas en largas espigas, formando una panoja y son de color violeta o blanco. Los frutos son unos tetraquenios cilíndricos. Florece de julio a septiembre.",
     usefulPart: "Sumidad florida.",
     habitat: "Crece en cualquier tipo de suelo. Vive en praderas, orillas de ríos, cunetas, setos y baldíos.",
@@ -1084,9 +1148,9 @@ const ethnobotanyPlants = [
   
 ];
 
-// GLOSARIO ETNOBOTÁNICO METER EL RESTO JAVIER de miguel
+// GLOSARIO ETNOBOTÁNICO METER EL RESTO JAVIER
 const ethnobotanyGlossary = [
-   { term: "ABORTIVO", definition: "Propiedad que hace referencia a la interrupción del embarazo." },
+  { term: "ABORTIVO", definition: "Propiedad que hace referencia a la interrupción del embarazo." },
   { term: "ACEITE ESENCIAL", definition: "Sustancias volátiles de carácter aromático que se extraen de las plantas, principalmente por destilación." },
   { term: "AEROFAGIA", definition: "Exceso de gases en el tracto digestivo." },
   { term: "AFONÍA", definition: "Imposibilidad transitoria o permanente de habla." },
@@ -1240,6 +1304,7 @@ const ethnobotanyGlossary = [
   { term: "VITÍLIGO", definition: "Alteración de origen desconocido que se caracteriza por la destrucción de los melanocitos en áreas dérmicas circunscritas." },
   { term: "VIVAZ", definition: "Se dice de la planta perenne cuyos órganos aéreos desaparecen en la época desfavorable." },
   { term: "VULNERARIO", definition: "Que cura llagas y heridas." }
+  
 ];
 
 const App = () => {
@@ -1632,6 +1697,7 @@ const App = () => {
     { id: 216, name: "FÁBRICA DE LUZ SANTA ISABEL", category: "Industrial", coords: "40°53'13.9\"N 4°00'49.1\"W", address: "VALSAÍN", note: "Importante patrimonio industrial hidroeléctrico.", image: "https://lh3.googleusercontent.com/d/1c_-Yv_QE70m5_aNK3zVzL5MI4j2-OUPI", history: "Un prodigio pionero de la ingeniería hidroeléctrica en pleno bosque real. Acondicionando las vigorosas corrientes del río Eresma mediante presas y largos canales, esta ruidosa y fundamental fábrica de turbinas generó la milagrosa electricidad necesaria no solo para el aserradero de Valsaín, sino para dotar de lujosa luz a las propias fuentes, jardines y dependencias del Palacio de La Granja de San Ildefonso." },
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos.", image: "https://lh3.googleusercontent.com/d/118JaN1Y3kVnqThIZzmr-Np09dpbSHWIw", history: "Oculto bajo la umbría de los esbeltos y oscuros pinos de Valsaín, este extenso y laberíntico complejo de búnkeres de grueso hormigón, parapetos y estrechas trincheras excavadas en granito, fue el dramático epicentro de la cruenta ofensiva republicana sobre Segovia. Conservados en un estado sorprendentemente íntegro, son un escalofriante museo al aire libre que rinde tributo a la desolación de la guerra contemporánea en España." },
     { id: 218, name: "LAGUNAS DE CANTALEJO", category: "Naturaleza", coords: "41°16'32.0\"N 3°55'21.0\"W", address: "CANTALEJO", note: "Humedal de gran interés por su importancia ornitológica", image: "https://lh3.googleusercontent.com/d/1uODRDzelsfascBC9Oj6qmUWwl-m0fnci", mapUrl: "https://maps.app.goo.gl/mNFoKSuRUpNkH8Lm7", history: "Un verdadero y exótico milagro acuático en mitad del interminable páramo arenoso de la Tierra de Pinares. Este valiosísimo sistema de humedales dunares (navajos) se originó durante el Cuaternario. Es un paraíso biológico y ornitológico de primer nivel, cobijando de forma vital el paso y la nidificación de miles de aves migratorias, cigüeñas negras y anfibios amenazados. Un ecosistema puro e intocable, joya absoluta del patrimonio natural de toda Segovia." }
+    
   ], []);
 
   const suggestions = useMemo(() => {
@@ -2747,6 +2813,13 @@ const App = () => {
                           
                           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                              <div className="space-y-8">
+                                 {/* IMAGEN DE LA PLANTA INSERTADA SEGÚN SOLICITUD */}
+                                 {plant.image && (
+                                   <div className="w-full rounded-[2rem] overflow-hidden shadow-lg border border-slate-100 mb-8">
+                                      <img src={plant.image} alt={plant.name} className="w-full h-auto object-cover" />
+                                   </div>
+                                 )}
+
                                  <section>
                                      <h3 className="text-[11px] font-black uppercase tracking-widest text-indigo-500 mb-3 flex items-center gap-2"><Leaf className="w-4 h-4"/> Descripción botánica</h3>
                                      <p className="text-sm text-slate-600 leading-relaxed text-pretty">{plant.botanicalDescription}</p>
@@ -2755,6 +2828,10 @@ const App = () => {
                                      <h3 className="text-[11px] font-black uppercase tracking-widest text-indigo-500 mb-3">Parte útil</h3>
                                      <p className="text-sm text-slate-600 leading-relaxed">{plant.usefulPart}</p>
                                  </section>
+                             </div>
+                             
+                             <div className="space-y-8 bg-slate-50 p-8 rounded-[2rem] border border-slate-100">
+                                 {/* SECCIONES DESPLAZADAS PARA EQUILIBRAR MAQUETACIÓN */}
                                  <section>
                                      <h3 className="text-[11px] font-black uppercase tracking-widest text-indigo-500 mb-3">Hábitat</h3>
                                      <p className="text-sm text-slate-600 leading-relaxed">{plant.habitat}</p>
@@ -2768,9 +2845,7 @@ const App = () => {
                                          ))}
                                      </div>
                                  </section>
-                             </div>
-                             
-                             <div className="space-y-8 bg-slate-50 p-8 rounded-[2rem] border border-slate-100">
+
                                  <section>
                                      <h3 className="text-[11px] font-black uppercase tracking-widest text-indigo-500 mb-3">Fitología y principios activos</h3>
                                      <p className="text-sm text-slate-600 leading-relaxed text-pretty">{plant.phytology}</p>
