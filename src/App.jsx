@@ -684,7 +684,7 @@ const ethnobotanyPlants = [
     name: "Llantén",
     scientificName: "Plantago lanceolata L. (Plantaginaceae)",
     commonNames: "Plantago, arta de monte",
-    image: "https://lh3.googleusercontent.com/d/18NwYoxIXECzlVOzdjt8VRyzvmwhsynmC,
+    image: "https://lh3.googleusercontent.com/d/18NwYoxIXECzlVOzdjt8VRyzvmwhsynmC",
     botanicalDescription: "Es una planta vivaz de pequeño tamaño. Tiene un corto rizoma vertical que origina una roseta basal de hojas largas y lanceoladas provistas de nervios paralelos y más estrechas en la base. En las axilas de las hojas radicales nacen unos tallos de 50 cm de altura, con 5 acanaladuras longitudinales y cubiertos de pelos cortos rematados por una espiga cónica, que se alarga posteriormente, adquiriendo una forma cilíndrica. Las flores se desarrollan en las axilas de unas brácteas membranosas y pardas, son de color pardo. El fruto es una cápsula oval. Florece de mayo a septiembre.",
     usefulPart: "Se emplea la planta entera, especialmente las hojas.",
     habitat: "Puebla las praderas, caminos, jardines y bosques claros. Constituye una mala hierba en los sembrados y crece en terrenos baldíos y terraplenes de carreteras.",
