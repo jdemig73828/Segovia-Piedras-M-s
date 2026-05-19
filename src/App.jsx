@@ -17,6 +17,8 @@ const RutabiaLogo = ({ size = 24 }) => (
   />
 );
 
+const AEMET_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZGVtaWdAZ21haWwuY29tIiwianRpIjoiYjFiMzUyNWMtZWU3Yy00YzY1LWIzMTktN2JiMDA5YTg5ZGEyIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE3NzkxOTg4MDgsInVzZXJJZCI6ImIxYjM1MjVjLWVlN2MtNGM2NS1iMzE5LTdiYjAwOWE4OWRhMiIsInJvbGUiOiIifQ.M2GSuEM2uDzqYNQtCk5w3F7bJJYD3kUWYb9nCeFvS-4";
+
 const categoryColors = {
   'Historia': 'bg-blue-600',
   'Ruinas': 'bg-orange-500',
@@ -51,8 +53,8 @@ const categoryIconColors = {
 };
 
 // RANKING IMAGINARIO: TOP 20 y BOTTOM 20
-const topVisitedIds = [7, 218, 5, 58, 3, 75, 30, 13, 79, 6, 41, 35, 11, 89, 9, 2, 1, 37, 4, 8];
-const leastVisitedIds = [106, 61, 112, 100, 145, 130, 43, 166, 171, 29, 142, 45, 57, 63, 64, 71, 92, 15, 21, 25];
+const topVisitedIds = [7, 58, 3, 5, 218, 75, 30, 35, 79, 6, 41, 13, 11, 89, 9, 37, 1, 2, 4, 8];
+const leastVisitedIds = [145, 61, 112, 100, 106, 130, 142, 166, 171, 29, 43, 45, 57, 63, 64, 71, 92, 15, 21, 25];
 
 // COORDENADAS APROXIMADAS DE ECOSISTEMAS SEGOVIANOS PARA EL MAPA
 const ecosystemPolygons = {
@@ -88,11 +90,11 @@ const ecosystemPolygons = {
   ]
 };
 
-// DATOS DE ECOSISTEMAS SEGOVIANOS (INTRODUCCIÓN ETNOBOTÁNICA) METER EL RESTO DE LOS 7 JAVIER
+// DATOS DE ECOSISTEMAS SEGOVIANOS (INTRODUCCIÓN ETNOBOTÁNICA)
 const ecosystemsIntro = "Puede ocurrir que algunos de nuestros lectores desconozcan el significado de la palabra ecosistema, un cultismo que sólo ahora se está introduciendo en el castellano coloquial. Lo definiremos, de una forma muy sencilla, como el conjunto de factores físicos -clima, suelo y relieve- que se dan en un espacio concreto, haciendo posible la existencia de unos determinados seres vivos -plantas y animales-, que mantienen entre sí relaciones de dependencia. Para mejor entender los principales ecosistemas de la provincia de Segovia hemos de saber que en ésta hay tres formas de relieve, sierras, planicies y valles... Juntos clima, suelo y relieve influyen de forma decisiva en el desarrollo de la vegetación espontánea o natural, ya que determinan la existencia de las diferentes comunidades y especies, obligándolas a veces a recurrir a distintos tipos de adaptación para poder superar las condiciones adversas. No podemos olvidar la acción del hombre, causante de fuertes alteraciones en el medio, talando bosques, o el trazado de vías de comunicación. Si nos atenemos a la localización de las diferentes especies medicinales que, desde el punto de vista etnobotánico, se van a describir, los ecosistemas más representativos de la provincia de Segovia son los siguientes:";
 
 const ecosystemsData = [
-   {
+ {
     title: "Sierra de Guadarrama",
     desc: "Se extiende por la mayor parte del borde sudoriental de la provincia, entre el pico de Colgadizos y la sierra de Malagón, formando alineaciones y macizos como los Montes Carpetanos, Peñalara, Siete Picos y Mujer Muerta, y con zonas bien diferenciadas: la alpina, por alturas superiores a los 1.800 metros, y la subalpina, entre los 1.300 y los 1.800 metros. En la primera, al fundirse las nieves, aparecen los cervunales, praderas de fino césped sobre el que brillan los vivos colores de narcisos, digitales y gencianas y por el que se desparrama un apretado matorral de piornos y jabinos rastreros. En la zona subalpina, bien regada por numerosos regatos, crece el pino silvestre en masas tan apretadas y densas que sólo en los claros del bosque permite el desarrollo de especies arbustivas como el bellísimo acebo, el cerezo silvestre, el serbal, el avellano, el arraclán, la genista y el cambroño."
   },
@@ -124,10 +126,9 @@ const ecosystemsData = [
     title: "Jardines, cunetas y escombreras",
     desc: "Forman los que podemos llamar ecosistemas urbanos, muy influidos por la acción del hombre que ha transformado enteramente el paisaje mediante movimientos de tierras. El diseño de jardines siempre va acompañado de la construcción de sistemas de riego artificial; épocas hubo en que estaban dirigidos a la obtención de plantas medicinales (\"jardín de la botica\"). En las cunetas hallan refugio especies autóctonas desplazadas de los campos de cultivo colindantes. Las escombreras, por último, cada día más controladas, son el hábitat más apropiado para otras especies interesantes desde el punto de vista medicinal, como los cardos y la ortiga."
   }
-  
 ];
 
-// GUÍA DE FUNDAMENTOS ETNOBOTÁNICOS (NUEVA INFORMACIÓN)
+// GUÍA DE FUNDAMENTOS ETNOBOTÁNICOS
 const ethnobotanyGuide = {
   intro: "Como creo que es interesante observar la planta en todos sus aspectos, desde saber la relación que el hombre ha mantenido con las diferentes especies medicinales -cómo las ha utilizado o para qué han servido-, hasta desvelar sus características físicas de color, olor, sabor, forma y textura, sin olvidar su composición química y sus aplicaciones, comenzaré explicando el significado de los términos etnobotánica, fitología y fitoterapia.",
   definitions: [
@@ -155,7 +156,7 @@ const ethnobotanyGuide = {
   }
 };
 
-// 24 TESTIMONIOS INVENTADOS METER DEL 7 AL 24 JAVIER
+// TESTIMONIOS 
 const allReviews = [
   { id: 1, title: "Ruta al Convento de la Hoz", author: "Alejandro M.", color: "bg-rose-100 text-rose-700", rating: 5, date: "7/4/2026", text: "Excelente el paraje en el fondo del cañón. La bajada es un poco vertiginosa, pero ver los restos arqueológicos colgados en la roca no tiene precio. ¡Muy recomendable!" },
   { id: 2, title: "Paseo por las Pesquerías Reales", author: "Carlos D.", color: "bg-blue-100 text-blue-700", rating: 5, date: "15/3/2026", text: "Carmen y yo hemos disfrutado muchísimo este recorrido. Su relato histórico es clave para entender las pesquerías de Carlos III. Muy agradable y cordial el entorno." },
@@ -183,9 +184,9 @@ const allReviews = [
   { id: 24, title: "Casa Eraso", author: "Alba H.", color: "bg-amber-100 text-amber-700", rating: 4, date: "4/6/2026", text: "Una parada genial para los que hacen la ruta del Puerto de la Fuenfría. Entender que ahí paraba Felipe II impresiona. Buenas vistas." }
 ];
 
-// BASE DE DATOS ETNOBOTÁNICA SEGOVIANA METER EL RESTO JAVIER  con fotos actualizadas
+// BASE DE DATOS ETNOBOTÁNICA SEGOVIANA
 const ethnobotanyPlants = [
-  {
+   {
     name: "Acedera",
     scientificName: "Rumex acetosa L (Poligonaceae)",
     commonNames: "Acedilla, vinagrera, agrilla",
@@ -1145,10 +1146,9 @@ const ethnobotanyPlants = [
     contraindications: "No debe tomarse durante el embarazo ya que estimula las contracciones del útero.",
     curiosities: "Esta planta se ha considerado mágica y sagrada desde tiempos de Dioscórides que ya la citaba como planta de increíbles propiedades. También llamada hierba de los hechizos, se empleaba antiguamente para realizar conjuros de amor y era conveniente recolectarla la noche de San Juan antes de la salida del sol."
   }
-  
 ];
 
-// GLOSARIO ETNOBOTÁNICO METER EL RESTO JAVIER
+// GLOSARIO ETNOBOTÁNICO
 const ethnobotanyGlossary = [
   { term: "ABORTIVO", definition: "Propiedad que hace referencia a la interrupción del embarazo." },
   { term: "ACEITE ESENCIAL", definition: "Sustancias volátiles de carácter aromático que se extraen de las plantas, principalmente por destilación." },
@@ -1304,7 +1304,6 @@ const ethnobotanyGlossary = [
   { term: "VITÍLIGO", definition: "Alteración de origen desconocido que se caracteriza por la destrucción de los melanocitos en áreas dérmicas circunscritas." },
   { term: "VIVAZ", definition: "Se dice de la planta perenne cuyos órganos aéreos desaparecen en la época desfavorable." },
   { term: "VULNERARIO", definition: "Que cura llagas y heridas." }
-  
 ];
 
 const App = () => {
@@ -1327,7 +1326,9 @@ const App = () => {
   const [showEthnobotany, setShowEthnobotany] = useState(false); 
 
   const [infoModal, setInfoModal] = useState({ show: false, place: null });
-  
+  // NUEVO ESTADO PARA EL CLIMA DEL MODAL DE INFORMACIÓN (FICHA)
+  const [modalWeather, setModalWeather] = useState("⏳ Consultando AEMET...");
+
   const [shareExpanded, setShareExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
   const [shareMessage, setShareMessage] = useState("");
@@ -1343,13 +1344,11 @@ const App = () => {
   const searchRef = useRef(null);
   const resultsRef = useRef(null);
 
-  // Estados para la sección de Testimonios
   const [shuffledReviews, setShuffledReviews] = useState([]);
   const [reviewsPage, setReviewsPage] = useState(0);
   const REVIEWS_PER_PAGE = 6;
 
   useEffect(() => {
-    // Mezclar testimonios al cargar
     setShuffledReviews([...allReviews].sort(() => 0.5 - Math.random()));
 
     document.title = "Rutabia - Descubre parajes sorprendentes en Segovia y crea tu ruta";
@@ -1383,7 +1382,7 @@ const App = () => {
       const leafletJs = document.createElement('script');
       leafletJs.id = 'leaflet-js';
       leafletJs.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-      document.head.appendChild(leafletJs);
+      document.body.appendChild(leafletJs);
     }
 
     const handleScroll = () => {
@@ -1421,7 +1420,7 @@ const App = () => {
     const cleanDms = dms.replace(/\\"/g, '"');
     const matches = cleanDms.match(/(\d+)°(\d+)'([\d.]+)"/);
     if (!matches) return 0;
-    let dec = parseFloat(dms.match(/\d+/g)[0]) + parseFloat(dms.match(/\d+/g)[1])/60 + parseFloat(dms.match(/[\d.]+/g)[2])/3600;
+    let dec = parseFloat(matches[1] || 0) + parseFloat(matches[2] || 0)/60 + parseFloat(matches[3] || 0)/3600;
     if (dms.includes('W') || dms.includes('S')) dec = -dec;
     return dec;
   };
@@ -1466,7 +1465,6 @@ const App = () => {
     }
   };
 
-  // Componente de calificación de Rutabia (estrellas)
   const RutabiaRating = ({ rating }) => (
     <div className="flex gap-1.5 items-center">
       {[1, 2, 3, 4, 5].map((i) => (
@@ -1477,7 +1475,7 @@ const App = () => {
     </div>
   );
 
-  // ⚠️ IMPORTANTE: PEGA AQUÍ EL RESTO DE TUS LUGARES A CONTINUACIÓN DE ESTOS 5
+  // BASE DE DATOS DE PARAJES (AQUÍ VAN LOS 218 REGISTROS)
   const allPlaces = useMemo(() => [
      { id: 1, name: "ERMITA DE SAN JUAN", category: "Historia", coords: "41°21'33.4\"N 3°51'16.9\"W", address: "VALLE DE TABLADILLO", note: "Pequeño oratorio románico oculto en el profundo valle de tabladillo.", image: "https://lh3.googleusercontent.com/d/1WCfuaYRzGZqH5G7C-ll8qwjD3jJ_3TGU", history: "Enclavada en el solitario Valle de Tabladillo, esta ermita de origen románico (siglos XII-XIII) ha sido históricamente un punto de recogimiento espiritual vital para las pequeñas aldeas de la zona. Se especula con que sus orígenes estuvieron ligados a pequeñas comunidades de eremitas o repobladores cristianos tras el avance de la frontera del Duero. Sus gruesos muros de piedra caliza, la ausencia de grandes ventanales y su sencilla espadaña son testigos silenciosos del paso de pastores trashumantes de la Mesta durante siglos. Aunque su interior es modesto, arquitectónicamente es un bello fósil del románico rural segoviano, conservando la esencia inalterada de la devoción popular." },
     { id: 2, name: "CONVENTO DE SANTA ISABEL", category: "Historia", coords: "40°43'03.6\"N 4°14'51.2\"W", address: "EL ESPINAR", note: "Restos históricos del convector del s. XVI de las monjas clarisas.", image: "https://lh3.googleusercontent.com/d/1lvGNMFGnOYRnWIeWAGF1vIpP0rZa6X6I", history: "Fundado en el año 1582 bajo el fervor religioso del reinado de Felipe II, este convento de monjas clarisas fue un importante centro de clausura y poder espiritual en la comarca de El Espinar. Fue auspiciado por nobles locales que buscaban asegurar su descanso eterno. A pesar de los terribles estragos sufridos durante la Guerra de la Independencia por las tropas napoleónicas y las posteriores desamortizaciones del siglo XIX (Mendizábal), que obligaron al abandono del edificio, sus recios restos arquitectónicos aún evocan la sobriedad franciscana. Destacan sus muros de sillería granítica, típicos de las construcciones de la sierra de Guadarrama." },
@@ -1697,7 +1695,6 @@ const App = () => {
     { id: 216, name: "FÁBRICA DE LUZ SANTA ISABEL", category: "Industrial", coords: "40°53'13.9\"N 4°00'49.1\"W", address: "VALSAÍN", note: "Importante patrimonio industrial hidroeléctrico.", image: "https://lh3.googleusercontent.com/d/1c_-Yv_QE70m5_aNK3zVzL5MI4j2-OUPI", history: "Un prodigio pionero de la ingeniería hidroeléctrica en pleno bosque real. Acondicionando las vigorosas corrientes del río Eresma mediante presas y largos canales, esta ruidosa y fundamental fábrica de turbinas generó la milagrosa electricidad necesaria no solo para el aserradero de Valsaín, sino para dotar de lujosa luz a las propias fuentes, jardines y dependencias del Palacio de La Granja de San Ildefonso." },
     { id: 217, name: "FORTINES DEL CERRO DEL PUERCO", category: "Historia", coords: "40°52'24.1\"N 4°00'23.0\"W", address: "VALSAÍN", note: "Fortines militares místicas preservados entre los pinos.", image: "https://lh3.googleusercontent.com/d/118JaN1Y3kVnqThIZzmr-Np09dpbSHWIw", history: "Oculto bajo la umbría de los esbeltos y oscuros pinos de Valsaín, este extenso y laberíntico complejo de búnkeres de grueso hormigón, parapetos y estrechas trincheras excavadas en granito, fue el dramático epicentro de la cruenta ofensiva republicana sobre Segovia. Conservados en un estado sorprendentemente íntegro, son un escalofriante museo al aire libre que rinde tributo a la desolación de la guerra contemporánea en España." },
     { id: 218, name: "LAGUNAS DE CANTALEJO", category: "Naturaleza", coords: "41°16'32.0\"N 3°55'21.0\"W", address: "CANTALEJO", note: "Humedal de gran interés por su importancia ornitológica", image: "https://lh3.googleusercontent.com/d/1uODRDzelsfascBC9Oj6qmUWwl-m0fnci", mapUrl: "https://maps.app.goo.gl/mNFoKSuRUpNkH8Lm7", history: "Un verdadero y exótico milagro acuático en mitad del interminable páramo arenoso de la Tierra de Pinares. Este valiosísimo sistema de humedales dunares (navajos) se originó durante el Cuaternario. Es un paraíso biológico y ornitológico de primer nivel, cobijando de forma vital el paso y la nidificación de miles de aves migratorias, cigüeñas negras y anfibios amenazados. Un ecosistema puro e intocable, joya absoluta del patrimonio natural de toda Segovia." }
-    
   ], []);
 
   const suggestions = useMemo(() => {
@@ -1747,6 +1744,39 @@ const App = () => {
       return shuffledReviews.slice(start, start + REVIEWS_PER_PAGE);
   }, [shuffledReviews, reviewsPage]);
   const totalReviewPages = Math.ceil(shuffledReviews.length / REVIEWS_PER_PAGE);
+
+  // NUEVO: EFECTO PARA OBTENER EL CLIMA CUANDO SE ABRE UNA FICHA
+  useEffect(() => {
+    if (infoModal.show && infoModal.place) {
+      setModalWeather("⏳ Consultando AEMET...");
+      const fetchWeatherForModal = async () => {
+        try {
+          const res = await fetch(`https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/40194/?api_key=${AEMET_KEY}`);
+          const initialData = await res.json();
+          if (initialData.datos) {
+              const weatherRes = await fetch(initialData.datos);
+              const weatherData = await weatherRes.json();
+              
+              const today = weatherData[0].prediccion.dia[0];
+              const tempMax = today.temperatura.maxima;
+              const probList = today.probPrecipitacion;
+              const probLluvia = probList && probList.length > 0 ? (probList[0].value || 0) : 0;
+              
+              let icon = '🌤️';
+              if (parseInt(probLluvia) > 50) icon = '🌧️';
+              else if (parseInt(probLluvia) > 20) icon = '⛅';
+              
+              setModalWeather(`${icon} ${tempMax}°C | ${probLluvia}% lluvia`);
+          } else {
+              throw new Error("Sin datos");
+          }
+        } catch (error) {
+          setModalWeather('❌ Info meteorológica no disponible');
+        }
+      };
+      fetchWeatherForModal();
+    }
+  }, [infoModal.show, infoModal.place]);
 
   useEffect(() => {
     let mapInitInterval;
@@ -1839,11 +1869,15 @@ const App = () => {
               if (coords && !isNaN(coords[0]) && !isNaN(coords[1])) {
                 const marker = window.L.marker(coords, { icon: getIcon(p.category) }).addTo(mapInstance.current);
                 
+                // POPUP CON AEMET INTEGRADO EN MAPA
                 const popupContent = document.createElement('div');
                 popupContent.style.textAlign = 'center';
                 popupContent.innerHTML = `
                     <b>${p.name}</b><br>
                     <span style="font-size:10px;color:gray;">${p.address}</span><br/>
+                    <div id="weather-module-${p.id}" style="display:inline-block; margin-top:6px; padding:3px 8px; background-color:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; font-size:10px; color:#334155; font-weight:bold; box-shadow:0 1px 2px rgba(0,0,0,0.05);">
+                        ⏳ Consultando AEMET...
+                    </div><br/>
                     <button id="btn-info-${p.id}" style="margin-top:8px; padding:6px 12px; background-color:#4338ca; color:white; border-radius:6px; border:none; cursor:pointer; font-weight:bold; font-size:10px; width:100%; text-transform:uppercase; letter-spacing:1px;">
                         Ver más info
                     </button>
@@ -1851,7 +1885,7 @@ const App = () => {
                 
                 marker.bindPopup(popupContent);
                 
-                marker.on('popupopen', () => {
+                marker.on('popupopen', async () => {
                     const btn = document.getElementById(`btn-info-${p.id}`);
                     if (btn) {
                         btn.onclick = () => {
@@ -1860,6 +1894,34 @@ const App = () => {
                                 setInfoModal({ show: true, place: p });
                             }, 50);
                         };
+                    }
+
+                    const weatherDiv = document.getElementById(`weather-module-${p.id}`);
+                    if (weatherDiv && weatherDiv.innerText.includes('AEMET')) {
+                        try {
+                            const res = await fetch(`https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/40194/?api_key=${AEMET_KEY}`);
+                            const initialData = await res.json();
+                            
+                            if (initialData.datos) {
+                                const weatherRes = await fetch(initialData.datos);
+                                const weatherData = await weatherRes.json();
+                                
+                                const today = weatherData[0].prediccion.dia[0];
+                                const tempMax = today.temperatura.maxima;
+                                const probList = today.probPrecipitacion;
+                                const probLluvia = probList && probList.length > 0 ? (probList[0].value || 0) : 0;
+                                
+                                let icon = '🌤️';
+                                if (parseInt(probLluvia) > 50) icon = '🌧️';
+                                else if (parseInt(probLluvia) > 20) icon = '⛅';
+                                
+                                if(weatherDiv) weatherDiv.innerHTML = `${icon} ${tempMax}°C | ${probLluvia}% lluvia`;
+                            } else {
+                                throw new Error("Sin datos");
+                            }
+                        } catch (error) {
+                            if(weatherDiv) weatherDiv.innerHTML = '❌ Info no disponible';
+                        }
                     }
                 });
 
@@ -1870,7 +1932,6 @@ const App = () => {
            });
 
            if (currentEcosystem !== 'Todos' && mapInstance.current.ecosystemLayer) {
-               // Si hay ecosistema seleccionado, encuadrar la cámara sobre él
                mapInstance.current.fitBounds(mapInstance.current.ecosystemLayer.getBounds(), { padding: [30, 30] });
            } else if (hasValidCoords && filteredPlaces.length > 0) {
                mapInstance.current.fitBounds(bounds, { padding: [50, 50], maxZoom: 14 });
@@ -2618,7 +2679,7 @@ const App = () => {
 
     {/* MODAL ETNOBOTÁNICA */}
     {showEthnobotany && (
-      <div id="ethno-modal" className="fixed inset-0 z-[4000] bg-[#fcfcfd] overflow-y-auto animate-fade-in">
+      <div id="ethno-modal" className="fixed inset-0 z-[4000] bg-[#fcfcfd] overflow-y-auto animate-fade-in" onScroll={(e) => setShowEthnoScrollBtn(e.target.scrollTop > 300)}>
         {/* Header */}
         <div className="sticky top-0 bg-white/90 backdrop-blur-md border-b border-slate-200 z-20 flex flex-col">
           <div className="px-6 py-4 flex items-center justify-between">
@@ -2813,13 +2874,12 @@ const App = () => {
                           
                           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                              <div className="space-y-8">
-                                 {/* IMAGEN DE LA PLANTA INSERTADA SEGÚN SOLICITUD */}
+                                 {/* IMAGEN DE LA PLANTA INTEGRADA */}
                                  {plant.image && (
                                    <div className="w-full rounded-[2rem] overflow-hidden shadow-lg border border-slate-100 mb-8">
                                       <img src={plant.image} alt={plant.name} className="w-full h-auto object-cover" />
                                    </div>
                                  )}
-
                                  <section>
                                      <h3 className="text-[11px] font-black uppercase tracking-widest text-indigo-500 mb-3 flex items-center gap-2"><Leaf className="w-4 h-4"/> Descripción botánica</h3>
                                      <p className="text-sm text-slate-600 leading-relaxed text-pretty">{plant.botanicalDescription}</p>
@@ -2831,7 +2891,7 @@ const App = () => {
                              </div>
                              
                              <div className="space-y-8 bg-slate-50 p-8 rounded-[2rem] border border-slate-100">
-                                 {/* SECCIONES DESPLAZADAS PARA EQUILIBRAR MAQUETACIÓN */}
+                                 {/* CONTENIDO DESPLAZADO PARA EQUILIBRIO */}
                                  <section>
                                      <h3 className="text-[11px] font-black uppercase tracking-widest text-indigo-500 mb-3">Hábitat</h3>
                                      <p className="text-sm text-slate-600 leading-relaxed">{plant.habitat}</p>
@@ -2889,7 +2949,7 @@ const App = () => {
       </div>
     )}
 
-    {/* MODAL MÁS INFORMACIÓN */}
+    {/* MODAL MÁS INFORMACIÓN (FICHA DE UBICACIÓN Y AEMET) */}
     {infoModal.show && infoModal.place && (
       <div className="fixed inset-0 z-[2000] items-center justify-center p-4 bg-black/70 backdrop-blur-sm flex animate-fade-in" onClick={() => setInfoModal({ show: false, place: null })}>
         <div className="bg-white rounded-[3rem] w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col shadow-2xl relative text-slate-800" onClick={e => e.stopPropagation()}>
@@ -2914,6 +2974,11 @@ const App = () => {
             <div className="flex items-center gap-2 mb-6 pb-6 border-b border-slate-100 text-slate-500">
               <MapPin className="w-4 h-4 text-indigo-600" />
               <span className="text-[11px] font-bold uppercase tracking-widest">{infoModal.place.address}</span>
+            </div>
+
+            {/* MÓDULO METEOROLÓGICO DE AEMET INTEGRADO EN LA FICHA */}
+            <div className="my-4 p-4 bg-blue-50 border border-blue-100 rounded-2xl text-sm flex items-center justify-center gap-3 font-bold text-blue-900 text-[10px] uppercase tracking-widest">
+                {modalWeather}
             </div>
             
             <p className="text-slate-700 text-sm md:text-base italic mb-6">
