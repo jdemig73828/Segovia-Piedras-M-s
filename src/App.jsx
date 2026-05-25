@@ -53,7 +53,7 @@ const categoryIconColors = {
 };
 
 // RANKING IMAGINARIO: TOP 20 y BOTTOM 20
-const topVisitedIds = [ 2, 218, 7, 5, 3, 58, 30, 75, 35, 13, 6, 41, 79, 11, 89, 9, 37, 1, 4, 8];
+const topVisitedIds = [ 218, 7, 5, 2, 3, 58, 30, 75, 35, 13, 6, 41, 79, 11, 89, 9, 37, 1, 4, 8];
 const leastVisitedIds = [ 106, 61, 112, 100, 145, 63, 142, 166, 171, 29, 43, 45, 57, 21, 64, 71, 92, 15, 130, 25];
 
 // COORDENADAS APROXIMADAS DE ECOSISTEMAS SEGOVIANOS PARA EL MAPA
